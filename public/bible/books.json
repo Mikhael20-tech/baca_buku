@@ -1,0 +1,398 @@
+[
+  {
+    "id": "kejadian",
+    "name": "Kejadian",
+    "testament": "PL",
+    "chapters_count": 50
+  },
+  {
+    "id": "keluaran",
+    "name": "Keluaran",
+    "testament": "PL",
+    "chapters_count": 40
+  },
+  {
+    "id": "imamat",
+    "name": "Imamat",
+    "testament": "PL",
+    "chapters_count": 27
+  },
+  {
+    "id": "bilangan",
+    "name": "Bilangan",
+    "testament": "PL",
+    "chapters_count": 36
+  },
+  {
+    "id": "ulangan",
+    "name": "Ulangan",
+    "testament": "PL",
+    "chapters_count": 34
+  },
+  {
+    "id": "yosua",
+    "name": "Yosua",
+    "testament": "PL",
+    "chapters_count": 24
+  },
+  {
+    "id": "hakim-hakim",
+    "name": "Hakim-Hakim",
+    "testament": "PL",
+    "chapters_count": 21
+  },
+  {
+    "id": "rut",
+    "name": "Rut",
+    "testament": "PL",
+    "chapters_count": 4
+  },
+  {
+    "id": "1-samuel",
+    "name": "1 Samuel",
+    "testament": "PL",
+    "chapters_count": 31
+  },
+  {
+    "id": "2-samuel",
+    "name": "2 Samuel",
+    "testament": "PL",
+    "chapters_count": 24
+  },
+  {
+    "id": "1-raja-raja",
+    "name": "1 Raja-Raja",
+    "testament": "PL",
+    "chapters_count": 22
+  },
+  {
+    "id": "2-raja-raja",
+    "name": "2 Raja-Raja",
+    "testament": "PL",
+    "chapters_count": 25
+  },
+  {
+    "id": "1-tawarikh",
+    "name": "1 Tawarikh",
+    "testament": "PL",
+    "chapters_count": 29
+  },
+  {
+    "id": "2-tawarikh",
+    "name": "2 Tawarikh",
+    "testament": "PL",
+    "chapters_count": 36
+  },
+  {
+    "id": "ezra",
+    "name": "Ezra",
+    "testament": "PL",
+    "chapters_count": 10
+  },
+  {
+    "id": "nehemia",
+    "name": "Nehemia",
+    "testament": "PL",
+    "chapters_count": 13
+  },
+  {
+    "id": "ester",
+    "name": "Ester",
+    "testament": "PL",
+    "chapters_count": 10
+  },
+  {
+    "id": "ayub",
+    "name": "Ayub",
+    "testament": "PL",
+    "chapters_count": 42
+  },
+  {
+    "id": "mazmur",
+    "name": "Mazmur",
+    "testament": "PL",
+    "chapters_count": 150
+  },
+  {
+    "id": "amsal",
+    "name": "Amsal",
+    "testament": "PL",
+    "chapters_count": 31
+  },
+  {
+    "id": "pengkhotbah",
+    "name": "Pengkhotbah",
+    "testament": "PL",
+    "chapters_count": 12
+  },
+  {
+    "id": "kidung-agung",
+    "name": "Kidung Agung",
+    "testament": "PL",
+    "chapters_count": 8
+  },
+  {
+    "id": "yesaya",
+    "name": "Yesaya",
+    "testament": "PL",
+    "chapters_count": 66
+  },
+  {
+    "id": "yeremia",
+    "name": "Yeremia",
+    "testament": "PL",
+    "chapters_count": 52
+  },
+  {
+    "id": "ratapan",
+    "name": "Ratapan",
+    "testament": "PL",
+    "chapters_count": 5
+  },
+  {
+    "id": "yehezkiel",
+    "name": "Yehezkiel",
+    "testament": "PL",
+    "chapters_count": 48
+  },
+  {
+    "id": "daniel",
+    "name": "Daniel",
+    "testament": "PL",
+    "chapters_count": 12
+  },
+  {
+    "id": "hosea",
+    "name": "Hosea",
+    "testament": "PL",
+    "chapters_count": 14
+  },
+  {
+    "id": "yoel",
+    "name": "Yoel",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "amos",
+    "name": "Amos",
+    "testament": "PL",
+    "chapters_count": 9
+  },
+  {
+    "id": "obaja",
+    "name": "Obaja",
+    "testament": "PL",
+    "chapters_count": 1
+  },
+  {
+    "id": "yunus",
+    "name": "Yunus",
+    "testament": "PL",
+    "chapters_count": 4
+  },
+  {
+    "id": "mikha",
+    "name": "Mikha",
+    "testament": "PL",
+    "chapters_count": 7
+  },
+  {
+    "id": "nahum",
+    "name": "Nahum",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "habakuk",
+    "name": "Habakuk",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "zefanya",
+    "name": "Zefanya",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "hagai",
+    "name": "Hagai",
+    "testament": "PL",
+    "chapters_count": 2
+  },
+  {
+    "id": "zakharia",
+    "name": "Zakharia",
+    "testament": "PL",
+    "chapters_count": 14
+  },
+  {
+    "id": "maleakhi",
+    "name": "Maleakhi",
+    "testament": "PL",
+    "chapters_count": 4
+  },
+  {
+    "id": "matius",
+    "name": "Matius",
+    "testament": "PB",
+    "chapters_count": 28
+  },
+  {
+    "id": "markus",
+    "name": "Markus",
+    "testament": "PB",
+    "chapters_count": 16
+  },
+  {
+    "id": "lukas",
+    "name": "Lukas",
+    "testament": "PB",
+    "chapters_count": 24
+  },
+  {
+    "id": "yohanes",
+    "name": "Yohanes",
+    "testament": "PB",
+    "chapters_count": 21
+  },
+  {
+    "id": "kisah-para-rasul",
+    "name": "Kisah Para Rasul",
+    "testament": "PB",
+    "chapters_count": 28
+  },
+  {
+    "id": "roma",
+    "name": "Roma",
+    "testament": "PB",
+    "chapters_count": 16
+  },
+  {
+    "id": "1-korintus",
+    "name": "1 Korintus",
+    "testament": "PB",
+    "chapters_count": 16
+  },
+  {
+    "id": "2-korintus",
+    "name": "2 Korintus",
+    "testament": "PB",
+    "chapters_count": 13
+  },
+  {
+    "id": "galatia",
+    "name": "Galatia",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "efesus",
+    "name": "Efesus",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "filipi",
+    "name": "Filipi",
+    "testament": "PB",
+    "chapters_count": 4
+  },
+  {
+    "id": "kolose",
+    "name": "Kolose",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "1-tesalonika",
+    "name": "1 Tesalonika",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "2-tesalonika",
+    "name": "2 Tesalonika",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "1-timotius",
+    "name": "1 Timotius",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "2-timotius",
+    "name": "2 Timotius",
+    "testament": "PB",
+    "chapters_count": 4
+  },
+  {
+    "id": "titus",
+    "name": "Titus",
+    "testament": "PB",
+    "chapters_count": 3
+  },
+  {
+    "id": "filemon",
+    "name": "Filemon",
+    "testament": "PB",
+    "chapters_count": 13
+  },
+  {
+    "id": "ibrani",
+    "name": "Ibrani",
+    "testament": "PB",
+    "chapters_count": 13
+  },
+  {
+    "id": "yakobus",
+    "name": "Yakobus",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "1-petrus",
+    "name": "1 Petrus",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "2-petrus",
+    "name": "2 Petrus",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "1-yohanes",
+    "name": "1 Yohanes",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "2-yohanes",
+    "name": "2 Yohanes",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "3-yohanes",
+    "name": "3 Yohanes",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "yudas",
+    "name": "Yudas",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "wahyu",
+    "name": "Wahyu",
+    "testament": "PB",
+    "chapters_count": 22
+  }
+]

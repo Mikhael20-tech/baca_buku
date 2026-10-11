@@ -12,6 +12,7 @@ import AuthModal from './components/AuthModal';
 import LandingPage from './components/LandingPage';
 import KarakterSeriesModal from './components/KarakterSeriesModal';
 import BibleSelectorModal from './components/BibleSelectorModal';
+import BibleReaderView from './components/BibleReaderView';
 
 const INITIAL_DEMO_BOOKS = [
   {
@@ -173,7 +174,7 @@ export default function App() {
     if (book.id === 'buku-karakter-wl' || book.has_series) {
       setIsKarakterSeriesModalOpen(true);
     } else if (book.is_bible || book.id === 'alkitab-pb-pemulihan' || book.id === 'alkitab-pb-lengkap' || book.id === 'alkitab-pl-lengkap') {
-      setIsBibleSelectorModalOpen(true);
+      setViewMode('bible');
     } else {
       setCurrentBook(book);
     }
@@ -341,6 +342,20 @@ export default function App() {
   }
 
   // ----------------------------------------------------
+  // Jika sedang membaca Alkitab (66 Kitab Lengkap)
+  // ----------------------------------------------------
+  if (!currentBook && viewMode === 'bible') {
+    return (
+      <div className="fixed inset-0 z-50 bg-white">
+        <BibleReaderView 
+          onBackToHome={() => setViewMode('landing')} 
+          onOpenLibrary={() => setViewMode('library')} 
+        />
+      </div>
+    );
+  }
+
+  // ----------------------------------------------------
   // Halaman Page Awal (Landing Page)
   // ----------------------------------------------------
   if (!currentBook && viewMode === 'landing') {
@@ -356,6 +371,7 @@ export default function App() {
 
         <LandingPage
           onEnterLibrary={() => setViewMode('library')}
+          onOpenBible={() => setViewMode('bible')}
           onOpenLogin={() => setIsAuthModalOpen(true)}
           isSupabaseActive={isSupabaseConfigured()}
         />
@@ -426,6 +442,16 @@ export default function App() {
 
           {/* Quick Actions & Role Switcher */}
           <div className="flex items-center gap-3">
+            
+            {/* Switch to Bible Section */}
+            <button
+              onClick={() => setViewMode('bible')}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 transition shadow-sm active:scale-95"
+              title="Buka Aplikasi Alkitab Versi Pemulihan (Kejadian - Wahyu)"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-amber-700" />
+              <span>Baca Alkitab</span>
+            </button>
             
             {/* Supabase Connection Status Pill */}
             <button

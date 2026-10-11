@@ -1,0 +1,201 @@
+import os
+import sys
+import json
+import re
+import shutil
+
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+file_path = r"D:\Magang\Baca\pdb\roti_hayat_full.txt"
+out_dir = r"D:\Magang\Baca\public\bible"
+os.makedirs(out_dir, exist_ok=True)
+
+BIBLE_BOOKS = [
+    # Perjanjian Lama (39 Kitab)
+    {"id": "kejadian", "name": "Kejadian", "testament": "PL", "start": 682211, "end": 689457},
+    {"id": "keluaran", "name": "Keluaran", "testament": "PL", "start": 689457, "end": 695639},
+    {"id": "imamat", "name": "Imamat", "testament": "PL", "start": 695639, "end": 699429},
+    {"id": "bilangan", "name": "Bilangan", "testament": "PL", "start": 699429, "end": 704223},
+    {"id": "ulangan", "name": "Ulangan", "testament": "PL", "start": 704223, "end": 708253},
+    {"id": "yosua", "name": "Yosua", "testament": "PL", "start": 708253, "end": 710701},
+    {"id": "hakim-hakim", "name": "Hakim-Hakim", "testament": "PL", "start": 710701, "end": 712841},
+    {"id": "rut", "name": "Rut", "testament": "PL", "start": 712841, "end": 713377},
+    {"id": "1-samuel", "name": "1 Samuel", "testament": "PL", "start": 713377, "end": 716231},
+    {"id": "2-samuel", "name": "2 Samuel", "testament": "PL", "start": 716231, "end": 718559},
+    {"id": "1-raja-raja", "name": "1 Raja-Raja", "testament": "PL", "start": 718559, "end": 721639},
+    {"id": "2-raja-raja", "name": "2 Raja-Raja", "testament": "PL", "start": 721639, "end": 724237},
+    {"id": "1-tawarikh", "name": "1 Tawarikh", "testament": "PL", "start": 724237, "end": 727279},
+    {"id": "2-tawarikh", "name": "2 Tawarikh", "testament": "PL", "start": 727279, "end": 730371},
+    {"id": "ezra", "name": "Ezra", "testament": "PL", "start": 730371, "end": 731501},
+    {"id": "nehemia", "name": "Nehemia", "testament": "PL", "start": 731501, "end": 732949},
+    {"id": "ester", "name": "Ester", "testament": "PL", "start": 732949, "end": 733629},
+    {"id": "ayub", "name": "Ayub", "testament": "PL", "start": 733629, "end": 737257},
+    {"id": "mazmur", "name": "Mazmur", "testament": "PL", "start": 737257, "end": 746215},
+    {"id": "amsal", "name": "Amsal", "testament": "PL", "start": 746215, "end": 748795},
+    {"id": "pengkhotbah", "name": "Pengkhotbah", "testament": "PL", "start": 748795, "end": 749705},
+    {"id": "kidung-agung", "name": "Kidung Agung", "testament": "PL", "start": 749705, "end": 750923},
+    {"id": "yesaya", "name": "Yesaya", "testament": "PL", "start": 750923, "end": 756311},
+    {"id": "yeremia", "name": "Yeremia", "testament": "PL", "start": 756311, "end": 761143},
+    {"id": "ratapan", "name": "Ratapan", "testament": "PL", "start": 761143, "end": 761799},
+    {"id": "yehezkiel", "name": "Yehezkiel", "testament": "PL", "start": 761799, "end": 766401},
+    {"id": "daniel", "name": "Daniel", "testament": "PL", "start": 766401, "end": 768257},
+    {"id": "hosea", "name": "Hosea", "testament": "PL", "start": 768257, "end": 769381},
+    {"id": "yoel", "name": "Yoel", "testament": "PL", "start": 769381, "end": 769761},
+    {"id": "amos", "name": "Amos", "testament": "PL", "start": 769761, "end": 770543},
+    {"id": "obaja", "name": "Obaja", "testament": "PL", "start": 770543, "end": 770739},
+    {"id": "yunus", "name": "Yunus", "testament": "PL", "start": 770739, "end": 771057},
+    {"id": "mikha", "name": "Mikha", "testament": "PL", "start": 771057, "end": 771595},
+    {"id": "nahum", "name": "Nahum", "testament": "PL", "start": 771595, "end": 771919},
+    {"id": "habakuk", "name": "Habakuk", "testament": "PL", "start": 771919, "end": 772295},
+    {"id": "zefanya", "name": "Zefanya", "testament": "PL", "start": 772295, "end": 772653},
+    {"id": "hagai", "name": "Hagai", "testament": "PL", "start": 772653, "end": 772953},
+    {"id": "zakharia", "name": "Zakharia", "testament": "PL", "start": 772953, "end": 774289},
+    {"id": "maleakhi", "name": "Maleakhi", "testament": "PL", "start": 774289, "end": 774718},
+    
+    # Perjanjian Baru (27 Kitab)
+    {"id": "matius", "name": "Matius", "testament": "PB", "start": 774719, "end": 784079},
+    {"id": "markus", "name": "Markus", "testament": "PB", "start": 784079, "end": 788483},
+    {"id": "lukas", "name": "Lukas", "testament": "PB", "start": 788483, "end": 795185},
+    {"id": "yohanes", "name": "Yohanes", "testament": "PB", "start": 795185, "end": 800639},
+    {"id": "kisah-para-rasul", "name": "Kisah Para Rasul", "testament": "PB", "start": 800639, "end": 809355},
+    {"id": "roma", "name": "Roma", "testament": "PB", "start": 809355, "end": 811473},
+    {"id": "1-korintus", "name": "1 Korintus", "testament": "PB", "start": 811473, "end": 817047},
+    {"id": "2-korintus", "name": "2 Korintus", "testament": "PB", "start": 817047, "end": 819795},
+    {"id": "galatia", "name": "Galatia", "testament": "PB", "start": 819795, "end": 821755},
+    {"id": "efesus", "name": "Efesus", "testament": "PB", "start": 821755, "end": 824201},
+    {"id": "filipi", "name": "Filipi", "testament": "PB", "start": 824201, "end": 825257},
+    {"id": "kolose", "name": "Kolose", "testament": "PB", "start": 825257, "end": 826603},
+    {"id": "1-tesalonika", "name": "1 Tesalonika", "testament": "PB", "start": 826603, "end": 827509},
+    {"id": "2-tesalonika", "name": "2 Tesalonika", "testament": "PB", "start": 827509, "end": 828245},
+    {"id": "1-timotius", "name": "1 Timotius", "testament": "PB", "start": 828245, "end": 829805},
+    {"id": "2-timotius", "name": "2 Timotius", "testament": "PB", "start": 829805, "end": 830500},
+    {"id": "titus", "name": "Titus", "testament": "PB", "start": 830500, "end": 831390},
+    {"id": "filemon", "name": "Filemon", "testament": "PB", "start": 831390, "end": 832745},
+    {"id": "ibrani", "name": "Ibrani", "testament": "PB", "start": 832745, "end": 834485},
+    {"id": "yakobus", "name": "Yakobus", "testament": "PB", "start": 834485, "end": 836257},
+    {"id": "1-petrus", "name": "1 Petrus", "testament": "PB", "start": 836257, "end": 837891},
+    {"id": "2-petrus", "name": "2 Petrus", "testament": "PB", "start": 837891, "end": 839233},
+    {"id": "1-yohanes", "name": "1 Yohanes", "testament": "PB", "start": 839233, "end": 840809},
+    {"id": "2-yohanes", "name": "2 Yohanes", "testament": "PB", "start": 840809, "end": 841185},
+    {"id": "3-yohanes", "name": "3 Yohanes", "testament": "PB", "start": 841185, "end": 841369},
+    {"id": "yudas", "name": "Yudas", "testament": "PB", "start": 841369, "end": 841897},
+    {"id": "wahyu", "name": "Wahyu", "testament": "PB", "start": 841897, "end": 847775},
+]
+
+print("Loading full text...")
+all_lines = []
+with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+    for line in f:
+        all_lines.append(line)
+
+print(f"Loaded {len(all_lines):,} lines")
+
+def clean_verse_text(txt):
+    # Remove inline footnote markers e.g. 1aPada -> Pada, 2mulanya -> mulanya
+    t = re.sub(r'\b\d+[a-z]?([A-Za-z])', r'\1', txt)
+    t = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', t)
+    return t.strip()
+
+books_meta = []
+
+for b_info in BIBLE_BOOKS:
+    b_id = b_info["id"]
+    b_name = b_info["name"]
+    s_line = b_info["start"]
+    e_line = b_info["end"]
+    
+    raw_slice = all_lines[s_line-1 : e_line-1]
+    
+    chapters_data = {}
+    cur_chap = None
+    cur_v = None
+    cur_outlines = []
+    
+    for l in raw_slice:
+        s = l.replace('\xa0', ' ').strip()
+        if not s or s.startswith('---') or s.startswith('o---') or s.startswith('Ayat :') or s.startswith('Ayat:'):
+            continue
+            
+        m_chap = re.match(r'^(PASAL|MAZMUR)\s+(\d+)$', s, re.IGNORECASE)
+        if m_chap:
+            cur_chap = int(m_chap.group(2))
+            chapters_data[cur_chap] = {
+                "chapter": cur_chap,
+                "outlines": list(cur_outlines),
+                "verses": []
+            }
+            cur_v = None
+            cur_outlines = []
+            continue
+            
+        # Match outline heading e.g. "I. Penciptaan Allah", "A. Keinginan dan Tujuan", "1:1—2:3"
+        if re.match(r'^[I|V|X|A-Z0-9\.\s—\-\:\(\)]+$', s) and len(s) < 80 and not re.search(r'\b(dan|yang|kepada|di|oleh|dengan)\b', s):
+            if cur_chap is None:
+                cur_outlines.append(s)
+            elif cur_chap in chapters_data and not chapters_data[cur_chap]["verses"]:
+                chapters_data[cur_chap]["outlines"].append(s)
+            continue
+            
+        # Match verse
+        m_v = re.match(r'^(\d+)\s+(.+)', s)
+        if m_v and cur_chap:
+            vn = int(m_v.group(1))
+            # Normal verse number <= 176
+            if cur_v is None or vn == cur_v + 1 or (cur_v and vn == 1):
+                cur_v = vn
+                raw_vt = m_v.group(2)
+                chapters_data[cur_chap]["verses"].append({
+                    "verse": cur_v,
+                    "text": clean_verse_text(raw_vt)
+                })
+        elif cur_v and cur_chap and cur_chap in chapters_data and chapters_data[cur_chap]["verses"]:
+            # Continuation of verse text if not an outline
+            if not re.match(r'^[I|V|X|A-Z0-9\.\s—\-\:\(\)]+$', s) and not re.match(r'^\d+:\d+', s):
+                last_v = chapters_data[cur_chap]["verses"][-1]
+                last_v["text"] += " " + clean_verse_text(s)
+                
+    # If book has only 1 chapter (e.g. Obaja, Filemon, 2 Yohanes, 3 Yohanes, Yudas)
+    if not chapters_data and cur_v:
+        pass
+    elif 1 not in chapters_data and cur_chap is None:
+        # Single chapter book without PASAL 1
+        chapters_data[1] = {
+            "chapter": 1,
+            "outlines": list(cur_outlines),
+            "verses": []
+        }
+        
+    chap_count = len(chapters_data)
+    books_meta.append({
+        "id": b_id,
+        "name": b_name,
+        "testament": b_info["testament"],
+        "chapters_count": chap_count
+    })
+    
+    out_book_file = os.path.join(out_dir, f"{b_id}.json")
+    book_payload = {
+        "id": b_id,
+        "name": b_name,
+        "testament": b_info["testament"],
+        "chapters_count": chap_count,
+        "chapters": chapters_data
+    }
+    with open(out_book_file, "w", encoding="utf-8") as f_out:
+        json.dump(book_payload, f_out, ensure_ascii=False)
+        
+    print(f"[{b_info['testament']}] {b_name:20s}: {chap_count:3d} pasal -> {out_book_file}")
+
+# Write books.json index
+with open(os.path.join(out_dir, "books.json"), "w", encoding="utf-8") as f_idx:
+    json.dump(books_meta, f_idx, ensure_ascii=False, indent=2)
+
+# Copy to dist/bible
+dist_bible_dir = r"D:\Magang\Baca\dist\bible"
+os.makedirs(dist_bible_dir, exist_ok=True)
+for item in os.listdir(out_dir):
+    s_f = os.path.join(out_dir, item)
+    d_f = os.path.join(dist_bible_dir, item)
+    if os.path.isfile(s_f):
+        shutil.copy2(s_f, d_f)
+
+print(f"\nSuccessfully exported all {len(books_meta)} books into JSON with index in {out_dir} & {dist_bible_dir}!")
