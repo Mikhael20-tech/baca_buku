@@ -4,7 +4,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { saveBookToIndexedDB } from '../lib/bookStorage';
 import { Upload, X, Loader2, Book, AlertCircle } from 'lucide-react';
 
-export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess }) {
+export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onOpenAuthModal }) {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -179,7 +179,19 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess }) {
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-end gap-2 pt-1">
+            <div className="flex flex-wrap items-center justify-end gap-2 pt-1">
+              {onOpenAuthModal && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onOpenAuthModal();
+                  }}
+                  className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold text-xs shadow-sm transition"
+                >
+                  Login Akun Admin Sekarang
+                </button>
+              )}
               <button
                 type="button"
                 onClick={saveBookLocally}

@@ -220,3 +220,11 @@ DROP POLICY IF EXISTS "Admin mengunggah book-covers" ON storage.objects;
 CREATE POLICY "Admin mengunggah book-covers"
   ON storage.objects FOR INSERT TO authenticated
   WITH CHECK (bucket_id = 'book-covers' AND public.is_admin());
+
+-- ============================================================
+-- 8. KONFIRMASI OTOMATIS AKUN ADMIN (Jika Sudah Terdaftar)
+-- ============================================================
+UPDATE auth.users 
+SET email_confirmed_at = COALESCE(email_confirmed_at, now()), confirmed_at = COALESCE(confirmed_at, now()) 
+WHERE email = 'admin@baca.id';
+

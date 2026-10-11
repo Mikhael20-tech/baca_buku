@@ -588,6 +588,7 @@ export default function App() {
       <AdminUploadModal
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
+        onOpenAuthModal={() => setIsAuthModalOpen(true)}
         onUploadSuccess={(newBook) => {
           setBooks(prev => [newBook, ...prev]);
           showToast(`Buku "${newBook.title}" berhasil ditambahkan ke katalog!`);
