@@ -88,7 +88,8 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   // Status Reader
   const [activeFont, setActiveFont] = useState(() => localStorage.getItem('reader_font') || 'Merriweather');
   const [fontSize, setFontSize] = useState(100); // 100%
-  const [theme, setTheme] = useState('sepia'); // 'light' | 'sepia' | 'dark'
+  const [theme, setTheme] = useState(() => localStorage.getItem('reader_theme') || 'sepia'); // 'light' | 'sepia' | 'dark'
+  const themeRef = useRef(theme);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [annotations, setAnnotations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -238,7 +239,21 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         });
         renditionInstance.current = rendition;
 
-        // Register hook isi iframe: Injeksi fonts & atasi benturan context menu
+        // Daftarkan tema bawaan ke Rendition
+        rendition.themes.register('light', {
+          body: { background: 'transparent !important', color: '#0f172a !important' },
+          'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#0f172a !important' }
+        });
+        rendition.themes.register('sepia', {
+          body: { background: 'transparent !important', color: '#3c2f21 !important' },
+          'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#3c2f21 !important' }
+        });
+        rendition.themes.register('dark', {
+          body: { background: 'transparent !important', color: '#f4f4f5 !important' },
+          'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#f4f4f5 !important' }
+        });
+
+        // Register hook isi iframe: Injeksi fonts & atasi benturan context menu serta tema
         rendition.hooks.content.register((contents) => {
           const doc = contents.document;
 
@@ -262,11 +277,40 @@ export default function CloudEpubReader({ book, userId, onBack }) {
               'padding': '0 24px !important'
             },
             '.epubjs-hl': {
-              'mix-blend-mode': 'multiply !important',
               'rx': '3px !important',
               'ry': '3px !important'
             }
           });
+
+          // Terapkan penimpaan gaya teks tema secara langsung ke dokumen iframe
+          const currentTheme = themeRef.current;
+          const isDark = currentTheme === 'dark';
+          const textColor = isDark ? '#f4f4f5' : (currentTheme === 'sepia' ? '#3c2f21' : '#0f172a');
+          let styleEl = doc.getElementById('baca-custom-theme-style');
+          if (!styleEl) {
+            styleEl = doc.createElement('style');
+            styleEl.id = 'baca-custom-theme-style';
+            doc.head?.appendChild(styleEl);
+          }
+          styleEl.textContent = `
+            html, body {
+              background-color: transparent !important;
+              color: ${textColor} !important;
+            }
+            h1, h2, h3, h4, h5, h6, p, span, div, li, a, em, strong, b, i, small, blockquote, td, th, caption, pre, code {
+              color: ${textColor} !important;
+            }
+            svg text {
+              fill: ${textColor} !important;
+            }
+            img {
+              filter: ${isDark ? 'brightness(0.85) contrast(1.05)' : 'none'};
+            }
+            .epubjs-hl {
+              mix-blend-mode: ${isDark ? 'screen' : 'multiply'} !important;
+              fill-opacity: ${isDark ? '0.5' : '0.38'} !important;
+            }
+          `;
         });
 
         // Event Seleksi Teks
@@ -350,8 +394,11 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           await rendition.display();
         }
 
-        // Terapkan font & tema aktif
+        // Terapkan font, ukuran font, & tema aktif
         rendition.themes.font(activeFont);
+        rendition.themes.fontSize(`${fontSize}%`);
+        rendition.themes.select(themeRef.current);
+        applyThemeStyles(themeRef.current);
         loadAnnotations();
         setIsLoading(false);
       } catch (err) {
@@ -376,6 +423,63 @@ export default function CloudEpubReader({ book, userId, onBack }) {
       }
     };
   }, [book.id, book.file_path, userId, loadAnnotations, activeFont]);
+
+  // Terapkan gaya tema ke seluruh iframe rendition
+  const applyThemeStyles = useCallback((targetTheme) => {
+    if (!renditionInstance.current) return;
+    try {
+      renditionInstance.current.themes.select(targetTheme);
+    } catch (e) {
+      console.debug('themes.select pass:', e);
+    }
+
+    const isDark = targetTheme === 'dark';
+    const textColor = isDark ? '#f4f4f5' : (targetTheme === 'sepia' ? '#3c2f21' : '#0f172a');
+    const bgColor = 'transparent';
+
+    try {
+      const contentsList = renditionInstance.current.getContents?.() || [];
+      contentsList.forEach((contents) => {
+        const doc = contents.document;
+        if (!doc) return;
+        let styleEl = doc.getElementById('baca-custom-theme-style');
+        if (!styleEl) {
+          styleEl = doc.createElement('style');
+          styleEl.id = 'baca-custom-theme-style';
+          doc.head?.appendChild(styleEl);
+        }
+        styleEl.textContent = `
+          html, body {
+            background-color: ${bgColor} !important;
+            color: ${textColor} !important;
+          }
+          h1, h2, h3, h4, h5, h6, p, span, div, li, a, em, strong, b, i, small, blockquote, td, th, caption, pre, code {
+            color: ${textColor} !important;
+          }
+          svg text {
+            fill: ${textColor} !important;
+          }
+          img {
+            filter: ${isDark ? 'brightness(0.85) contrast(1.05)' : 'none'};
+          }
+          .epubjs-hl {
+            mix-blend-mode: ${isDark ? 'screen' : 'multiply'} !important;
+            fill-opacity: ${isDark ? '0.5' : '0.38'} !important;
+          }
+        `;
+      });
+    } catch (err) {
+      console.debug('Error applyThemeStyles:', err);
+    }
+  }, []);
+
+  // Handler Ganti Tema (Light, Sepia, Dark)
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+    themeRef.current = newTheme;
+    localStorage.setItem('reader_theme', newTheme);
+    applyThemeStyles(newTheme);
+  };
 
   // Handler Ganti Font
   const handleFontChange = (fontId) => {
@@ -545,21 +649,21 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           {/* Pilihan Tema */}
           <div className="flex items-center bg-black/5 rounded-xl p-1">
             <button
-              onClick={() => setTheme('light')}
+              onClick={() => handleThemeChange('light')}
               className={`p-1.5 rounded-lg transition ${theme === 'light' ? 'bg-white text-slate-900 shadow-sm' : 'opacity-70 hover:opacity-100'}`}
               title="Tema Terang"
             >
               <Sun className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => setTheme('sepia')}
+              onClick={() => handleThemeChange('sepia')}
               className={`p-1.5 rounded-lg transition ${theme === 'sepia' ? 'bg-[#fbf7ed] text-[#b45309] shadow-sm' : 'opacity-70 hover:opacity-100'}`}
               title="Tema Sepia"
             >
               <Coffee className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => setTheme('dark')}
+              onClick={() => handleThemeChange('dark')}
               className={`p-1.5 rounded-lg transition ${theme === 'dark' ? 'bg-zinc-800 text-amber-300 shadow-sm' : 'opacity-70 hover:opacity-100'}`}
               title="Tema Gelap"
             >
