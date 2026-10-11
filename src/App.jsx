@@ -36,10 +36,10 @@ const INITIAL_DEMO_BOOKS = [
   },
   {
     id: 'alkitab-pb-pemulihan',
-    title: 'Alkitab PB Versi Pemulihan (Catatan Kaki)',
+    title: 'Injil Matius: Versi Pemulihan (Catatan Kaki Lengkap)',
     author: 'Yasperin / Living Stream Ministry',
     category: 'Alkitab & Firman',
-    description: 'Alkitab Perjanjian Baru Versi Pemulihan lengkap dengan garis besar pokok kitab, keterangan penulis, ayat firman, dan catatan kaki penjelasan wahyu rohani (Injil Matius s/d Kitab Wahyu).',
+    description: 'Injil Matius Versi Pemulihan lengkap 28 Pasal dengan seluruh ayat firman, penanda catatan kaki [1a], [2], garis besar teologis, dan penjelasan catatan kaki rohani di setiap pasalnya.',
     cover_gradient: 'from-amber-600 via-yellow-800 to-stone-900',
     cover_icon: '📖',
     file_path: '/books/alkitab-pb-pemulihan.epub',
