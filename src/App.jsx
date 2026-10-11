@@ -10,39 +10,56 @@ import CloudEpubReader from './components/CloudEpubReader';
 import AdminUploadModal from './components/AdminUploadModal';
 import AuthModal from './components/AuthModal';
 import LandingPage from './components/LandingPage';
+import KarakterSeriesModal from './components/KarakterSeriesModal';
+import BibleSelectorModal from './components/BibleSelectorModal';
 
 const INITIAL_DEMO_BOOKS = [
   {
     id: 'buku-karakter-wl',
-    title: 'Karakter: 30 Butir Pembentukan Karakter Manusia',
+    title: 'Buku Karakter: 30 Butir (Pilih Seri 1 – 10)',
     author: 'Witness Lee',
     category: 'Pembinaan Karakter',
-    description: 'Panduan pembentukan 30 butir karakter manusia yang berguna bagi Tuhan: Benar, Tepat, Ketat, Rajin, Lapang, Cermat, Stabil, Sabar, Dalam, Murni, Seimbang, Tenang, Tulus, Umum, Terbuka, Akrab, Gairah, Luwes, Teguh, Lembut, Taat, Derita, Rendah, Miskin, Tekun, Sulit, Tekan, Jernih, Murah Hati, dan Bobot.',
+    description: 'Klik untuk memilih Seri 1 s/d Seri 10 pembentukan karakter rohani atau baca 30 butir karakter lengkap karya Witness Lee.',
     cover_gradient: 'from-blue-600 via-indigo-800 to-slate-900',
     cover_icon: '💎',
     file_path: '/books/buku-karakter-witness-lee.epub',
+    has_series: true,
     created_at: new Date('2026-01-05').toISOString()
   },
   {
-    id: 'pembinaan-dasar-wn',
-    title: 'Pembinaan Dasar Kaum Beriman (Semua Seri)',
-    author: 'Watchman Nee',
-    category: 'Pembinaan Rohani',
-    description: 'Kumpulan lengkap 46 pelajaran pembinaan dasar orang beriman: Bangun Pagi-pagi, Baptisan, Berdoa, Bersaksi, Bersidang, Konsikrasi, Membaca Alkitab, dan wawasan kehidupan kristiani yang praktis.',
-    cover_gradient: 'from-emerald-600 via-teal-800 to-slate-900',
-    cover_icon: '🌱',
-    file_path: '/books/pembinaan-dasar-watchman-nee.epub',
+    id: 'alkitab-pb-lengkap',
+    title: 'Alkitab: Perjanjian Baru (27 Kitab Lengkap)',
+    author: 'Yasperin / Living Stream Ministry',
+    category: 'Alkitab & Firman',
+    description: 'Alkitab Versi Pemulihan Perjanjian Baru lengkap 27 Kitab: dari Injil Matius sampai Kitab Wahyu dengan seluruh ayat firman, outline ilahi, dan navigasi 260 pasal.',
+    cover_gradient: 'from-amber-600 via-amber-800 to-stone-950',
+    cover_icon: '📖',
+    file_path: '/books/alkitab-perjanjian-baru.epub',
+    is_bible: true,
     created_at: new Date('2026-01-04').toISOString()
+  },
+  {
+    id: 'alkitab-pl-lengkap',
+    title: 'Alkitab: Perjanjian Lama (39 Kitab Lengkap)',
+    author: 'Yasperin / Living Stream Ministry',
+    category: 'Alkitab & Firman',
+    description: 'Alkitab Versi Pemulihan Perjanjian Lama lengkap 39 Kitab: dari Kitab Kejadian sampai Kitab Maleakhi dengan seluruh ayat firman, outline ilahi, dan navigasi 929 pasal.',
+    cover_gradient: 'from-blue-700 via-indigo-900 to-slate-950',
+    cover_icon: '📜',
+    file_path: '/books/alkitab-perjanjian-lama.epub',
+    is_bible: true,
+    created_at: new Date('2026-01-03').toISOString()
   },
   {
     id: 'alkitab-pb-pemulihan',
     title: 'Injil Matius: Versi Pemulihan (Catatan Kaki Lengkap)',
     author: 'Yasperin / Living Stream Ministry',
     category: 'Alkitab & Firman',
-    description: 'Injil Matius Versi Pemulihan lengkap 28 Pasal dengan seluruh ayat firman, penanda catatan kaki [1a], [2], garis besar teologis, dan penjelasan catatan kaki rohani di setiap pasalnya.',
+    description: 'Injil Matius Versi Pemulihan lengkap 28 Pasal dengan seluruh ayat firman, penanda catatan kaki interaktif [1a], [2], garis besar teologis, dan penjelasan catatan kaki rohani di setiap pasalnya.',
     cover_gradient: 'from-amber-600 via-yellow-800 to-stone-900',
     cover_icon: '📖',
     file_path: '/books/alkitab-pb-pemulihan.epub',
+    is_bible: true,
     created_at: new Date('2026-01-03').toISOString()
   },
   {
@@ -94,6 +111,73 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [copiedEnv, setCopiedEnv] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  // Modal Khusus Pemilih Seri Karakter & Pemilih Kitab Alkitab
+  const [isKarakterSeriesModalOpen, setIsKarakterSeriesModalOpen] = useState(false);
+  const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
+
+  // Handler memilih Seri Buku Karakter
+  const handleSelectKarakterSeries = (seri) => {
+    setIsKarakterSeriesModalOpen(false);
+    if (seri.id === 'all') {
+      setCurrentBook({
+        id: 'buku-karakter-wl-full',
+        title: 'Buku Karakter: 30 Butir Lengkap',
+        author: 'Witness Lee',
+        file_path: '/books/buku-karakter-witness-lee.epub',
+        cover_icon: '💎'
+      });
+    } else {
+      setCurrentBook({
+        id: `buku-karakter-seri-${seri.id}`,
+        title: `Buku Karakter (${seri.title}): ${seri.summary}`,
+        author: 'Witness Lee',
+        file_path: `/books/buku-karakter-seri-${seri.id}.epub`,
+        cover_icon: '💎'
+      });
+    }
+  };
+
+  // Handler memilih Kitab Alkitab
+  const handleSelectBibleBook = (type, bookName) => {
+    setIsBibleSelectorModalOpen(false);
+    if (type === 'MATIUS_CATATAN') {
+      setCurrentBook({
+        id: 'alkitab-pb-pemulihan',
+        title: 'Injil Matius: Versi Pemulihan (Catatan Kaki Lengkap)',
+        author: 'Yasperin / Living Stream Ministry',
+        file_path: '/books/alkitab-pb-pemulihan.epub',
+        cover_icon: '📖'
+      });
+    } else if (type === 'PL_FULL' || type === 'PL_BOOK') {
+      setCurrentBook({
+        id: 'alkitab-pl-lengkap',
+        title: bookName ? `Kitab ${bookName} (Perjanjian Lama)` : 'Alkitab: Perjanjian Lama (39 Kitab Lengkap)',
+        author: 'Yasperin / Living Stream Ministry',
+        file_path: '/books/alkitab-perjanjian-lama.epub',
+        cover_icon: '📜'
+      });
+    } else {
+      setCurrentBook({
+        id: 'alkitab-pb-lengkap',
+        title: bookName ? `Kitab ${bookName} (Perjanjian Baru)` : 'Alkitab: Perjanjian Baru (27 Kitab Lengkap)',
+        author: 'Yasperin / Living Stream Ministry',
+        file_path: '/books/alkitab-perjanjian-baru.epub',
+        cover_icon: '📖'
+      });
+    }
+  };
+
+  // Handler membuka buku (apakah langsung baca atau buka modal pemilih seri)
+  const handleOpenBook = (book) => {
+    if (book.id === 'buku-karakter-wl' || book.has_series) {
+      setIsKarakterSeriesModalOpen(true);
+    } else if (book.is_bible || book.id === 'alkitab-pb-pemulihan' || book.id === 'alkitab-pb-lengkap' || book.id === 'alkitab-pl-lengkap') {
+      setIsBibleSelectorModalOpen(true);
+    } else {
+      setCurrentBook(book);
+    }
+  };
 
   // Sesi pengguna demo atau terautentikasi
   const [user, setUser] = useState({
@@ -528,7 +612,7 @@ export default function App() {
             {filteredBooks.map(book => (
               <div
                 key={book.id}
-                onClick={() => setCurrentBook(book)}
+                onClick={() => handleOpenBook(book)}
                 className="group relative bg-white rounded-3xl border border-slate-200/90 hover:border-amber-400 p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer flex flex-col justify-between"
               >
                 {/* Book Cover Area */}
@@ -695,7 +779,7 @@ export default function App() {
                 onClick={() => {
                   const b = selectedDetailBook;
                   setSelectedDetailBook(null);
-                  setCurrentBook(b);
+                  handleOpenBook(b);
                 }}
                 className="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm flex items-center gap-1.5"
               >
@@ -811,6 +895,20 @@ VITE_SUPABASE_ANON_KEY=<your-anon-key>`}
           </div>
         </div>
       )}
+
+      {/* Modal Pemilih Seri Buku Karakter */}
+      <KarakterSeriesModal
+        isOpen={isKarakterSeriesModalOpen}
+        onClose={() => setIsKarakterSeriesModalOpen(false)}
+        onSelectSeries={handleSelectKarakterSeries}
+      />
+
+      {/* Modal Pemilih Kitab Alkitab (Kejadian - Wahyu) */}
+      <BibleSelectorModal
+        isOpen={isBibleSelectorModalOpen}
+        onClose={() => setIsBibleSelectorModalOpen(false)}
+        onSelectBibleBook={handleSelectBibleBook}
+      />
     </div>
   );
 }
