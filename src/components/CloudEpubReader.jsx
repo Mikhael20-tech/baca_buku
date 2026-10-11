@@ -6,7 +6,7 @@ import { Highlight } from 'marks-pane';
 import { 
   Underline, StickyNote, X, ChevronLeft, ChevronRight, 
   Bookmark, Sun, Moon, Coffee, ZoomIn, ZoomOut, Type, Trash2, ArrowLeft,
-  Loader2, AlertCircle, List, Search
+  Loader2, AlertCircle, List, Search, Sliders
 } from 'lucide-react';
 
 // Patch Marks-Pane Highlight agar tidak menyorot ruang kosong / line-break <br>
@@ -105,6 +105,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   const [isLoading, setIsLoading] = useState(true);
   const [readError, setReadError] = useState(null);
   const [progressPercent, setProgressPercent] = useState(0);
+  const [isProgressPopoverOpen, setIsProgressPopoverOpen] = useState(false);
 
   // Floating Annotation Toolbar State
   const [toolbar, setToolbar] = useState({ visible: false, x: 0, y: 0, cfiRange: null, text: '' });
@@ -403,7 +404,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
               '-webkit-touch-callout': 'none !important',
               'user-select': 'text !important',
               '-webkit-user-select': 'text !important',
-              'padding': '0 24px !important'
+              'padding': '0 24px 40px 24px !important'
             },
             '.epubjs-hl': {
               'rx': '3px !important',
@@ -813,9 +814,46 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             <div className="flex items-center gap-2">
               <p className="text-[11px] opacity-70 truncate hidden sm:block">{book.author}</p>
               {progressPercent > 0 && (
-                <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-700 dark:text-amber-300">
-                  {progressPercent}%
-                </span>
+                <div className="relative">
+                  <button
+                    onClick={() => setIsProgressPopoverOpen(prev => !prev)}
+                    className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 transition flex items-center gap-1 cursor-pointer"
+                    title="Buka pengatur posisi halaman"
+                  >
+                    <Sliders className="w-2.5 h-2.5" />
+                    <span>{progressPercent}%</span>
+                  </button>
+
+                  {/* Popover Slider Lompat Halaman dari Header (Tidak menghalangi teks bacaan) */}
+                  {isProgressPopoverOpen && (
+                    <div className="absolute top-7 left-0 z-50 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 p-3 rounded-2xl shadow-2xl flex flex-col gap-2 min-w-[240px] text-slate-800 dark:text-zinc-100 animate-in fade-in zoom-in-95">
+                      <div className="flex items-center justify-between text-xs font-semibold">
+                        <span>Lompat ke Posisi</span>
+                        <span className="text-amber-600 font-bold">{progressPercent}%</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={progressPercent}
+                        onChange={(e) => setProgressPercent(Number(e.target.value))}
+                        onMouseUp={(e) => {
+                          handleJumpToPercentage(Number(e.target.value));
+                          setIsProgressPopoverOpen(false);
+                        }}
+                        onTouchEnd={(e) => {
+                          handleJumpToPercentage(Number(e.target.value));
+                          setIsProgressPopoverOpen(false);
+                        }}
+                        className="w-full accent-amber-600 cursor-pointer"
+                      />
+                      <div className="flex items-center justify-between text-[10px] opacity-60">
+                        <span>Awal (0%)</span>
+                        <span>Akhir (100%)</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -965,6 +1003,24 @@ export default function CloudEpubReader({ book, userId, onBack }) {
                 renderTocList(filteredToc)
               )}
             </div>
+
+            {/* Slider di bagian bawah Daftar Isi */}
+            <div className="pt-3 mt-2 border-t border-slate-200 dark:border-zinc-800 shrink-0">
+              <div className="flex items-center justify-between text-[11px] font-semibold mb-1">
+                <span>Lompat Bebas</span>
+                <span className="text-amber-600 font-bold">{progressPercent}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={progressPercent}
+                onChange={(e) => setProgressPercent(Number(e.target.value))}
+                onMouseUp={(e) => handleJumpToPercentage(Number(e.target.value))}
+                onTouchEnd={(e) => handleJumpToPercentage(Number(e.target.value))}
+                className="w-full accent-amber-600 cursor-pointer"
+              />
+            </div>
           </aside>
         )}
 
@@ -990,45 +1046,6 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         >
           <ChevronRight className="w-5 h-5" />
         </button>
-
-        {/* Quick Bottom Navigation Slider & Page Jumper */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md px-3.5 py-1.5 rounded-2xl shadow-lg border border-slate-200 dark:border-zinc-800 flex items-center gap-2.5 text-xs max-w-sm sm:max-w-md w-[92%] sm:w-auto">
-          <button
-            onClick={() => renditionInstance.current?.prev()}
-            className="p-1 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition"
-            title="Halaman Sebelumnya"
-          >
-            <ChevronLeft className="w-3.5 h-3.5" />
-          </button>
-
-          <div className="flex-1 flex items-center gap-2">
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={progressPercent}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                setProgressPercent(val);
-              }}
-              onMouseUp={(e) => handleJumpToPercentage(Number(e.target.value))}
-              onTouchEnd={(e) => handleJumpToPercentage(Number(e.target.value))}
-              className="w-24 sm:w-36 accent-amber-600 cursor-pointer"
-              title="Geser bebas untuk lompat halaman"
-            />
-            <span className="font-bold text-[11px] min-w-[38px] text-right">
-              {progressPercent}%
-            </span>
-          </div>
-
-          <button
-            onClick={() => renditionInstance.current?.next()}
-            className="p-1 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition"
-            title="Halaman Selanjutnya"
-          >
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
 
         {/* Sidebar Drawer Anotasi */}
         {isSidebarOpen && (
