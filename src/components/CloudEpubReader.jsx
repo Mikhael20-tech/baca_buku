@@ -80,6 +80,15 @@ const FONTS = [
   { id: 'OpenDyslexic', name: 'OpenDyslexic', type: 'Ramah Disleksia' }
 ];
 
+const FONT_FAMILIES = {
+  'Merriweather': "'Merriweather', Georgia, serif",
+  'Literata': "'Literata', Georgia, serif",
+  'Lora': "'Lora', Georgia, serif",
+  'Inter': "'Inter', system-ui, -apple-system, sans-serif",
+  'Plus Jakarta Sans': "'Plus Jakarta Sans', system-ui, sans-serif",
+  'OpenDyslexic': "'OpenDyslexic', sans-serif"
+};
+
 export default function CloudEpubReader({ book, userId, onBack }) {
   const viewerRef = useRef(null);
   const bookInstance = useRef(null);
@@ -87,6 +96,11 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
   // Status Reader
   const [activeFont, setActiveFont] = useState(() => localStorage.getItem('reader_font') || 'Merriweather');
+  const fontRef = useRef(activeFont);
+  useEffect(() => {
+    fontRef.current = activeFont;
+  }, [activeFont]);
+
   const [fontSize, setFontSize] = useState(100); // 100%
   const [theme, setTheme] = useState(() => localStorage.getItem('reader_theme') || 'sepia'); // 'light' | 'sepia' | 'dark'
   const themeRef = useRef(theme);
@@ -208,11 +222,12 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     }
   }, [book.id, userId, renderAnnotationItem]);
 
-  // Terapkan gaya tema ke seluruh iframe rendition
-  const applyThemeStyles = useCallback((targetTheme) => {
+  // Terapkan gaya tema & font ke seluruh iframe rendition
+  const applyReaderStyles = useCallback((targetTheme = themeRef.current, targetFont = fontRef.current) => {
     if (!renditionInstance.current) return;
     try {
       renditionInstance.current.themes.select(targetTheme);
+      renditionInstance.current.themes.font(targetFont);
     } catch (e) {
       console.debug('themes.select pass:', e);
     }
@@ -222,12 +237,31 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     const textColor = isDark ? '#f4f4f5' : (isSepia ? '#3c2f21' : '#0f172a');
     const boxBgColor = isDark ? '#27272a' : (isSepia ? '#f3ece0' : '#f8fafc');
     const boxBorderColor = isDark ? '#3f3f46' : (isSepia ? '#e6dac6' : '#e2e8f0');
+    const fontFamily = FONT_FAMILIES[targetFont] || `'${targetFont}', sans-serif`;
 
     try {
       const contentsList = renditionInstance.current.getContents?.() || [];
       contentsList.forEach((contents) => {
         const doc = contents.document;
         if (!doc) return;
+
+        // Pastikan link Google Fonts ada di head
+        if (!doc.getElementById('baca-fonts-link')) {
+          const fontLink = doc.createElement('link');
+          fontLink.id = 'baca-fonts-link';
+          fontLink.rel = 'stylesheet';
+          fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Literata:opsz,wght@7..72,400;7..72,600&family=Lora:wght@400;600&family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap';
+          doc.head?.appendChild(fontLink);
+        }
+
+        if (!doc.getElementById('baca-dyslexic-link')) {
+          const dyslexicLink = doc.createElement('link');
+          dyslexicLink.id = 'baca-dyslexic-link';
+          dyslexicLink.rel = 'stylesheet';
+          dyslexicLink.href = 'https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/open-dyslexic.css';
+          doc.head?.appendChild(dyslexicLink);
+        }
+
         let styleEl = doc.getElementById('baca-custom-theme-style');
         if (!styleEl) {
           styleEl = doc.createElement('style');
@@ -238,9 +272,14 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           html, body {
             background-color: transparent !important;
             color: ${textColor} !important;
+            font-family: ${fontFamily} !important;
           }
           * {
             color: ${textColor} !important;
+          }
+          /* Paksa seluruh paragraf, judul, dan teks memakai font yang dipilih */
+          p, span, div, h1, h2, h3, h4, h5, h6, li, a, em, strong, b, i, small, blockquote, td, th {
+            font-family: ${fontFamily} !important;
           }
           /* Jangan beri latar belakang putih pada teks biasa */
           p, span, li, a, em, strong, b, i, small {
@@ -275,7 +314,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         `;
       });
     } catch (err) {
-      console.debug('Error applyThemeStyles:', err);
+      console.debug('Error applyReaderStyles:', err);
     }
   }, []);
 
@@ -412,57 +451,8 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             }
           });
 
-          // Terapkan penimpaan gaya teks tema secara langsung ke dokumen iframe
-          const currentTheme = themeRef.current;
-          const isDark = currentTheme === 'dark';
-          const isSepia = currentTheme === 'sepia';
-          const textColor = isDark ? '#f4f4f5' : (isSepia ? '#3c2f21' : '#0f172a');
-          const boxBgColor = isDark ? '#27272a' : (isSepia ? '#f3ece0' : '#f8fafc');
-          const boxBorderColor = isDark ? '#3f3f46' : (isSepia ? '#e6dac6' : '#e2e8f0');
-
-          let styleEl = doc.getElementById('baca-custom-theme-style');
-          if (!styleEl) {
-            styleEl = doc.createElement('style');
-            styleEl.id = 'baca-custom-theme-style';
-            doc.head?.appendChild(styleEl);
-          }
-          styleEl.textContent = `
-            html, body {
-              background-color: transparent !important;
-              color: ${textColor} !important;
-            }
-            * {
-              color: ${textColor} !important;
-            }
-            p, span, li, a, em, strong, b, i, small {
-              background-color: transparent !important;
-              color: ${textColor} !important;
-            }
-            table, tr, td, th, blockquote, pre, code, fieldset,
-            div[style*="background"], p[style*="background"],
-            [class*="box"], [class*="quote"], [class*="table"], [class*="card"], [class*="frame"] {
-              background-color: ${boxBgColor} !important;
-              color: ${textColor} !important;
-              border-color: ${boxBorderColor} !important;
-            }
-            table td, table th {
-              border-color: ${boxBorderColor} !important;
-              color: ${textColor} !important;
-            }
-            svg text {
-              fill: ${textColor} !important;
-            }
-            img {
-              filter: ${isDark ? 'brightness(0.85) contrast(1.05)' : 'none'};
-            }
-            .epubjs-hl {
-              mix-blend-mode: ${isDark ? 'screen' : 'multiply'} !important;
-              fill-opacity: ${isDark ? '0.45' : '0.32'} !important;
-              rx: 3px !important;
-              ry: 3px !important;
-              cursor: pointer !important;
-            }
-          `;
+          // Terapkan penimpaan gaya teks tema & font ke dokumen iframe
+          applyReaderStyles(themeRef.current, fontRef.current);
         });
 
         // Event Seleksi Teks
@@ -551,7 +541,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         rendition.themes.font(activeFont);
         rendition.themes.fontSize(`${fontSize}%`);
         rendition.themes.select(themeRef.current);
-        applyThemeStyles(themeRef.current);
+        applyReaderStyles(themeRef.current, fontRef.current);
         loadAnnotations();
         setIsLoading(false);
       } catch (err) {
@@ -575,23 +565,22 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         }
       }
     };
-  }, [book.id, book.file_path, userId, loadAnnotations, activeFont, applyThemeStyles]);
+  }, [book.id, book.file_path, userId, loadAnnotations, activeFont, applyReaderStyles]);
 
   // Handler Ganti Tema (Light, Sepia, Dark)
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme);
     themeRef.current = newTheme;
     localStorage.setItem('reader_theme', newTheme);
-    applyThemeStyles(newTheme);
+    applyReaderStyles(newTheme, fontRef.current);
   };
 
-  // Handler Ganti Font
+  // Handler Ganti Font (Segera perbarui seluruh teks di buku)
   const handleFontChange = (fontId) => {
     setActiveFont(fontId);
+    fontRef.current = fontId;
     localStorage.setItem('reader_font', fontId);
-    if (renditionInstance.current) {
-      renditionInstance.current.themes.font(fontId);
-    }
+    applyReaderStyles(themeRef.current, fontId);
   };
 
   // Handler Zoom Ukuran Huruf
