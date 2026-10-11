@@ -27,7 +27,7 @@ def build_epub(output_path, title, author, chapters, category="Kitab Suci dan Fi
         css_content = '''
 body {
   font-family: serif;
-  line-height: 1.8;
+  line-height: 1.85;
   padding: 1.5em;
   color: #1a1a1a;
   background-color: transparent;
@@ -46,35 +46,66 @@ p {
   text-indent: 1.5em;
   text-align: justify;
 }
+.outline-heading {
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-top: 1.4em;
+  margin-bottom: 0.4em;
+  text-indent: 0 !important;
+}
+.outline-sub {
+  font-family: sans-serif;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 0.8em;
+  text-indent: 0 !important;
+}
 .verse {
-  margin-bottom: 0.9em;
+  margin-bottom: 0.8em;
   text-indent: 0;
-  line-height: 1.85;
+  line-height: 1.9;
 }
 .verse-num {
   font-weight: 800;
   color: #2563eb;
-  margin-right: 0.5em;
+  margin-right: 0.4em;
   font-size: 1.05em;
 }
-.fn-ref {
-  font-size: 0.75em;
-  font-weight: bold;
-  color: #d97706;
-  vertical-align: super;
-  padding: 0 1px;
+.footnote-ref {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #2563eb !important;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 4px;
+  padding: 0 4px;
+  margin: 0 2px;
+  vertical-align: 0.3em;
+  font-size: 0.72em;
+  line-height: 1.2;
+}
+.footnote-ref:hover {
+  background-color: #dbeafe;
+  border-color: #3b82f6;
+  text-decoration: underline;
 }
 .catatan-kaki-box {
-  margin-top: 2.5em;
+  margin-top: 3em;
   padding: 1.5em;
   background-color: #f8fafc;
   border-left: 4px solid #3b82f6;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .catatan-kaki-box h2 {
   margin-top: 0;
   color: #1e3a8a;
-  font-size: 1.3em;
+  font-size: 1.25em;
   border-bottom: 1px solid #bfdbfe;
   padding-bottom: 0.4em;
 }
@@ -89,19 +120,13 @@ p {
 .fn-badge {
   display: inline-block;
   font-family: sans-serif;
-  font-size: 0.8em;
+  font-size: 0.82em;
   font-weight: 700;
   color: #1e40af;
   background-color: #dbeafe;
   padding: 0.2em 0.6em;
   border-radius: 4px;
   margin-bottom: 0.4em;
-}
-.fn-topic {
-  font-family: sans-serif;
-  font-weight: 700;
-  color: #0f172a;
-  margin-left: 0.4em;
 }
 .fn-text {
   font-size: 0.95em;
@@ -185,7 +210,7 @@ p {
         epub.writestr('OEBPS/toc.ncx', toc_ncx, compress_type=zipfile.ZIP_DEFLATED)
     print(f"Created EPUB: {output_path} ({len(chapters)} chapters, {os.path.getsize(output_path):,} bytes)")
 
-print("Reading full lines...")
+print("Loading full text...")
 all_lines = []
 with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
     for line in f:
@@ -193,135 +218,209 @@ with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
 
 print(f"Loaded {len(all_lines):,} lines")
 
-# Part 1 Verses: Matius 1 to 28
-mat_verse_markers = [
-    (1, 401115), (2, 401707), (3, 402095), (4, 402493), (5, 402617),
-    (6, 402753), (7, 402845), (8, 402927), (9, 403047), (10, 403177),
-    (11, 403315), (12, 403435), (13, 403607), (14, 403829), (15, 403941),
-    (16, 404059), (17, 404167), (18, 404255), (19, 404341), (20, 404457),
-    (21, 404565), (22, 404735), (23, 404883), (24, 405001), (25, 405185),
-    (26, 405327), (27, 405583), (28, 405779), (29, 405890)
-]
+# 1. EXTRACT FOOTNOTES FOR PASAL 4-28 (Lines 405895 - 411175)
+fn_dict_4_28 = {}
+cur_pasal = None
+cur_key = None
+cur_text = []
 
-# Part 2 Footnotes: Matius 4 to 28
-mat_fn_markers = [
-    (4, 405937), (5, 406115), (6, 406535), (7, 406769), (8, 406917),
-    (9, 407103), (10, 407401), (11, 407599), (12, 407827), (13, 408043),
-    (14, 408303), (15, 408443), (16, 408587), (17, 408797), (18, 408919),
-    (19, 409049), (20, 409199), (21, 409369), (22, 409537), (23, 409725),
-    (24, 409853), (25, 410235), (26, 410657), (27, 410845), (28, 411057),
-    (29, 411175)
-]
-
-fn_by_pasal = {}
-for i in range(len(mat_fn_markers)-1):
-    p_num, s_l = mat_fn_markers[i]
-    _, e_l = mat_fn_markers[i+1]
-    fn_by_pasal[p_num] = all_lines[s_l-1 : e_l-1]
-
-def parse_fn_lines(fn_slice):
-    entries = []
-    cur_tag = ""
-    cur_text = []
-    for line in fn_slice:
-        s = line.strip()
-        if not s or s == '\xa0':
-            continue
-        # Pattern like "11    Setelah dibaptis..." or "12  Pertama..."
-        m = re.match(r'^(\d{1,2})(\d)\s+(.+)', s)
-        if m:
-            if cur_tag and cur_text:
-                entries.append((cur_tag, " ".join(cur_text)))
-                cur_text = []
-            ayat = m.group(1)
-            cat_no = m.group(2)
-            cur_tag = f"Ayat {ayat}, Catatan {cat_no}"
-            cur_text.append(m.group(3))
-        else:
-            if cur_tag:
-                cur_text.append(s)
-    if cur_tag and cur_text:
-        entries.append((cur_tag, " ".join(cur_text)))
-    return entries
-
-def parse_verse_slice(verse_slice):
-    html_parts = []
-    inline_fn_entries = []
+for cur in range(405895, 411175):
+    s = all_lines[cur-1].strip()
+    if not s or s == '\xa0':
+        continue
+    m_p = re.match(r'^PASAL\s+(\d+)$', s, re.IGNORECASE)
+    if m_p:
+        if cur_key and cur_text:
+            fn_dict_4_28[cur_key] = " ".join(cur_text)
+            cur_text = []
+        cur_pasal = int(m_p.group(1))
+        cur_key = None
+        continue
     
-    for line in verse_slice:
-        s = line.strip()
-        if not s or s == '\xa0' or s.startswith('o---') or s.startswith('---'):
-            continue
-        # Check if line is a verse: e.g. "1  Inilah 1adaftar..."
-        m_verse = re.match(r'^(\d+)\s+(.+)', s)
-        if m_verse and int(m_verse.group(1)) <= 150:
-            v_num = m_verse.group(1)
-            raw_v_text = m_verse.group(2)
-            # Decorate footnote markers in verse: e.g. "1a", "2", "3b"
-            decorated = re.sub(r'(\d+[a-z]?)', r'<sup class="fn-ref">[\1]</sup>', raw_v_text)
-            html_parts.append(f'<p class="verse"><span class="verse-num">{v_num}</span>{decorated}</p>')
-        elif re.match(r'^(PASAL|Bab|Ayat|I|II|III|IV|V|VI|VII|VIII|IX|X|[A-Z])[\.\s]', s):
-            html_parts.append(f'<h3>{xml_clean(s)}</h3>')
-        elif re.match(r'^(\d{1,2})(\d)\s+(.+)', s):
-            # Inline footnote in pasal 1-3
-            m_fn = re.match(r'^(\d{1,2})(\d)\s+(.+)', s)
-            inline_fn_entries.append((f"Ayat {m_fn.group(1)}, Catatan {m_fn.group(2)}", m_fn.group(3)))
-        elif re.match(r'^(\d{1,2})([a-z])\s+(.+)', s):
-            # Cross reference
-            m_ref = re.match(r'^(\d{1,2})([a-z])\s+(.+)', s)
-            inline_fn_entries.append((f"Ayat {m_ref.group(1)}, Referensi {m_ref.group(2)}", m_ref.group(3)))
-        else:
-            if inline_fn_entries:
-                # continuation of last inline footnote
-                prev_tag, prev_txt = inline_fn_entries[-1]
-                inline_fn_entries[-1] = (prev_tag, prev_txt + " " + s)
-            else:
-                html_parts.append(f'<p>{xml_clean(s)}</p>')
-                
-    return "\n".join(html_parts), inline_fn_entries
+    m_fn = re.match(r'^(\d+)(\d)\s+(.+)', s)
+    if m_fn and cur_pasal:
+        if cur_key and cur_text:
+            fn_dict_4_28[cur_key] = " ".join(cur_text)
+            cur_text = []
+        ayat = int(m_fn.group(1))
+        cat_no = int(m_fn.group(2))
+        cur_key = (cur_pasal, ayat, str(cat_no))
+        cur_text.append(m_fn.group(3))
+    else:
+        if cur_key:
+            cur_text.append(s)
 
-# Build 28 Chapters for Matius
+if cur_key and cur_text:
+    fn_dict_4_28[cur_key] = " ".join(cur_text)
+
+print(f"Extracted {len(fn_dict_4_28)} footnotes for Pasal 4-28")
+
+# 2. EXTRACT PASAL 1-3 VERSES & FOOTNOTES (Lines 401115 - 402492)
+verses_1_3 = {} # (pasal, ayat) -> text
+fn_dict_1_3 = {} # (pasal, ayat, code) -> text
+
+cur_p = 1
+cur_v = None
+cur_k = None
+cur_t = []
+
+for cur in range(401115, 402493):
+    s = all_lines[cur-1].strip()
+    if not s or s == '\xa0' or s.startswith('o---') or s.startswith('---'):
+        continue
+    m_p = re.match(r'^PASAL\s+(\d+)$', s, re.IGNORECASE)
+    if m_p:
+        cur_p = int(m_p.group(1))
+        continue
+    
+    m_v = re.match(r'^(\d+)\s+(.+)', s)
+    m_fn = re.match(r'^(\d+)([0-9a-z])\s*(.*)', s)
+    
+    is_v = False
+    if m_v and int(m_v.group(1)) <= 150:
+        vn = int(m_v.group(1))
+        if cur_v is None or vn == cur_v + 1 or (cur_v and vn == 1):
+            is_v = True
+            
+    if is_v:
+        if cur_k and cur_t:
+            fn_dict_1_3[cur_k] = " ".join(cur_t)
+            cur_k = None
+            cur_t = []
+        cur_v = int(m_v.group(1))
+        verses_1_3[(cur_p, cur_v)] = m_v.group(2)
+    elif m_fn and cur_v:
+        if cur_k and cur_t:
+            fn_dict_1_3[cur_k] = " ".join(cur_t)
+            cur_t = []
+        cur_k = (cur_p, int(m_fn.group(1)), m_fn.group(2))
+        top = m_fn.group(3)
+        if top:
+            cur_t.append(top + ":")
+    else:
+        if cur_k:
+            cur_t.append(s)
+
+if cur_k and cur_t:
+    fn_dict_1_3[cur_k] = " ".join(cur_t)
+
+print(f"Extracted {len(verses_1_3)} verses & {len(fn_dict_1_3)} footnotes for Pasal 1-3")
+
+# 3. EXTRACT PASAL 4-28 CLEAN VERSES (Lines 402493 - 405890)
+verses_4_28 = {}
+cur_p = 4
+cur_v = None
+
+for cur in range(402493, 405890):
+    s = all_lines[cur-1].strip()
+    if not s or s == '\xa0' or s.startswith('o---') or s.startswith('---'):
+        continue
+    m_p = re.match(r'^PASAL\s+(\d+)$', s, re.IGNORECASE)
+    if m_p:
+        cur_p = int(m_p.group(1))
+        cur_v = None
+        continue
+    m_v = re.match(r'^(\d+)\s+(.+)', s)
+    if m_v and int(m_v.group(1)) <= 150:
+        vn = int(m_v.group(1))
+        cur_v = vn
+        verses_4_28[(cur_p, cur_v)] = m_v.group(2)
+    else:
+        # outline or heading or continuation
+        if cur_v:
+            # check if outline
+            if re.match(r'^[A-Z0-9\.\s—\-]{4,80}$', s) and not any(w in s for w in ["dan", "yang", "kepada"]):
+                verses_4_28[(cur_p, f"head_{cur}")] = s
+            else:
+                verses_4_28[(cur_p, cur_v)] = verses_4_28[(cur_p, cur_v)] + " " + s
+        else:
+            verses_4_28[(cur_p, f"head_{cur}")] = s
+
+print(f"Extracted verses for Pasal 4-28!")
+
+# COMBINE ALL FOOTNOTES INTO ONE LOOKUP
+all_fn = {}
+for (p, v, code), txt in fn_dict_1_3.items():
+    all_fn[(p, v, str(code))] = txt
+for (p, v, code), txt in fn_dict_4_28.items():
+    all_fn[(p, v, str(code))] = txt
+
+# FUNCTION TO DECORATE A VERSE
+def decorate_verse(pasal_num, ayat_num, raw_text):
+    def repl(m):
+        code = m.group(1)
+        # Find footnote text
+        fn_content = all_fn.get((pasal_num, ayat_num, code), "")
+        if not fn_content and len(code) > 1:
+            fn_content = all_fn.get((pasal_num, ayat_num, code[0]), "")
+        if not fn_content and len(code) > 1:
+            fn_content = all_fn.get((pasal_num, ayat_num, code[1]), "")
+            
+        safe_title = xml_clean(f"Matius {pasal_num}:{ayat_num} (Catatan {code})")
+        safe_fn = xml_clean(fn_content if fn_content else f"Catatan kaki {code}")
+        
+        return f'<a class="footnote-ref" href="#fn-{pasal_num}-{ayat_num}-{code}" data-title="{safe_title}" data-fn="{safe_fn}"><sup>[{code}]</sup></a>'
+
+    # Replace markers like 1a, 2, 3b, 4c, 5d
+    decorated = re.sub(r'(\d+[a-z]?)', repl, raw_text)
+    return decorated
+
+# BUILD THE 28 CHAPTERS
 matius_chapters = []
 
-for i in range(28):
-    p_num = i + 1
-    s_line = mat_verse_markers[i][1]
-    e_line = mat_verse_markers[i+1][1]
-    v_slice = all_lines[s_line-1 : e_line-1]
+for p_num in range(1, 29):
+    chapter_verses_html = []
+    chapter_fn_entries = []
     
-    verse_html, inline_fns = parse_verse_slice(v_slice)
-    
-    # Get external footnotes if any (Pasal 4-28)
-    ext_fns = []
-    if p_num in fn_by_pasal:
-        ext_fns = parse_fn_lines(fn_by_pasal[p_num])
-    
-    all_fns = inline_fns + ext_fns
-    
-    # Render footnotes box
-    fn_html = ""
-    if all_fns:
-        fn_cards = []
-        for badge, txt in all_fns:
-            fn_cards.append(f'''
-<div class="fn-entry">
-  <span class="fn-badge">{xml_clean(badge)}</span>
+    if p_num <= 3:
+        # Collect from verses_1_3
+        v_keys = sorted([k for k in verses_1_3.keys() if k[0] == p_num], key=lambda x: x[1])
+        for _, v_no in v_keys:
+            raw_t = verses_1_3[(p_num, v_no)]
+            dec = decorate_verse(p_num, v_no, raw_t)
+            chapter_verses_html.append(f'<p class="verse"><span class="verse-num">{v_no}</span>{dec}</p>')
+    else:
+        # Collect from verses_4_28
+        v_keys = [k for k in verses_4_28.keys() if k[0] == p_num]
+        for _, k_item in v_keys:
+            raw_t = verses_4_28[(p_num, k_item)]
+            if isinstance(k_item, str) and k_item.startswith("head_"):
+                chapter_verses_html.append(f'<p class="outline-heading">{xml_clean(raw_t)}</p>')
+            else:
+                dec = decorate_verse(p_num, k_item, raw_t)
+                chapter_verses_html.append(f'<p class="verse"><span class="verse-num">{k_item}</span>{dec}</p>')
+
+    # Collect all footnotes for this chapter
+    p_fns = sorted([k for k in all_fn.keys() if k[0] == p_num], key=lambda x: (x[1], x[2]))
+    for _, v_no, code in p_fns:
+        txt = all_fn[(p_num, v_no, code)]
+        chapter_fn_entries.append((v_no, code, txt))
+
+    # Build Footnote Cards HTML
+    fn_cards = []
+    for v_no, code, txt in chapter_fn_entries:
+        fn_cards.append(f'''
+<div class="fn-entry" id="fn-{p_num}-{v_no}-{code}">
+  <span class="fn-badge">Ayat {v_no}, Catatan [{code}]</span>
   <p class="fn-text">{xml_clean(txt)}</p>
 </div>''')
-        fn_html = f'''
+
+    fn_box_html = ""
+    if fn_cards:
+        fn_box_html = f'''
 <div class="catatan-kaki-box">
   <h2>📖 Catatan Kaki &amp; Penjelasan Rohani Pasal {p_num}</h2>
   {''.join(fn_cards)}
 </div>'''
 
-    full_chap_html = f'''
+    full_html = f'''
 <h2>Injil Matius: Pasal {p_num}</h2>
-{verse_html}
-{fn_html}
+{''.join(chapter_verses_html)}
+{fn_box_html}
 '''
-    matius_chapters.append((f"Matius: Pasal {p_num}", full_chap_html))
+    matius_chapters.append((f"Matius: Pasal {p_num}", full_html))
 
-print(f"Generated {len(matius_chapters)} chapters for Matius with full Footnotes!")
+print(f"Successfully generated {len(matius_chapters)} chapters with clean verses & clickable footnotes!")
 
 build_epub(
     r"D:\Magang\Baca\public\books\alkitab-pb-pemulihan.epub",
@@ -329,7 +428,7 @@ build_epub(
     "Yasperin / Living Stream Ministry",
     matius_chapters,
     "Alkitab dan Firman",
-    "Injil Matius Versi Pemulihan lengkap 28 Pasal dengan seluruh ayat firman, penanda catatan kaki, garis besar teologis, dan penjelasan catatan kaki rohani di setiap pasalnya."
+    "Injil Matius Versi Pemulihan lengkap 28 Pasal dengan seluruh ayat firman yang bersih, penanda catatan kaki interaktif yang bisa diklik [1a], [2], dan penjelasan catatan kaki rohani di bawahnya."
 )
 
 # Copy to dist/books/
@@ -339,4 +438,4 @@ if os.path.exists(dist_dir):
     shutil.copy2(r"D:\Magang\Baca\public\books\alkitab-pb-pemulihan.epub", dist_dir)
     print("Copied alkitab-pb-pemulihan.epub to dist/books/")
 
-print("Done building Matius with full Footnotes EPUB!")
+print("Finished!")

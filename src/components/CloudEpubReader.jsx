@@ -129,6 +129,9 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   // Popup saat mengklik highlight yang sudah ada di dalam buku
   const [selectedAnnoPopup, setSelectedAnnoPopup] = useState(null);
 
+  // Popup Modal Interaktif Catatan Kaki Alkitab
+  const [activeFootnote, setActiveFootnote] = useState(null);
+
   // 1. Bersihkan seleksi native browser di dalam iframe
   const clearSelection = useCallback(() => {
     const iframe = viewerRef.current?.querySelector('iframe');
@@ -311,6 +314,56 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             ry: 3px !important;
             cursor: pointer !important;
           }
+          /* Penanda Catatan Kaki Alkitab Interaktif */
+          .footnote-ref {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            font-family: system-ui, -apple-system, sans-serif !important;
+            font-weight: 700 !important;
+            color: ${isDark ? '#60a5fa' : '#2563eb'} !important;
+            background-color: ${isDark ? '#1e293b' : '#eff6ff'} !important;
+            border: 1px solid ${isDark ? '#3b82f6' : '#bfdbfe'} !important;
+            border-radius: 5px !important;
+            padding: 1px 5px !important;
+            margin: 0 3px !important;
+            vertical-align: 0.25em !important;
+            font-size: 0.72em !important;
+            line-height: 1.2 !important;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important;
+            transition: all 0.15s ease !important;
+          }
+          .footnote-ref:hover {
+            background-color: ${isDark ? '#2563eb' : '#dbeafe'} !important;
+            color: ${isDark ? '#ffffff' : '#1d4ed8'} !important;
+            border-color: ${isDark ? '#60a5fa' : '#3b82f6'} !important;
+            transform: scale(1.08) !important;
+          }
+          .footnote-ref sup {
+            color: inherit !important;
+            background: transparent !important;
+            font-size: inherit !important;
+            vertical-align: baseline !important;
+            font-weight: 700 !important;
+          }
+          .verse-num {
+            font-weight: 800 !important;
+            color: ${isDark ? '#60a5fa' : '#2563eb'} !important;
+            margin-right: 0.35em !important;
+          }
+          .fn-badge {
+            display: inline-block !important;
+            font-family: system-ui, sans-serif !important;
+            font-size: 0.8em !important;
+            font-weight: 700 !important;
+            color: ${isDark ? '#93c5fd' : '#1e40af'} !important;
+            background-color: ${isDark ? '#1e293b' : '#dbeafe'} !important;
+            padding: 0.2em 0.6em !important;
+            border-radius: 4px !important;
+            margin-bottom: 0.4em !important;
+          }
         `;
       });
     } catch (err) {
@@ -353,9 +406,12 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             url = book.file_path;
           }
 
-          // Coba fetch sebagai ArrayBuffer
+          // Coba fetch sebagai ArrayBuffer dengan cache-busting agar selalu mendapatkan berkas buku terbaru
           try {
-            const resp = await fetch(url);
+            const fetchUrl = (typeof url === 'string' && (url.startsWith('http') || url.startsWith('/')))
+              ? `${url}${url.includes('?') ? '&' : '?'}v=${Date.now()}`
+              : url;
+            const resp = await fetch(fetchUrl, { cache: 'no-store' });
             if (resp.ok) {
               bookSource = await resp.arrayBuffer();
             } else {
@@ -429,6 +485,22 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
           // Cegah klik kanan dan menu context bawaan
           doc.addEventListener('contextmenu', (e) => e.preventDefault());
+
+          // Intersepsi Klik pada Penanda Catatan Kaki (Footnote Popover) dengan fase capture
+          const handleFnClick = (e) => {
+            const fnLink = e.target.closest?.('.footnote-ref') || e.target.closest?.('a[data-fn]');
+            if (fnLink) {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation?.();
+              const title = fnLink.getAttribute('data-title') || 'Catatan Kaki';
+              const content = fnLink.getAttribute('data-fn') || fnLink.textContent;
+              setActiveFootnote({ title, content });
+            }
+          };
+
+          doc.addEventListener('click', handleFnClick, true);
+          doc.addEventListener('touchend', handleFnClick, true);
 
           // Injeksi Google Fonts & OpenDyslexic CDN
           contents.addStylesheet(
@@ -1301,6 +1373,46 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             >
               <Trash2 className="w-3 h-3" /> Hapus
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Popover Interaktif Catatan Kaki Alkitab */}
+      {activeFootnote && (
+        <div 
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-in fade-in duration-150"
+          onClick={() => setActiveFootnote(null)}
+        >
+          <div 
+            className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl p-5 sm:p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[80vh] overflow-y-auto animate-in zoom-in-95 duration-150"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-zinc-800 pb-3">
+              <div className="flex items-center gap-2.5 text-blue-600 dark:text-blue-400">
+                <Bookmark className="w-5 h-5" />
+                <h3 className="font-bold text-base sm:text-lg">{activeFootnote.title}</h3>
+              </div>
+              <button 
+                onClick={() => setActiveFootnote(null)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition"
+                title="Tutup"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="text-slate-700 dark:text-zinc-200 text-sm sm:text-base leading-relaxed whitespace-pre-line font-serif">
+              {activeFootnote.content}
+            </div>
+
+            <div className="pt-2 flex justify-end border-t border-slate-100 dark:border-zinc-800">
+              <button
+                onClick={() => setActiveFootnote(null)}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow-xs transition"
+              >
+                Tutup Catatan Kaki
+              </button>
+            </div>
           </div>
         </div>
       )}
