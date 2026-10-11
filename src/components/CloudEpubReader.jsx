@@ -400,11 +400,12 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         if (!viewerRef.current) return;
         viewerRef.current.innerHTML = '';
 
+        const isMobileScreen = window.innerWidth < 768;
         const rendition = epubBook.renderTo(viewerRef.current, {
           width: '100%',
           height: '100%',
           flow: 'paginated',
-          spread: 'auto'
+          spread: isMobileScreen ? 'none' : 'auto'
         });
         renditionInstance.current = rendition;
 
@@ -450,6 +451,33 @@ export default function CloudEpubReader({ book, userId, onBack }) {
               'ry': '3px !important'
             }
           });
+
+          // Dukungan Touch Swipe untuk Layar HP & Tablet
+          let touchStartX = 0;
+          let touchStartY = 0;
+
+          doc.addEventListener('touchstart', (e) => {
+            if (e.touches && e.touches.length === 1) {
+              touchStartX = e.touches[0].clientX;
+              touchStartY = e.touches[0].clientY;
+            }
+          }, { passive: true });
+
+          doc.addEventListener('touchend', (e) => {
+            if (e.changedTouches && e.changedTouches.length === 1) {
+              const deltaX = e.changedTouches[0].clientX - touchStartX;
+              const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+              // Swipe horizontal lebih dari 45px dan tidak didominasi gerakan vertikal
+              if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+                if (deltaX < 0) {
+                  rendition.next();
+                } else {
+                  rendition.prev();
+                }
+              }
+            }
+          }, { passive: true });
 
           // Terapkan penimpaan gaya teks tema & font ke dokumen iframe
           applyReaderStyles(themeRef.current, fontRef.current);
@@ -542,6 +570,21 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         rendition.themes.fontSize(`${fontSize}%`);
         rendition.themes.select(themeRef.current);
         applyReaderStyles(themeRef.current, fontRef.current);
+        // Event resize otomatis saat orientasi HP / tablet diputar (Portrait <-> Landscape)
+        const handleResize = () => {
+          if (renditionInstance.current) {
+            const isSmall = window.innerWidth < 768;
+            try {
+              renditionInstance.current.spread(isSmall ? 'none' : 'auto');
+              renditionInstance.current.resize();
+            } catch (e) {
+              console.debug('Resize handler:', e);
+            }
+          }
+        };
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', handleResize);
+
         loadAnnotations();
         setIsLoading(false);
       } catch (err) {
@@ -557,6 +600,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
     return () => {
       isMounted = false;
+      window.removeEventListener('resize', () => {});
       if (bookInstance.current) {
         try {
           bookInstance.current.destroy();
@@ -851,17 +895,17 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         {/* Toolbar Pengaturan Baca */}
         <div className="flex items-center gap-1.5 sm:gap-2.5">
           
-          {/* Pilihan Font */}
-          <div className="hidden md:flex items-center gap-1.5 bg-black/5 px-2.5 py-1 rounded-xl">
-            <Type className="w-3.5 h-3.5 opacity-60" />
+          {/* Pilihan Font Responsif HP & Desktop */}
+          <div className="flex items-center gap-1 bg-black/5 px-2 py-1 rounded-xl">
+            <Type className="w-3.5 h-3.5 opacity-60 shrink-0" />
             <select
               value={activeFont}
               onChange={(e) => handleFontChange(e.target.value)}
-              className="text-xs bg-transparent border-none focus:outline-none font-semibold cursor-pointer text-inherit"
+              className="text-[11px] sm:text-xs bg-transparent border-none focus:outline-none font-semibold cursor-pointer text-inherit max-w-[70px] sm:max-w-none"
             >
               {FONTS.map(f => (
                 <option key={f.id} value={f.id} className="text-slate-900 bg-white">
-                  {f.name} ({f.type})
+                  {f.name}
                 </option>
               ))}
             </select>
@@ -1016,10 +1060,10 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         {/* Tombol Navigasi Halaman Kiri */}
         <button
           onClick={() => renditionInstance.current?.prev()}
-          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 p-2.5 sm:p-3 bg-white/90 dark:bg-zinc-800/90 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-lg backdrop-blur transition hover:scale-110 active:scale-95"
+          className="absolute left-1.5 sm:left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-2.5 md:p-3 bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-md backdrop-blur transition hover:scale-105 active:scale-95 opacity-50 sm:opacity-80 hover:opacity-100"
           title="Halaman Sebelumnya"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Kontainer Rendition EPUB */}
@@ -1030,10 +1074,10 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         {/* Tombol Navigasi Halaman Kanan */}
         <button
           onClick={() => renditionInstance.current?.next()}
-          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 p-2.5 sm:p-3 bg-white/90 dark:bg-zinc-800/90 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-lg backdrop-blur transition hover:scale-110 active:scale-95"
+          className="absolute right-1.5 sm:right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-2.5 md:p-3 bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-md backdrop-blur transition hover:scale-105 active:scale-95 opacity-50 sm:opacity-80 hover:opacity-100"
           title="Halaman Selanjutnya"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Sidebar Drawer Anotasi */}
