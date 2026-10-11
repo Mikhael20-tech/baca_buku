@@ -13,6 +13,50 @@ import LandingPage from './components/LandingPage';
 
 const INITIAL_DEMO_BOOKS = [
   {
+    id: 'buku-karakter-wl',
+    title: 'Karakter: 30 Butir Pembentukan Karakter Manusia',
+    author: 'Witness Lee',
+    category: 'Pembinaan Karakter',
+    description: 'Panduan pembentukan 30 butir karakter manusia yang berguna bagi Tuhan: Benar, Tepat, Ketat, Rajin, Lapang, Cermat, Stabil, Sabar, Dalam, Murni, Seimbang, Tenang, Tulus, Umum, Terbuka, Akrab, Gairah, Luwes, Teguh, Lembut, Taat, Derita, Rendah, Miskin, Tekun, Sulit, Tekan, Jernih, Murah Hati, dan Bobot.',
+    cover_gradient: 'from-blue-600 via-indigo-800 to-slate-900',
+    cover_icon: '💎',
+    file_path: '/books/buku-karakter-witness-lee.epub',
+    created_at: new Date('2026-01-05').toISOString()
+  },
+  {
+    id: 'pembinaan-dasar-wn',
+    title: 'Pembinaan Dasar Kaum Beriman (Semua Seri)',
+    author: 'Watchman Nee',
+    category: 'Pembinaan Rohani',
+    description: 'Kumpulan lengkap 46 pelajaran pembinaan dasar orang beriman: Bangun Pagi-pagi, Baptisan, Berdoa, Bersaksi, Bersidang, Konsikrasi, Membaca Alkitab, dan wawasan kehidupan kristiani yang praktis.',
+    cover_gradient: 'from-emerald-600 via-teal-800 to-slate-900',
+    cover_icon: '🌱',
+    file_path: '/books/pembinaan-dasar-watchman-nee.epub',
+    created_at: new Date('2026-01-04').toISOString()
+  },
+  {
+    id: 'alkitab-pb-pemulihan',
+    title: 'Alkitab PB Versi Pemulihan (Catatan Kaki)',
+    author: 'Yasperin / Living Stream Ministry',
+    category: 'Alkitab & Firman',
+    description: 'Alkitab Perjanjian Baru Versi Pemulihan lengkap dengan garis besar pokok kitab, keterangan penulis, ayat firman, dan catatan kaki penjelasan wahyu rohani (Injil Matius s/d Kitab Wahyu).',
+    cover_gradient: 'from-amber-600 via-yellow-800 to-stone-900',
+    cover_icon: '📖',
+    file_path: '/books/alkitab-pb-pemulihan.epub',
+    created_at: new Date('2026-01-03').toISOString()
+  },
+  {
+    id: 'martir-salib-wn',
+    title: 'Kisah Martir dan Salib Kristus',
+    author: 'Watchman Nee',
+    category: 'Biografi & Teladan Hayat',
+    description: 'Catatan kesaksian iman, penderitaan di penjara, dan penyerahan diri Saudara Watchman Nee demi kesetiaan kepada salib Kristus dan pemulihan Tuhan.',
+    cover_gradient: 'from-rose-600 via-purple-900 to-stone-950',
+    cover_icon: '✝️',
+    file_path: '/books/martir-dan-salib-watchman-nee.epub',
+    created_at: new Date('2026-01-02').toISOString()
+  },
+  {
     id: 'demo-meditasi',
     title: 'Meditasi: Menemukan Kedamaian Stoa',
     author: 'Marcus Aurelius',
@@ -32,7 +76,7 @@ const INITIAL_DEMO_BOOKS = [
     cover_gradient: 'from-rose-700 via-red-900 to-stone-950',
     cover_icon: '👑',
     file_path: '/books/sang-pangeran-machiavelli.epub',
-    created_at: new Date('2026-01-02').toISOString()
+    created_at: new Date('2026-01-01').toISOString()
   }
 ];
 
@@ -74,8 +118,11 @@ export default function App() {
           .select('*')
           .order('created_at', { ascending: false });
 
-        if (!error && data && data.length > 0) {
-          setBooks(data);
+        if (!error && data) {
+          // Gabungkan dengan INITIAL_DEMO_BOOKS agar koleksi lokal bawaan selalu tersedia
+          const combined = [...data, ...INITIAL_DEMO_BOOKS];
+          const uniqueBooks = combined.filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+          setBooks(uniqueBooks);
           setIsLoadingBooks(false);
           return;
         }
