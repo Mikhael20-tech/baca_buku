@@ -90,9 +90,30 @@ with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
 print(f"Loaded {len(all_lines):,} lines")
 
 def clean_verse_text(txt):
-    # Remove inline footnote markers e.g. 1aPada -> Pada, 2mulanya -> mulanya
-    t = re.sub(r'\b\d+[a-z]?([A-Za-z])', r'\1', txt)
-    t = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', t)
+    t = txt
+    # 1. Number + optional single letter before capitalized word: 1aPada -> Pada, 2Yesus -> Yesus, 3Allah -> Allah, 1Inilah -> Inilah
+    t = re.sub(r'(\"|\'|\b)\d+[a-z]?([A-Z][a-zA-Z]*)', r'\1\2', t)
+    
+    # 2. Number + letter + lowercase word: 4bmenciptakan -> menciptakan, 1adaftar -> daftar, 4canak -> anak
+    def repl_num_lower(m):
+        prefix = m.group(1)
+        rest = m.group(2)
+        if len(rest) >= 4 and rest[0] in 'abcdefg' and (
+            rest[1] in 'bcdfghjklmnpqrstvwxyz' or
+            rest[1:] in ['daftar', 'anak', 'saudaranya', 'isteri', 'tulus', 'menceraikannya', 'seluruhnya', 'keturunan', 'sampai', 'pembuangan']
+        ):
+            return prefix + rest[1:]
+        return prefix + rest
+
+    t = re.sub(r'(\"|\'|\b)\d+([a-z]+)', repl_num_lower, t)
+    
+    # 3. Cross reference markers before capital letters: aKelahiran -> Kelahiran, bMaria -> Maria, cRoh -> Roh
+    t = re.sub(r'(?:^|(?<=\s))[a-z]([A-Z][a-zA-Z]*)', r'\1', t)
+    
+    # 4. Remove spurious ? inside words: dipi?-sah?-kan -> dipisahkan
+    t = re.sub(r'\?[\-‑]?', '', t)
+    t = re.sub(r'(\w+)\-+([\w]+)', r'\1-\2', t)
+    t = re.sub(r'\s+', ' ', t)
     return t.strip()
 
 books_meta = []
@@ -114,6 +135,10 @@ for b_info in BIBLE_BOOKS:
         s = l.replace('\xa0', ' ').strip()
         if not s or s.startswith('---') or s.startswith('o---') or s.startswith('Ayat :') or s.startswith('Ayat:'):
             continue
+            
+        # IMPORTANT: Stop at Catatan Kaki so footnotes do NOT overwrite the real scripture verses!
+        if re.search(r'^\s*Catatan\s+[Kk]aki', s, re.IGNORECASE):
+            break
             
         m_chap = re.match(r'^(PASAL|MAZMUR)\s+(\d+)$', s, re.IGNORECASE)
         if m_chap:
@@ -137,32 +162,32 @@ for b_info in BIBLE_BOOKS:
             
         # Match verse
         m_v = re.match(r'^(\d+)\s+(.+)', s)
-        if m_v and cur_chap:
+        if m_v:
             vn = int(m_v.group(1))
-            # Normal verse number <= 176
-            if cur_v is None or vn == cur_v + 1 or (cur_v and vn == 1):
-                cur_v = vn
-                raw_vt = m_v.group(2)
-                chapters_data[cur_chap]["verses"].append({
-                    "verse": cur_v,
-                    "text": clean_verse_text(raw_vt)
-                })
+            # If book has no chapter heading yet (e.g. single-chapter epistle), start chapter 1
+            if cur_chap is None:
+                cur_chap = 1
+                chapters_data[1] = {
+                    "chapter": 1,
+                    "outlines": list(cur_outlines),
+                    "verses": []
+                }
+                cur_outlines = []
+                
+            if cur_chap in chapters_data:
+                # Normal verse number sequence
+                if cur_v is None or vn == cur_v + 1 or (cur_v and vn == 1):
+                    cur_v = vn
+                    raw_vt = m_v.group(2)
+                    chapters_data[cur_chap]["verses"].append({
+                        "verse": cur_v,
+                        "text": clean_verse_text(raw_vt)
+                    })
         elif cur_v and cur_chap and cur_chap in chapters_data and chapters_data[cur_chap]["verses"]:
             # Continuation of verse text if not an outline
             if not re.match(r'^[I|V|X|A-Z0-9\.\s—\-\:\(\)]+$', s) and not re.match(r'^\d+:\d+', s):
                 last_v = chapters_data[cur_chap]["verses"][-1]
                 last_v["text"] += " " + clean_verse_text(s)
-                
-    # If book has only 1 chapter (e.g. Obaja, Filemon, 2 Yohanes, 3 Yohanes, Yudas)
-    if not chapters_data and cur_v:
-        pass
-    elif 1 not in chapters_data and cur_chap is None:
-        # Single chapter book without PASAL 1
-        chapters_data[1] = {
-            "chapter": 1,
-            "outlines": list(cur_outlines),
-            "verses": []
-        }
         
     chap_count = len(chapters_data)
     books_meta.append({

@@ -30,7 +30,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   // Reader Settings
   const [theme, setTheme] = useState(() => localStorage.getItem('bible_theme') || 'sepia'); // 'light' | 'sepia' | 'dark'
   const [fontFamily, setFontFamily] = useState(() => localStorage.getItem('bible_font') || 'Lora');
-  const [fontSize, setFontSize] = useState(() => Number(localStorage.getItem('bible_font_size')) || 18);
+  const [fontSize, setFontSize] = useState(() => Number(localStorage.getItem('bible_font_size')) || 20);
+  const [contentWidth, setContentWidth] = useState(() => localStorage.getItem('bible_content_width') || 'wide'); // 'normal' | 'wide'
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [copiedVerse, setCopiedVerse] = useState(null);
 
@@ -188,66 +189,66 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
     <div className={`min-h-screen flex flex-col ${themeStyles.bg} selection:bg-amber-400 selection:text-slate-950 transition-colors duration-200`}>
       
       {/* Top Header / App Bar */}
-      <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${themeStyles.headerBg} px-3 sm:px-6 h-16 flex items-center justify-between transition-colors shadow-2xs`}>
+      <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${themeStyles.headerBg} px-4 sm:px-8 h-18 flex items-center justify-between transition-colors shadow-sm`}>
         
         {/* Kiri: Tombol Beranda & Selector Kitab */}
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={onBackToHome}
-            className={`p-2 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1.5 text-xs font-semibold`}
+            className={`px-3 py-2 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1.5 text-xs sm:text-sm font-semibold shadow-xs`}
             title="Kembali ke Beranda"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden md:inline">Beranda</span>
+            <span>Beranda</span>
           </button>
 
           <button
             onClick={onOpenLibrary}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-500 hover:text-amber-600 transition hidden lg:flex items-center gap-1.5`}
+            className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-500 hover:text-amber-700 transition hidden md:flex items-center gap-1.5 border border-transparent hover:border-slate-300`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
-            Perpustakaan Buku
+            <BookOpen className="w-4 h-4" />
+            <span>Katalog Buku</span>
           </button>
 
-          <div className="h-5 w-px bg-slate-300 dark:bg-zinc-700 mx-1 hidden sm:block" />
+          <div className="h-6 w-px bg-slate-300 dark:bg-zinc-700 mx-1 hidden sm:block" />
 
           {/* Quick Picker: Kitab & Pasal */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setIsBookPickerOpen(true)}
-              className={`px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm border ${themeStyles.border} bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition flex items-center gap-1.5 shadow-2xs`}
+              className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition flex items-center gap-1.5 shadow-xs`}
             >
-              <span>{currentBookInfo.name}</span>
-              <Compass className="w-3.5 h-3.5 opacity-60" />
+              <span>📖 {currentBookInfo.name}</span>
+              <Compass className="w-4 h-4 opacity-70" />
             </button>
 
             <button
               onClick={() => setIsChapterPickerOpen(true)}
-              className={`px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1 shadow-2xs`}
+              className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1.5 shadow-xs`}
             >
               <span>Pasal {selectedChapter}</span>
-              <List className="w-3.5 h-3.5 opacity-60" />
+              <List className="w-4 h-4 opacity-70" />
             </button>
           </div>
         </div>
 
         {/* Kanan: Navigasi Cepat, Search & Settings */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Quick Prev & Next Chapter Buttons */}
-          <div className="flex items-center border rounded-xl overflow-hidden shadow-2xs border-slate-300 dark:border-zinc-700">
+          <div className="flex items-center border rounded-xl overflow-hidden shadow-xs border-slate-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-800/60">
             <button
               onClick={handlePrevChapter}
-              className={`p-2 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
+              className={`p-2.5 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
               title="Pasal Sebelumnya"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className={`px-2 text-xs font-bold font-mono opacity-60 ${themeStyles.text}`}>
-              {selectedChapter}/{totalChapters}
+            <span className={`px-2.5 text-xs font-bold font-mono opacity-80 ${themeStyles.text}`}>
+              {selectedChapter} / {totalChapters}
             </span>
             <button
               onClick={handleNextChapter}
-              className={`p-2 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
+              className={`p-2.5 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
               title="Pasal Berikutnya"
             >
               <ChevronRight className="w-4 h-4" />
@@ -257,10 +258,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
           {/* Tampilan / Setting Font & Tema */}
           <button
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-            className={`p-2 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition`}
+            className={`px-3 py-2 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1.5 text-xs sm:text-sm font-semibold shadow-xs`}
             title="Pengaturan Tampilan"
           >
             <Settings className="w-4 h-4" />
+            <span className="hidden sm:inline">Tampilan</span>
           </button>
         </div>
       </header>
@@ -365,7 +367,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         ref={contentRef}
         className="flex-1 overflow-y-auto px-4 sm:px-6 py-8 sm:py-12 flex justify-center"
       >
-        <div className={`max-w-3xl w-full ${themeStyles.contentBg} rounded-3xl p-6 sm:p-12 shadow-sm border ${themeStyles.border} space-y-8 transition-colors`}>
+        <div className={`${contentWidth === 'wide' ? 'max-w-5xl' : 'max-w-4xl'} w-full ${themeStyles.contentBg} rounded-3xl p-6 sm:p-12 shadow-sm border ${themeStyles.border} space-y-8 transition-colors`}>
           
           {/* Header Pasal */}
           <div className="border-b pb-6 space-y-2 border-slate-200/80 dark:border-zinc-800">
