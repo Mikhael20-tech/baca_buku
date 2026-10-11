@@ -9,6 +9,7 @@ import { deleteBookFromIndexedDB } from './lib/bookStorage';
 import CloudEpubReader from './components/CloudEpubReader';
 import AdminUploadModal from './components/AdminUploadModal';
 import AuthModal from './components/AuthModal';
+import LandingPage from './components/LandingPage';
 
 const INITIAL_DEMO_BOOKS = [
   {
@@ -37,6 +38,7 @@ const INITIAL_DEMO_BOOKS = [
 
 export default function App() {
   const [currentBook, setCurrentBook] = useState(null);
+  const [viewMode, setViewMode] = useState('landing'); // 'landing' | 'library'
   const [books, setBooks] = useState([]);
   const [isLoadingBooks, setIsLoadingBooks] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -208,6 +210,42 @@ export default function App() {
   }
 
   // ----------------------------------------------------
+  // Halaman Page Awal (Landing Page)
+  // ----------------------------------------------------
+  if (!currentBook && viewMode === 'landing') {
+    return (
+      <>
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl border border-slate-700 text-sm flex items-center gap-2 animate-in slide-in-from-bottom duration-300">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        <LandingPage
+          onEnterLibrary={() => setViewMode('library')}
+          onOpenLogin={() => setIsAuthModalOpen(true)}
+          isSupabaseActive={isSupabaseConfigured()}
+        />
+
+        {/* Supabase Auth Modal */}
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          onAuthSuccess={(authUser) => {
+            setUserRole('admin');
+            setIsLoggedIn(true);
+            setViewMode('library');
+            showToast(`Selamat datang, ${authUser.user_metadata?.full_name || authUser.email}! Akun Admin aktif.`);
+            fetchBooks();
+          }}
+        />
+      </>
+    );
+  }
+
+  // ----------------------------------------------------
   // Tampilan Utama: Perpustakaan & Portal Admin
   // ----------------------------------------------------
   return (
@@ -226,15 +264,30 @@ export default function App() {
           
           {/* Logo & Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 text-white">
+            <button 
+              onClick={() => setViewMode('landing')}
+              className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 text-white hover:scale-105 transition"
+              title="Kembali ke Beranda"
+            >
               <BookOpen className="w-5 h-5" />
-            </div>
+            </button>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-xl tracking-tight text-slate-900">Baca</span>
+                <button
+                  onClick={() => setViewMode('landing')}
+                  className="font-extrabold text-xl tracking-tight text-slate-900 hover:text-amber-700 transition text-left"
+                >
+                  Baca
+                </button>
                 <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full">
                   Cloud EPUB
                 </span>
+                <button
+                  onClick={() => setViewMode('landing')}
+                  className="text-[11px] font-semibold text-slate-500 hover:text-slate-800 underline underline-offset-2 ml-1"
+                >
+                  Beranda
+                </button>
               </div>
               <p className="text-[11px] text-slate-500 hidden sm:block">Perpustakaan Digital & Reader Berbasis Supabase</p>
             </div>

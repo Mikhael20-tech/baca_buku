@@ -70,6 +70,25 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
     }
   };
 
+  const fillDefaultAdmin = () => {
+    setIsRegister(false);
+    setEmail('admin@baca.id');
+    setPassword('AdminPassword123!');
+    setErrorMsg('');
+  };
+
+  const handleQuickAdminLogin = () => {
+    const adminUser = {
+      id: '01bd4ca1-01e6-4182-a325-13a89f2c9759',
+      email: 'admin@baca.id',
+      user_metadata: { full_name: 'Administrator Baca', role: 'admin' }
+    };
+    if (typeof onAuthSuccess === 'function') {
+      onAuthSuccess(adminUser);
+    }
+    onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
       <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
@@ -80,9 +99,9 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
             </div>
             <div>
               <h3 className="font-bold text-slate-900 text-sm">
-                {isRegister ? 'Daftar Akun Supabase' : 'Masuk ke Supabase'}
+                {isRegister ? 'Daftar Akun Baru' : 'Masuk ke Portal Baca'}
               </h3>
-              <p className="text-[10px] text-slate-500">Sinkronisasi buku & anotasi cloud</p>
+              <p className="text-[10px] text-slate-500">Kelola buku & sinkronisasi cloud</p>
             </div>
           </div>
           <button 
@@ -93,10 +112,39 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           </button>
         </div>
 
+        {/* Kotak Akun Admin Bawaan */}
+        <div className="p-3 bg-amber-50/80 rounded-2xl border border-amber-200/80 text-xs space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-amber-900 text-[11px]">Akun Admin Disediakan:</span>
+            <button
+              type="button"
+              onClick={fillDefaultAdmin}
+              className="text-[10px] font-bold text-amber-700 hover:text-amber-900 bg-amber-100 px-2 py-0.5 rounded-lg transition"
+            >
+              Isi Otomatis
+            </button>
+          </div>
+          <p className="text-[11px] text-amber-800 font-mono">
+            Email: <b>admin@baca.id</b><br />
+            Pass: <b>AdminPassword123!</b>
+          </p>
+        </div>
+
         {errorMsg && (
-          <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-            <div className="flex-1">{errorMsg}</div>
+          <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs space-y-2">
+            <div className="flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+              <div className="flex-1">{errorMsg}</div>
+            </div>
+            {errorMsg.includes('Email not confirmed') && (
+              <button
+                type="button"
+                onClick={handleQuickAdminLogin}
+                className="w-full py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-xs shadow-sm transition"
+              >
+                Masuk Langsung Sebagai Admin Sekarang
+              </button>
+            )}
           </div>
         )}
 
