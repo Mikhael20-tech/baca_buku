@@ -190,9 +190,14 @@ CREATE POLICY "Pengguna hanya dapat mengelola progres bacanya sendiri"
 -- ============================================================
 -- 7. KEBIJAKAN STORAGE BUCKETS (books & book-covers)
 -- ============================================================
--- Buat bucket melalui menu Storage Supabase:
--- 1. 'books' -> Private Bucket
--- 2. 'book-covers' -> Public Bucket
+-- Buat bucket otomatis jika belum ada:
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('books', 'books', false)
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('book-covers', 'book-covers', true)
+ON CONFLICT (id) DO NOTHING;
 
 DROP POLICY IF EXISTS "Admin mengunggah file buku" ON storage.objects;
 CREATE POLICY "Admin mengunggah file buku"
