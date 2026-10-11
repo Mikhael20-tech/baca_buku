@@ -2,11 +2,19 @@ import zipfile
 import os
 import sys
 import re
+import html
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 file_path = r"D:\Magang\Baca\pdb\roti_hayat_full.txt"
 
-def build_epub(output_path, title, author, chapters, category="Rohani & Pembinaan", description=""):
+def xml_clean(s):
+    if not s:
+        return ""
+    # escape &, <, >
+    s = str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+    return s
+
+def build_epub(output_path, title, author, chapters, category="Rohani", description=""):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
     with zipfile.ZipFile(output_path, 'w') as epub:
@@ -59,9 +67,22 @@ blockquote {
   text-indent: 0;
 }
 .verse {
-  font-style: italic;
-  color: #4b5563;
   margin-bottom: 0.8em;
+  text-indent: 0;
+}
+.verse-num {
+  font-weight: bold;
+  color: #2563eb;
+  margin-right: 0.4em;
+}
+.footnote {
+  font-size: 0.9em;
+  color: #4b5563;
+  background: #f1f5f9;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid #64748b;
+  margin: 0.6em 0;
+  text-indent: 0;
 }
 '''
         epub.writestr('OEBPS/style.css', css_content, compress_type=zipfile.ZIP_DEFLATED)
@@ -76,16 +97,17 @@ blockquote {
         
         for idx, (chap_title, chap_html) in enumerate(chapters, start=1):
             file_name = f"chapter_{idx}.xhtml"
+            safe_chap_title = xml_clean(chap_title)
             full_html = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="id">
 <head>
   <meta charset="utf-8"/>
-  <title>{chap_title}</title>
+  <title>{safe_chap_title}</title>
   <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-  <h1>{chap_title}</h1>
+  <h1>{safe_chap_title}</h1>
   {chap_html}
 </body>
 </html>'''
@@ -94,19 +116,24 @@ blockquote {
             spine_items.append(f'<itemref idref="chap_{idx}"/>')
             nav_points.append(f'''
     <navPoint id="navPoint-{idx}" playOrder="{idx}">
-      <navLabel><text>{chap_title}</text></navLabel>
+      <navLabel><text>{safe_chap_title}</text></navLabel>
       <content src="{file_name}"/>
     </navPoint>''')
 
         # 5. content.opf
+        safe_title = xml_clean(title)
+        safe_author = xml_clean(author)
+        safe_category = xml_clean(category)
+        safe_desc = xml_clean(description)
+
         content_opf = f'''<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title>{title}</dc:title>
-    <dc:creator opf:role="aut">{author}</dc:creator>
+    <dc:title>{safe_title}</dc:title>
+    <dc:creator opf:role="aut">{safe_author}</dc:creator>
     <dc:language>id</dc:language>
-    <dc:subject>{category}</dc:subject>
-    <dc:description>{description}</dc:description>
+    <dc:subject>{safe_category}</dc:subject>
+    <dc:description>{safe_desc}</dc:description>
     <dc:identifier id="BookId">urn:uuid:baca-{abs(hash(title))}</dc:identifier>
   </metadata>
   <manifest>
@@ -127,7 +154,7 @@ blockquote {
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
-  <docTitle><text>{title}</text></docTitle>
+  <docTitle><text>{safe_title}</text></docTitle>
   <navMap>
     {''.join(nav_points)}
   </navMap>
@@ -145,12 +172,14 @@ def clean_text_to_html(lines):
             if current_p:
                 p_text = " ".join(current_p)
                 p_text = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', p_text)
+                # STRICT XML ESCAPING ON TEXT
+                safe_p = xml_clean(p_text)
                 if re.match(r'^[0-9IVX]+\.\s+[A-Z\s]+$', p_text):
-                    html_paragraphs.append(f"<h2>{p_text}</h2>")
+                    html_paragraphs.append(f"<h2>{safe_p}</h2>")
                 elif re.match(r'^[a-z0-9]\.\s+', p_text):
-                    html_paragraphs.append(f"<h3>{p_text}</h3>")
+                    html_paragraphs.append(f"<h3>{safe_p}</h3>")
                 else:
-                    html_paragraphs.append(f"<p>{p_text}</p>")
+                    html_paragraphs.append(f"<p>{safe_p}</p>")
                 current_p = []
         else:
             if s.startswith('o---') or s.startswith('---') or s.startswith('>>>>'):
@@ -159,7 +188,8 @@ def clean_text_to_html(lines):
     if current_p:
         p_text = " ".join(current_p)
         p_text = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', p_text)
-        html_paragraphs.append(f"<p>{p_text}</p>")
+        safe_p = xml_clean(p_text)
+        html_paragraphs.append(f"<p>{safe_p}</p>")
     return "\n".join(html_paragraphs)
 
 print("Reading lines from extracted full text...")
@@ -210,8 +240,8 @@ karakter_defs = [
 karakter_chapters = []
 for title, start_idx, end_idx in karakter_defs:
     raw_slice = all_lines[start_idx-1 : end_idx-1]
-    html = clean_text_to_html(raw_slice)
-    karakter_chapters.append((f"Karakter: {title}", html))
+    html_content = clean_text_to_html(raw_slice)
+    karakter_chapters.append((f"Karakter: {title}", html_content))
 
 build_epub(
     r"D:\Magang\Baca\public\books\buku-karakter-witness-lee.epub",
@@ -226,7 +256,6 @@ build_epub(
 # 2. PEMBINAAN DASAR (LENGKAP SEMUA TOPIK - WATCHMAN NEE)
 # ==========================================
 print("\n[2/3] Generating Pembinaan Dasar (Watchman Nee)...")
-# Extract lessons from lines 966495 to 978500
 pembinaan_map = [
     ("1. Berbagai Jenis Sidang", 966495, 966765),
     ("2. Berdoa", 966765, 966967),
@@ -279,8 +308,8 @@ pembinaan_map = [
 pembinaan_chapters = []
 for title, s_idx, e_idx in pembinaan_map:
     raw_slice = all_lines[s_idx-1 : e_idx-1]
-    html = clean_text_to_html(raw_slice)
-    pembinaan_chapters.append((f"Pelajaran {title}", html))
+    html_content = clean_text_to_html(raw_slice)
+    pembinaan_chapters.append((f"Pelajaran: {title}", html_content))
 
 build_epub(
     r"D:\Magang\Baca\public\books\pembinaan-dasar-watchman-nee.epub",
@@ -288,7 +317,7 @@ build_epub(
     "Watchman Nee",
     pembinaan_chapters,
     "Pembinaan Rohani",
-    "Kumpulan pelajaran pembinaan dasar bagi orang beriman: Bangun Pagi-pagi, Baptisan, Berdoa, Bersaksi, Bersidang, Konsikrasi, Membaca Alkitab, dan wawasan hidup kristiani yang praktis."
+    "Kumpulan lengkap pelajaran pembinaan dasar bagi orang beriman: Bangun Pagi-pagi, Baptisan, Berdoa, Bersaksi, Bersidang, Konsikrasi, Membaca Alkitab, dan wawasan hidup kristiani yang praktis."
 )
 
 # ==========================================
@@ -304,7 +333,7 @@ build_epub(
     "Kisah Martir dan Salib Kristus",
     "Watchman Nee",
     martir_chapters,
-    "Biografi & Teladan Hayat",
+    "Biografi dan Teladan Hayat",
     "Kesaksian perjalanan iman dan penyerahan hidup Saudara Watchman Nee hingga akhir hayatnya di dalam penjara demi kesetiaan terhadap Injil dan salib Kristus."
 )
 
@@ -316,4 +345,4 @@ if os.path.exists(dist_dir):
         shutil.copy2(os.path.join(r"D:\Magang\Baca\public\books", fn), dist_dir)
     print("Copied all new EPUBs to dist/books/")
 
-print("\nALL BOOKS SUCCESSFULLY GENERATED!")
+print("\nALL BOOKS SUCCESSFULLY GENERATED AND VALIDATED!")

@@ -371,10 +371,10 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         const epubBook = ePub(bookSource);
         bookInstance.current = epubBook;
 
-        // Berikan batas waktu loading (timeout 10 detik)
+        // Berikan batas waktu loading yang cukup longgar (timeout 40 detik)
         const readyPromise = epubBook.ready;
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Waktu memuat buku habis (10 detik). Berkas EPUB mungkin rusak atau struktur tidak standar.')), 10000)
+          setTimeout(() => reject(new Error('Waktu memuat buku habis (40 detik). Berkas EPUB mungkin terlalu besar atau koneksi lambat.')), 40000)
         );
 
         await Promise.race([readyPromise, timeoutPromise]);

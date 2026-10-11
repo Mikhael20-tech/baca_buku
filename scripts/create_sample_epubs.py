@@ -1,15 +1,15 @@
 import zipfile
 import os
-import sys
+
+def xml_clean(s):
+    return str(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
 
 def create_epub(output_path, title, author, chapters, category="Filsafat"):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
     with zipfile.ZipFile(output_path, 'w') as epub:
-        # 1. mimetype (must be first, uncompressed)
         epub.writestr('mimetype', 'application/epub+zip', compress_type=zipfile.ZIP_STORED)
         
-        # 2. META-INF/container.xml
         container_xml = '''<?xml version="1.0" encoding="UTF-8"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
   <rootfiles>
@@ -18,7 +18,6 @@ def create_epub(output_path, title, author, chapters, category="Filsafat"):
 </container>'''
         epub.writestr('META-INF/container.xml', container_xml, compress_type=zipfile.ZIP_DEFLATED)
         
-        # 3. CSS
         css_content = '''
 body {
   font-family: serif;
@@ -55,7 +54,6 @@ blockquote {
 '''
         epub.writestr('OEBPS/style.css', css_content, compress_type=zipfile.ZIP_DEFLATED)
         
-        # 4. Chapters
         manifest_items = [
             '<item id="style" href="style.css" media-type="text/css"/>',
             '<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
@@ -65,16 +63,17 @@ blockquote {
         
         for idx, (chap_title, chap_html) in enumerate(chapters, start=1):
             file_name = f"chapter_{idx}.xhtml"
+            safe_chap_title = xml_clean(chap_title)
             full_html = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="id">
 <head>
   <meta charset="utf-8"/>
-  <title>{chap_title}</title>
+  <title>{safe_chap_title}</title>
   <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-  <h1>{chap_title}</h1>
+  <h1>{safe_chap_title}</h1>
   {chap_html}
 </body>
 </html>'''
@@ -83,19 +82,21 @@ blockquote {
             spine_items.append(f'<itemref idref="chap_{idx}"/>')
             nav_points.append(f'''
     <navPoint id="navPoint-{idx}" playOrder="{idx}">
-      <navLabel><text>{chap_title}</text></navLabel>
+      <navLabel><text>{safe_chap_title}</text></navLabel>
       <content src="{file_name}"/>
     </navPoint>''')
 
-        # 5. content.opf
+        safe_title = xml_clean(title)
+        safe_author = xml_clean(author)
+        safe_category = xml_clean(category)
         content_opf = f'''<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title>{title}</dc:title>
-    <dc:creator opf:role="aut">{author}</dc:creator>
+    <dc:title>{safe_title}</dc:title>
+    <dc:creator opf:role="aut">{safe_author}</dc:creator>
     <dc:language>id</dc:language>
-    <dc:subject>{category}</dc:subject>
-    <dc:identifier id="BookId">urn:uuid:baca-{hash(title)}</dc:identifier>
+    <dc:subject>{safe_category}</dc:subject>
+    <dc:identifier id="BookId">urn:uuid:baca-{abs(hash(title))}</dc:identifier>
   </metadata>
   <manifest>
     {' '.join(manifest_items)}
@@ -106,16 +107,15 @@ blockquote {
 </package>'''
         epub.writestr('OEBPS/content.opf', content_opf, compress_type=zipfile.ZIP_DEFLATED)
         
-        # 6. toc.ncx
         toc_ncx = f'''<?xml version="1.0" encoding="UTF-8"?>
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
   <head>
-    <meta name="dtb:uid" content="urn:uuid:baca-{hash(title)}"/>
+    <meta name="dtb:uid" content="urn:uuid:baca-{abs(hash(title))}"/>
     <meta name="dtb:depth" content="1"/>
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
-  <docTitle><text>{title}</text></docTitle>
+  <docTitle><text>{safe_title}</text></docTitle>
   <navMap>
     {''.join(nav_points)}
   </navMap>
@@ -124,7 +124,6 @@ blockquote {
 
     print(f"Created EPUB: {output_path}")
 
-# Buku 1: Meditasi - Marcus Aurelius
 meditasi_chapters = [
     ("Buku I: Catatan Syukur dan Pembelajaran Hidup", """
 <p class="lead">Dari kakekku Verus, aku belajar tentang kebaikan hati dan ketenangan batin dalam menghadapi amarah.</p>
@@ -149,7 +148,6 @@ meditasi_chapters = [
 """)
 ]
 
-# Buku 2: Sang Pangeran - Niccolo Machiavelli
 sang_pangeran_chapters = [
     ("Bab I: Berbagai Macam Bentuk Kekuasaan", """
 <p class="lead">Semua negara, semua pemerintahan yang pernah memerintah dan memiliki wewenang atas umat manusia, adalah republik atau kepangeranan.</p>
@@ -164,6 +162,6 @@ sang_pangeran_chapters = [
 """)
 ]
 
-create_epub("public/books/meditasi-marcus-aurelius.epub", "Meditasi: Menemukan Kedamaian Stoa", "Marcus Aurelius", meditasi_chapters, "Filsafat & Pengembangan Diri")
-create_epub("public/books/sang-pangeran-machiavelli.epub", "Sang Pangeran (Il Principe)", "Niccolo Machiavelli", sang_pangeran_chapters, "Filsafat & Politik")
-print("Done creating sample EPUB files!")
+create_epub("public/books/meditasi-marcus-aurelius.epub", "Meditasi: Menemukan Kedamaian Stoa", "Marcus Aurelius", meditasi_chapters, "Filsafat dan Pengembangan Diri")
+create_epub("public/books/sang-pangeran-machiavelli.epub", "Sang Pangeran (Il Principe)", "Niccolo Machiavelli", sang_pangeran_chapters, "Filsafat dan Politik")
+print("Done updating sample EPUB files!")
