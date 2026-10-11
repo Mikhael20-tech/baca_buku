@@ -225,6 +225,6 @@ CREATE POLICY "Admin mengunggah book-covers"
 -- 8. KONFIRMASI OTOMATIS AKUN ADMIN (Jika Sudah Terdaftar)
 -- ============================================================
 UPDATE auth.users 
-SET email_confirmed_at = COALESCE(email_confirmed_at, now()), confirmed_at = COALESCE(confirmed_at, now()) 
+SET email_confirmed_at = now() 
 WHERE email = 'admin@baca.id';
 
