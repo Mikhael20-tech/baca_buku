@@ -11,16 +11,28 @@ import AdminUploadModal from './components/AdminUploadModal';
 import AuthModal from './components/AuthModal';
 import LandingPage from './components/LandingPage';
 import KarakterSeriesModal from './components/KarakterSeriesModal';
+import PembinaanTopicsModal from './components/PembinaanTopicsModal';
 import BibleSelectorModal from './components/BibleSelectorModal';
 import BibleReaderView from './components/BibleReaderView';
 
 const INITIAL_DEMO_BOOKS = [
   {
+    id: 'fkkp-kebangunan-pagi-m1',
+    title: 'FKKP: Menikmati Kristus sebagai Hayat (Minggu 1)',
+    author: 'Yasperin / Living Stream Ministry',
+    category: 'FKKP (Kebangunan Pagi)',
+    description: 'Firman Kudus untuk Kebangunan Pagi (FKKP) — Panduan doa-makan firman harian (Senin s/d Sabtu). Otomatis dibaca dengan mode gulir vertikal ke bawah.',
+    cover_gradient: 'from-amber-600 via-orange-800 to-amber-950',
+    cover_icon: '🌅',
+    file_path: '/books/fkkp-kebangunan-pagi-minggu-1.epub',
+    created_at: new Date('2026-01-06').toISOString()
+  },
+  {
     id: 'buku-karakter-wl',
-    title: 'Buku Karakter: 30 Butir (Pilih Seri 1 – 10)',
+    title: 'Buku Karakter: 30 Butir (Pilih Seri 1 – 30)',
     author: 'Witness Lee',
     category: 'Pembinaan Karakter',
-    description: 'Klik untuk memilih Seri 1 s/d Seri 10 pembentukan karakter rohani atau baca 30 butir karakter lengkap karya Witness Lee.',
+    description: 'Klik untuk memilih Seri 1 s/d Seri 30 pembentukan karakter rohani atau baca 30 butir karakter lengkap karya Witness Lee.',
     cover_gradient: 'from-blue-600 via-indigo-800 to-slate-900',
     cover_icon: '💎',
     file_path: '/books/buku-karakter-witness-lee.epub',
@@ -28,40 +40,16 @@ const INITIAL_DEMO_BOOKS = [
     created_at: new Date('2026-01-05').toISOString()
   },
   {
-    id: 'alkitab-pb-lengkap',
-    title: 'Alkitab: Perjanjian Baru (27 Kitab Lengkap)',
-    author: 'Yasperin / Living Stream Ministry',
-    category: 'Alkitab & Firman',
-    description: 'Alkitab Versi Pemulihan Perjanjian Baru lengkap 27 Kitab: dari Injil Matius sampai Kitab Wahyu dengan seluruh ayat firman, outline ilahi, dan navigasi 260 pasal.',
-    cover_gradient: 'from-amber-600 via-amber-800 to-stone-950',
-    cover_icon: '📖',
-    file_path: '/books/alkitab-perjanjian-baru.epub',
-    is_bible: true,
+    id: 'pembinaan-dasar-wn',
+    title: 'Pembinaan Dasar: 46 Pelajaran (Pilih Topik 1 – 46)',
+    author: 'Watchman Nee',
+    category: 'Pembinaan Dasar',
+    description: 'Klik untuk memilih topik pelajaran pembinaan dasar orang percaya baru (Bangun Pagi, Berdoa, Membaca Alkitab, Baptisan, dll.) karya Watchman Nee.',
+    cover_gradient: 'from-emerald-700 via-teal-900 to-slate-950',
+    cover_icon: '🌱',
+    file_path: '/books/pembinaan-dasar-watchman-nee.epub',
+    has_series: true,
     created_at: new Date('2026-01-04').toISOString()
-  },
-  {
-    id: 'alkitab-pl-lengkap',
-    title: 'Alkitab: Perjanjian Lama (39 Kitab Lengkap)',
-    author: 'Yasperin / Living Stream Ministry',
-    category: 'Alkitab & Firman',
-    description: 'Alkitab Versi Pemulihan Perjanjian Lama lengkap 39 Kitab: dari Kitab Kejadian sampai Kitab Maleakhi dengan seluruh ayat firman, outline ilahi, dan navigasi 929 pasal.',
-    cover_gradient: 'from-blue-700 via-indigo-900 to-slate-950',
-    cover_icon: '📜',
-    file_path: '/books/alkitab-perjanjian-lama.epub',
-    is_bible: true,
-    created_at: new Date('2026-01-03').toISOString()
-  },
-  {
-    id: 'alkitab-pb-pemulihan',
-    title: 'Injil Matius: Versi Pemulihan (Catatan Kaki Lengkap)',
-    author: 'Yasperin / Living Stream Ministry',
-    category: 'Alkitab & Firman',
-    description: 'Injil Matius Versi Pemulihan lengkap 28 Pasal dengan seluruh ayat firman, penanda catatan kaki interaktif [1a], [2], garis besar teologis, dan penjelasan catatan kaki rohani di setiap pasalnya.',
-    cover_gradient: 'from-amber-600 via-yellow-800 to-stone-900',
-    cover_icon: '📖',
-    file_path: '/books/alkitab-pb-pemulihan.epub',
-    is_bible: true,
-    created_at: new Date('2026-01-03').toISOString()
   },
   {
     id: 'martir-salib-wn',
@@ -113,8 +101,9 @@ export default function App() {
   const [copiedEnv, setCopiedEnv] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  // Modal Khusus Pemilih Seri Karakter & Pemilih Kitab Alkitab
+  // Modal Khusus Pemilih Seri Karakter & Pemilih Topik Pembinaan Dasar
   const [isKarakterSeriesModalOpen, setIsKarakterSeriesModalOpen] = useState(false);
+  const [isPembinaanModalOpen, setIsPembinaanModalOpen] = useState(false);
   const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
 
   // Handler memilih Seri Buku Karakter
@@ -131,10 +120,32 @@ export default function App() {
     } else {
       setCurrentBook({
         id: `buku-karakter-seri-${seri.id}`,
-        title: `Buku Karakter (${seri.title}): ${seri.summary}`,
+        title: `Buku Karakter Seri ${seri.id}: ${seri.title}`,
         author: 'Witness Lee',
         file_path: `/books/buku-karakter-seri-${seri.id}.epub`,
         cover_icon: '💎'
+      });
+    }
+  };
+
+  // Handler memilih Topik Pembinaan Dasar
+  const handleSelectPembinaanTopic = (topik) => {
+    setIsPembinaanModalOpen(false);
+    if (topik.id === 'all') {
+      setCurrentBook({
+        id: 'pembinaan-dasar-wn-full',
+        title: 'Pembinaan Dasar Kaum Beriman (Volume Lengkap)',
+        author: 'Watchman Nee',
+        file_path: '/books/pembinaan-dasar-watchman-nee.epub',
+        cover_icon: '🌱'
+      });
+    } else {
+      setCurrentBook({
+        id: `pembinaan-dasar-topik-${topik.id}`,
+        title: `Pembinaan Dasar: Pelajaran ${topik.id} - ${topik.title}`,
+        author: 'Watchman Nee',
+        file_path: `/books/pembinaan-dasar-topik-${topik.id}.epub`,
+        cover_icon: '🌱'
       });
     }
   };
@@ -169,11 +180,13 @@ export default function App() {
     }
   };
 
-  // Handler membuka buku (apakah langsung baca atau buka modal pemilih seri)
+  // Handler membuka buku (apakah langsung baca atau buka modal pemilih seri/topik)
   const handleOpenBook = (book) => {
-    if (book.id === 'buku-karakter-wl' || book.has_series) {
+    if (book.id === 'buku-karakter-wl' || book.id?.startsWith('buku-karakter')) {
       setIsKarakterSeriesModalOpen(true);
-    } else if (book.is_bible || book.id === 'alkitab-pb-pemulihan' || book.id === 'alkitab-pb-lengkap' || book.id === 'alkitab-pl-lengkap') {
+    } else if (book.id === 'pembinaan-dasar-wn' || book.id?.startsWith('pembinaan-dasar')) {
+      setIsPembinaanModalOpen(true);
+    } else if (book.is_bible || book.id?.startsWith('alkitab-')) {
       setViewMode('bible');
     } else {
       setCurrentBook(book);
@@ -197,6 +210,8 @@ export default function App() {
   const fetchBooks = useCallback(async () => {
     setIsLoadingBooks(true);
     try {
+      const isBibleItem = (b) => b.is_bible || b.id?.startsWith('alkitab-') || b.category === 'Alkitab & Firman';
+
       if (isSupabaseConfigured()) {
         const { data, error } = await supabase
           .from('books')
@@ -206,7 +221,9 @@ export default function App() {
         if (!error && data) {
           // Gabungkan dengan INITIAL_DEMO_BOOKS agar koleksi lokal bawaan selalu tersedia
           const combined = [...data, ...INITIAL_DEMO_BOOKS];
-          const uniqueBooks = combined.filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+          const uniqueBooks = combined
+            .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
+            .filter(b => !isBibleItem(b));
           setBooks(uniqueBooks);
           setIsLoadingBooks(false);
           return;
@@ -215,10 +232,15 @@ export default function App() {
 
       // Mode Demo / Local Storage Fallback
       const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
-      const combined = [...localBooks, ...INITIAL_DEMO_BOOKS];
+      const cleanedLocal = localBooks.filter(b => !isBibleItem(b));
+      localStorage.setItem('baca_demo_books', JSON.stringify(cleanedLocal));
+
+      const combined = [...cleanedLocal, ...INITIAL_DEMO_BOOKS];
       
-      // Hapus duplikasi berdasarkan ID
-      const uniqueBooks = combined.filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+      // Hapus duplikasi berdasarkan ID dan pastikan Alkitab tidak masuk ke katalog buku
+      const uniqueBooks = combined
+        .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
+        .filter(b => !isBibleItem(b));
       setBooks(uniqueBooks);
     } catch (err) {
       console.warn('Gagal fetch buku:', err);
@@ -927,6 +949,13 @@ VITE_SUPABASE_ANON_KEY=<your-anon-key>`}
         isOpen={isKarakterSeriesModalOpen}
         onClose={() => setIsKarakterSeriesModalOpen(false)}
         onSelectSeries={handleSelectKarakterSeries}
+      />
+
+      {/* Modal Pemilih Topik Pembinaan Dasar */}
+      <PembinaanTopicsModal
+        isOpen={isPembinaanModalOpen}
+        onClose={() => setIsPembinaanModalOpen(false)}
+        onSelectTopic={handleSelectPembinaanTopic}
       />
 
       {/* Modal Pemilih Kitab Alkitab (Kejadian - Wahyu) */}

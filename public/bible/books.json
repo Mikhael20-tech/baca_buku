@@ -267,7 +267,7 @@
     "id": "roma",
     "name": "Roma",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 16
   },
   {
     "id": "1-korintus",
@@ -279,55 +279,55 @@
     "id": "2-korintus",
     "name": "2 Korintus",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 13
   },
   {
     "id": "galatia",
     "name": "Galatia",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 6
   },
   {
     "id": "efesus",
     "name": "Efesus",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 6
   },
   {
     "id": "filipi",
     "name": "Filipi",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 4
   },
   {
     "id": "kolose",
     "name": "Kolose",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 4
   },
   {
     "id": "1-tesalonika",
     "name": "1 Tesalonika",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 5
   },
   {
     "id": "2-tesalonika",
     "name": "2 Tesalonika",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 3
   },
   {
     "id": "1-timotius",
     "name": "1 Timotius",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 6
   },
   {
     "id": "2-timotius",
     "name": "2 Timotius",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 4
   },
   {
     "id": "titus",
@@ -345,7 +345,7 @@
     "id": "ibrani",
     "name": "Ibrani",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 13
   },
   {
     "id": "yakobus",
@@ -357,19 +357,19 @@
     "id": "1-petrus",
     "name": "1 Petrus",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 5
   },
   {
     "id": "2-petrus",
     "name": "2 Petrus",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 3
   },
   {
     "id": "1-yohanes",
     "name": "1 Yohanes",
     "testament": "PB",
-    "chapters_count": 1
+    "chapters_count": 5
   },
   {
     "id": "2-yohanes",

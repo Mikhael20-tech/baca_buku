@@ -56,38 +56,39 @@ BIBLE_BOOKS = [
     {"id": "markus", "name": "Markus", "testament": "PB", "start": 784079, "end": 788483},
     {"id": "lukas", "name": "Lukas", "testament": "PB", "start": 788483, "end": 795185},
     {"id": "yohanes", "name": "Yohanes", "testament": "PB", "start": 795185, "end": 800639},
-    {"id": "kisah-para-rasul", "name": "Kisah Para Rasul", "testament": "PB", "start": 800639, "end": 809355},
-    {"id": "roma", "name": "Roma", "testament": "PB", "start": 809355, "end": 811473},
-    {"id": "1-korintus", "name": "1 Korintus", "testament": "PB", "start": 811473, "end": 817047},
-    {"id": "2-korintus", "name": "2 Korintus", "testament": "PB", "start": 817047, "end": 819795},
-    {"id": "galatia", "name": "Galatia", "testament": "PB", "start": 819795, "end": 821755},
-    {"id": "efesus", "name": "Efesus", "testament": "PB", "start": 821755, "end": 824201},
-    {"id": "filipi", "name": "Filipi", "testament": "PB", "start": 824201, "end": 825257},
-    {"id": "kolose", "name": "Kolose", "testament": "PB", "start": 825257, "end": 826603},
-    {"id": "1-tesalonika", "name": "1 Tesalonika", "testament": "PB", "start": 826603, "end": 827509},
-    {"id": "2-tesalonika", "name": "2 Tesalonika", "testament": "PB", "start": 827509, "end": 828245},
-    {"id": "1-timotius", "name": "1 Timotius", "testament": "PB", "start": 828245, "end": 829805},
-    {"id": "2-timotius", "name": "2 Timotius", "testament": "PB", "start": 829805, "end": 830500},
-    {"id": "titus", "name": "Titus", "testament": "PB", "start": 830500, "end": 831390},
-    {"id": "filemon", "name": "Filemon", "testament": "PB", "start": 831390, "end": 832745},
-    {"id": "ibrani", "name": "Ibrani", "testament": "PB", "start": 832745, "end": 834485},
-    {"id": "yakobus", "name": "Yakobus", "testament": "PB", "start": 834485, "end": 836257},
-    {"id": "1-petrus", "name": "1 Petrus", "testament": "PB", "start": 836257, "end": 837891},
-    {"id": "2-petrus", "name": "2 Petrus", "testament": "PB", "start": 837891, "end": 839233},
-    {"id": "1-yohanes", "name": "1 Yohanes", "testament": "PB", "start": 839233, "end": 840809},
-    {"id": "2-yohanes", "name": "2 Yohanes", "testament": "PB", "start": 840809, "end": 841185},
-    {"id": "3-yohanes", "name": "3 Yohanes", "testament": "PB", "start": 841185, "end": 841369},
+    {"id": "kisah-para-rasul", "name": "Kisah Para Rasul", "testament": "PB", "start": 800639, "end": 807793},
+    {"id": "roma", "name": "Roma", "testament": "PB", "start": 807793, "end": 811469},
+    {"id": "1-korintus", "name": "1 Korintus", "testament": "PB", "start": 811469, "end": 816057},
+    {"id": "2-korintus", "name": "2 Korintus", "testament": "PB", "start": 816057, "end": 819231},
+    {"id": "galatia", "name": "Galatia", "testament": "PB", "start": 819231, "end": 821011},
+    {"id": "efesus", "name": "Efesus", "testament": "PB", "start": 821011, "end": 823727},
+    {"id": "filipi", "name": "Filipi", "testament": "PB", "start": 823727, "end": 824779},
+    {"id": "kolose", "name": "Kolose", "testament": "PB", "start": 824779, "end": 826145},
+    {"id": "1-tesalonika", "name": "1 Tesalonika", "testament": "PB", "start": 826145, "end": 827261},
+    {"id": "2-tesalonika", "name": "2 Tesalonika", "testament": "PB", "start": 827261, "end": 827805},
+    {"id": "1-timotius", "name": "1 Timotius", "testament": "PB", "start": 827805, "end": 829443},
+    {"id": "2-timotius", "name": "2 Timotius", "testament": "PB", "start": 829443, "end": 830591},
+    {"id": "titus", "name": "Titus", "testament": "PB", "start": 830591, "end": 831389},
+    {"id": "filemon", "name": "Filemon", "testament": "PB", "start": 831389, "end": 831729},
+    {"id": "ibrani", "name": "Ibrani", "testament": "PB", "start": 831729, "end": 834485},
+    {"id": "yakobus", "name": "Yakobus", "testament": "PB", "start": 834485, "end": 835647},
+    {"id": "1-petrus", "name": "1 Petrus", "testament": "PB", "start": 835647, "end": 837489},
+    {"id": "2-petrus", "name": "2 Petrus", "testament": "PB", "start": 837489, "end": 838751},
+    {"id": "1-yohanes", "name": "1 Yohanes", "testament": "PB", "start": 838751, "end": 840609},
+    {"id": "2-yohanes", "name": "2 Yohanes", "testament": "PB", "start": 840609, "end": 840965},
+    {"id": "3-yohanes", "name": "3 Yohanes", "testament": "PB", "start": 840965, "end": 841369},
     {"id": "yudas", "name": "Yudas", "testament": "PB", "start": 841369, "end": 841897},
     {"id": "wahyu", "name": "Wahyu", "testament": "PB", "start": 841897, "end": 847775},
 ]
 
-print("Loading full text...")
-all_lines = []
-with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-    for line in f:
-        all_lines.append(line)
+def main():
+    print("Loading full text...")
+    all_lines = []
+    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            all_lines.append(line)
 
-print(f"Loaded {len(all_lines):,} lines")
+    print(f"Loaded {len(all_lines):,} lines")
 
 def clean_verse_text(txt):
     t = txt
@@ -116,6 +117,21 @@ def clean_verse_text(txt):
     t = re.sub(r'\s+', ' ', t)
     return t.strip()
 
+def clean_footnote_text(txt):
+    """Clean footnote text: replace non-breaking spaces and normalize whitespace."""
+    t = txt.replace('\xa0', ' ')
+    t = re.sub(r'\s+', ' ', t)
+    return t.strip()
+
+def parse_footnote_number(num_str):
+    """Parse footnote number like '11' -> (verse=1, note=1), '111' -> (verse=11, note=1), '231' -> (verse=23, note=1).
+    The last digit is the footnote index, everything before is the verse number."""
+    if len(num_str) < 2:
+        return None, None
+    verse_num = int(num_str[:-1])
+    note_idx = int(num_str[-1])
+    return verse_num, note_idx
+
 books_meta = []
 
 for b_info in BIBLE_BOOKS:
@@ -131,27 +147,46 @@ for b_info in BIBLE_BOOKS:
     cur_v = None
     cur_outlines = []
     
-    for l in raw_slice:
+    # ============================================================
+    # PHASE 1: Parse main scripture verses (stop at Catatan Kaki)
+    # ============================================================
+    footnote_start_idx = None
+    
+    for idx, l in enumerate(raw_slice):
         s = l.replace('\xa0', ' ').strip()
         if not s or s.startswith('---') or s.startswith('o---') or s.startswith('Ayat :') or s.startswith('Ayat:'):
             continue
             
-        # IMPORTANT: Stop at Catatan Kaki so footnotes do NOT overwrite the real scripture verses!
+        # Stop at Catatan Kaki - remember index for Phase 2
         if re.search(r'^\s*Catatan\s+[Kk]aki', s, re.IGNORECASE):
+            footnote_start_idx = idx
             break
             
-        m_chap = re.match(r'^(PASAL|MAZMUR)\s+(\d+)$', s, re.IGNORECASE)
+        m_chap = re.match(r'^(PASAL|MAZMUR)\s*(?::\s*)?(\d+)$', s, re.IGNORECASE)
+        if not m_chap and re.match(r'^(PASAL|MAZMUR)\s*:\s*$', s, re.IGNORECASE):
+            for k in range(idx + 1, min(idx + 5, len(raw_slice))):
+                sk = raw_slice[k].replace('\xa0', ' ').strip()
+                if sk.isdigit():
+                    m_chap = re.match(r'^()(\d+)$', sk)
+                    break
+
         if m_chap:
             cur_chap = int(m_chap.group(2))
-            chapters_data[cur_chap] = {
-                "chapter": cur_chap,
-                "outlines": list(cur_outlines),
-                "verses": []
-            }
+            if cur_chap not in chapters_data:
+                chapters_data[cur_chap] = {
+                    "chapter": cur_chap,
+                    "outlines": list(cur_outlines),
+                    "verses": [],
+                    "footnotes": {}
+                }
             cur_v = None
             cur_outlines = []
             continue
             
+        # Skip standalone chapter number line if following PASAL :
+        if cur_chap is not None and s == str(cur_chap) and not chapters_data.get(cur_chap, {}).get("verses"):
+            continue
+
         # Match outline heading e.g. "I. Penciptaan Allah", "A. Keinginan dan Tujuan", "1:1—2:3"
         if re.match(r'^[I|V|X|A-Z0-9\.\s—\-\:\(\)]+$', s) and len(s) < 80 and not re.search(r'\b(dan|yang|kepada|di|oleh|dengan)\b', s):
             if cur_chap is None:
@@ -170,7 +205,8 @@ for b_info in BIBLE_BOOKS:
                 chapters_data[1] = {
                     "chapter": 1,
                     "outlines": list(cur_outlines),
-                    "verses": []
+                    "verses": [],
+                    "footnotes": {}
                 }
                 cur_outlines = []
                 
@@ -188,8 +224,98 @@ for b_info in BIBLE_BOOKS:
             if not re.match(r'^[I|V|X|A-Z0-9\.\s—\-\:\(\)]+$', s) and not re.match(r'^\d+:\d+', s):
                 last_v = chapters_data[cur_chap]["verses"][-1]
                 last_v["text"] += " " + clean_verse_text(s)
+    
+    # ============================================================
+    # PHASE 2: Parse footnotes (after "Catatan Kaki" marker)
+    # ============================================================
+    if footnote_start_idx is not None:
+        fn_chap = 1
+        current_fn_verse = None
+        current_fn_text = ""
         
+        def _flush(chap, verse, text, cdata):
+            """Save accumulated footnote text to the chapter data."""
+            if chap and verse and text.strip() and chap in cdata:
+                v_str = str(verse)
+                if v_str not in cdata[chap]["footnotes"]:
+                    cdata[chap]["footnotes"][v_str] = []
+                cdata[chap]["footnotes"][v_str].append(clean_footnote_text(text))
+        
+        for idx2 in range(footnote_start_idx + 1, len(raw_slice)):
+            raw_line = raw_slice[idx2]
+            s2 = raw_line.replace('\xa0', ' ').strip()
+            
+            if not s2:
+                continue
+            
+            # Check for chapter header in footnotes
+            m_fn_chap = re.match(r'^(PASAL|MAZMUR)\s*(?::\s*)?(\d+)$', s2, re.IGNORECASE)
+            if not m_fn_chap and re.match(r'^(PASAL|MAZMUR)\s*:\s*$', s2, re.IGNORECASE):
+                for k2 in range(idx2 + 1, min(idx2 + 5, len(raw_slice))):
+                    sk2 = raw_slice[k2].replace('\xa0', ' ').strip()
+                    if sk2.isdigit():
+                        m_fn_chap = re.match(r'^()(\d+)$', sk2)
+                        break
+
+            if m_fn_chap:
+                _flush(fn_chap, current_fn_verse, current_fn_text, chapters_data)
+                current_fn_verse = None
+                current_fn_text = ""
+                fn_chap = int(m_fn_chap.group(2))
+                continue
+            
+            # Check if this line starts a new footnote
+            m_fn_spaced = re.match(r'^(\d+)\s+(\d)\s+(.+)', s2)
+            m_fn = re.match(r'^(\d{2,})\s*(.*)', s2)
+            if m_fn_spaced:
+                v_num = int(m_fn_spaced.group(1))
+                if v_num > 0:
+                    _flush(fn_chap, current_fn_verse, current_fn_text, chapters_data)
+                    current_fn_verse = v_num
+                    current_fn_text = m_fn_spaced.group(3)
+                    continue
+            elif m_fn:
+                num_str = m_fn.group(1)
+                verse_num, note_idx = parse_footnote_number(num_str)
+                if verse_num is not None and verse_num > 0:
+                    _flush(fn_chap, current_fn_verse, current_fn_text, chapters_data)
+                    current_fn_verse = verse_num
+                    current_fn_text = m_fn.group(2)
+                    continue
+            
+            # Continuation of current footnote or standalone paragraph
+            if current_fn_verse is not None:
+                current_fn_text += " " + s2
+            else:
+                # Standalone paragraph without a verse number (continuation of previous)
+                if fn_chap and chapters_data.get(fn_chap, {}).get("footnotes"):
+                    fns = chapters_data[fn_chap]["footnotes"]
+                    if fns:
+                        last_key = list(fns.keys())[-1]
+                        if fns[last_key]:
+                            fns[last_key][-1] += " " + clean_footnote_text(s2)
+        
+        # Flush last accumulated footnote
+        _flush(fn_chap, current_fn_verse, current_fn_text, chapters_data)
+    
+    # Build final chapter data - convert footnotes dict to list format
+    for chap_num in chapters_data:
+        fn_dict = chapters_data[chap_num].get("footnotes", {})
+        fn_list = []
+        for verse_str, notes in sorted(fn_dict.items(), key=lambda x: int(x[0])):
+            for note_text in notes:
+                if note_text.strip():
+                    fn_list.append({
+                        "verse": int(verse_str),
+                        "text": note_text
+                    })
+        chapters_data[chap_num]["footnotes"] = fn_list
+    
     chap_count = len(chapters_data)
+    
+    # Count total footnotes
+    total_fn = sum(len(chapters_data[c].get("footnotes", [])) for c in chapters_data)
+    
     books_meta.append({
         "id": b_id,
         "name": b_name,
@@ -208,7 +334,7 @@ for b_info in BIBLE_BOOKS:
     with open(out_book_file, "w", encoding="utf-8") as f_out:
         json.dump(book_payload, f_out, ensure_ascii=False)
         
-    print(f"[{b_info['testament']}] {b_name:20s}: {chap_count:3d} pasal -> {out_book_file}")
+    print(f"[{b_info['testament']}] {b_name:20s}: {chap_count:3d} pasal, {total_fn:4d} catatan kaki -> {out_book_file}")
 
 # Write books.json index
 with open(os.path.join(out_dir, "books.json"), "w", encoding="utf-8") as f_idx:
@@ -223,4 +349,4 @@ for item in os.listdir(out_dir):
     if os.path.isfile(s_f):
         shutil.copy2(s_f, d_f)
 
-print(f"\nSuccessfully exported all {len(books_meta)} books into JSON with index in {out_dir} & {dist_bible_dir}!")
+print(f"\nSuccessfully exported all {len(books_meta)} books with footnotes into JSON!")

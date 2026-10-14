@@ -31,9 +31,16 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
       const book = ePub(buffer);
       const metadata = await book.loaded.metadata;
 
-      setTitle(metadata.title || selectedFile.name.replace(/\.epub$/i, ''));
+      const extractedTitle = metadata.title || selectedFile.name.replace(/\.epub$/i, '');
+      setTitle(extractedTitle);
       setAuthor(metadata.creator || 'Penulis Tidak Diketahui');
       setDescription(metadata.description || '');
+
+      // Otomatis deteksi jika file adalah FKKP (Kebangunan Pagi)
+      const combinedCheck = `${selectedFile.name} ${extractedTitle}`.toLowerCase();
+      if (combinedCheck.includes('fkkp') || combinedCheck.includes('kebangunan pagi')) {
+        setCategory('FKKP (Kebangunan Pagi)');
+      }
 
       // Coba ekstrak cover jika ada
       try {
@@ -277,6 +284,29 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
               onChange={(e) => setCategory(e.target.value)}
               className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
             />
+            {/* Rekomendasi Kategori Cepat */}
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {[
+                'FKKP (Kebangunan Pagi)',
+                'Pembinaan Karakter',
+                'Pembinaan Dasar',
+                'Biografi & Teladan Hayat',
+                'Filsafat & Pengembangan Diri'
+              ].map(cat => (
+                <button
+                  type="button"
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`text-[11px] px-2.5 py-1 rounded-lg border transition font-medium ${
+                    category === cat 
+                      ? 'bg-amber-500 text-white border-amber-500 shadow-2xs font-bold' 
+                      : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div>

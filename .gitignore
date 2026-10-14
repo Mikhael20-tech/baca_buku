@@ -27,3 +27,6 @@ dist-ssr
 
 # Temporary PDB extraction files
 pdb/
+RV/
+__pycache__/
+*.pyc

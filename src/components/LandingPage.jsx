@@ -143,13 +143,13 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin, 
               </div>
 
               <p className="text-xs text-slate-300 leading-relaxed">
-                Koleksi buku digital dengan fitur <b>highlight / penandaan warna</b>, catatan pribadi, pemilih <b>Seri Buku Karakter (1 – 10)</b>, dan 46 Pelajaran Pembinaan Dasar Kaum Beriman.
+                Koleksi buku digital dengan fitur <b>highlight / penandaan warna</b>, catatan pribadi, pemilih <b>Seri Buku Karakter</b>, Pembinaan Dasar, dan <b>FKKP (Firman Kudus untuk Kebangunan Pagi)</b>.
               </p>
             </div>
 
             <div className="pt-6 mt-6 border-t border-slate-700/60 flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-400 group-hover:text-white transition">
-                Seri Karakter • Pembinaan Dasar • Martir &amp; Salib
+                FKKP • Seri Karakter • Pembinaan Dasar • Martir &amp; Salib
               </span>
               <button className="flex items-center gap-1.5 px-4 py-2 bg-slate-700 group-hover:bg-blue-600 text-white font-bold rounded-xl text-xs transition shadow-md">
                 <span>Buka Katalog Buku</span>

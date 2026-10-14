@@ -191,30 +191,17 @@ karakter_defs = [
     ("30. Bobot", 1180935, 1181150),
 ]
 
-series_info = [
-    ("Seri 1", "Benar, Tepat, Ketat", 0, 3),
-    ("Seri 2", "Rajin, Lapang, Cermat", 3, 6),
-    ("Seri 3", "Stabil, Sabar, Dalam", 6, 9),
-    ("Seri 4", "Murni, Seimbang, Tenang", 9, 12),
-    ("Seri 5", "Tulus, Umum, Terbuka", 12, 15),
-    ("Seri 6", "Akrab, Gairah, Luwes", 15, 18),
-    ("Seri 7", "Teguh, Lembut, Taat", 18, 21),
-    ("Seri 8", "Derita, Rendah, Miskin", 21, 24),
-    ("Seri 9", "Tekun, Sulit, Tekan", 24, 27),
-    ("Seri 10", "Jernih, Murah Hati, Bobot", 27, 30),
-]
-
-# Generate each of the 10 series
-for s_num, (seri_title, traits_summary, start_i, end_i) in enumerate(series_info, 1):
-    chapters = []
-    for title, s_idx, e_idx in karakter_defs[start_i:end_i]:
-        raw_slice = all_lines[s_idx-1 : e_idx-1]
-        html = clean_text_to_html(raw_slice)
-        chapters.append((f"Karakter: {title}", html))
+# Generate all 30 individual Karakter series
+for s_num, (title, s_idx, e_idx) in enumerate(karakter_defs, 1):
+    raw_slice = all_lines[s_idx-1 : e_idx-1]
+    html = clean_text_to_html(raw_slice)
+    # Extract clean trait name without number
+    trait_name = re.sub(r'^\d+\.\s*', '', title)
+    chapters = [(f"Karakter {s_num}: {trait_name}", html)]
     
     out_file = rf"D:\Magang\Baca\public\books\buku-karakter-seri-{s_num}.epub"
-    book_title = f"Buku Karakter ({seri_title}): {traits_summary}"
-    book_desc = f"Buku Karakter Seri {s_num} oleh Witness Lee, mencakup pembentukan watak rohani: {traits_summary}."
+    book_title = f"Buku Karakter Seri {s_num}: {trait_name}"
+    book_desc = f"Buku Karakter Seri {s_num}: {trait_name} karya Witness Lee tentang pembentukan karakter manusia yang berguna bagi Tuhan."
     build_epub(out_file, book_title, "Witness Lee", chapters, "Pembinaan Karakter", book_desc)
     
     # Copy to dist
@@ -222,4 +209,4 @@ for s_num, (seri_title, traits_summary, start_i, end_i) in enumerate(series_info
     if os.path.exists(r"D:\Magang\Baca\dist\books"):
         shutil.copy2(out_file, dist_out)
 
-print("Successfully generated all 10 Karakter Series EPUBs!")
+print("Successfully generated all 30 Karakter Series EPUBs!")

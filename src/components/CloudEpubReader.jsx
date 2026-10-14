@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import ePub from 'epubjs';
 import { supabase, getSignedBookUrl, isSupabaseConfigured } from '../lib/supabase';
 import { getBookFromIndexedDB } from '../lib/bookStorage';
@@ -6,8 +6,67 @@ import { Highlight } from 'marks-pane';
 import { 
   Underline, StickyNote, X, ChevronLeft, ChevronRight, 
   Bookmark, Sun, Moon, Coffee, ZoomIn, ZoomOut, Type, Trash2, ArrowLeft,
-  Loader2, AlertCircle, List, Search, Sliders
+  Loader2, AlertCircle, List, Search, Sliders,
+  BookOpen, Scroll, Volume2, VolumeX, ChevronDown, ChevronUp,
+  Columns2, FileText, AlignJustify
 } from 'lucide-react';
+
+// Patch window.addEventListener agar saat epub.js mendaftarkan 'unload', dialihkan secara aman ke 'pagehide'
+// Ini mencegah peringatan browser Chrome: "[Violation] Permissions policy violation: unload is not allowed in this document"
+if (typeof window !== 'undefined' && !window._bacaUnloadPatched) {
+  window._bacaUnloadPatched = true;
+  const originalWindowAddEventListener = window.addEventListener;
+  window.addEventListener = function (type, listener, options) {
+    if (type === 'unload') {
+      return originalWindowAddEventListener.call(window, 'pagehide', listener, options);
+    }
+    return originalWindowAddEventListener.call(window, type, listener, options);
+  };
+}
+
+// Patch epub.js IframeView agar tidak memasang sandbox yang berbenturan (allow-scripts + allow-same-origin)
+// yang memicu peringatan browser "An iframe which has both allow-scripts and allow-same-origin..."
+try {
+  const IframeView = ePub?.Rendition?.prototype?.requireView?.('iframe');
+  if (IframeView && !IframeView._bacaSandboxPatched) {
+    IframeView._bacaSandboxPatched = true;
+    const origCreate = IframeView.prototype.create;
+    IframeView.prototype.create = function () {
+      const iframe = origCreate.apply(this, arguments);
+      if (iframe && iframe.removeAttribute) {
+        iframe.removeAttribute('sandbox');
+      }
+      return iframe;
+    };
+  }
+} catch {
+  // pass
+}
+
+// Patch DOMParser agar entitas HTML seperti &mdash;, &nbsp;, &ndash; otomatis dikonversi ke entitas numerik XML (&#8212;, dll)
+// serta otomatis menutup tag <div> yang tidak sengaja terbuka agar tidak memicu error parser browser "Opening and ending tag mismatch"
+if (typeof window !== 'undefined' && typeof DOMParser !== 'undefined' && !window._bacaDOMParserPatched) {
+  window._bacaDOMParserPatched = true;
+  const origParseFromString = DOMParser.prototype.parseFromString;
+  DOMParser.prototype.parseFromString = function (str, type) {
+    if (typeof str === 'string' && (type === 'application/xhtml+xml' || type === 'text/xml' || type === 'application/xml')) {
+      if (str.includes('&mdash;') || str.includes('&nbsp;') || str.includes('&ndash;') || str.includes('&hellip;')) {
+        str = str
+          .replace(/&mdash;/g, '&#8212;')
+          .replace(/&ndash;/g, '&#8211;')
+          .replace(/&hellip;/g, '&#8230;')
+          .replace(/&nbsp;/g, '&#160;');
+      }
+      // Perbaiki mismatch tag jika ada <div ...> yang belum tertutup sebelum </body>
+      const openDivs = (str.match(/<div[\s>]/gi) || []).length;
+      const closeDivs = (str.match(/<\/div>/gi) || []).length;
+      if (openDivs > closeDivs && /<\/body>/i.test(str)) {
+        str = str.replace(/<\/body>/i, '</div>'.repeat(openDivs - closeDivs) + '</body>');
+      }
+    }
+    return origParseFromString.call(this, str, type);
+  };
+}
 
 // Patch Marks-Pane Highlight agar tidak menyorot ruang kosong / line-break <br>
 if (Highlight && !Highlight._bacaPatched) {
@@ -89,6 +148,26 @@ const FONT_FAMILIES = {
   'OpenDyslexic': "'OpenDyslexic', sans-serif"
 };
 
+// Helper untuk mendeteksi apakah buku adalah FKKP (Firman Kudus untuk Kebangunan Pagi)
+export const isFKKPBook = (b) => {
+  if (!b) return false;
+  const title = (b.title || '').toLowerCase();
+  const category = (b.category || '').toLowerCase();
+  const id = (b.id || '').toLowerCase();
+  const desc = (b.description || '').toLowerCase();
+  return (
+    title.includes('fkkp') ||
+    title.includes('kebangunan pagi') ||
+    category.includes('fkkp') ||
+    category.includes('kebangunan pagi') ||
+    id.includes('fkkp') ||
+    desc.includes('fkkp')
+  );
+};
+
+// Helper validasi UUID untuk kolom UUID di database Supabase (menghindari error 400 Bad Request jika user demo)
+export const isValidUUID = (id) => typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
 export default function CloudEpubReader({ book, userId, onBack }) {
   const viewerRef = useRef(null);
   const bookInstance = useRef(null);
@@ -107,6 +186,60 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   useEffect(() => {
     themeRef.current = theme;
   }, [theme]);
+
+  // Mode Membaca: FKKP otomatis default 'scrolled' (gulir vertikal ke bawah), buku lain default 'paginated' (buku lembaran ala alkitab)
+  const isFKKP = useMemo(() => isFKKPBook(book), [book]);
+
+  // Mode Membaca: Gulir vertikal ke bawah kontinu ('scrolled') sebagai default untuk seluruh buku
+  const [readingMode, setReadingMode] = useState(() => {
+    const userChoice = sessionStorage.getItem(`user_toggled_mode_${book?.id}`);
+    if (userChoice) return userChoice;
+    return 'scrolled';
+  });
+
+  const modeRef = useRef(readingMode);
+  useEffect(() => {
+    modeRef.current = readingMode;
+  }, [readingMode]);
+
+  // Update mode saat berganti buku
+  useEffect(() => {
+    if (!book?.id) return;
+    const userChoice = sessionStorage.getItem(`user_toggled_mode_${book.id}`);
+    const targetMode = userChoice || 'scrolled';
+    if (targetMode !== readingMode) {
+      setReadingMode(targetMode);
+      modeRef.current = targetMode;
+    }
+  }, [book?.id]);
+
+  // Efek Suara Lembaran Kertas
+  const [isSoundEnabled, setIsSoundEnabled] = useState(() => localStorage.getItem('reader_sound') !== 'false');
+  const soundEnabledRef = useRef(isSoundEnabled);
+  useEffect(() => {
+    soundEnabledRef.current = isSoundEnabled;
+    localStorage.setItem('reader_sound', String(isSoundEnabled));
+  }, [isSoundEnabled]);
+
+  // Jarak Baris / Kerapatan Teks (Default: 1.85 Lega, tidak memet)
+  const [lineHeight, setLineHeight] = useState(() => Number(localStorage.getItem('reader_line_height')) || 1.85);
+  const lineHeightRef = useRef(lineHeight);
+  useEffect(() => {
+    lineHeightRef.current = lineHeight;
+    localStorage.setItem('reader_line_height', String(lineHeight));
+  }, [lineHeight]);
+
+  // Tata Letak Kolom Buku: 'auto' (2 Kolom) vs 'none' (1 Kolom Penuh Lega)
+  const [pageSpread, setPageSpread] = useState(() => localStorage.getItem('reader_page_spread') || 'auto');
+  const pageSpreadRef = useRef(pageSpread);
+  useEffect(() => {
+    pageSpreadRef.current = pageSpread;
+    localStorage.setItem('reader_page_spread', pageSpread);
+  }, [pageSpread]);
+
+  // Animasi Transisi Geser Halus (Smooth Slide ala Google Play Books / Apple Books)
+  const [slideAnimationClass, setSlideAnimationClass] = useState('');
+  const isNavigatingRef = useRef(false);
 
   // Drawer Anotasi & Daftar Isi (TOC)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -131,6 +264,113 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
   // Popup Modal Interaktif Catatan Kaki Alkitab
   const [activeFootnote, setActiveFootnote] = useState(null);
+
+  // Helper efek audio desiran lembaran kertas buku fisik (sintesis Web Audio API)
+  const playPageTurnSound = useCallback(() => {
+    if (!soundEnabledRef.current) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+      const bufferSize = Math.floor(ctx.sampleRate * 0.12);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1500, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(700, ctx.currentTime + 0.12);
+      filter.Q.value = 1.0;
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.01, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.06, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      noise.start();
+      noise.stop(ctx.currentTime + 0.12);
+    } catch {
+      // pass
+    }
+  }, []);
+
+  // Handler Halaman Selanjutnya dengan Animasi Geser Halus (Smooth Slide Next)
+  const handleNextPage = useCallback(() => {
+    if (!renditionInstance.current) return;
+    if (modeRef.current === 'scrolled') {
+      if (viewerRef.current) {
+        viewerRef.current.scrollBy({ top: window.innerHeight * 0.7, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    if (isNavigatingRef.current) return;
+    isNavigatingRef.current = true;
+    playPageTurnSound();
+
+    // 1. Geser keluar ke kiri
+    setSlideAnimationClass('page-slide-next-exit');
+
+    setTimeout(async () => {
+      try {
+        await renditionInstance.current.next();
+      } catch {
+        // pass
+      }
+      // 2. Geser masuk dari kanan
+      setSlideAnimationClass('page-slide-next-enter');
+
+      setTimeout(() => {
+        setSlideAnimationClass('');
+        isNavigatingRef.current = false;
+      }, 240);
+    }, 150);
+  }, [playPageTurnSound]);
+
+  // Handler Halaman Sebelumnya dengan Animasi Geser Halus (Smooth Slide Prev)
+  const handlePrevPage = useCallback(() => {
+    if (!renditionInstance.current) return;
+    if (modeRef.current === 'scrolled') {
+      if (viewerRef.current) {
+        viewerRef.current.scrollBy({ top: -window.innerHeight * 0.7, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    if (isNavigatingRef.current) return;
+    isNavigatingRef.current = true;
+    playPageTurnSound();
+
+    // 1. Geser keluar ke kanan
+    setSlideAnimationClass('page-slide-prev-exit');
+
+    setTimeout(async () => {
+      try {
+        await renditionInstance.current.prev();
+      } catch {
+        // pass
+      }
+      // 2. Geser masuk dari kiri
+      setSlideAnimationClass('page-slide-prev-enter');
+
+      setTimeout(() => {
+        setSlideAnimationClass('');
+        isNavigatingRef.current = false;
+      }, 240);
+    }, 150);
+  }, [playPageTurnSound]);
 
   // 1. Bersihkan seleksi native browser di dalam iframe
   const clearSelection = useCallback(() => {
@@ -198,7 +438,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   // 2. Fetch data anotasi dari Supabase (atau LocalStorage jika Demo Mode)
   const loadAnnotations = useCallback(async () => {
     try {
-      if (!isSupabaseConfigured() || !userId) {
+      if (!isSupabaseConfigured() || !isValidUUID(userId)) {
         const localAnnos = JSON.parse(localStorage.getItem(`annos_${book.id}_${userId || 'guest'}`) || '[]');
         setAnnotations(localAnnos);
         if (renditionInstance.current) {
@@ -226,8 +466,31 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   }, [book.id, userId, renderAnnotationItem]);
 
   // Terapkan gaya tema & font ke seluruh iframe rendition
-  const applyReaderStyles = useCallback((targetTheme = themeRef.current, targetFont = fontRef.current) => {
+  const applyReaderStyles = useCallback((targetTheme = themeRef.current, targetFont = fontRef.current, targetLineHeight = lineHeightRef.current) => {
     if (!renditionInstance.current) return;
+
+    // Untuk buku FKKP: UI dan UX font dll 100% mengikuti epub aslinya tanpa diubah
+    if (isFKKP) {
+      try {
+        const contentsList = renditionInstance.current.getContents?.() || [];
+        contentsList.forEach((contents) => {
+          const doc = contents.document;
+          if (!doc) return;
+          const styleEl = doc.getElementById('baca-custom-theme-style');
+          if (styleEl) {
+            styleEl.textContent = `
+              html, body {
+                background-color: transparent !important;
+              }
+            `;
+          }
+        });
+      } catch (e) {
+        console.debug('FKKP applyReaderStyles pass:', e);
+      }
+      return;
+    }
+
     try {
       renditionInstance.current.themes.select(targetTheme);
       renditionInstance.current.themes.font(targetFont);
@@ -276,14 +539,87 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             background-color: transparent !important;
             color: ${textColor} !important;
             font-family: ${fontFamily} !important;
+            line-height: ${targetLineHeight} !important;
+            letter-spacing: 0.015em !important;
+            word-spacing: 0.04em !important;
+            -webkit-font-smoothing: antialiased !important;
           }
           * {
             color: ${textColor} !important;
           }
+          /* Biarkan epub.js mengatur column-gap secara presisi tanpa intervensi manual */
           /* Paksa seluruh paragraf, judul, dan teks memakai font yang dipilih */
           p, span, div, h1, h2, h3, h4, h5, h6, li, a, em, strong, b, i, small, blockquote, td, th {
             font-family: ${fontFamily} !important;
           }
+          /* Paragraf dan teks dibuat lega, tidak memet atau mepet */
+          p {
+            line-height: ${targetLineHeight} !important;
+            margin-top: 0 !important;
+            margin-bottom: 1.35em !important;
+            text-align: left !important;
+            hyphens: none !important;
+            -webkit-hyphens: none !important;
+            word-break: normal !important;
+          }
+          span, div, li, a, em, strong, b, i, small, blockquote {
+            line-height: ${targetLineHeight} !important;
+          }
+          h1, h2, h3, h4, h5, h6 {
+            line-height: 1.35 !important;
+            letter-spacing: -0.015em !important;
+          }
+          h1 {
+            font-size: 1.75em !important;
+            font-weight: 800 !important;
+            border-bottom: 2.5px solid ${isDark ? '#d97706' : (isSepia ? '#d97706' : '#f59e0b')} !important;
+            padding-bottom: 0.35em !important;
+            margin-top: 1.2em !important;
+            margin-bottom: 0.85em !important;
+            color: ${isDark ? '#fbbf24' : (isSepia ? '#78350f' : '#0f172a')} !important;
+          }
+          h2 {
+            font-size: 1.25em !important;
+            font-weight: 700 !important;
+            border-bottom: 1px solid ${isDark ? '#3f3f46' : (isSepia ? '#d6c7b2' : '#e2e8f0')} !important;
+            padding-bottom: 0.25em !important;
+            margin-top: 1.6em !important;
+            margin-bottom: 0.65em !important;
+            color: ${isDark ? '#e4e4e7' : (isSepia ? '#573f27' : '#334155')} !important;
+          }
+          h3 {
+            font-size: 1.1em !important;
+            font-weight: 600 !important;
+            margin-top: 1.3em !important;
+            margin-bottom: 0.5em !important;
+            color: ${isDark ? '#cbd5e1' : (isSepia ? '#6b4f35' : '#475569')} !important;
+          }
+          .verse-quote, blockquote {
+            margin: 1.4em 0 !important;
+            padding: 0.9em 1.25em !important;
+            border-left: 3.5px solid ${isDark ? '#f59e0b' : '#d97706'} !important;
+            background-color: ${isDark ? 'rgba(245, 158, 11, 0.12)' : (isSepia ? 'rgba(217, 119, 6, 0.08)' : 'rgba(245, 158, 11, 0.06)')} !important;
+            border-radius: 0 10px 10px 0 !important;
+            font-style: italic !important;
+            color: ${isDark ? '#fef3c7' : (isSepia ? '#78350f' : '#92400e')} !important;
+            text-indent: 0 !important;
+            line-height: ${targetLineHeight} !important;
+          }
+          .verse-quote p, blockquote p {
+            text-indent: 0 !important;
+            margin-bottom: 0 !important;
+            color: inherit !important;
+            font-style: italic !important;
+          }
+          ${modeRef.current === 'scrolled' ? `
+            body {
+              max-width: 760px !important;
+              margin: 0 auto !important;
+              padding: 2.5rem 1.8rem 8rem 1.8rem !important;
+              column-count: 1 !important;
+              column-width: auto !important;
+            }
+          ` : ''}
           /* Jangan beri latar belakang putih pada teks biasa */
           p, span, li, a, em, strong, b, i, small {
             background-color: transparent !important;
@@ -296,6 +632,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             background-color: ${boxBgColor} !important;
             color: ${textColor} !important;
             border-color: ${boxBorderColor} !important;
+            line-height: ${targetLineHeight} !important;
           }
           table td, table th {
             border-color: ${boxBorderColor} !important;
@@ -370,6 +707,299 @@ export default function CloudEpubReader({ book, userId, onBack }) {
       console.debug('Error applyReaderStyles:', err);
     }
   }, []);
+
+  // 2.5 Setup Rendition Helper (Mendukung Mode Buku Lembaran 3D & Mode Gulir Vertikal Kontinu)
+  const setupRendition = useCallback(async (epubBook, mode, targetLocation) => {
+    if (!viewerRef.current) return;
+    viewerRef.current.innerHTML = '';
+
+    const isMobileScreen = window.innerWidth < 768;
+    const isScrolled = mode === 'scrolled';
+    const effectiveSpread = isScrolled ? 'none' : (pageSpreadRef.current === 'none' ? 'none' : (isMobileScreen ? 'none' : 'auto'));
+
+    const rendition = epubBook.renderTo(viewerRef.current, {
+      width: '100%',
+      height: '100%',
+      flow: isScrolled ? 'scrolled' : 'paginated',
+      spread: effectiveSpread,
+      gap: isScrolled ? 0 : 48,
+      allowScriptedContent: false
+    });
+    renditionInstance.current = rendition;
+
+    // Daftarkan tema bawaan ke Rendition
+    if (!isFKKP) {
+      rendition.themes.register('light', {
+        body: { background: 'transparent !important', color: '#0f172a !important' },
+        'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#0f172a !important' }
+      });
+      rendition.themes.register('sepia', {
+        body: { background: 'transparent !important', color: '#3c2f21 !important' },
+        'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#3c2f21 !important' }
+      });
+      rendition.themes.register('dark', {
+        body: { background: 'transparent !important', color: '#f4f4f5 !important' },
+        'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#f4f4f5 !important' }
+      });
+    } else {
+      // Untuk FKKP: Pertahankan 100% gaya dan warna bawaan EPUB asli tanpa penimpaan elemen teks
+      rendition.themes.register('light', {
+        body: { background: 'transparent !important' }
+      });
+      rendition.themes.register('sepia', {
+        body: { background: 'transparent !important' }
+      });
+      rendition.themes.register('dark', {
+        body: { background: 'transparent !important' }
+      });
+    }
+
+    // Register hook isi iframe: Injeksi fonts & atasi benturan context menu serta tema
+    rendition.hooks.content.register((contents) => {
+      const win = contents.window;
+      if (win) {
+        // Redirection window.unload ke pagehide untuk meredam peringatan izin Chrome unload
+        const origAddEventListener = win.addEventListener;
+        win.addEventListener = function (type, listener, options) {
+          if (type === 'unload') {
+            return origAddEventListener.call(win, 'pagehide', listener, options);
+          }
+          return origAddEventListener.call(win, type, listener, options);
+        };
+      }
+
+      const doc = contents.document;
+
+      // Runtime DOM Typo & Typography Cleaner (Menjamin teks bebas dari artifact OCR & hyphenation glitch)
+      // Hanya dijalankan untuk buku non-FKKP agar konten dan naskah asli FKKP 100% utuh tanpa diubah
+      if (!isFKKP) {
+        try {
+          if (doc && doc.body) {
+            const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null, false);
+            let textNode;
+            while ((textNode = walker.nextNode())) {
+              let val = textNode.nodeValue;
+              if (!val || val.length < 2) continue;
+              if (
+                val.includes('?-') || 
+                val.includes('-?') ||
+                val.includes('?') ||
+                val.includes('balk') || 
+                val.includes('Balk') ||
+                val.includes('akhimya') ||
+                val.includes('pemah') ||
+                val.includes('KaIau') ||
+                val.includes('kaIau') ||
+                val.includes('men yembah') ||
+                /\d+:\d{3,4}/.test(val)
+              ) {
+                let cleaned = val
+                  .replace(/([a-zA-Z]+)\s*\?+[\-‑–—]+\s*([a-zA-Z0-9]+)/g, (m, w1, w2) => {
+                    if (w1.toLowerCase() === w2.toLowerCase()) return `${w1}-${w2}`;
+                    if (w1.toLowerCase() === 'ke' && /^\d+$/.test(w2)) return `${w1}-${w2}`;
+                    return `${w1}${w2}`;
+                  })
+                  .replace(/([a-zA-Z]+)\s*[\-‑–—]+\?+\s*([a-zA-Z0-9]+)/g, (m, w1, w2) => {
+                    if (w1.toLowerCase() === w2.toLowerCase()) return `${w1}-${w2}`;
+                    if (w1.toLowerCase() === 'ke' && /^\d+$/.test(w2)) return `${w1}-${w2}`;
+                    return `${w1}${w2}`;
+                  })
+                  .replace(/([a-zA-Z]{2,})\?+(lah|kah|kan|an|nya|ku|mu)\b/gi, '$1$2')
+                  .replace(/([a-zA-Z]{2,})\?+([a-zA-Z]{2,})/g, (m, w1, w2) => {
+                    if (w1.toLowerCase() === w2.toLowerCase()) return `${w1}-${w2}`;
+                    return `${w1}${w2}`;
+                  })
+                  .replace(/\?-/g, '')
+                  .replace(/-?\?/g, '')
+                  .replace(/\bbalk\b/g, 'baik')
+                  .replace(/\bBalk\b/g, 'Baik')
+                  .replace(/\bakhimya\b/g, 'akhirnya')
+                  .replace(/\bAkhimya\b/g, 'Akhirnya')
+                  .replace(/\bpemah\b/g, 'pernah')
+                  .replace(/\bPemah\b/g, 'Pernah')
+                  .replace(/\bKaIau\b/g, 'Kalau')
+                  .replace(/\bkaIau\b/g, 'kalau')
+                  .replace(/\bmen yembah\b/g, 'menyembah')
+                  .replace(/\bMen yembah\b/g, 'Menyembah')
+                  .replace(/\b(\d+):(\d{2})(\d{2})\b/g, (m, ch, v1, v2) => {
+                    const n1 = parseInt(v1, 10);
+                    const n2 = parseInt(v2, 10);
+                    if (n1 > 0 && n2 > 0 && n1 < n2 && n2 <= n1 + 30) return `${ch}:${n1}-${n2}`;
+                    return m;
+                  })
+                  .replace(/\b(\d+):(\d{1})(\d{2})\b/g, (m, ch, v1, v2) => {
+                    const n1 = parseInt(v1, 10);
+                    const n2 = parseInt(v2, 10);
+                    if (n1 > 0 && n2 > 0 && n1 < n2 && n2 <= n1 + 10) return `${ch}:${n1}-${n2}`;
+                    return m;
+                  });
+
+                if (cleaned !== val) {
+                  textNode.nodeValue = cleaned;
+                }
+              }
+            }
+          }
+        } catch (e) {
+          console.debug('Error in runtime typo cleaner:', e);
+        }
+      }
+
+      // Cegah klik kanan dan menu context bawaan
+      doc.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      // Intersepsi Klik pada Penanda Catatan Kaki (Footnote Popover) dengan fase capture
+      const handleFnClick = (e) => {
+        const fnLink = e.target.closest?.('.footnote-ref') || e.target.closest?.('a[data-fn]');
+        if (fnLink) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation?.();
+          const title = fnLink.getAttribute('data-title') || 'Catatan Kaki';
+          const content = fnLink.getAttribute('data-fn') || fnLink.textContent;
+          setActiveFootnote({ title, content });
+        }
+      };
+
+      doc.addEventListener('click', handleFnClick, true);
+      doc.addEventListener('touchend', handleFnClick, true);
+
+      // Keyboard navigation di dalam dokumen iframe
+      doc.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+          e.preventDefault();
+          handleNextPage();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) {
+          e.preventDefault();
+          handlePrevPage();
+        }
+      });
+
+      // Injeksi Google Fonts & OpenDyslexic CDN (hanya untuk buku non-FKKP)
+      if (!isFKKP) {
+        contents.addStylesheet(
+          'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Literata:opsz,wght@7..72,400;7..72,600&family=Lora:wght@400;600&family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap'
+        );
+        contents.addStylesheet(
+          'https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/open-dyslexic.css'
+        );
+      }
+
+      // Matikan callout bawaan iOS/Android agar tidak menimpa toolbar kustom
+      contents.addStylesheetRules({
+        body: {
+          '-webkit-touch-callout': 'none !important',
+          'user-select': 'text !important',
+          '-webkit-user-select': 'text !important',
+          ...(isScrolled && !isFKKP ? { 'padding': '32px 48px 100px 48px !important' } : {})
+        },
+        '.epubjs-hl': {
+          'rx': '3px !important',
+          'ry': '3px !important'
+        }
+      });
+
+      // Dukungan Touch Swipe untuk Layar HP & Tablet
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      doc.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      doc.addEventListener('touchend', (e) => {
+        if (modeRef.current === 'scrolled') return; // Scroll vertikal alami di mode scrolled
+        if (e.changedTouches && e.changedTouches.length === 1) {
+          const deltaX = e.changedTouches[0].clientX - touchStartX;
+          const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+          // Swipe horizontal lebih dari 45px dan tidak didominasi gerakan vertikal
+          if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+            if (deltaX < 0) {
+              handleNextPage();
+            } else {
+              handlePrevPage();
+            }
+          }
+        }
+      }, { passive: true });
+
+      // Terapkan penimpaan gaya teks tema & font ke dokumen iframe
+      applyReaderStyles(themeRef.current, fontRef.current);
+    });
+
+    // Event Seleksi Teks
+    rendition.on('selected', (cfiRange, contents) => {
+      const selection = contents.window.getSelection();
+      if (!selection || selection.isCollapsed) return;
+
+      const text = selection.toString().trim();
+      if (text.length < 2) return;
+
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      const iframeEl = contents.document.defaultView.frameElement;
+      const iframeRect = iframeEl ? iframeEl.getBoundingClientRect() : { left: 0, top: 0 };
+
+      setToolbar({
+        visible: true,
+        x: iframeRect.left + rect.left + rect.width / 2,
+        y: iframeRect.top + rect.top - 10,
+        cfiRange,
+        text
+      });
+      setIsNoteInputOpen(false);
+      setSelectedAnnoPopup(null);
+    });
+
+    // Event Perubahan Posisi Halaman (Auto-save Progress)
+    rendition.on('relocated', async (location) => {
+      try {
+        const cfi = location.start.cfi;
+        const percentage = epubBook.locations?.percentageFromCfi(cfi) || 0;
+        const pctVal = Number((percentage * 100).toFixed(2));
+        setProgressPercent(pctVal);
+
+        if (isSupabaseConfigured() && isValidUUID(userId)) {
+          await supabase.from('reading_progress').upsert({
+            book_id: book.id,
+            user_id: userId,
+            last_read_cfi: cfi,
+            percentage: pctVal,
+            updated_at: new Date().toISOString()
+          });
+        } else {
+          localStorage.setItem(`progress_${book.id}_${userId || 'guest'}`, JSON.stringify({
+            cfi,
+            percentage: pctVal
+          }));
+        }
+      } catch (relocErr) {
+        console.debug('Progress sync note:', relocErr);
+      }
+    });
+
+    // Tampilkan posisi baca yang ditargetkan
+    if (targetLocation) {
+      await rendition.display(targetLocation);
+    } else {
+      await rendition.display();
+    }
+
+    // Terapkan font, ukuran font, & tema aktif
+    if (!isFKKP) {
+      rendition.themes.font(fontRef.current);
+      rendition.themes.select(themeRef.current);
+    }
+    rendition.themes.fontSize(`${fontSize}%`);
+    applyReaderStyles(themeRef.current, fontRef.current);
+
+    loadAnnotations();
+  }, [applyReaderStyles, book.id, fontSize, handleNextPage, handlePrevPage, isFKKP, loadAnnotations, userId]);
 
   // 3. Inisialisasi EPUB Engine
   useEffect(() => {
@@ -452,166 +1082,9 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           console.debug('TOC load info:', err);
         });
 
-        // Siapkan viewer kontainer
-        if (!viewerRef.current) return;
-        viewerRef.current.innerHTML = '';
-
-        const isMobileScreen = window.innerWidth < 768;
-        const rendition = epubBook.renderTo(viewerRef.current, {
-          width: '100%',
-          height: '100%',
-          flow: 'paginated',
-          spread: isMobileScreen ? 'none' : 'auto'
-        });
-        renditionInstance.current = rendition;
-
-        // Daftarkan tema bawaan ke Rendition
-        rendition.themes.register('light', {
-          body: { background: 'transparent !important', color: '#0f172a !important' },
-          'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#0f172a !important' }
-        });
-        rendition.themes.register('sepia', {
-          body: { background: 'transparent !important', color: '#3c2f21 !important' },
-          'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#3c2f21 !important' }
-        });
-        rendition.themes.register('dark', {
-          body: { background: 'transparent !important', color: '#f4f4f5 !important' },
-          'p, span, div, h1, h2, h3, h4, h5, h6, li, a, blockquote, em, strong, b, i': { color: '#f4f4f5 !important' }
-        });
-
-        // Register hook isi iframe: Injeksi fonts & atasi benturan context menu serta tema
-        rendition.hooks.content.register((contents) => {
-          const doc = contents.document;
-
-          // Cegah klik kanan dan menu context bawaan
-          doc.addEventListener('contextmenu', (e) => e.preventDefault());
-
-          // Intersepsi Klik pada Penanda Catatan Kaki (Footnote Popover) dengan fase capture
-          const handleFnClick = (e) => {
-            const fnLink = e.target.closest?.('.footnote-ref') || e.target.closest?.('a[data-fn]');
-            if (fnLink) {
-              e.preventDefault();
-              e.stopPropagation();
-              e.stopImmediatePropagation?.();
-              const title = fnLink.getAttribute('data-title') || 'Catatan Kaki';
-              const content = fnLink.getAttribute('data-fn') || fnLink.textContent;
-              setActiveFootnote({ title, content });
-            }
-          };
-
-          doc.addEventListener('click', handleFnClick, true);
-          doc.addEventListener('touchend', handleFnClick, true);
-
-          // Injeksi Google Fonts & OpenDyslexic CDN
-          contents.addStylesheet(
-            'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Literata:opsz,wght@7..72,400;7..72,600&family=Lora:wght@400;600&family=Merriweather:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap'
-          );
-          contents.addStylesheet(
-            'https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/open-dyslexic.css'
-          );
-
-          // Matikan callout bawaan iOS/Android agar tidak menimpa toolbar kustom
-          contents.addStylesheetRules({
-            body: {
-              '-webkit-touch-callout': 'none !important',
-              'user-select': 'text !important',
-              '-webkit-user-select': 'text !important',
-              'padding': '0 24px 40px 24px !important'
-            },
-            '.epubjs-hl': {
-              'rx': '3px !important',
-              'ry': '3px !important'
-            }
-          });
-
-          // Dukungan Touch Swipe untuk Layar HP & Tablet
-          let touchStartX = 0;
-          let touchStartY = 0;
-
-          doc.addEventListener('touchstart', (e) => {
-            if (e.touches && e.touches.length === 1) {
-              touchStartX = e.touches[0].clientX;
-              touchStartY = e.touches[0].clientY;
-            }
-          }, { passive: true });
-
-          doc.addEventListener('touchend', (e) => {
-            if (e.changedTouches && e.changedTouches.length === 1) {
-              const deltaX = e.changedTouches[0].clientX - touchStartX;
-              const deltaY = e.changedTouches[0].clientY - touchStartY;
-
-              // Swipe horizontal lebih dari 45px dan tidak didominasi gerakan vertikal
-              if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
-                if (deltaX < 0) {
-                  rendition.next();
-                } else {
-                  rendition.prev();
-                }
-              }
-            }
-          }, { passive: true });
-
-          // Terapkan penimpaan gaya teks tema & font ke dokumen iframe
-          applyReaderStyles(themeRef.current, fontRef.current);
-        });
-
-        // Event Seleksi Teks
-        rendition.on('selected', (cfiRange, contents) => {
-          const selection = contents.window.getSelection();
-          if (!selection || selection.isCollapsed) return;
-
-          const text = selection.toString().trim();
-          if (text.length < 2) return;
-
-          const range = selection.getRangeAt(0);
-          const rect = range.getBoundingClientRect();
-          const iframeEl = contents.document.defaultView.frameElement;
-          const iframeRect = iframeEl ? iframeEl.getBoundingClientRect() : { left: 0, top: 0 };
-
-          setToolbar({
-            visible: true,
-            x: iframeRect.left + rect.left + rect.width / 2,
-            y: iframeRect.top + rect.top - 10,
-            cfiRange,
-            text
-          });
-          setIsNoteInputOpen(false);
-          setSelectedAnnoPopup(null);
-        });
-
-        // Event Perubahan Posisi Halaman (Auto-save Progress)
-        rendition.on('relocated', async (location) => {
-          try {
-            const cfi = location.start.cfi;
-            const percentage = epubBook.locations?.percentageFromCfi(cfi) || 0;
-            const pctVal = Number((percentage * 100).toFixed(2));
-            setProgressPercent(pctVal);
-
-            if (isSupabaseConfigured() && userId) {
-              await supabase.from('reading_progress').upsert({
-                book_id: book.id,
-                user_id: userId,
-                last_read_cfi: cfi,
-                percentage: pctVal,
-                updated_at: new Date().toISOString()
-              });
-            } else {
-              localStorage.setItem(`progress_${book.id}_${userId || 'guest'}`, JSON.stringify({
-                cfi,
-                percentage: pctVal
-              }));
-            }
-          } catch (relocErr) {
-            console.debug('Progress sync note:', relocErr);
-          }
-        });
-
-        // Generate locations untuk hitung persentase
-        epubBook.locations.generate(1000).catch(() => {});
-
         // Ambil posisi baca terakhir
         let lastCfi = null;
-        if (isSupabaseConfigured() && userId) {
+        if (isSupabaseConfigured() && isValidUUID(userId)) {
           const { data: progress } = await supabase
             .from('reading_progress')
             .select('last_read_cfi, percentage')
@@ -631,23 +1104,21 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           }
         }
 
-        if (lastCfi) {
-          await rendition.display(lastCfi);
-        } else {
-          await rendition.display();
-        }
+        // Generate locations untuk hitung persentase
+        epubBook.locations.generate(1000).catch(() => {});
 
-        // Terapkan font, ukuran font, & tema aktif
-        rendition.themes.font(activeFont);
-        rendition.themes.fontSize(`${fontSize}%`);
-        rendition.themes.select(themeRef.current);
-        applyReaderStyles(themeRef.current, fontRef.current);
-        // Event resize otomatis saat orientasi HP / tablet diputar (Portrait <-> Landscape)
+        // Setup Rendition awal
+        await setupRendition(epubBook, modeRef.current, lastCfi);
+
+        // Event resize otomatis saat orientasi HP / tablet diputar
         const handleResize = () => {
           if (renditionInstance.current) {
             const isSmall = window.innerWidth < 768;
             try {
-              renditionInstance.current.spread(isSmall ? 'none' : 'auto');
+              if (modeRef.current === 'paginated') {
+                const effSpread = (pageSpreadRef.current === 'none' || isSmall) ? 'none' : 'auto';
+                renditionInstance.current.spread(effSpread);
+              }
               renditionInstance.current.resize();
             } catch (e) {
               console.debug('Resize handler:', e);
@@ -657,7 +1128,6 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         window.addEventListener('resize', handleResize);
         window.addEventListener('orientationchange', handleResize);
 
-        loadAnnotations();
         setIsLoading(false);
       } catch (err) {
         console.error('Error inisialisasi EPUB:', err);
@@ -672,7 +1142,6 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
     return () => {
       isMounted = false;
-      window.removeEventListener('resize', () => {});
       if (bookInstance.current) {
         try {
           bookInstance.current.destroy();
@@ -681,7 +1150,85 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         }
       }
     };
-  }, [book.id, book.file_path, userId, loadAnnotations, activeFont, applyReaderStyles]);
+  }, [book.id, book.file_path, userId, setupRendition]);
+
+  // Handler Ganti Mode Membaca (Buku Lembaran 3D vs Gulir Vertikal Kontinu)
+  const handleReadingModeChange = async (newMode) => {
+    if (newMode === readingMode) return;
+    setReadingMode(newMode);
+    modeRef.current = newMode;
+    if (book?.id) {
+      sessionStorage.setItem(`user_toggled_mode_${book.id}`, newMode);
+      localStorage.setItem(`reader_mode_${book.id}`, newMode);
+    }
+    localStorage.setItem('reader_reading_mode', newMode);
+
+    let currentCfi = null;
+    try {
+      currentCfi = renditionInstance.current?.currentLocation()?.start?.cfi;
+    } catch {
+      // pass
+    }
+
+    if (bookInstance.current && viewerRef.current) {
+      setIsLoading(true);
+      try {
+        if (renditionInstance.current) {
+          try {
+            renditionInstance.current.destroy();
+          } catch {
+            // pass
+          }
+        }
+        await setupRendition(bookInstance.current, newMode, currentCfi);
+      } catch (err) {
+        console.error('Gagal ganti mode baca:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  // Handler Ganti Kerapatan Baris (Line Height)
+  const handleLineHeightChange = (val) => {
+    setLineHeight(val);
+    lineHeightRef.current = val;
+    localStorage.setItem('reader_line_height', String(val));
+    applyReaderStyles(themeRef.current, fontRef.current, val);
+  };
+
+  // Handler Ganti Tata Letak Kolom (1 Kolom Lega vs 2 Kolom)
+  const handlePageSpreadChange = (spreadVal) => {
+    setPageSpread(spreadVal);
+    pageSpreadRef.current = spreadVal;
+    localStorage.setItem('reader_page_spread', spreadVal);
+    if (renditionInstance.current && modeRef.current === 'paginated') {
+      try {
+        const isSmall = window.innerWidth < 768;
+        const effective = (spreadVal === 'none' || isSmall) ? 'none' : 'auto';
+        renditionInstance.current.spread(effective);
+        renditionInstance.current.resize();
+      } catch (err) {
+        console.warn('Gagal ganti spread:', err);
+      }
+    }
+  };
+
+  // Listener Keyboard Shortcut di jendela utama
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+        e.preventDefault();
+        handleNextPage();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) {
+        e.preventDefault();
+        handlePrevPage();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleNextPage, handlePrevPage]);
 
   // Handler Ganti Tema (Light, Sepia, Dark)
   const handleThemeChange = (newTheme) => {
@@ -748,7 +1295,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     setAnnotations((prev) => prev.filter((a) => a.id !== annoId));
     setSelectedAnnoPopup(null);
 
-    if (isSupabaseConfigured() && userId) {
+    if (isSupabaseConfigured() && isValidUUID(userId)) {
       await supabase.from('annotations').delete().eq('id', annoId);
     } else {
       const key = `annos_${book.id}_${userId || 'guest'}`;
@@ -766,7 +1313,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     setAnnotations((prev) => prev.map((a) => (a.id === item.id ? updated : a)));
     setSelectedAnnoPopup(null);
 
-    if (isSupabaseConfigured() && userId) {
+    if (isSupabaseConfigured() && isValidUUID(userId)) {
       await supabase.from('annotations').update({ color: newColor }).eq('id', item.id);
     } else {
       const key = `annos_${book.id}_${userId || 'guest'}`;
@@ -808,7 +1355,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     // Render ke viewer seketika (menggantikan versi lama)
     renderAnnotationItem(newAnno);
 
-    if (isSupabaseConfigured() && userId) {
+    if (isSupabaseConfigured() && isValidUUID(userId)) {
       const { data: inserted } = await supabase.from('annotations').insert({
         book_id: book.id,
         user_id: userId,
@@ -915,7 +1462,14 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </button>
 
           <div className="max-w-[130px] sm:max-w-xs md:max-w-md">
-            <h2 className="font-bold text-xs sm:text-sm leading-tight truncate">{book.title}</h2>
+            <div className="flex items-center gap-1.5 min-w-0">
+              <h2 className="font-bold text-xs sm:text-sm leading-tight truncate">{book.title}</h2>
+              {isFKKP && (
+                <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                  FKKP • Gulir
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-2">
               <p className="text-[11px] opacity-70 truncate hidden sm:block">{book.author}</p>
               {progressPercent > 0 && (
@@ -967,21 +1521,28 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         {/* Toolbar Pengaturan Baca */}
         <div className="flex items-center gap-1.5 sm:gap-2.5">
           
-          {/* Pilihan Font Responsif HP & Desktop */}
-          <div className="flex items-center gap-1 bg-black/5 px-2 py-1 rounded-xl">
-            <Type className="w-3.5 h-3.5 opacity-60 shrink-0" />
-            <select
-              value={activeFont}
-              onChange={(e) => handleFontChange(e.target.value)}
-              className="text-[11px] sm:text-xs bg-transparent border-none focus:outline-none font-semibold cursor-pointer text-inherit max-w-[70px] sm:max-w-none"
-            >
-              {FONTS.map(f => (
-                <option key={f.id} value={f.id} className="text-slate-900 bg-white">
-                  {f.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Pilihan Font Responsif HP & Desktop (Khusus buku umum; FKKP memakai format aslinya) */}
+          {!isFKKP ? (
+            <div className="flex items-center gap-1 bg-black/5 px-2 py-1 rounded-xl">
+              <Type className="w-3.5 h-3.5 opacity-60 shrink-0" />
+              <select
+                value={activeFont}
+                onChange={(e) => handleFontChange(e.target.value)}
+                className="text-[11px] sm:text-xs bg-transparent border-none focus:outline-none font-semibold cursor-pointer text-inherit max-w-[70px] sm:max-w-none"
+              >
+                {FONTS.map(f => (
+                  <option key={f.id} value={f.id} className="text-slate-900 bg-white">
+                    {f.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-xl text-amber-800 dark:text-amber-200" title="Format dan font 100% mengikuti naskah asli EPUB FKKP">
+              <Type className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+              <span className="text-[11px] font-bold whitespace-nowrap">Format Asli FKKP</span>
+            </div>
+          )}
 
           {/* Pengatur Ukuran Font */}
           <div className="flex items-center bg-black/5 rounded-xl p-1">
@@ -1024,6 +1585,90 @@ export default function CloudEpubReader({ book, userId, onBack }) {
               title="Tema Gelap"
             >
               <Moon className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Pilihan Mode Baca: Lembaran Buku 3D vs Gulir Vertikal Kontinu */}
+          <div className="flex items-center bg-black/5 rounded-xl p-1">
+            <button
+              onClick={() => handleReadingModeChange('paginated')}
+              className={`px-2 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition ${
+                readingMode === 'paginated' 
+                  ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
+                  : 'opacity-65 hover:opacity-100'
+              }`}
+              title="Mode Lembaran Buku (Animasi Membalik 3D)"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-amber-600" />
+              <span className="hidden sm:inline">Buku</span>
+            </button>
+            <button
+              onClick={() => handleReadingModeChange('scrolled')}
+              className={`px-2 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition ${
+                readingMode === 'scrolled' 
+                  ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
+                  : 'opacity-65 hover:opacity-100'
+              }`}
+              title="Mode Gulir (Continuous Vertical Scroll)"
+            >
+              <Scroll className="w-3.5 h-3.5 text-amber-600" />
+              <span className="hidden sm:inline">Gulir</span>
+            </button>
+          </div>
+
+          {/* Toggle Efek Suara Lembaran Kertas Buku */}
+          {readingMode === 'paginated' && (
+            <button
+              onClick={() => setIsSoundEnabled(prev => !prev)}
+              className={`p-1.5 rounded-xl transition ${
+                isSoundEnabled
+                  ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400 hover:bg-amber-500/25'
+                  : 'bg-black/5 opacity-50 hover:opacity-100 text-inherit'
+              }`}
+              title={isSoundEnabled ? 'Suara Lembaran Kertas: Aktif' : 'Suara Lembaran Kertas: Nonaktif'}
+            >
+              {isSoundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            </button>
+          )}
+
+          {/* Pilihan 1 Halaman vs 2 Halaman (jika di mode Buku) */}
+          {readingMode === 'paginated' && (
+            <div className="flex items-center bg-black/5 rounded-xl p-1">
+              <button
+                onClick={() => handlePageSpreadChange('none')}
+                className={`p-1.5 rounded-lg transition ${
+                  pageSpread === 'none' 
+                    ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
+                    : 'opacity-65 hover:opacity-100'
+                }`}
+                title="1 Halaman Penuh (Satu Kolom Lega)"
+              >
+                <FileText className="w-3.5 h-3.5 text-amber-600" />
+              </button>
+              <button
+                onClick={() => handlePageSpreadChange('auto')}
+                className={`p-1.5 rounded-lg transition ${
+                  pageSpread === 'auto' 
+                    ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
+                    : 'opacity-65 hover:opacity-100'
+                }`}
+                title="2 Halaman (Dua Kolom Buku)"
+              >
+                <Columns2 className="w-3.5 h-3.5 text-amber-600" />
+              </button>
+            </div>
+          )}
+
+          {/* Pilihan Kerapatan Baris (Line Height Spacing) */}
+          <div className="flex items-center bg-black/5 rounded-xl p-0.5">
+            <button
+              onClick={() => handleLineHeightChange(lineHeight >= 2.1 ? 1.6 : (lineHeight <= 1.65 ? 1.85 : 2.1))}
+              className="px-2 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 opacity-80 hover:opacity-100 transition"
+              title="Atur Jarak Baris (Normal / Lega / Sangat Lega)"
+            >
+              <AlignJustify className="w-3.5 h-3.5 text-amber-600" />
+              <span className="hidden xl:inline">Jarak:</span>
+              <span>{lineHeight <= 1.65 ? 'Normal' : lineHeight <= 1.9 ? 'Lega' : 'Sangat Lega'}</span>
             </button>
           </div>
 
@@ -1129,28 +1774,84 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </aside>
         )}
 
-        {/* Tombol Navigasi Halaman Kiri */}
-        <button
-          onClick={() => renditionInstance.current?.prev()}
-          className="absolute left-1.5 sm:left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-2.5 md:p-3 bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-md backdrop-blur transition hover:scale-105 active:scale-95 opacity-50 sm:opacity-80 hover:opacity-100"
-          title="Halaman Sebelumnya"
-        >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
+        {/* Tombol Navigasi Halaman Kiri (Mode Lembaran Buku) */}
+        {readingMode === 'paginated' && (
+          <button
+            onClick={handlePrevPage}
+            className="absolute left-1.5 sm:left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 md:p-3 bg-white/80 dark:bg-zinc-800/80 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-lg backdrop-blur transition hover:scale-110 active:scale-95 opacity-70 hover:opacity-100 border border-slate-200/50 dark:border-zinc-700/50"
+            title="Halaman Sebelumnya (←)"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+        )}
 
-        {/* Kontainer Rendition EPUB */}
-        <div className="flex-1 w-full h-full relative flex items-center justify-center">
-          <div ref={viewerRef} className="w-full h-full epub-container max-w-5xl mx-auto" />
+        {/* Kontainer Rendition EPUB dengan Gulir Vertikal Halus */}
+        <div className="flex-1 w-full h-full relative flex items-center justify-center overflow-hidden p-1 sm:p-3 md:p-5">
+          <div
+            className={`w-full h-full relative transition-all duration-300 rounded-2xl sm:rounded-3xl overflow-hidden ${
+              readingMode === 'scrolled'
+                ? 'max-w-4xl mx-auto shadow-xl ring-1 ring-black/5 dark:ring-white/10'
+                : pageSpread === 'none'
+                ? 'max-w-3xl mx-auto shadow-xl ring-1 ring-slate-200/80 dark:ring-zinc-800'
+                : 'max-w-5xl mx-auto shadow-xl ring-1 ring-slate-200/80 dark:ring-zinc-800'
+            } ${
+              theme === 'sepia'
+                ? 'bg-[#fcf8f0]'
+                : theme === 'dark'
+                ? 'bg-zinc-900'
+                : 'bg-white'
+            }`}
+          >
+            {/* Kontainer Rendition Buku */}
+            <div
+              ref={viewerRef}
+              className={`w-full h-full epub-container ${
+                readingMode === 'scrolled'
+                  ? 'is-scrolled overflow-y-auto'
+                  : `is-paginated epub-slide-transition ${slideAnimationClass}`
+              }`}
+            />
+          </div>
         </div>
 
-        {/* Tombol Navigasi Halaman Kanan */}
-        <button
-          onClick={() => renditionInstance.current?.next()}
-          className="absolute right-1.5 sm:right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-2.5 md:p-3 bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-md backdrop-blur transition hover:scale-105 active:scale-95 opacity-50 sm:opacity-80 hover:opacity-100"
-          title="Halaman Selanjutnya"
-        >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
+        {/* Tombol Navigasi Halaman Kanan (Mode Lembaran Buku) */}
+        {readingMode === 'paginated' && (
+          <button
+            onClick={handleNextPage}
+            className="absolute right-1.5 sm:right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-2.5 md:p-3 bg-white/80 dark:bg-zinc-800/80 hover:bg-white dark:hover:bg-zinc-800 text-slate-800 dark:text-zinc-100 rounded-full shadow-lg backdrop-blur transition hover:scale-110 active:scale-95 opacity-70 hover:opacity-100 border border-slate-200/50 dark:border-zinc-700/50"
+            title="Halaman Selanjutnya (→)"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+        )}
+
+        {/* Kontrol Navigasi Gulir Vertikal Cepat (saat Mode Gulir aktif) */}
+        {readingMode === 'scrolled' && (
+          <div className="absolute right-3 sm:right-6 bottom-6 z-30 flex flex-col gap-2">
+            <button
+              onClick={() => {
+                if (viewerRef.current) {
+                  viewerRef.current.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
+                }
+              }}
+              className="p-2.5 rounded-full bg-white/90 dark:bg-zinc-800/90 text-slate-700 dark:text-zinc-200 shadow-xl border border-slate-200/80 dark:border-zinc-700 backdrop-blur hover:scale-105 active:scale-95 transition cursor-pointer"
+              title="Gulir ke Atas (Page Up)"
+            >
+              <ChevronUp className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => {
+                if (viewerRef.current) {
+                  viewerRef.current.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
+                }
+              }}
+              className="p-2.5 rounded-full bg-white/90 dark:bg-zinc-800/90 text-slate-700 dark:text-zinc-200 shadow-xl border border-slate-200/80 dark:border-zinc-700 backdrop-blur hover:scale-105 active:scale-95 transition cursor-pointer"
+              title="Gulir ke Bawah (Page Down)"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
         {/* Sidebar Drawer Anotasi */}
         {isSidebarOpen && (

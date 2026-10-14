@@ -27,8 +27,16 @@ export const supabase = createClient(
  * @param {number} expiresInSeconds - Masa kedaluwarsa URL (default 3600 detik / 1 jam)
  */
 export async function getSignedBookUrl(filePath, expiresInSeconds = 3600) {
-  // Jika file adalah blob/data URL atau direct HTTP URL (misal sample EPUB)
-  if (filePath.startsWith('blob:') || filePath.startsWith('data:') || filePath.startsWith('http://') || (filePath.startsWith('https://') && !filePath.includes('supabase.co/storage'))) {
+  // Jika file adalah path statis lokal (misal /books/...) atau blob/data URL atau direct HTTP URL
+  if (
+    !filePath ||
+    filePath.startsWith('/') ||
+    filePath.startsWith('./') ||
+    filePath.startsWith('blob:') ||
+    filePath.startsWith('data:') ||
+    filePath.startsWith('http://') ||
+    (filePath.startsWith('https://') && !filePath.includes('supabase.co/storage'))
+  ) {
     return filePath;
   }
 
