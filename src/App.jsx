@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   BookOpen, Search, UploadCloud, Database, ShieldCheck, UserCheck, 
   Trash2, Play, Info, Sparkles, CheckCircle2, Copy, 
-  ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked
+  ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils
 } from 'lucide-react';
 import { supabase, isSupabaseConfigured, isValidUUID } from './lib/supabase';
 import { deleteBookFromIndexedDB } from './lib/bookStorage';
