@@ -10,6 +10,8 @@ import {
   BookOpen, Scroll, Volume2, VolumeX, ChevronDown, ChevronUp,
   Columns2, FileText, AlignJustify
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 // Patch window.addEventListener agar saat epub.js mendaftarkan 'unload', dialihkan secara aman ke 'pagehide'
 // Ini mencegah peringatan browser Chrome: "[Violation] Permissions policy violation: unload is not allowed in this document"
@@ -438,7 +440,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   // 2. Fetch data anotasi dari Supabase (atau LocalStorage jika Demo Mode)
   const loadAnnotations = useCallback(async () => {
     try {
-      if (!isSupabaseConfigured() || !isValidUUID(userId)) {
+      if (!isSupabaseConfigured() || !isValidUUID(userId) || !isValidUUID(book.id)) {
         const localAnnos = JSON.parse(localStorage.getItem(`annos_${book.id}_${userId || 'guest'}`) || '[]');
         setAnnotations(localAnnos);
         if (renditionInstance.current) {
@@ -964,7 +966,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         const pctVal = Number((percentage * 100).toFixed(2));
         setProgressPercent(pctVal);
 
-        if (isSupabaseConfigured() && isValidUUID(userId)) {
+        if (isSupabaseConfigured() && isValidUUID(userId) && isValidUUID(book.id)) {
           await supabase.from('reading_progress').upsert({
             book_id: book.id,
             user_id: userId,
@@ -1084,7 +1086,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
         // Ambil posisi baca terakhir
         let lastCfi = null;
-        if (isSupabaseConfigured() && isValidUUID(userId)) {
+        if (isSupabaseConfigured() && isValidUUID(userId) && isValidUUID(book.id)) {
           const { data: progress } = await supabase
             .from('reading_progress')
             .select('last_read_cfi, percentage')
@@ -1355,7 +1357,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     // Render ke viewer seketika (menggantikan versi lama)
     renderAnnotationItem(newAnno);
 
-    if (isSupabaseConfigured() && isValidUUID(userId)) {
+    if (isSupabaseConfigured() && isValidUUID(userId) && isValidUUID(book.id)) {
       const { data: inserted } = await supabase.from('annotations').insert({
         book_id: book.id,
         user_id: userId,
@@ -1437,51 +1439,57 @@ export default function CloudEpubReader({ book, userId, onBack }) {
       {/* Header Pengaturan & Navigasi */}
       <header className="h-16 px-3 sm:px-6 border-b border-current/10 flex items-center justify-between z-20 backdrop-blur-md shrink-0">
         <div className="flex items-center gap-2 sm:gap-3">
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={onBack}
-            className="px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 transition flex items-center gap-1.5"
+            className="h-8 px-2.5 sm:px-3 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 transition flex items-center gap-1.5"
             title="Kembali ke Perpustakaan"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Katalog</span>
-          </button>
+          </Button>
 
           {/* Tombol Daftar Isi */}
-          <button
+          <Button
+            variant={isTocOpen ? 'default' : 'ghost'}
+            size="sm"
             onClick={() => {
               setIsTocOpen(prev => !prev);
               setIsSidebarOpen(false);
             }}
-            className={`px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 ${
-              isTocOpen ? 'bg-amber-600 text-white' : 'bg-black/5 hover:bg-black/10'
+            className={`h-8 px-2.5 sm:px-3 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 ${
+              isTocOpen ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm' : 'bg-black/5 hover:bg-black/10'
             }`}
             title="Daftar Isi Bab & Navigasi"
           >
             <List className="w-3.5 h-3.5" />
             <span>Daftar Isi</span>
-          </button>
+          </Button>
 
           <div className="max-w-[130px] sm:max-w-xs md:max-w-md">
             <div className="flex items-center gap-1.5 min-w-0">
               <h2 className="font-bold text-xs sm:text-sm leading-tight truncate">{book.title}</h2>
               {isFKKP && (
-                <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                <Badge variant="outline" className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
                   FKKP • Gulir
-                </span>
+                </Badge>
               )}
             </div>
             <div className="flex items-center gap-2">
               <p className="text-[11px] opacity-70 truncate hidden sm:block">{book.author}</p>
               {progressPercent > 0 && (
                 <div className="relative">
-                  <button
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() => setIsProgressPopoverOpen(prev => !prev)}
-                    className="text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 transition flex items-center gap-1 cursor-pointer"
+                    className="h-6 text-[10px] font-semibold px-2 py-0.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 transition flex items-center gap-1 cursor-pointer"
                     title="Buka pengatur posisi halaman"
                   >
                     <Sliders className="w-2.5 h-2.5" />
                     <span>{progressPercent}%</span>
-                  </button>
+                  </Button>
 
                   {/* Popover Slider Lompat Halaman dari Header (Tidak menghalangi teks bacaan) */}
                   {isProgressPopoverOpen && (

@@ -1,5 +1,17 @@
 import React, { useState, useMemo } from 'react';
-import { X, BookOpen, Sparkles, ChevronRight, Search } from 'lucide-react';
+import { BookOpen, Sparkles, ChevronRight, Search } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 
 const ALL_30_KARAKTER = [
   { id: 1, num: 1, title: 'Benar', desc: 'Kebenaran, integritas, dan keadilan di hadapan Allah dan manusia.', tag: 'Fondasi Karakter' },
@@ -48,131 +60,110 @@ export default function KarakterSeriesModal({ isOpen, onClose, onSelectSeries })
     );
   }, [search]);
 
-  if (!isOpen) return null;
-
   return (
-    <div 
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-in fade-in duration-200"
-      onClick={onClose}
-    >
-      <div 
-        className="bg-white rounded-3xl max-w-5xl w-full p-5 sm:p-7 shadow-2xl border border-slate-100 my-6 space-y-4 animate-in zoom-in-95 duration-200 flex flex-col max-h-[92vh]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header Modal */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-xs">
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-900 dark:text-slate-100 shadow-2xl">
+        <DialogHeader className="text-left space-y-1">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-lg sm:text-xl">
+              <DialogTitle className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100">
                 Buku Karakter: 30 Seri Lengkap
-              </h3>
-              <p className="text-xs text-slate-500">
-                Karya Witness Lee • 30 Buku Pembentukan Karakter Manusia yang Berguna bagi Tuhan (Terpisah 1 per 1)
-              </p>
+              </DialogTitle>
+              <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+                Karya Witness Lee • 30 Buku Pembentukan Karakter Manusia yang Berguna bagi Tuhan
+              </DialogDescription>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-slate-100 rounded-xl text-slate-400 hover:text-slate-600 transition"
-            title="Tutup"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+        </DialogHeader>
 
         {/* Search Bar */}
-        <div className="relative">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
+        <div className="relative my-1">
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+          <Input
             type="text"
             placeholder="Cari karakter (misal: Benar, Rajin, Murni, Sabar, Bobot)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+            className="pl-9 bg-white dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
           />
-          {search && (
-            <button
-              onClick={() => setSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
-            >
-              Hapus
-            </button>
-          )}
         </div>
 
         {/* Content Area: Grid 30 Buku Terpisah */}
-        <div className="overflow-y-auto pr-1 space-y-3 flex-1">
-          <div className="flex items-center justify-between text-xs text-slate-500">
+        <div className="overflow-y-auto pr-1 space-y-3 flex-1 min-h-[280px]">
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>Daftar 30 Seri Buku ({filteredTraits.length} buku tersedia):</span>
-            <span className="text-[11px] text-blue-600 font-medium">Klik seri untuk mulai membaca</span>
+            <span className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold">Klik seri untuk mulai membaca</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredTraits.map((seri) => (
-              <div
+              <Card
                 key={seri.id}
                 onClick={() => onSelectSeries({ id: seri.id, title: seri.title, summary: seri.desc })}
-                className="group relative p-3.5 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all duration-200 cursor-pointer bg-slate-50/40 hover:bg-white flex flex-col justify-between"
+                className="group relative p-4 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-lg transition-all cursor-pointer bg-slate-50/80 hover:bg-blue-50/40 dark:bg-slate-800/80 dark:hover:bg-slate-800 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full text-blue-700 bg-blue-100 border border-blue-200 shadow-2xs font-mono">
+                    <Badge variant="outline" className="text-[11px] font-bold text-blue-700 dark:text-blue-300 bg-blue-500/10 border-blue-500/25 font-mono">
                       Seri {seri.num}
-                    </span>
-                    <span className="text-[10px] font-medium text-slate-400 bg-white border border-slate-200 px-2 py-0.5 rounded-md">
+                    </Badge>
+                    <span className="text-[10px] font-medium text-slate-600 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-700 px-2 py-0.5 rounded-md">
                       {seri.tag}
                     </span>
                   </div>
 
-                  <h4 className="font-extrabold text-slate-900 text-base group-hover:text-blue-700 transition flex items-center gap-1.5">
+                  <h4 className="font-extrabold text-slate-900 dark:text-slate-100 text-sm group-hover:text-blue-700 dark:group-hover:text-blue-400 transition flex items-center gap-1.5">
                     <span>{seri.num}. {seri.title}</span>
                   </h4>
 
-                  <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1.5 line-clamp-2 leading-relaxed">
                     {seri.desc}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="text-[11px] text-slate-400 group-hover:text-slate-600 transition">
+                <div className="mt-3.5 pt-2.5 border-t border-slate-200/80 dark:border-slate-700/80 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                     Buku Seri {seri.num}
                   </span>
-                  <span className="text-blue-600 font-bold flex items-center group-hover:translate-x-0.5 transition">
+                  <span className="text-blue-600 dark:text-blue-400 font-bold flex items-center group-hover:translate-x-0.5 transition">
                     Baca <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
                   </span>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
 
           {filteredTraits.length === 0 && (
-            <div className="py-12 text-center text-xs text-slate-400">
+            <div className="py-12 text-center text-xs text-muted-foreground">
               Karakter dengan kata kunci "{search}" tidak ditemukan.
             </div>
           )}
         </div>
 
         {/* Footer: Opsi Buka Semua Sekaligus */}
-        <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <button
+        <DialogFooter className="pt-3 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => onSelectSeries({ id: 'all', title: 'Volume Lengkap', summary: '30 Karakter Lengkap' })}
-            className="w-full sm:w-auto px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+            className="w-full sm:w-auto text-xs font-semibold gap-1.5"
           >
-            <BookOpen className="w-4 h-4 text-slate-500" />
+            <BookOpen className="w-4 h-4 text-muted-foreground" />
             Baca Semua 30 Karakter Sekaligus (Volume Lengkap)
-          </button>
+          </Button>
 
-          <button
+          <Button
+            size="sm"
             onClick={onClose}
-            className="w-full sm:w-auto px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold shadow-xs transition"
+            className="w-full sm:w-auto text-xs font-semibold"
           >
             Tutup
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

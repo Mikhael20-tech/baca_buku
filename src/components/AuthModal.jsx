@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { LogIn, UserPlus, X, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { LogIn, UserPlus, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
-  const [isRegister, setIsRegister] = useState(false);
+  const [tab, setTab] = useState('login'); // 'login' | 'register'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-
-  if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,15 +28,14 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
     setIsLoading(true);
 
     try {
-      if (isRegister) {
-        // Daftar akun baru
+      if (tab === 'register') {
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password: password,
           options: {
             data: {
               full_name: fullName.trim() || email.split('@')[0],
-              role: 'admin' // beri hak akses admin untuk akun pertama
+              role: 'admin'
             }
           }
         });
@@ -45,7 +52,6 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           }, 1200);
         }
       } else {
-        // Masuk akun yang sudah ada
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email.trim(),
           password: password
@@ -71,7 +77,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
   };
 
   const fillDefaultAdmin = () => {
-    setIsRegister(false);
+    setTab('login');
     setEmail('admin@baca.id');
     setPassword('AdminPassword123!');
     setErrorMsg('');
@@ -90,159 +96,129 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-              {isRegister ? <UserPlus className="w-4 h-4" /> : <LogIn className="w-4 h-4" />}
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-md rounded-3xl p-6 border-border shadow-2xl">
+        <DialogHeader className="text-left space-y-1">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+              {tab === 'register' ? <UserPlus className="w-5 h-5" /> : <LogIn className="w-5 h-5" />}
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">
-                {isRegister ? 'Daftar Akun Baru' : 'Masuk ke Portal Baca'}
-              </h3>
-              <p className="text-[10px] text-slate-500">Kelola buku & sinkronisasi cloud</p>
+              <DialogTitle className="text-base font-bold">Portal Akun &amp; Admin</DialogTitle>
+              <DialogDescription className="text-xs">
+                Kelola buku, highlight, dan sinkronisasi cloud
+              </DialogDescription>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-1.5 hover:bg-slate-100 rounded-xl text-slate-400 hover:text-slate-600"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+        </DialogHeader>
 
-        {/* Kotak Akun Admin Bawaan */}
-        <div className="p-3 bg-amber-50/80 rounded-2xl border border-amber-200/80 text-xs space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="font-bold text-amber-900 text-[11px]">Akun Admin Disediakan:</span>
-            <button
-              type="button"
-              onClick={fillDefaultAdmin}
-              className="text-[10px] font-bold text-amber-700 hover:text-amber-900 bg-amber-100 px-2 py-0.5 rounded-lg transition"
-            >
-              Isi Otomatis
-            </button>
-          </div>
-          <p className="text-[11px] text-amber-800 font-mono">
-            Email: <b>admin@baca.id</b><br />
-            Pass: <b>AdminPassword123!</b>
-          </p>
-        </div>
+        {/* Tab Switcher */}
+        <Tabs value={tab} onValueChange={(val) => { setTab(val); setErrorMsg(''); setSuccessMsg(''); }} className="w-full">
+          <TabsList className="grid grid-cols-2 w-full mb-3 rounded-xl bg-muted p-1">
+            <TabsTrigger value="login" className="rounded-lg text-xs font-semibold">Masuk Akun</TabsTrigger>
+            <TabsTrigger value="register" className="rounded-lg text-xs font-semibold">Daftar Baru</TabsTrigger>
+          </TabsList>
 
-        {errorMsg && (
-          <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs space-y-2">
-            <div className="flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-              <div className="flex-1">{errorMsg}</div>
-            </div>
-            {errorMsg.includes('Email not confirmed') && (
-              <button
+          {/* Kotak Akun Admin Bawaan */}
+          <div className="p-3 bg-amber-500/10 rounded-2xl border border-amber-500/20 text-xs space-y-1.5 mb-3">
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-amber-800 dark:text-amber-200 text-[11px]">Akun Admin Disediakan:</span>
+              <Button
                 type="button"
-                onClick={handleQuickAdminLogin}
-                className="w-full py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-xs shadow-sm transition"
+                variant="outline"
+                size="sm"
+                onClick={fillDefaultAdmin}
+                className="h-6 text-[10px] font-bold text-amber-700 dark:text-amber-300 border-amber-500/30 hover:bg-amber-500/20"
               >
-                Masuk Langsung Sebagai Admin Sekarang
-              </button>
-            )}
+                Isi Otomatis
+              </Button>
+            </div>
+            <p className="text-[11px] text-amber-900/80 dark:text-amber-200/80 font-mono">
+              Email: <b>admin@baca.id</b><br />
+              Pass: <b>AdminPassword123!</b>
+            </p>
           </div>
-        )}
 
-        {successMsg && (
-          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-            <div>{successMsg}</div>
-          </div>
-        )}
+          {errorMsg && (
+            <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl text-xs space-y-2 mb-3">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                <div className="flex-1">{errorMsg}</div>
+              </div>
+              {errorMsg.includes('Email not confirmed') && (
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={handleQuickAdminLogin}
+                  className="w-full text-xs font-bold"
+                >
+                  Masuk Langsung Sebagai Admin Sekarang
+                </Button>
+              )}
+            </div>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-3 text-xs">
-          {isRegister && (
-            <div>
-              <label className="font-semibold text-slate-700 block mb-1">Nama Lengkap</label>
-              <input
-                type="text"
+          {successMsg && (
+            <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs flex items-center gap-2 mb-3">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+              <div>{successMsg}</div>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <TabsContent value="register" className="mt-0 space-y-3">
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-foreground">Nama Lengkap</label>
+                <Input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={e => setFullName(e.target.value)}
+                  placeholder="Contoh: Admin Perpustakaan"
+                />
+              </div>
+            </TabsContent>
+
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-foreground">Email</label>
+              <Input
+                type="email"
                 required
-                value={fullName}
-                onChange={e => setFullName(e.target.value)}
-                placeholder="Contoh: Admin Perpustakaan"
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="nama@email.com"
               />
             </div>
-          )}
 
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1">Email</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="nama@email.com"
-              className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
-            />
-          </div>
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-foreground">Password</label>
+              <Input
+                type="password"
+                required
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Minimal 6 karakter"
+              />
+            </div>
 
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1">Password</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="Minimal 6 karakter"
-              className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-2.5 mt-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold shadow-md flex items-center justify-center gap-2 transition disabled:opacity-50"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" /> Memproses...
-              </>
-            ) : isRegister ? (
-              'Daftar Akun Baru'
-            ) : (
-              'Masuk Sekarang'
-            )}
-          </button>
-        </form>
-
-        <div className="pt-2 text-center text-[11px] text-slate-500 border-t border-slate-100">
-          {isRegister ? (
-            <p>
-              Sudah punya akun?{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsRegister(false);
-                  setErrorMsg('');
-                }}
-                className="font-bold text-amber-700 hover:underline"
-              >
-                Masuk di sini
-              </button>
-            </p>
-          ) : (
-            <p>
-              Belum punya akun?{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsRegister(true);
-                  setErrorMsg('');
-                }}
-                className="font-bold text-amber-700 hover:underline"
-              >
-                Daftar sekarang
-              </button>
-            </p>
-          )}
-        </div>
-      </div>
-    </div>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full mt-4 h-10 font-bold text-xs"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-1.5" /> Memproses...
+                </>
+              ) : tab === 'register' ? (
+                'Daftar Akun Baru'
+              ) : (
+                'Masuk Sekarang'
+              )}
+            </Button>
+          </form>
+        </Tabs>
+      </DialogContent>
+    </Dialog>
   );
 }

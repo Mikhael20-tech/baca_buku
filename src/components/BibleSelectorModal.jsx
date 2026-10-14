@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { X, BookOpen, Search, Bookmark, ChevronRight, Sparkles } from 'lucide-react';
+import { BookOpen, Search, Bookmark, ChevronRight, Sparkles } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 
 const OT_BOOKS = [
   "Kejadian", "Keluaran", "Imamat", "Bilangan", "Ulangan",
@@ -25,140 +37,116 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
   const [activeTab, setActiveTab] = useState('PB'); // 'PB' | 'PL'
   const [search, setSearch] = useState('');
 
-  if (!isOpen) return null;
-
   const currentList = activeTab === 'PB' ? NT_BOOKS : OT_BOOKS;
   const filteredList = currentList.filter(b => b.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div 
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-in fade-in duration-200"
-      onClick={onClose}
-    >
-      <div 
-        className="bg-white rounded-3xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl border border-slate-100 my-6 space-y-5 animate-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header Modal */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shadow-xs">
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-900 dark:text-slate-100 shadow-2xl">
+        <DialogHeader className="text-left space-y-1">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-lg sm:text-xl">
+              <DialogTitle className="text-base sm:text-lg font-bold">
                 Alkitab Versi Pemulihan (66 Kitab)
-              </h3>
-              <p className="text-xs text-slate-500">
+              </DialogTitle>
+              <DialogDescription className="text-xs">
                 Lengkap Perjanjian Lama &amp; Perjanjian Baru • Dari Kitab Kejadian sampai Kitab Wahyu
-              </p>
+              </DialogDescription>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-slate-100 rounded-xl text-slate-400 hover:text-slate-600 transition"
-            title="Tutup"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+        </DialogHeader>
 
-        {/* Tab Switcher & Search Bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          <div className="flex p-1 bg-slate-100 rounded-2xl w-full sm:w-auto">
-            <button
-              onClick={() => setActiveTab('PB')}
-              className={`flex-1 sm:flex-none px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 ${
-                activeTab === 'PB'
-                  ? 'bg-white text-amber-800 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex-1 flex flex-col min-h-0">
+          {/* Tab Switcher & Search Bar */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-3">
+            <TabsList className="grid grid-cols-2 w-full sm:w-auto h-10 p-1">
+              <TabsTrigger value="PB" className="gap-1.5 text-xs font-semibold px-4">
+                <span>Perjanjian Baru</span>
+                <Badge variant="amber" className="text-[10px] px-1.5 py-0">27</Badge>
+              </TabsTrigger>
+              <TabsTrigger value="PL" className="gap-1.5 text-xs font-semibold px-4">
+                <span>Perjanjian Lama</span>
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0">39</Badge>
+              </TabsTrigger>
+            </TabsList>
+
+            <div className="relative w-full sm:w-64">
+              <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+              <Input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Cari nama kitab..."
+                className="pl-9 h-10"
+              />
+            </div>
+          </div>
+
+          {/* Action Buka Seluruh Bagian */}
+          <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-between text-xs mb-3">
+            <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
+              <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+              <span className="font-semibold truncate">
+                Buka seluruh volume {activeTab === 'PB' ? 'Perjanjian Baru (Matius – Wahyu)' : 'Perjanjian Lama (Kejadian – Maleakhi)'}
+              </span>
+            </div>
+            <Button
+              size="sm"
+              onClick={() => onSelectBibleBook(activeTab === 'PB' ? 'PB_FULL' : 'PL_FULL')}
+              className="rounded-xl text-xs font-bold gap-1 shrink-0"
             >
-              <span>Perjanjian Baru</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold">27 Kitab</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('PL')}
-              className={`flex-1 sm:flex-none px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 ${
-                activeTab === 'PL'
-                  ? 'bg-white text-blue-800 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <span>Perjanjian Lama</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-800 font-semibold">39 Kitab</span>
-            </button>
+              Baca Volume Ini <ChevronRight className="w-3.5 h-3.5" />
+            </Button>
           </div>
 
-          <div className="relative w-full sm:w-64">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Cari nama kitab..."
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
-            />
+          {/* Grid Daftar Kitab */}
+          <div className="overflow-y-auto pr-1 flex-1 min-h-[260px]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+              {filteredList.map((bookName, idx) => (
+                <button
+                  key={bookName}
+                  onClick={() => onSelectBibleBook(activeTab === 'PB' ? 'PB_BOOK' : 'PL_BOOK', bookName)}
+                  className="p-3 rounded-2xl border border-border/70 bg-card hover:bg-amber-500/10 hover:border-amber-500/50 hover:shadow-xs transition text-left flex items-center justify-between group cursor-pointer"
+                >
+                  <div>
+                    <span className="text-[10px] text-muted-foreground font-mono block">
+                      {idx + 1}.
+                    </span>
+                    <h5 className="font-bold text-xs text-foreground group-hover:text-amber-600 transition">
+                      {bookName}
+                    </h5>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-amber-600 group-hover:translate-x-0.5 transition" />
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-
-        {/* Action Buka Seluruh Bagian */}
-        <div className="p-3.5 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 rounded-2xl flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2.5 text-amber-900">
-            <Sparkles className="w-4 h-4 text-amber-600" />
-            <span className="font-semibold">
-              Buka seluruh volume {activeTab === 'PB' ? 'Perjanjian Baru (Matius – Wahyu)' : 'Perjanjian Lama (Kejadian – Maleakhi)'}
-            </span>
-          </div>
-          <button
-            onClick={() => onSelectBibleBook(activeTab === 'PB' ? 'PB_FULL' : 'PL_FULL')}
-            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold text-xs shadow-xs transition flex items-center gap-1"
-          >
-            Baca Volume Ini <ChevronRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* Grid Daftar Kitab */}
-        <div className="overflow-y-auto pr-1 flex-1">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
-            {filteredList.map((bookName, idx) => (
-              <button
-                key={bookName}
-                onClick={() => onSelectBibleBook(activeTab === 'PB' ? 'PB_BOOK' : 'PL_BOOK', bookName)}
-                className="p-3 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 hover:shadow-xs transition text-left flex items-center justify-between group"
-              >
-                <div>
-                  <span className="text-[10px] text-slate-400 font-mono block">
-                    {idx + 1}.
-                  </span>
-                  <h5 className="font-bold text-xs text-slate-800 group-hover:text-amber-700 transition">
-                    {bookName}
-                  </h5>
-                </div>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-600 group-hover:translate-x-0.5 transition" />
-              </button>
-            ))}
-          </div>
-        </div>
+        </Tabs>
 
         {/* Footer */}
-        <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <button
+        <DialogFooter className="pt-3 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => onSelectBibleBook('MATIUS_CATATAN')}
-            className="w-full sm:w-auto px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+            className="w-full sm:w-auto text-xs font-semibold gap-1.5"
           >
             <Bookmark className="w-4 h-4 text-amber-600" />
-            Injil Matius: Khusus dengan Catatan Kaki Interaktif Lengkap
-          </button>
+            Injil Matius: Khusus Catatan Kaki Interaktif Lengkap
+          </Button>
 
-          <button
+          <Button
+            size="sm"
             onClick={onClose}
-            className="w-full sm:w-auto px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold shadow-xs transition"
+            className="w-full sm:w-auto text-xs font-semibold"
           >
             Tutup
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

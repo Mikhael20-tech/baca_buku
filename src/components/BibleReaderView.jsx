@@ -5,6 +5,9 @@ import {
   Check, Share2, ZoomIn, ZoomOut, Compass, List, X,
   MessageCircle, ChevronDown, ChevronUp
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 
 const FONTS = [
   { id: 'Merriweather', name: 'Merriweather', font: "'Merriweather', Georgia, serif" },
@@ -342,42 +345,50 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         
         {/* Kiri: Tombol Beranda & Selector Kitab */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
-          <button
+          <Button
+            variant="outline"
+            size="sm"
             onClick={onBackToHome}
-            className={`shrink-0 px-2.5 py-2 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1.5 text-xs font-semibold shadow-xs`}
+            className={`shrink-0 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2.5 text-xs font-semibold`}
             title="Kembali ke Beranda"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 mr-1 sm:mr-1.5" />
             <span className="hidden sm:inline">Beranda</span>
-          </button>
+          </Button>
 
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={onOpenLibrary}
-            className={`shrink-0 px-2.5 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-amber-700 transition hidden lg:flex items-center gap-1.5 border border-transparent hover:border-slate-300`}
+            className="shrink-0 rounded-xl text-xs font-semibold text-slate-500 hover:text-amber-700 transition hidden lg:flex items-center gap-1.5 h-8 px-2.5"
           >
             <BookOpen className="w-4 h-4" />
             <span>Katalog Buku</span>
-          </button>
+          </Button>
 
           <div className="h-5 w-px bg-slate-300 dark:bg-zinc-700 mx-0.5 hidden sm:block shrink-0" />
 
           {/* Quick Picker: Kitab & Pasal */}
           <div className="flex items-center gap-1.5 min-w-0">
-            <button
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setIsBookPickerOpen(true)}
-              className={`px-2.5 py-2 rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition flex items-center gap-1 shadow-xs min-w-0`}
+              className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition h-8 px-2.5 min-w-0`}
             >
               <span className="truncate max-w-[100px] sm:max-w-[160px]">📖 {currentBookInfo.name}</span>
-              <Compass className="w-3.5 h-3.5 opacity-70 shrink-0" />
-            </button>
+              <Compass className="w-3.5 h-3.5 ml-1 opacity-70 shrink-0" />
+            </Button>
 
-            <button
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setIsChapterPickerOpen(true)}
-              className={`shrink-0 px-2.5 py-2 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition flex items-center gap-1 shadow-xs`}
+              className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2.5`}
             >
               <span>Ps {selectedChapter}</span>
-              <List className="w-3.5 h-3.5 opacity-70" />
-            </button>
+              <List className="w-3.5 h-3.5 ml-1 opacity-70" />
+            </Button>
           </div>
         </div>
 
@@ -385,33 +396,39 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Quick Prev & Next Chapter Buttons */}
           <div className="flex items-center border rounded-xl overflow-hidden shadow-xs border-slate-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-800/60">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={handlePrevChapter}
-              className={`p-2 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
+              className={`h-8 w-8 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
               title="Pasal Sebelumnya"
             >
               <ChevronLeft className="w-4 h-4" />
-            </button>
+            </Button>
             <span className={`px-1.5 text-[10px] font-bold font-mono opacity-80 ${themeStyles.text} hidden sm:inline`}>
               {selectedChapter}/{totalChapters}
             </span>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={handleNextChapter}
-              className={`p-2 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
+              className={`h-8 w-8 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
               title="Pasal Berikutnya"
             >
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </Button>
           </div>
 
           {/* Tampilan / Setting Font & Tema */}
-          <button
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-            className={`shrink-0 p-2 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
+            className={`shrink-0 h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
             title="Pengaturan Tampilan"
           >
             <Settings className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </header>
 

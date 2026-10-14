@@ -2,7 +2,19 @@ import React, { useState } from 'react';
 import ePub from 'epubjs';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { saveBookToIndexedDB } from '../lib/bookStorage';
-import { Upload, X, Loader2, Book, AlertCircle } from 'lucide-react';
+import { Upload, Loader2, Book, AlertCircle } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
 
 export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onOpenAuthModal }) {
   const [file, setFile] = useState(null);
@@ -14,8 +26,6 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
   const [isUploading, setIsUploading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [coverBlobUrl, setCoverBlobUrl] = useState(null);
-
-  if (!isOpen) return null;
 
   // Baca metadata otomatis saat file dipilih
   const handleFileSelect = async (e) => {
@@ -155,72 +165,72 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 my-8">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center">
-              <Book className="w-5 h-5 text-amber-600" />
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 border-border shadow-2xl">
+        <DialogHeader className="text-left space-y-1">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+              <Book className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-base">Tambah Koleksi Buku EPUB</h3>
-              <p className="text-[11px] text-slate-500">Unggah berkas .epub ke koleksi pembaca</p>
+              <DialogTitle className="text-base font-bold">Tambah Koleksi Buku EPUB</DialogTitle>
+              <DialogDescription className="text-xs">
+                Unggah berkas .epub ke koleksi pembaca cloud atau memori browser lokal
+              </DialogDescription>
             </div>
           </div>
-          <button 
-            onClick={onClose} 
-            className="p-1.5 hover:bg-slate-100 rounded-xl text-slate-400 hover:text-slate-600 transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+        </DialogHeader>
 
         {errorMsg === 'AUTH_REQUIRED' ? (
-          <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-xs space-y-3">
-            <div className="flex items-start gap-2 text-amber-900">
+          <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-xs space-y-3">
+            <div className="flex items-start gap-2 text-amber-900 dark:text-amber-100">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0 text-amber-600" />
               <div>
                 <p className="font-bold">Belum Terautentikasi di Akun Supabase</p>
-                <p className="text-[11px] text-amber-700 mt-0.5">
+                <p className="text-[11px] opacity-80 mt-0.5">
                   Untuk menyimpan berkas langsung ke cloud storage Supabase, Anda perlu masuk ke akun Supabase. Anda juga dapat memilih <b>Simpan di Browser Lokal</b> agar buku bisa langsung dibaca detik ini juga!
                 </p>
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-end gap-2 pt-1">
               {onOpenAuthModal && (
-                <button
+                <Button
                   type="button"
+                  size="sm"
+                  variant="default"
                   onClick={() => {
                     onClose();
                     onOpenAuthModal();
                   }}
-                  className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold text-xs shadow-sm transition"
+                  className="rounded-xl font-semibold text-xs"
                 >
                   Login Akun Admin Sekarang
-                </button>
+                </Button>
               )}
-              <button
+              <Button
                 type="button"
+                size="sm"
+                variant="secondary"
                 onClick={saveBookLocally}
-                className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-semibold text-xs shadow-sm transition"
+                className="rounded-xl font-semibold text-xs"
               >
                 Simpan di Browser Lokal (Baca Sekarang)
-              </button>
+              </Button>
             </div>
           </div>
         ) : errorMsg ? (
-          <div className="mt-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-2xl text-xs flex items-start gap-2">
+          <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-2xl text-xs flex items-start gap-2">
             <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
             <div className="flex-1">{errorMsg}</div>
           </div>
         ) : null}
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4 text-xs">
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="font-semibold text-slate-700 block mb-1">
-              File Dokumen (.epub) <span className="text-red-500">*</span>
+            <label className="font-semibold text-foreground block mb-1">
+              File Dokumen (.epub) <span className="text-destructive">*</span>
             </label>
-            <div className="border-2 border-dashed border-slate-200 hover:border-amber-400 rounded-2xl p-4 transition text-center cursor-pointer relative bg-slate-50/50">
+            <div className="border-2 border-dashed border-border hover:border-amber-500/60 rounded-2xl p-4 transition text-center cursor-pointer relative bg-muted/30">
               <input
                 type="file"
                 accept=".epub"
@@ -231,11 +241,11 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
               <Upload className="w-7 h-7 mx-auto mb-2 text-amber-600" />
               {file ? (
                 <div className="space-y-1">
-                  <p className="font-semibold text-slate-800 text-xs">{file.name}</p>
-                  <p className="text-[10px] text-slate-500">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                  <p className="font-semibold text-foreground text-xs">{file.name}</p>
+                  <p className="text-[10px] text-muted-foreground">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
                 </div>
               ) : (
-                <p className="text-slate-500 text-xs">
+                <p className="text-muted-foreground text-xs">
                   Klik atau seret file <span className="font-semibold text-amber-600">.epub</span> ke sini
                 </p>
               )}
@@ -248,44 +258,41 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="font-semibold text-slate-700 block mb-1">
-                Judul Buku <span className="text-red-500">*</span>
+            <div className="space-y-1">
+              <label className="font-semibold text-foreground block">
+                Judul Buku <span className="text-destructive">*</span>
               </label>
-              <input
+              <Input
                 type="text"
                 required
-                placeholder="Contoh: Filosofi Teras"
+                placeholder="Contoh: Buku Karakter"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
-            <div>
-              <label className="font-semibold text-slate-700 block mb-1">
-                Penulis <span className="text-red-500">*</span>
+            <div className="space-y-1">
+              <label className="font-semibold text-foreground block">
+                Penulis <span className="text-destructive">*</span>
               </label>
-              <input
+              <Input
                 type="text"
                 required
-                placeholder="Contoh: Henry Manampiring"
+                placeholder="Contoh: Witness Lee"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
               />
             </div>
           </div>
 
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1">Kategori</label>
-            <input
+          <div className="space-y-1">
+            <label className="font-semibold text-foreground block">Kategori</label>
+            <Input
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
             />
             {/* Rekomendasi Kategori Cepat */}
-            <div className="flex flex-wrap gap-1.5 mt-2">
+            <div className="flex flex-wrap gap-1.5 pt-1.5">
               {[
                 'FKKP (Kebangunan Pagi)',
                 'Pembinaan Karakter',
@@ -293,71 +300,72 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
                 'Biografi & Teladan Hayat',
                 'Filsafat & Pengembangan Diri'
               ].map(cat => (
-                <button
-                  type="button"
+                <Badge
                   key={cat}
+                  variant={category === cat ? "default" : "outline"}
                   onClick={() => setCategory(cat)}
-                  className={`text-[11px] px-2.5 py-1 rounded-lg border transition font-medium ${
-                    category === cat 
-                      ? 'bg-amber-500 text-white border-amber-500 shadow-2xs font-bold' 
-                      : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200'
-                  }`}
+                  className="cursor-pointer text-[10px] px-2.5 py-0.5 rounded-lg"
                 >
                   {cat}
-                </button>
+                </Badge>
               ))}
             </div>
           </div>
 
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1">Sinopsis Singkat</label>
-            <textarea
+          <div className="space-y-1">
+            <label className="font-semibold text-foreground block">Sinopsis Singkat</label>
+            <Textarea
               rows={3}
               placeholder="Ringkasan atau gambaran isi buku..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 resize-none"
+              className="resize-none"
             />
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-100">
-            <button
+          <DialogFooter className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-border/50">
+            <Button
               type="button"
+              variant="secondary"
+              size="sm"
               onClick={saveBookLocally}
               disabled={isUploading || isParsing || !file}
-              className="px-3.5 py-2 font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition disabled:opacity-50 text-xs"
+              className="rounded-xl text-xs font-semibold"
               title="Simpan buku di memori browser lokal tanpa perlu login"
             >
               Simpan Lokal (Tanpa Login)
-            </button>
+            </Button>
 
             <div className="flex items-center gap-2">
-              <button
+              <Button
                 type="button"
+                variant="ghost"
+                size="sm"
                 onClick={onClose}
-                className="px-3.5 py-2 font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition text-xs"
+                className="rounded-xl text-xs"
               >
                 Batal
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
+                size="sm"
                 disabled={isUploading || isParsing || !file}
-                className="px-5 py-2 font-semibold bg-amber-600 hover:bg-amber-700 text-white rounded-xl shadow-md disabled:opacity-50 flex items-center gap-2 transition text-xs"
+                className="rounded-xl text-xs font-semibold gap-1.5"
               >
                 {isUploading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" /> Mengunggah...
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" /> Mengunggah...
                   </>
                 ) : (
                   <>
-                    <Upload className="w-4 h-4" /> Simpan ke Cloud
+                    <Upload className="w-3.5 h-3.5" /> Simpan ke Cloud
                   </>
                 )}
-              </button>
+              </Button>
             </div>
-          </div>
+          </DialogFooter>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
