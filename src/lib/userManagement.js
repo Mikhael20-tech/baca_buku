@@ -1,0 +1,123 @@
+// Data Pengguna & Langganan Perpustakaan Digital Baca
+export const INITIAL_USERS = [
+  {
+    id: 'user-budi-1',
+    full_name: 'Budi Pembaca',
+    email: 'baca@perpustakaan.cloud',
+    whatsapp: '0812-3456-7890',
+    distrik_lokal: 'Surabaya - Rungkut',
+    photo_url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+    plan_tier: 'premium', // 'standart' | 'premium' | 'ultimate'
+    status: 'active', // 'active' | 'suspended'
+    joined_date: '2026-01-10',
+    google_play_synced: true,
+    apple_books_synced: true
+  },
+  {
+    id: 'user-samuel-2',
+    full_name: 'Samuel Hartono',
+    email: 'samuel.h@gmail.com',
+    whatsapp: '0813-8822-1199',
+    distrik_lokal: 'Jakarta Pusat - Kemayoran',
+    photo_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    plan_tier: 'ultimate',
+    status: 'active',
+    joined_date: '2026-02-01',
+    google_play_synced: true,
+    apple_books_synced: false
+  },
+  {
+    id: 'user-deborah-3',
+    full_name: 'Deborah Anggraini',
+    email: 'deborah.anggraini@yahoo.com',
+    whatsapp: '0821-4455-6677',
+    distrik_lokal: 'Surabaya Barat - Darmo',
+    photo_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+    plan_tier: 'premium',
+    status: 'active',
+    joined_date: '2026-02-15',
+    google_play_synced: false,
+    apple_books_synced: true
+  },
+  {
+    id: 'user-lukas-4',
+    full_name: 'Lukas Pratama',
+    email: 'lukas.pratama@ugm.ac.id',
+    whatsapp: '0857-9911-3322',
+    distrik_lokal: 'Yogyakarta - Gejayan',
+    photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    plan_tier: 'standart',
+    status: 'active',
+    joined_date: '2026-03-01',
+    google_play_synced: false,
+    apple_books_synced: false
+  },
+  {
+    id: 'user-ruth-5',
+    full_name: 'Ruth Melinda',
+    email: 'ruth.melinda@outlook.com',
+    whatsapp: '0811-2233-4455',
+    distrik_lokal: 'Bandung - Dago',
+    photo_url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
+    plan_tier: 'ultimate',
+    status: 'active',
+    joined_date: '2026-03-12',
+    google_play_synced: true,
+    apple_books_synced: true
+  }
+];
+
+export function getStoredUsers() {
+  try {
+    const data = localStorage.getItem('baca_registered_users');
+    if (data) {
+      return JSON.parse(data);
+    }
+    localStorage.setItem('baca_registered_users', JSON.stringify(INITIAL_USERS));
+    return INITIAL_USERS;
+  } catch (e) {
+    return INITIAL_USERS;
+  }
+}
+
+export function saveStoredUsers(users) {
+  try {
+    localStorage.setItem('baca_registered_users', JSON.stringify(users));
+  } catch (e) {
+    console.error('Failed to save users', e);
+  }
+}
+
+export function addUser(user) {
+  const current = getStoredUsers();
+  const newUser = {
+    id: 'user-' + Date.now(),
+    full_name: user.full_name || 'Pembaca Baru',
+    email: user.email || 'user@baca.id',
+    whatsapp: user.whatsapp || '-',
+    distrik_lokal: user.distrik_lokal || 'Indonesia',
+    photo_url: user.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+    plan_tier: user.plan_tier || 'standart',
+    status: user.status || 'active',
+    joined_date: new Date().toISOString().split('T')[0],
+    google_play_synced: !!user.google_play_synced,
+    apple_books_synced: !!user.apple_books_synced
+  };
+  const updated = [newUser, ...current];
+  saveStoredUsers(updated);
+  return updated;
+}
+
+export function updateUser(id, updatedFields) {
+  const current = getStoredUsers();
+  const updated = current.map(u => u.id === id ? { ...u, ...updatedFields } : u);
+  saveStoredUsers(updated);
+  return updated;
+}
+
+export function deleteUser(id) {
+  const current = getStoredUsers();
+  const updated = current.filter(u => u.id !== id);
+  saveStoredUsers(updated);
+  return updated;
+}

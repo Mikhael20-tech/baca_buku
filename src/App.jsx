@@ -2,8 +2,17 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   BookOpen, Search, UploadCloud, Database, ShieldCheck, UserCheck, 
   Trash2, Play, Info, Sparkles, CheckCircle2, Copy, 
-  ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils
+  ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils,
+  User, Smartphone, ChevronDown, LogIn, Settings, Users
 } from 'lucide-react';
+import { 
+  DropdownMenu, 
+  DropdownMenuTrigger, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuLabel 
+} from '@/components/ui/dropdown-menu';
 import { supabase, isSupabaseConfigured, isValidUUID } from './lib/supabase';
 import { deleteBookFromIndexedDB } from './lib/bookStorage';
 import CloudEpubReader from './components/CloudEpubReader';
@@ -14,6 +23,16 @@ import KarakterSeriesModal from './components/KarakterSeriesModal';
 import PembinaanTopicsModal from './components/PembinaanTopicsModal';
 import BibleSelectorModal from './components/BibleSelectorModal';
 import BibleReaderView from './components/BibleReaderView';
+import UserDashboard from './components/UserDashboard';
+import AdminDashboard from './components/AdminDashboard';
+import SubscriptionModal from './components/SubscriptionModal';
+import { 
+  getStoredEnjoyments, 
+  saveStoredEnjoyments, 
+  addEnjoyment, 
+  getUserSubscription, 
+  saveUserSubscription 
+} from './lib/communityStorage';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -92,31 +111,144 @@ const INITIAL_DEMO_BOOKS = [
 ];
 
 export default function App() {
+  // All state hooks at the top
   const [currentBook, setCurrentBook] = useState(null);
-  const [viewMode, setViewMode] = useState('landing'); // 'landing' | 'library'
+  const [viewMode, setViewMode] = useState('landing'); // 'landing' | 'library' | 'bible' | 'user-dashboard' | 'admin-dashboard'
   const [books, setBooks] = useState([]);
   const [isLoadingBooks, setIsLoadingBooks] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');
-  const [userRole, setUserRole] = useState('admin'); // 'admin' | 'reader'
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem('baca_is_logged_in') === 'true');
+  const [userRole, setUserRole] = useState(() => {
+    const logged = localStorage.getItem('baca_is_logged_in') === 'true';
+    if (!logged) return 'guest';
+    return localStorage.getItem('baca_user_role') || 'reader';
+  });
+  const [toastMessage, setToastMessage] = useState('');
+  const [authModalRole, setAuthModalRole] = useState('reader'); // 'reader' | 'admin'
+  const [userDashboardTab, setUserDashboardTab] = useState('santapan');
+  const [adminDashboardTab, setAdminDashboardTab] = useState('books');
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [selectedDetailBook, setSelectedDetailBook] = useState(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [copiedEnv, setCopiedEnv] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-
-  // Modal Khusus Pemilih Seri Karakter & Pemilih Topik Pembinaan Dasar
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
+  const [userPlan, setUserPlan] = useState(getUserSubscription());
+  const [enjoyments, setEnjoyments] = useState(getStoredEnjoyments());
+  const [aiSummary, setAiSummary] = useState(
+    'Pagi ini firman menyingkapkan bahwa hubungan kita dengan Kristus bukanlah sekadar mengikuti agama lahiriah, melainkan memakan Dia secara organik (Yohanes 6:57). Kristus adalah roti hidup yang telah dipecah-pecahkan di kayu salib agar dapat kita kecap, telan, dan cerna menjadi hayat sejati sepanjang hari ini.'
+  );
   const [isKarakterSeriesModalOpen, setIsKarakterSeriesModalOpen] = useState(false);
   const [isPembinaanModalOpen, setIsPembinaanModalOpen] = useState(false);
   const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
-
-  // Sesi pengguna terautentikasi / tamu
-  const [user, setUser] = useState({
-    id: 'user-demo-baca',
-    email: 'baca@perpustakaan.cloud',
-    full_name: 'Budi Pembaca'
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('baca_user_profile');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return {
+      id: 'user-demo-baca',
+      email: 'baca@perpustakaan.cloud',
+      full_name: 'Budi Pembaca'
+    };
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Callbacks and handlers defined after all states
+  const showToast = useCallback((msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(''), 3500);
+  }, []);
+
+  const handleUpdateProfile = useCallback((updatedProfile) => {
+    setUser(updatedProfile);
+    localStorage.setItem('baca_user_profile', JSON.stringify(updatedProfile));
+    showToast('Pengaturan profil berhasil disimpan.');
+  }, [showToast]);
+
+  const openAuthModal = useCallback((targetRole = 'reader') => {
+    setAuthModalRole(targetRole);
+    setIsAuthModalOpen(true);
+  }, []);
+
+  // Memuat data buku dari Supabase atau LocalStorage fallback
+  const fetchBooks = useCallback(async () => {
+    setIsLoadingBooks(true);
+    try {
+      const hiddenIds = JSON.parse(localStorage.getItem('baca_hidden_books') || '[]');
+      const isVisibleItem = (b) => 
+        !b.is_bible && 
+        !b.id?.startsWith('alkitab-') && 
+        b.category !== 'Alkitab & Firman' &&
+        !hiddenIds.includes(b.id);
+
+      if (isSupabaseConfigured()) {
+        const { data, error } = await supabase
+          .from('books')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!error && data && data.length > 0) {
+          const uniqueBooks = data
+            .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
+            .filter(isVisibleItem);
+          setBooks(uniqueBooks);
+          setIsLoadingBooks(false);
+          return;
+        }
+      }
+
+      // Fallback demo books
+      const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
+      const combined = localBooks.length > 0 ? localBooks : INITIAL_DEMO_BOOKS;
+      const cleanedLocal = combined.filter(isVisibleItem);
+      localStorage.setItem('baca_demo_books', JSON.stringify(cleanedLocal));
+      setBooks(cleanedLocal);
+    } catch (err) {
+      console.warn('Gagal fetch buku:', err);
+      setBooks(INITIAL_DEMO_BOOKS);
+    } finally {
+      setIsLoadingBooks(false);
+    }
+  }, []);
+
+  // Strict role-guard effect: Admin stays in Admin, Reader stays in Reader
+  useEffect(() => {
+    if (isLoggedIn) {
+      if (userRole === 'admin' && viewMode === 'user-dashboard') {
+        setViewMode('admin-dashboard');
+      } else if (userRole === 'reader' && viewMode === 'admin-dashboard') {
+        setViewMode('user-dashboard');
+      }
+    } else {
+      if (viewMode === 'user-dashboard' || viewMode === 'admin-dashboard') {
+        setViewMode('landing');
+      }
+    }
+  }, [isLoggedIn, userRole, viewMode]);
+
+  const handleAuthSuccess = useCallback((authUser) => {
+    setIsLoggedIn(true);
+    const role = authUser.role || authUser.user_metadata?.role || (authUser.username === 'admin123' || authUser.email?.startsWith('admin') ? 'admin' : 'reader');
+    setUserRole(role);
+    localStorage.setItem('baca_user_role', role);
+    localStorage.setItem('baca_is_logged_in', 'true');
+    const profile = {
+      id: authUser.id,
+      email: authUser.email,
+      full_name: authUser.full_name || authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || (role === 'admin' ? 'Administrator' : 'Budi Pembaca'),
+      role: role
+    };
+    setUser(profile);
+    localStorage.setItem('baca_user_profile', JSON.stringify(profile));
+
+    if (role === 'admin') {
+      setViewMode('admin-dashboard');
+      showToast('Berhasil masuk sebagai Administrator (admin123)!');
+    } else {
+      setViewMode('user-dashboard');
+      showToast(`Selamat datang, ${profile.full_name}!`);
+    }
+    fetchBooks();
+  }, [fetchBooks, showToast]);
 
   // Handler memilih Seri Buku Karakter
   const handleSelectKarakterSeries = (seri) => {
@@ -225,53 +357,30 @@ export default function App() {
     }
   };
 
+  // Handler Bagi Nikmat
+  const handleAddEnjoyment = (newNikmat) => {
+    const updated = addEnjoyment(newNikmat);
+    setEnjoyments(updated);
+    showToast('Kenikmatan firman Anda berhasil dibagikan!');
+  };
 
-  const showToast = useCallback((msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(''), 3500);
-  }, []);
+  const handleDeleteEnjoyment = (id) => {
+    const updated = enjoyments.filter(e => e.id !== id);
+    setEnjoyments(updated);
+    saveStoredEnjoyments(updated);
+    showToast('Bagi nikmat berhasil dihapus dari moderasi.');
+  };
 
-  // Memuat data buku dari Supabase atau LocalStorage fallback
-  // Ambil daftar buku dari Supabase (atau storage lokal yang diunggah admin)
-  const fetchBooks = useCallback(async () => {
-    setIsLoadingBooks(true);
-    try {
-      const hiddenIds = JSON.parse(localStorage.getItem('baca_hidden_books') || '[]');
-      const isVisibleItem = (b) => 
-        !b.is_bible && 
-        !b.id?.startsWith('alkitab-') && 
-        b.category !== 'Alkitab & Firman' &&
-        !hiddenIds.includes(b.id);
+  const handleTogglePinEnjoyment = (id) => {
+    showToast('Bagi nikmat berhasil disematkan ke Meja Perjamuan.');
+  };
 
-      if (isSupabaseConfigured()) {
-        const { data, error } = await supabase
-          .from('books')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (!error && data) {
-          // Hanya menampilkan buku murni hasil unggahan admin dari database Supabase
-          const uniqueBooks = data
-            .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
-            .filter(isVisibleItem);
-          setBooks(uniqueBooks);
-          setIsLoadingBooks(false);
-          return;
-        }
-      }
-
-      // Jika offline, hanya ambil buku yang pernah diunggah secara lokal di browser ini
-      const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
-      const cleanedLocal = localBooks.filter(isVisibleItem);
-      localStorage.setItem('baca_demo_books', JSON.stringify(cleanedLocal));
-      setBooks(cleanedLocal);
-    } catch (err) {
-      console.warn('Gagal fetch buku:', err);
-      setBooks([]);
-    } finally {
-      setIsLoadingBooks(false);
-    }
-  }, []);
+  // Handler Update Plan
+  const handlePlanUpdated = (newPlan) => {
+    setUserPlan(newPlan);
+    saveUserSubscription(newPlan);
+    showToast(`Paket berhasil diperbarui ke ${newPlan.tier.toUpperCase()}!`);
+  };
 
   useEffect(() => {
     fetchBooks();
@@ -315,14 +424,25 @@ export default function App() {
 
   const handleLogout = async () => {
     if (isSupabaseConfigured()) {
-      await supabase.auth.signOut();
-      showToast('Berhasil keluar dari akun Supabase.');
+      try { await supabase.auth.signOut(); } catch (e) {}
     }
+    setIsLoggedIn(false);
+    setUserRole('guest');
+    localStorage.removeItem('baca_is_logged_in');
+    localStorage.removeItem('baca_user_role');
+    localStorage.removeItem('baca_user_profile');
+    setUser({
+      id: 'guest',
+      email: '',
+      full_name: 'Tamu'
+    });
+    setViewMode('landing');
+    showToast('Berhasil keluar dari akun.');
   };
 
   // Handler Hapus Buku (Khusus Admin)
   const handleDeleteBook = async (bookId, e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     if (!window.confirm('Apakah Anda yakin ingin menghapus buku ini dari katalog?')) return;
 
     try {
@@ -330,13 +450,11 @@ export default function App() {
         const { error } = await supabase.from('books').delete().eq('id', bookId);
         if (error) throw error;
       } else {
-        // Hapus dari localStorage & IndexedDB
         await deleteBookFromIndexedDB(bookId);
         const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
         const updated = localBooks.filter(b => b.id !== bookId);
         localStorage.setItem('baca_demo_books', JSON.stringify(updated));
 
-        // Tandai sebagai buku tersembunyi agar buku bawaan tidak muncul kembali saat reload
         const hiddenBooks = JSON.parse(localStorage.getItem('baca_hidden_books') || '[]');
         if (!hiddenBooks.includes(bookId)) {
           hiddenBooks.push(bookId);
@@ -370,13 +488,6 @@ export default function App() {
       return matchSearch && matchCat;
     });
   }, [books, searchQuery, selectedCategory]);
-
-  const copyEnvSample = () => {
-    const template = `VITE_SUPABASE_URL=https://your-project.supabase.co\nVITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
-    navigator.clipboard.writeText(template);
-    setCopiedEnv(true);
-    setTimeout(() => setCopiedEnv(false), 2000);
-  };
 
   // ----------------------------------------------------
   // Jika sedang membaca buku -> Tampilkan Full Reader View
@@ -413,7 +524,6 @@ export default function App() {
   if (!currentBook && viewMode === 'landing') {
     return (
       <>
-        {/* Toast Notification */}
         {toastMessage && (
           <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl border border-slate-700 text-sm flex items-center gap-2 animate-in slide-in-from-bottom duration-300">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -425,39 +535,59 @@ export default function App() {
           onEnterLibrary={() => setViewMode('library')}
           onOpenBible={() => {
             if (!isLoggedIn) {
-              setIsAuthModalOpen(true);
+              openAuthModal('reader');
               showToast('Silakan masuk atau buat akun baru terlebih dahulu untuk membaca Alkitab.');
             } else {
               setViewMode('bible');
             }
           }}
-          onOpenLogin={() => setIsAuthModalOpen(true)}
+          onOpenLogin={(targetRole = 'reader') => openAuthModal(targetRole)}
           isLoggedIn={isLoggedIn}
           user={user}
+          userRole={userRole}
           onLogout={handleLogout}
+          onOpenUserDashboard={() => {
+            if (!isLoggedIn) {
+              openAuthModal('reader');
+            } else if (userRole === 'admin') {
+              setViewMode('admin-dashboard');
+              showToast('Anda masuk sebagai Admin. Ini adalah portal pengelolaan Anda.');
+            } else {
+              setViewMode('user-dashboard');
+            }
+          }}
+          onOpenAdminDashboard={() => {
+            if (!isLoggedIn || userRole !== 'admin') {
+              openAuthModal('admin');
+              showToast('Silakan masuk dengan akun Admin (user admin123 pass 123456).');
+            } else {
+              setViewMode('admin-dashboard');
+            }
+          }}
+          onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+          enjoyments={enjoyments}
+          onAddEnjoyment={handleAddEnjoyment}
         />
 
-        {/* Supabase Auth Modal */}
         <AuthModal
           isOpen={isAuthModalOpen}
           onClose={() => setIsAuthModalOpen(false)}
-          onAuthSuccess={(authUser) => {
-            setIsLoggedIn(true);
-            setUser({
-              id: authUser.id,
-              email: authUser.email,
-              full_name: authUser.user_metadata?.full_name || authUser.email.split('@')[0]
-            });
-            showToast(`Selamat datang, ${authUser.user_metadata?.full_name || authUser.email}!`);
-            fetchBooks();
-          }}
+          onAuthSuccess={handleAuthSuccess}
+          initialRole={authModalRole}
+        />
+
+        <SubscriptionModal
+          isOpen={isSubscriptionModalOpen}
+          onClose={() => setIsSubscriptionModalOpen(false)}
+          currentPlan={userPlan}
+          onPlanUpdated={handlePlanUpdated}
         />
       </>
     );
   }
 
   // ----------------------------------------------------
-  // Tampilan Utama: Perpustakaan (Tema Selaras Landing Page)
+  // Layout Utama: Library, User Dashboard, & Admin Dashboard
   // ----------------------------------------------------
   return (
     <div className="min-h-screen bg-[#F4EFE6] text-[#1C1917] flex flex-col font-sans selection:bg-[#B96A4A]/25 selection:text-[#3B4B34] relative overflow-x-hidden">
@@ -476,7 +606,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Top Navigation Bar (Identik dengan Landing Page) */}
+      {/* Top Navigation Bar with Role and Dashboard Switcher */}
       <header className="sticky top-0 z-40 bg-[#F4EFE6]/90 backdrop-blur-md border-b border-[#1C1917]/8">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
           
@@ -505,19 +635,60 @@ export default function App() {
             </div>
           </div>
 
-          {/* Actions & Navigation */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            
-            {/* Kembali ke Beranda */}
-            <Button
-              variant="ghost"
-              size="sm"
+          {/* Navigation Items (ROLE-SEPARATED: Admin only sees Admin, Reader only sees Reader) */}
+          <nav className="hidden md:flex items-center gap-1 p-1 bg-white/70 rounded-full border border-[#1C1917]/10 text-xs shadow-xs">
+            <button
               onClick={() => setViewMode('landing')}
-              className="rounded-full text-xs font-bold text-[#78716C] hover:text-[#1C1917] hover:bg-[#1C1917]/5 h-9 px-3.5 btn-lift whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full font-semibold text-[#78716C] hover:text-[#1C1917] hover:bg-stone-100 transition"
             >
               Beranda
-            </Button>
+            </button>
 
+            <button
+              onClick={() => setViewMode('library')}
+              className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+                viewMode === 'library'
+                  ? 'bg-[#3B4B34] text-white shadow-xs'
+                  : 'text-[#78716C] hover:text-[#1C1917]'
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Katalog</span>
+            </button>
+
+            {/* HANYA MUNCUL JIKA USER PEMBACA */}
+            {isLoggedIn && userRole === 'reader' && (
+              <button
+                onClick={() => setViewMode('user-dashboard')}
+                className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+                  viewMode === 'user-dashboard'
+                    ? 'bg-[#3B4B34] text-white shadow-xs'
+                    : 'text-[#78716C] hover:text-[#1C1917]'
+                }`}
+              >
+                <User className="w-3.5 h-3.5 text-amber-300" />
+                <span>Dashboard Saya</span>
+              </button>
+            )}
+
+            {/* HANYA MUNCUL JIKA ADMIN */}
+            {isLoggedIn && userRole === 'admin' && (
+              <button
+                onClick={() => setViewMode('admin-dashboard')}
+                className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+                  viewMode === 'admin-dashboard'
+                    ? 'bg-stone-900 text-white shadow-xs'
+                    : 'text-[#78716C] hover:text-[#1C1917]'
+                }`}
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Dashboard Admin</span>
+              </button>
+            )}
+          </nav>
+
+          {/* Actions: Clean & Compact */}
+          <div className="flex items-center gap-2 shrink-0">
             {/* Switch to Bible Section */}
             <Button
               variant="outline"
@@ -525,7 +696,7 @@ export default function App() {
               onClick={() => {
                 if (!isLoggedIn) {
                   setIsAuthModalOpen(true);
-                  showToast('Silakan masuk atau buat akun baru terlebih dahulu untuk membaca Alkitab.');
+                  showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
                 } else {
                   setViewMode('bible');
                 }
@@ -534,52 +705,179 @@ export default function App() {
               title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
               <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
-              <span>Baca Alkitab</span>
+              <span className="hidden sm:inline">Alkitab</span>
             </Button>
 
-            {/* Upload Button (Khusus Admin) */}
-            {userRole === 'admin' && (
-              <Button
-                size="sm"
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    setIsAuthModalOpen(true);
-                    showToast('Silakan masuk akun terlebih dahulu untuk mengunggah.');
-                  } else {
-                    setIsUploadModalOpen(true);
-                  }
-                }}
-                className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-white h-9 px-3.5 shadow-sm btn-lift whitespace-nowrap"
-              >
-                <UploadCloud className="w-3.5 h-3.5 mr-1 text-amber-300" />
-                <span className="hidden sm:inline">Unggah EPUB</span>
-              </Button>
-            )}
+            {/* Dropdown Akun & Paket (ROLE-SEPARATED) */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
+                  {isLoggedIn ? (
+                    <>
+                      <div className={`w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold ${userRole === 'admin' ? 'bg-amber-800' : 'bg-[#3B4B34]'}`}>
+                        {userRole === 'admin' ? 'A' : (user?.full_name?.charAt(0) || 'U')}
+                      </div>
+                      <span className="max-w-[75px] truncate hidden sm:inline text-[11px]">
+                        {userRole === 'admin' ? 'Admin' : (user?.full_name?.split(' ')[0] || 'User')}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <User className="w-3.5 h-3.5 text-[#3B4B34]" />
+                      <span className="text-[11px]">Masuk</span>
+                    </>
+                  )}
+                  <ChevronDown className="w-3 h-3 text-[#78716C]" />
+                </button>
+              </DropdownMenuTrigger>
 
-            {/* User Account / Login Button */}
-            {isLoggedIn ? (
-              <div className="flex items-center gap-2 bg-white/80 px-3 py-1 rounded-full border border-[#1C1917]/10 text-xs shadow-xs">
-                <span className="font-semibold text-[#1C1917] text-[11px] max-w-[110px] truncate">
-                  {user.full_name || user.email}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="h-6 px-2 text-[10px] rounded-full text-[#78716C] hover:text-[#1C1917]"
-                >
-                  Keluar
-                </Button>
-              </div>
-            ) : (
-              <Button
-                size="sm"
-                onClick={() => setIsAuthModalOpen(true)}
-                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white h-9 px-4 shadow-sm btn-lift whitespace-nowrap"
-              >
-                <span>Masuk / Daftar</span>
-              </Button>
-            )}
+              <DropdownMenuContent align="end" className="w-56 p-1.5 rounded-2xl bg-[#F7F4ED] border border-[#1C1917]/15 text-[#1C1917] shadow-xl">
+                {isLoggedIn && userRole === 'admin' ? (
+                  <>
+                    <div className="px-2.5 py-1.5 border-b border-[#1C1917]/10 mb-1">
+                      <p className="font-bold text-xs text-[#1C1917] flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3 text-amber-700" />
+                        Administrator (admin123)
+                      </p>
+                      <p className="text-[10px] text-amber-800 font-semibold uppercase tracking-wider">
+                        Akses Penuh Pengelola
+                      </p>
+                    </div>
+
+                    <DropdownMenuItem 
+                      onClick={() => {
+                        setAdminDashboardTab('books');
+                        setViewMode('admin-dashboard');
+                      }}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-amber-700" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Dashboard Admin</p>
+                        <p className="text-[10px] text-[#78716C]">Kelola katalog, toko &amp; moderasi</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem 
+                      onClick={() => {
+                        setAdminDashboardTab('users');
+                        setViewMode('admin-dashboard');
+                      }}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <Users className="w-4 h-4 text-emerald-700" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Data Pengguna &amp; Langganan</p>
+                        <p className="text-[10px] text-[#78716C]">Kelola CRUD akun user &amp; paket</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem 
+                      onClick={() => setIsSubscriptionModalOpen(true)}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <Smartphone className="w-4 h-4 text-blue-600" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Integrasi &amp; Toko Digital</p>
+                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator className="my-1 bg-[#1C1917]/10" />
+
+                    <DropdownMenuItem 
+                      onClick={handleLogout}
+                      className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-rose-700 cursor-pointer hover:bg-rose-50 focus:bg-rose-50"
+                    >
+                      Keluar dari Akun Admin
+                    </DropdownMenuItem>
+                  </>
+                ) : isLoggedIn && userRole === 'reader' ? (
+                  <>
+                    <div className="px-2.5 py-1.5 border-b border-[#1C1917]/10 mb-1">
+                      <p className="font-bold text-xs text-[#1C1917] truncate">{user?.full_name || 'Pembaca'}</p>
+                      <p className="text-[10px] text-emerald-800 font-semibold uppercase tracking-wider">
+                        Paket: {userPlan?.tier ? userPlan.tier.toUpperCase() : 'PREMIUM'}
+                      </p>
+                    </div>
+
+                    <DropdownMenuItem 
+                      onClick={() => {
+                        setUserDashboardTab('santapan');
+                        setViewMode('user-dashboard');
+                      }}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <User className="w-4 h-4 text-emerald-700" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Dashboard Saya</p>
+                        <p className="text-[10px] text-[#78716C]">Terang hari ini &amp; bagi nikmat</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem 
+                      onClick={() => {
+                        setUserDashboardTab('profile');
+                        setViewMode('user-dashboard');
+                      }}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <Settings className="w-4 h-4 text-[#3B4B34]" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Pengaturan Profil</p>
+                        <p className="text-[10px] text-[#78716C]">Nama, WA, Email, Distrik - Lokal</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem 
+                      onClick={() => setIsSubscriptionModalOpen(true)}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <Smartphone className="w-4 h-4 text-blue-600" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Paket &amp; Sinkron Toko</p>
+                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator className="my-1 bg-[#1C1917]/10" />
+
+                    <DropdownMenuItem 
+                      onClick={handleLogout}
+                      className="rounded-xl px-2.5 py-1.5 text-xs font-semibold text-rose-700 cursor-pointer hover:bg-rose-50 focus:bg-rose-50"
+                    >
+                      Keluar dari Akun
+                    </DropdownMenuItem>
+                  </>
+                ) : (
+                  <>
+                    <DropdownMenuItem 
+                      onClick={() => setIsAuthModalOpen(true)}
+                      className="rounded-xl px-2.5 py-2.5 text-xs font-bold cursor-pointer flex items-center gap-2 bg-[#3B4B34] text-white hover:bg-[#20251A] focus:bg-[#20251A]"
+                    >
+                      <LogIn className="w-4 h-4 text-amber-300" />
+                      <div>
+                        <p className="font-bold text-xs text-white">Masuk / Daftar Akun</p>
+                        <p className="text-[10px] text-amber-100/80">Pilih peran di halaman login</p>
+                      </div>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator className="my-1 bg-[#1C1917]/10" />
+
+                    <DropdownMenuItem 
+                      onClick={() => setIsSubscriptionModalOpen(true)}
+                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
+                    >
+                      <Smartphone className="w-4 h-4 text-blue-600" />
+                      <div>
+                        <p className="font-bold text-xs text-[#1C1917]">Paket &amp; Sinkron Toko</p>
+                        <p className="text-[10px] text-[#78716C]">Standart, Premium, Ultimate</p>
+                      </div>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
@@ -587,212 +885,221 @@ export default function App() {
       {/* Main Container */}
       <main className="relative z-10 flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
         
-        {/* Hero Section Banner (Tema Selaras Landing Page) */}
-        <div className="relative overflow-hidden rounded-[32px] p-8 sm:p-10 shadow-2xl text-[#F4EFE6] border border-white/10" style={{ background: 'linear-gradient(135deg, #1C2317 0%, #293322 55%, #151A11 100%)' }}>
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8E9C75]/25 border border-[#8E9C75]/40 text-[#8E9C75] text-[11px] font-bold tracking-wider uppercase">
-              <Utensils className="w-3.5 h-3.5 text-amber-300" />
-              <span>Meja Perjamuan Firman Rohani</span>
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-serif font-normal leading-tight">
-              Katalog Santapan Hayat & <br />
-              <span className="italic font-light text-amber-200">Pelajaran Kaum Beriman.</span>
-            </h1>
-            <p className="text-xs sm:text-sm text-[#A8A29E] leading-relaxed">
-              Nikmati santapan firman harian dari FKKP, khazanah Alkitab Versi Pemulihan, 46 pokok pembinaan dasar, dan 30 seri pembentukan karakter rohani.
-            </p>
+        {/* RENDER VIEW 1: USER DASHBOARD */}
+        {viewMode === 'user-dashboard' && (
+          <UserDashboard
+            user={user}
+            onUpdateProfile={handleUpdateProfile}
+            plan={userPlan}
+            onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+            onOpenBook={handleOpenBook}
+            onOpenBible={() => setViewMode('bible')}
+            onEnterLibrary={() => setViewMode('library')}
+            enjoyments={enjoyments}
+            onAddEnjoyment={handleAddEnjoyment}
+            initialTab={userDashboardTab}
+          />
+        )}
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
-                <BookmarkCheck className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
-                <span>{books.length} Buku Santapan Siap Dibaca</span>
-              </Badge>
-              <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
-                <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
-                <span>Sinkronisasi Otomatis Cloud</span>
-              </Badge>
-            </div>
-          </div>
-        </div>
+        {/* RENDER VIEW 2: ADMIN DASHBOARD */}
+        {viewMode === 'admin-dashboard' && (
+          <AdminDashboard
+            books={books}
+            onOpenUpload={() => setIsUploadModalOpen(true)}
+            onDeleteBook={handleDeleteBook}
+            onOpenBook={handleOpenBook}
+            enjoyments={enjoyments}
+            onDeleteEnjoyment={handleDeleteEnjoyment}
+            onTogglePinEnjoyment={handleTogglePinEnjoyment}
+            aiSummary={aiSummary}
+            onUpdateAiSummary={(newSummary) => {
+              setAiSummary(newSummary);
+              showToast('Rangkuman Meja Perjamuan berhasil disimpan.');
+            }}
+            initialTab={adminDashboardTab}
+          />
+        )}
 
-        {/* Filter & Search Bar */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          
-          {/* Category Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
-            {categories.map(cat => (
-              <Button
-                key={cat}
-                variant="outline"
-                size="sm"
-                onClick={() => setSelectedCategory(cat)}
-                className={`rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 btn-lift ${
-                  selectedCategory === cat
-                    ? 'bg-[#3B4B34] text-[#F4EFE6] border-[#3B4B34] shadow-sm'
-                    : 'bg-white/80 text-[#57534E] hover:bg-[#1C1917]/5 border-[#1C1917]/10'
-                }`}
-              >
-                {cat}
-              </Button>
-            ))}
-          </div>
-
-          {/* Search Box */}
-          <div className="relative min-w-[280px]">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C] z-10" />
-            <Input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Cari judul buku atau penulis..."
-              className="pl-10 pr-9 bg-white rounded-full text-xs h-10 border-[#1C1917]/15 focus:border-[#3B4B34] shadow-xs text-[#1C1917]"
-            />
-            {searchQuery && (
-              <Button 
-                variant="ghost"
-                size="icon"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-[#78716C] hover:text-[#1C1917]"
-              >
-                <X className="w-3.5 h-3.5" />
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {/* Catalog Grid */}
-        {isLoadingBooks ? (
-          <div className="py-20 text-center space-y-3">
-            <div className="w-10 h-10 border-4 border-[#3B4B34] border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs text-[#78716C] font-semibold">Menyiapkan hidangan buku santapan...</p>
-          </div>
-        ) : filteredBooks.length === 0 ? (
-          <Card className="rounded-[32px] p-12 text-center bg-white/70 border border-[#1C1917]/10 space-y-4">
-            <div className="w-14 h-14 rounded-2xl bg-[#EAE3D5] text-[#3B4B34] flex items-center justify-center mx-auto text-2xl">
-              📖
-            </div>
-            <h3 className="font-serif font-bold text-lg text-[#1C1917]">
-              {books.length === 0 ? 'Belum Ada Buku di Perpustakaan' : 'Tidak Ada Buku yang Cocok'}
-            </h3>
-            <p className="text-xs text-[#78716C] max-w-sm mx-auto">
-              {books.length === 0 
-                ? 'Koleksi buku santapan rohani akan tampil di sini setelah diunggah oleh Admin.' 
-                : 'Cobalah mengganti kata kunci pencarian atau memilih kategori yang berbeda.'}
-            </p>
-            {userRole === 'admin' && (
-              <Button
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    setIsAuthModalOpen(true);
-                  } else {
-                    setIsUploadModalOpen(true);
-                  }
-                }}
-                className="bg-[#3B4B34] hover:bg-[#20251A] text-white rounded-full text-xs font-bold shadow-sm btn-lift"
-              >
-                <UploadCloud className="w-4 h-4 mr-1.5" />
-                {books.length === 0 ? 'Unggah File EPUB Pertama' : 'Unggah File EPUB'}
-              </Button>
-            )}
-          </Card>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredBooks.map(book => (
-              <Card
-                key={book.id}
-                onClick={() => handleOpenBook(book)}
-                className="group relative rounded-[28px] p-5 bg-[#F7F4ED] border border-[#1C1917]/10 hover:border-[#8E9C75] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden btn-lift"
-              >
-                {/* Book Cover Area */}
-                <div>
-                  <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-lg transition flex items-center justify-center p-4 bg-gradient-to-tr ${
-                    book.cover_gradient || 'from-[#1C2317] via-[#293322] to-[#3B4B34]'
-                  }`}>
-                    {book.cover_url ? (
-                      <img 
-                        src={book.cover_url} 
-                        alt={book.title} 
-                        className="w-full h-full object-cover" 
-                      />
-                    ) : (
-                      <div className="text-center text-white space-y-3 p-4">
-                        <span className="text-4xl filter drop-shadow">{book.cover_icon || '📖'}</span>
-                        <h4 className="font-bold text-sm leading-tight line-clamp-3 text-white font-serif">
-                          {book.title}
-                        </h4>
-                        <p className="text-[11px] text-amber-200 font-medium tracking-wide">
-                          {book.author}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Badge Category */}
-                    <Badge variant="secondary" className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold border-white/20 rounded-full">
-                      {book.category || 'Umum'}
-                    </Badge>
-
-                    {/* Hover Play Button Overlay */}
-                    <div className="absolute inset-0 bg-[#1C1917]/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-[#3B4B34] text-white flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition duration-200">
-                        <Play className="w-5 h-5 ml-0.5 fill-current" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Metadata */}
-                  <h3 className="font-serif font-bold text-[#1C1917] text-base line-clamp-1 group-hover:text-[#3B4B34] transition">
-                    {book.title}
-                  </h3>
-                  <p className="text-xs text-[#78716C] mt-1 line-clamp-1 font-semibold">
-                    Oleh {book.author}
-                  </p>
-                  {book.description && (
-                    <p className="text-[11px] text-[#57534E] mt-2 line-clamp-2 leading-relaxed">
-                      {book.description}
-                    </p>
-                  )}
+        {/* RENDER VIEW 3: KATALOG BUKU (LIBRARY) */}
+        {viewMode === 'library' && (
+          <>
+            {/* Hero Section Banner */}
+            <div className="relative overflow-hidden rounded-[32px] p-8 sm:p-10 shadow-2xl text-[#F4EFE6] border border-white/10" style={{ background: 'linear-gradient(135deg, #1C2317 0%, #293322 55%, #151A11 100%)' }}>
+              <div className="relative z-10 max-w-2xl space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8E9C75]/25 border border-[#8E9C75]/40 text-[#8E9C75] text-[11px] font-bold tracking-wider uppercase">
+                  <Utensils className="w-3.5 h-3.5 text-amber-300" />
+                  <span>Meja Perjamuan Firman Rohani</span>
                 </div>
+                <h1 className="text-3xl sm:text-5xl font-serif font-normal leading-tight">
+                  Katalog Santapan Hayat & <br />
+                  <span className="italic font-light text-amber-200">Pelajaran Kaum Beriman.</span>
+                </h1>
+                <p className="text-xs sm:text-sm text-[#A8A29E] leading-relaxed">
+                  Nikmati santapan firman harian dari FKKP, khazanah Alkitab Versi Pemulihan, 46 pokok pembinaan dasar, dan 30 seri pembentukan karakter rohani.
+                </p>
 
-                {/* Footer Actions */}
-                <div className="mt-5 pt-3 border-t border-[#1C1917]/8 flex items-center justify-between text-xs">
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
+                    <BookmarkCheck className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
+                    <span>{books.length} Buku Santapan Siap Dibaca</span>
+                  </Badge>
+                  <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
+                    <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
+                    <span>Sinkronisasi Google Play &amp; Apple Books</span>
+                  </Badge>
+                </div>
+              </div>
+            </div>
+
+            {/* Filter & Search Bar */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+              
+              {/* Category Tabs */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+                {categories.map(cat => (
                   <Button
+                    key={cat}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 btn-lift ${
+                      selectedCategory === cat
+                        ? 'bg-[#3B4B34] text-[#F4EFE6] border-[#3B4B34] shadow-sm'
+                        : 'bg-white/80 text-[#57534E] hover:bg-[#1C1917]/5 border-[#1C1917]/10'
+                    }`}
+                  >
+                    {cat}
+                  </Button>
+                ))}
+              </div>
+
+              {/* Search Box */}
+              <div className="relative min-w-[280px]">
+                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C] z-10" />
+                <Input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Cari judul buku atau penulis..."
+                  className="pl-10 pr-9 bg-white rounded-full text-xs h-10 border-[#1C1917]/15 focus:border-[#3B4B34] shadow-xs text-[#1C1917]"
+                />
+                {searchQuery && (
+                  <Button 
                     variant="ghost"
                     size="icon"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedDetailBook(book);
-                    }}
-                    className="h-8 w-8 text-[#78716C] hover:text-[#1C1917] rounded-full"
-                    title="Informasi Buku"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-[#78716C] hover:text-[#1C1917]"
                   >
-                    <Info className="w-4 h-4" />
+                    <X className="w-3.5 h-3.5" />
                   </Button>
+                )}
+              </div>
+            </div>
 
-                  <div className="flex items-center gap-1.5">
-                    {userRole === 'admin' && (
+            {/* Catalog Grid */}
+            {isLoadingBooks ? (
+              <div className="py-20 text-center space-y-3">
+                <div className="w-10 h-10 border-4 border-[#3B4B34] border-t-transparent rounded-full animate-spin mx-auto" />
+                <p className="text-xs text-[#78716C] font-semibold">Menyiapkan hidangan buku santapan...</p>
+              </div>
+            ) : filteredBooks.length === 0 ? (
+              <Card className="rounded-[32px] p-12 text-center bg-white/70 border border-[#1C1917]/10 space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-[#EAE3D5] text-[#3B4B34] flex items-center justify-center mx-auto text-2xl">
+                  📖
+                </div>
+                <h3 className="font-serif font-bold text-lg text-[#1C1917]">
+                  {books.length === 0 ? 'Belum Ada Buku di Perpustakaan' : 'Tidak Ada Buku yang Cocok'}
+                </h3>
+                <p className="text-xs text-[#78716C] max-w-sm mx-auto">
+                  {books.length === 0 
+                    ? 'Koleksi buku santapan rohani akan tampil di sini setelah diunggah oleh Admin.' 
+                    : 'Cobalah mengganti kata kunci pencarian atau memilih kategori yang berbeda.'}
+                </p>
+              </Card>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredBooks.map(book => (
+                  <Card
+                    key={book.id}
+                    onClick={() => handleOpenBook(book)}
+                    className="group relative rounded-[28px] p-5 bg-[#F7F4ED] border border-[#1C1917]/10 hover:border-[#8E9C75] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden btn-lift"
+                  >
+                    <div>
+                      <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-lg transition flex items-center justify-center p-4 bg-gradient-to-tr ${
+                        book.cover_gradient || 'from-[#1C2317] via-[#293322] to-[#3B4B34]'
+                      }`}>
+                        {book.cover_url ? (
+                          <img 
+                            src={book.cover_url} 
+                            alt={book.title} 
+                            className="w-full h-full object-cover" 
+                          />
+                        ) : (
+                          <div className="text-center text-white space-y-3 p-4">
+                            <span className="text-4xl filter drop-shadow">{book.cover_icon || '📖'}</span>
+                            <h4 className="font-bold text-sm leading-tight line-clamp-3 text-white font-serif">
+                              {book.title}
+                            </h4>
+                            <p className="text-[11px] text-amber-200 font-medium tracking-wide">
+                              {book.author}
+                            </p>
+                          </div>
+                        )}
+
+                        <Badge variant="secondary" className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold border-white/20 rounded-full">
+                          {book.category || 'Umum'}
+                        </Badge>
+
+                        <div className="absolute inset-0 bg-[#1C1917]/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-full bg-[#3B4B34] text-white flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition duration-200">
+                            <Play className="w-5 h-5 ml-0.5 fill-current" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <h3 className="font-serif font-bold text-[#1C1917] text-base line-clamp-1 group-hover:text-[#3B4B34] transition">
+                        {book.title}
+                      </h3>
+                      <p className="text-xs text-[#78716C] mt-1 line-clamp-1 font-semibold">
+                        Oleh {book.author}
+                      </p>
+                      {book.description && (
+                        <p className="text-[11px] text-[#57534E] mt-2 line-clamp-2 leading-relaxed">
+                          {book.description}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-5 pt-3 border-t border-[#1C1917]/8 flex items-center justify-between text-xs">
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={(e) => handleDeleteBook(book.id, e)}
-                        className="h-8 w-8 text-[#78716C] hover:text-rose-600 rounded-full"
-                        title="Hapus dari katalog"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedDetailBook(book);
+                        }}
+                        className="h-8 w-8 text-[#78716C] hover:text-[#1C1917] rounded-full"
+                        title="Informasi Buku"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Info className="w-4 h-4" />
                       </Button>
-                    )}
 
-                    <span className="inline-flex items-center gap-1 font-bold text-xs text-[#3B4B34] group-hover:text-[#20251A] transition">
-                      Baca <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 font-bold text-xs text-[#3B4B34] group-hover:text-[#20251A] transition">
+                          Baca <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </>
         )}
+
       </main>
 
-      {/* Footer (Identik dengan Landing Page) */}
+      {/* Footer */}
       <footer className="mt-20 py-10 bg-[#EFE9DF] border-t border-[#1C1917]/10 text-xs text-[#78716C]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
@@ -801,6 +1108,7 @@ export default function App() {
           </div>
           <div className="flex items-center gap-6">
             <button onClick={() => setViewMode('landing')} className="hover:text-[#1C1917] transition-colors">Beranda</button>
+            <button onClick={() => setViewMode('library')} className="hover:text-[#1C1917] transition-colors">Katalog Buku</button>
             <button 
               onClick={() => {
                 if (!isLoggedIn) {
@@ -814,7 +1122,15 @@ export default function App() {
             >
               Alkitab (66 Kitab)
             </button>
-            <button onClick={() => setIsAuthModalOpen(true)} className="hover:text-[#1C1917] transition-colors">Admin Portal</button>
+            {isLoggedIn && userRole === 'reader' && (
+              <button onClick={() => setViewMode('user-dashboard')} className="hover:text-[#1C1917] transition-colors font-bold text-[#3B4B34]">Dashboard Saya</button>
+            )}
+            {isLoggedIn && userRole === 'admin' && (
+              <button onClick={() => setViewMode('admin-dashboard')} className="hover:text-[#1C1917] transition-colors font-bold text-amber-800">Dashboard Admin</button>
+            )}
+            {!isLoggedIn && (
+              <button onClick={() => openAuthModal('reader')} className="hover:text-[#1C1917] transition-colors">Masuk Akun</button>
+            )}
           </div>
         </div>
       </footer>
@@ -823,27 +1139,27 @@ export default function App() {
       <AdminUploadModal
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
-        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+        onOpenAuthModal={() => openAuthModal('admin')}
         onUploadSuccess={(newBook) => {
           setBooks(prev => [newBook, ...prev]);
           showToast(`Buku "${newBook.title}" berhasil ditambahkan ke katalog!`);
         }}
       />
 
-      {/* Supabase Auth Modal */}
+      {/* Supabase / Local Auth Modal */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        onAuthSuccess={(authUser) => {
-          setIsLoggedIn(true);
-          setUser({
-            id: authUser.id,
-            email: authUser.email,
-            full_name: authUser.user_metadata?.full_name || authUser.email.split('@')[0]
-          });
-          showToast(`Selamat datang, ${authUser.user_metadata?.full_name || authUser.email}!`);
-          fetchBooks();
-        }}
+        onAuthSuccess={handleAuthSuccess}
+        initialRole={authModalRole}
+      />
+
+      {/* Subscription Pricing Modal */}
+      <SubscriptionModal
+        isOpen={isSubscriptionModalOpen}
+        onClose={() => setIsSubscriptionModalOpen(false)}
+        currentPlan={userPlan}
+        onPlanUpdated={handlePlanUpdated}
       />
 
       {/* Book Detail Modal */}
@@ -913,7 +1229,7 @@ export default function App() {
         onSelectTopic={handleSelectPembinaanTopic}
       />
 
-      {/* Modal Pemilih Kitab Alkitab (Kejadian - Wahyu) */}
+      {/* Modal Pemilih Kitab Alkitab */}
       <BibleSelectorModal
         isOpen={isBibleSelectorModalOpen}
         onClose={() => setIsBibleSelectorModalOpen(false)}
