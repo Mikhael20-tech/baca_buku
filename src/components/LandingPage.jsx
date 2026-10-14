@@ -388,18 +388,31 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin, 
                   </Button>
                 </div>
 
-                {/* Content Box */}
-                <div className="my-6 p-6 rounded-2xl bg-white border border-[#1C1917]/8 shadow-sm space-y-4 transition-all duration-300">
-                  <div className="flex items-start gap-3">
-                    <Quote className="w-8 h-8 text-[#8E9C75] shrink-0 opacity-60" />
+                {/* Content Box (With dynamic animation on Alkitab) */}
+                <div className={`my-6 p-6 rounded-2xl bg-white border border-[#1C1917]/8 shadow-sm space-y-4 transition-all duration-300 relative overflow-hidden ${
+                  activeTab === 'alkitab' ? 'border-amber-500/40 shadow-amber-500/10 scripture-float' : ''
+                }`}>
+                  {activeTab === 'alkitab' && (
+                    <div className="absolute -top-16 -right-16 w-36 h-36 bg-amber-400/15 rounded-full blur-2xl pointer-events-none divine-ray" />
+                  )}
+
+                  <div className="flex items-start gap-3 relative z-10">
+                    <Quote className={`w-8 h-8 shrink-0 transition-colors duration-300 ${
+                      activeTab === 'alkitab' ? 'text-amber-600 opacity-90 pulse-glow' : 'text-[#8E9C75] opacity-60'
+                    }`} />
                     <div>
-                      <p className="font-serif text-lg sm:text-xl text-[#1C1917] italic leading-relaxed">
+                      <p className={`font-serif text-lg sm:text-xl leading-relaxed transition-all duration-300 ${
+                        activeTab === 'alkitab' ? 'text-amber-950 font-normal italic' : 'text-[#1C1917] italic'
+                      }`}>
                         {activeTab === 'fkkp' && '"Sama seperti Bapa yang hidup mengutus Aku dan Aku hidup oleh Bapa, demikian juga barangsiapa yang memakan Aku, ia pun akan hidup oleh Aku."'}
                         {activeTab === 'alkitab' && '"Pada mulanya adalah Firman; Firman itu bersama-sama dengan Allah dan Firman itu adalah Allah... Di dalam Dia ada hidup dan hidup itu adalah terang manusia."'}
                         {activeTab === 'karakter' && '"Karakter adalah gabungan antara tabiat alami yang telah didisiplin oleh Roh Kudus dengan kebiasaan rohani yang dibina secara konsisten."'}
                         {activeTab === 'pembinaan' && '"Bila seseorang baru diselamatkan, hal pertama yang harus dibangun bukanlah pengetahuan teologis, melainkan kebiasaan bangun pagi bersekutu dengan Tuhan."'}
                       </p>
-                      <p className="text-xs font-bold text-[#8E9C75] mt-2">
+                      <p className={`text-xs font-bold mt-2 flex items-center gap-1.5 ${
+                        activeTab === 'alkitab' ? 'text-amber-700' : 'text-[#8E9C75]'
+                      }`}>
+                        {activeTab === 'alkitab' && <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping inline-block" />}
                         {activeTab === 'fkkp' && 'Yohanes 6:57 • Tema Santapan FKKP Minggu 1'}
                         {activeTab === 'alkitab' && 'Yohanes 1:1, 4 • Alkitab Versi Pemulihan'}
                         {activeTab === 'karakter' && 'Witness Lee • Buku Karakter Seri 1: Benar'}
@@ -408,7 +421,11 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin, 
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[#F7F4ED] border border-[#1C1917]/5 text-xs text-[#57534E] leading-relaxed">
+                  <div className={`p-3.5 rounded-xl border text-xs leading-relaxed transition-colors duration-300 relative z-10 ${
+                    activeTab === 'alkitab' 
+                      ? 'bg-amber-50/70 border-amber-200/70 text-amber-900' 
+                      : 'bg-[#F7F4ED] border-[#1C1917]/5 text-[#57534E]'
+                  }`}>
                     <span className="font-bold text-[#1C1917]">Cara Doa-Makan:</span> Ambillah firman di atas, perkatakan kalimat demi kalimat dengan doa: <span className="italic text-[#3B4B34]">"Tuhan Yesus, terima kasih Engkau telah datang! Aku ingin memakan Engkau! Engkaulah makananku hari ini!"</span>
                   </div>
                 </div>
@@ -510,30 +527,54 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin, 
               </div>
             </Card>
 
-            {/* Card 2: Alkitab Versi Pemulihan */}
-            <Card className="rounded-[28px] p-6 bg-[#F7F4ED] border border-[#1C1917]/10 hover:border-[#3B4B34] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between reveal-item btn-lift">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#3B4B34] to-[#8E9C75] text-white flex items-center justify-center text-xl shadow-md mb-5 float-y">
-                  📖
+            {/* Card 2: Alkitab Versi Pemulihan (Animated Divine Glow) */}
+            <Card className="relative overflow-hidden rounded-[28px] p-6 bg-[#F7F4ED] border border-amber-600/30 hover:border-amber-600 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between reveal-item btn-lift bible-glow-card">
+              {/* Subtle Divine Ray in background */}
+              <div className="absolute -top-12 -right-12 w-40 h-40 bg-gradient-to-br from-amber-400/20 via-orange-300/10 to-transparent rounded-full blur-2xl pointer-events-none divine-ray" />
+              
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="relative">
+                    <div className="absolute -inset-1 rounded-2xl bg-amber-400/30 blur-md pulse-glow" />
+                    <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-700 to-[#3B4B34] text-white flex items-center justify-center text-xl shadow-md book-flutter">
+                      📖
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100/90 border border-amber-300/60 px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1 pulse-glow">
+                    <Sparkles className="w-3 h-3 text-amber-600" /> 66 Kitab
+                  </span>
                 </div>
+
                 <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider text-[#3B4B34] bg-[#8E9C75]/20 border-[#8E9C75]/40">
-                  Firman Murni
+                  Firman Murni &amp; Hayat
                 </Badge>
-                <h3 className="text-lg font-serif font-bold text-[#1C1917] mt-3">
+                
+                <h3 className="text-lg font-serif font-bold text-[#1C1917] mt-3 hover:text-amber-800 transition-colors">
                   Alkitab Versi Pemulihan
                 </h3>
                 <p className="text-xs text-[#57534E] mt-2 leading-relaxed">
-                  66 Kitab Perjanjian Lama &amp; Perjanjian Baru dilengkapi ribuan catatan kaki teologis rohani, garis besar kitab, dan penanda ayat emas.
+                  66 Kitab Perjanjian Lama &amp; Perjanjian Baru lengkap catatan kaki rohani, garis besar kitab, dan penanda ayat emas yang hidup.
                 </p>
+
+                {/* Animated Mini Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-3 pt-2">
+                  <span className="text-[10px] bg-white/80 border border-amber-200/60 text-amber-900 px-2 py-0.5 rounded-md font-medium">PL 39 Kitab</span>
+                  <span className="text-[10px] bg-white/80 border border-amber-200/60 text-amber-900 px-2 py-0.5 rounded-md font-medium">PB 27 Kitab</span>
+                  <span className="text-[10px] bg-[#8E9C75]/15 border border-[#8E9C75]/30 text-[#3B4B34] px-2 py-0.5 rounded-md font-medium">Catatan Kaki</span>
+                </div>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#1C1917]/8 flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-[#3B4B34]">Kejadian – Wahyu</span>
+              <div className="relative z-10 mt-6 pt-4 border-t border-[#1C1917]/8 flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-amber-800 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping inline-block mr-0.5" />
+                  Kejadian – Wahyu
+                </span>
                 <Button 
                   size="sm" 
                   onClick={onOpenBible} 
                   className="rounded-full text-xs font-bold bg-[#1C1917] text-white hover:bg-[#3B4B34] h-8 px-3 btn-lift"
                 >
+                  <BookOpen className="w-3.5 h-3.5 mr-1 text-amber-300" />
                   Baca Alkitab
                 </Button>
               </div>

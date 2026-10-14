@@ -42,18 +42,26 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-900 dark:text-slate-100 shadow-2xl">
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] flex flex-col p-6 rounded-[32px] bg-[#F7F4ED] border border-[#1C1917]/15 text-[#1C1917] shadow-2xl">
         <DialogHeader className="text-left space-y-1">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-              <BookOpen className="w-5 h-5" />
+          <div className="flex items-center gap-3 mb-1">
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-2xl bg-amber-400/30 blur-md pulse-glow" />
+              <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-700 to-[#3B4B34] text-white flex items-center justify-center shadow-md book-flutter">
+                <BookOpen className="w-5 h-5 text-amber-200" />
+              </div>
             </div>
             <div>
-              <DialogTitle className="text-base sm:text-lg font-bold">
-                Alkitab Versi Pemulihan (66 Kitab)
-              </DialogTitle>
-              <DialogDescription className="text-xs">
-                Lengkap Perjanjian Lama &amp; Perjanjian Baru • Dari Kitab Kejadian sampai Kitab Wahyu
+              <div className="flex items-center gap-2">
+                <DialogTitle className="text-base sm:text-xl font-bold font-serif text-[#1C1917]">
+                  Alkitab Versi Pemulihan (66 Kitab)
+                </DialogTitle>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 border border-amber-300/60 px-2 py-0.5 rounded-full pulse-glow">
+                  Lengkap PL &amp; PB
+                </span>
+              </div>
+              <DialogDescription className="text-xs text-[#78716C]">
+                Lengkap Perjanjian Lama &amp; Perjanjian Baru • Dilengkapi Catatan Kaki Rohani &amp; Garis Besar
               </DialogDescription>
             </div>
           </div>
@@ -62,41 +70,48 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex-1 flex flex-col min-h-0">
           {/* Tab Switcher & Search Bar */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-3">
-            <TabsList className="grid grid-cols-2 w-full sm:w-auto h-10 p-1">
-              <TabsTrigger value="PB" className="gap-1.5 text-xs font-semibold px-4">
+            <TabsList className="grid grid-cols-2 w-full sm:w-auto h-10 p-1 bg-[#EFE9DF] rounded-full border border-[#1C1917]/10">
+              <TabsTrigger 
+                value="PB" 
+                className="gap-1.5 text-xs font-bold px-4 rounded-full data-[state=active]:bg-[#3B4B34] data-[state=active]:text-[#F4EFE6] transition-all"
+              >
                 <span>Perjanjian Baru</span>
-                <Badge variant="amber" className="text-[10px] px-1.5 py-0">27</Badge>
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-amber-200/50 text-[#1C1917]">27</Badge>
               </TabsTrigger>
-              <TabsTrigger value="PL" className="gap-1.5 text-xs font-semibold px-4">
+              <TabsTrigger 
+                value="PL" 
+                className="gap-1.5 text-xs font-bold px-4 rounded-full data-[state=active]:bg-[#3B4B34] data-[state=active]:text-[#F4EFE6] transition-all"
+              >
                 <span>Perjanjian Lama</span>
-                <Badge variant="outline" className="text-[10px] px-1.5 py-0">39</Badge>
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-amber-200/50 text-[#1C1917]">39</Badge>
               </TabsTrigger>
             </TabsList>
 
             <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#78716C] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <Input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari nama kitab..."
-                className="pl-9 h-10"
+                className="pl-9 h-10 rounded-full bg-white/90 border-[#1C1917]/15 text-xs focus:ring-[#3B4B34]"
               />
             </div>
           </div>
 
-          {/* Action Buka Seluruh Bagian */}
-          <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-between text-xs mb-3">
-            <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
-              <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
-              <span className="font-semibold truncate">
+          {/* Action Buka Seluruh Bagian (With Animated Glow) */}
+          <div className="p-3.5 bg-gradient-to-r from-amber-500/15 via-amber-400/10 to-amber-500/5 border border-amber-500/30 rounded-2xl flex items-center justify-between text-xs mb-3 shadow-xs">
+            <div className="flex items-center gap-2.5 text-amber-950">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping shrink-0" />
+              <Sparkles className="w-4 h-4 text-amber-600 shrink-0 pulse-glow" />
+              <span className="font-bold truncate text-[11px] sm:text-xs">
                 Buka seluruh volume {activeTab === 'PB' ? 'Perjanjian Baru (Matius – Wahyu)' : 'Perjanjian Lama (Kejadian – Maleakhi)'}
               </span>
             </div>
             <Button
               size="sm"
               onClick={() => onSelectBibleBook(activeTab === 'PB' ? 'PB_FULL' : 'PL_FULL')}
-              className="rounded-xl text-xs font-bold gap-1 shrink-0"
+              className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-[#F4EFE6] gap-1 shrink-0 btn-lift shadow-sm"
             >
               Baca Volume Ini <ChevronRight className="w-3.5 h-3.5" />
             </Button>
@@ -109,17 +124,17 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
                 <button
                   key={bookName}
                   onClick={() => onSelectBibleBook(activeTab === 'PB' ? 'PB_BOOK' : 'PL_BOOK', bookName)}
-                  className="p-3 rounded-2xl border border-border/70 bg-card hover:bg-amber-500/10 hover:border-amber-500/50 hover:shadow-xs transition text-left flex items-center justify-between group cursor-pointer"
+                  className="p-3 rounded-2xl border border-[#1C1917]/10 bg-white/80 hover:bg-amber-50 hover:border-amber-400/60 hover:shadow-md transition-all text-left flex items-center justify-between group cursor-pointer btn-lift"
                 >
                   <div>
-                    <span className="text-[10px] text-muted-foreground font-mono block">
+                    <span className="text-[10px] text-[#A8A29E] font-mono block">
                       {idx + 1}.
                     </span>
-                    <h5 className="font-bold text-xs text-foreground group-hover:text-amber-600 transition">
+                    <h5 className="font-bold text-xs text-[#1C1917] group-hover:text-amber-800 transition">
                       {bookName}
                     </h5>
                   </div>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-amber-600 group-hover:translate-x-0.5 transition" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#A8A29E] group-hover:text-amber-700 group-hover:translate-x-1 transition-transform" />
                 </button>
               ))}
             </div>
@@ -127,12 +142,12 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
         </Tabs>
 
         {/* Footer */}
-        <DialogFooter className="pt-3 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <DialogFooter className="pt-3 border-t border-[#1C1917]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Button
             variant="outline"
             size="sm"
             onClick={() => onSelectBibleBook('MATIUS_CATATAN')}
-            className="w-full sm:w-auto text-xs font-semibold gap-1.5"
+            className="w-full sm:w-auto text-xs font-bold gap-1.5 rounded-full border-amber-600/30 text-amber-900 bg-amber-50/50 hover:bg-amber-100 btn-lift"
           >
             <Bookmark className="w-4 h-4 text-amber-600" />
             Injil Matius: Khusus Catatan Kaki Interaktif Lengkap
@@ -141,7 +156,7 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
           <Button
             size="sm"
             onClick={onClose}
-            className="w-full sm:w-auto text-xs font-semibold"
+            className="w-full sm:w-auto text-xs font-bold rounded-full bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] px-5 btn-lift"
           >
             Tutup
           </Button>
