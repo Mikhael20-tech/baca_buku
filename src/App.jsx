@@ -232,6 +232,7 @@ export default function App() {
   }, []);
 
   // Memuat data buku dari Supabase atau LocalStorage fallback
+  // Ambil daftar buku dari Supabase (atau storage lokal yang diunggah admin)
   const fetchBooks = useCallback(async () => {
     setIsLoadingBooks(true);
     try {
@@ -249,9 +250,8 @@ export default function App() {
           .order('created_at', { ascending: false });
 
         if (!error && data) {
-          // Gabungkan dengan INITIAL_DEMO_BOOKS agar koleksi lokal bawaan selalu tersedia
-          const combined = [...data, ...INITIAL_DEMO_BOOKS];
-          const uniqueBooks = combined
+          // Hanya menampilkan buku murni hasil unggahan admin dari database Supabase
+          const uniqueBooks = data
             .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
             .filter(isVisibleItem);
           setBooks(uniqueBooks);
@@ -260,22 +260,14 @@ export default function App() {
         }
       }
 
-      // Mode Demo / Local Storage Fallback
+      // Jika offline, hanya ambil buku yang pernah diunggah secara lokal di browser ini
       const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
       const cleanedLocal = localBooks.filter(isVisibleItem);
       localStorage.setItem('baca_demo_books', JSON.stringify(cleanedLocal));
-
-      const combined = [...cleanedLocal, ...INITIAL_DEMO_BOOKS];
-      
-      // Hapus duplikasi berdasarkan ID dan pastikan Alkitab/buku tersembunyi tidak masuk ke katalog buku
-      const uniqueBooks = combined
-        .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
-        .filter(isVisibleItem);
-      setBooks(uniqueBooks);
+      setBooks(cleanedLocal);
     } catch (err) {
       console.warn('Gagal fetch buku:', err);
-      const hiddenIds = JSON.parse(localStorage.getItem('baca_hidden_books') || '[]');
-      setBooks(INITIAL_DEMO_BOOKS.filter(b => !hiddenIds.includes(b.id)));
+      setBooks([]);
     } finally {
       setIsLoadingBooks(false);
     }
@@ -679,9 +671,13 @@ export default function App() {
             <div className="w-14 h-14 rounded-2xl bg-[#EAE3D5] text-[#3B4B34] flex items-center justify-center mx-auto text-2xl">
               📖
             </div>
-            <h3 className="font-serif font-bold text-lg text-[#1C1917]">Tidak Ada Buku yang Cocok</h3>
+            <h3 className="font-serif font-bold text-lg text-[#1C1917]">
+              {books.length === 0 ? 'Belum Ada Buku di Perpustakaan' : 'Tidak Ada Buku yang Cocok'}
+            </h3>
             <p className="text-xs text-[#78716C] max-w-sm mx-auto">
-              Cobalah mengganti kata kunci pencarian atau memilih kategori yang berbeda.
+              {books.length === 0 
+                ? 'Koleksi buku santapan rohani akan tampil di sini setelah diunggah oleh Admin.' 
+                : 'Cobalah mengganti kata kunci pencarian atau memilih kategori yang berbeda.'}
             </p>
             {userRole === 'admin' && (
               <Button
@@ -695,7 +691,7 @@ export default function App() {
                 className="bg-[#3B4B34] hover:bg-[#20251A] text-white rounded-full text-xs font-bold shadow-sm btn-lift"
               >
                 <UploadCloud className="w-4 h-4 mr-1.5" />
-                Unggah File EPUB
+                {books.length === 0 ? 'Unggah File EPUB Pertama' : 'Unggah File EPUB'}
               </Button>
             )}
           </Card>
