@@ -1,3 +1,5 @@
+import { supabase, isSupabaseConfigured, isValidUUID } from './supabase';
+
 // Data Pengguna & Langganan Perpustakaan Digital Baca
 export const INITIAL_USERS = [
   {
@@ -112,6 +114,18 @@ export function updateUser(id, updatedFields) {
   const current = getStoredUsers();
   const updated = current.map(u => u.id === id ? { ...u, ...updatedFields } : u);
   saveStoredUsers(updated);
+
+  // Jika UUID valid dan Supabase dikonfigurasi, selaraskan ke tabel profiles
+  if (isSupabaseConfigured() && isValidUUID(id)) {
+    supabase
+      .from('profiles')
+      .update(updatedFields)
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) console.warn('Supabase profile update warning:', error);
+      });
+  }
+
   return updated;
 }
 
@@ -119,5 +133,81 @@ export function deleteUser(id) {
   const current = getStoredUsers();
   const updated = current.filter(u => u.id !== id);
   saveStoredUsers(updated);
+
+  if (isSupabaseConfigured() && isValidUUID(id)) {
+    supabase
+      .from('profiles')
+      .delete()
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) console.warn('Supabase profile delete warning:', error);
+      });
+  }
+
   return updated;
+}
+
+/**
+ * Menyinkronkan profil pengguna saat ini ke Supabase
+ */
+export async function syncUserProfileToSupabase(profile) {
+  if (!profile || !profile.id) return profile;
+
+  // Simpan secara lokal segera
+  try {
+    localStorage.setItem('baca_user_profile', JSON.stringify(profile));
+  } catch (e) {}
+
+  if (!isSupabaseConfigured() || !isValidUUID(profile.id)) {
+    return profile;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .upsert({
+        id: profile.id,
+        full_name: profile.full_name,
+        email: profile.email,
+        whatsapp: profile.whatsapp,
+        distrik_lokal: profile.distrik_lokal,
+        photo_url: profile.photo_url,
+        plan_tier: profile.plan_tier || 'premium',
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'id' })
+      .select()
+      .single();
+
+    if (error) {
+      console.warn('Gagal sync ke Supabase profiles:', error.message);
+      return profile;
+    }
+
+    return { ...profile, ...data };
+  } catch (err) {
+    console.warn('Network sync exception:', err);
+    return profile;
+  }
+}
+
+/**
+ * Mengambil profil pengguna dari Supabase jika tersedia
+ */
+export async function fetchUserProfileFromSupabase(userId) {
+  if (!userId || !isSupabaseConfigured() || !isValidUUID(userId)) {
+    return null;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+
+    if (error || !data) return null;
+    return data;
+  } catch (e) {
+    return null;
+  }
 }

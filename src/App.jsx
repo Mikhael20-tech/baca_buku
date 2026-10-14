@@ -26,6 +26,7 @@ import BibleReaderView from './components/BibleReaderView';
 import UserDashboard from './components/UserDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import SubscriptionModal from './components/SubscriptionModal';
+import QuickScriptureModal from './components/QuickScriptureModal';
 import { 
   getStoredEnjoyments, 
   saveStoredEnjoyments, 
@@ -33,6 +34,7 @@ import {
   getUserSubscription, 
   saveUserSubscription 
 } from './lib/communityStorage';
+import { syncUserProfileToSupabase } from './lib/userManagement';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -140,6 +142,7 @@ export default function App() {
   const [isKarakterSeriesModalOpen, setIsKarakterSeriesModalOpen] = useState(false);
   const [isPembinaanModalOpen, setIsPembinaanModalOpen] = useState(false);
   const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
+  const [isQuickScriptureOpen, setIsQuickScriptureOpen] = useState(false);
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('baca_user_profile');
     if (saved) {
@@ -160,8 +163,8 @@ export default function App() {
 
   const handleUpdateProfile = useCallback((updatedProfile) => {
     setUser(updatedProfile);
-    localStorage.setItem('baca_user_profile', JSON.stringify(updatedProfile));
-    showToast('Pengaturan profil berhasil disimpan.');
+    syncUserProfileToSupabase(updatedProfile);
+    showToast('Pengaturan profil berhasil disimpan & disinkronkan.');
   }, [showToast]);
 
   const openAuthModal = useCallback((targetRole = 'reader') => {
@@ -541,6 +544,7 @@ export default function App() {
               setViewMode('bible');
             }
           }}
+          onOpenQuickScripture={() => setIsQuickScriptureOpen(true)}
           onOpenLogin={(targetRole = 'reader') => openAuthModal(targetRole)}
           isLoggedIn={isLoggedIn}
           user={user}
@@ -689,6 +693,18 @@ export default function App() {
 
           {/* Actions: Clean & Compact */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Quick Scripture Search Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsQuickScriptureOpen(true)}
+              className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              title="Cari Cepat Ayat Alkitab & Catatan Kaki"
+            >
+              <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
+              <span className="hidden sm:inline">Cari Ayat</span>
+            </Button>
+
             {/* Switch to Bible Section */}
             <Button
               variant="outline"
@@ -1234,6 +1250,22 @@ export default function App() {
         isOpen={isBibleSelectorModalOpen}
         onClose={() => setIsBibleSelectorModalOpen(false)}
         onSelectBibleBook={handleSelectBibleBook}
+      />
+
+      {/* Modal Pencarian Cepat Ayat Alkitab & Catatan Kaki */}
+      <QuickScriptureModal
+        isOpen={isQuickScriptureOpen}
+        onClose={() => setIsQuickScriptureOpen(false)}
+        onNavigateToVerse={(verse) => {
+          setIsQuickScriptureOpen(false);
+          if (!isLoggedIn) {
+            setIsAuthModalOpen(true);
+            showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
+          } else {
+            setViewMode('bible');
+            showToast(`Membuka ${verse.book} ${verse.chapter}:${verse.verse} di Pembaca Alkitab`);
+          }
+        }}
       />
     </div>
   );

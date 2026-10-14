@@ -4,7 +4,7 @@ import {
   ChevronRight, Heart, Flame, Sun, Sunrise, Compass,
   CheckCircle2, Utensils, MessageSquare, Quote, Layers,
   ChevronDown, BookMarked, Play, Star, Smartphone, RefreshCw,
-  Send, User, Volume2, ChevronLeft, LogIn, Settings, Users
+  Send, User, Volume2, ChevronLeft, LogIn, Settings, Users, Search
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -86,6 +86,7 @@ function AnimatedCounter({ target, suffix = '', duration = 1400 }) {
 export default function LandingPage({ 
   onEnterLibrary, 
   onOpenBible, 
+  onOpenQuickScripture,
   onOpenLogin, 
   isLoggedIn, 
   user, 
@@ -107,7 +108,6 @@ export default function LandingPage({
   const [shareCity, setShareCity] = useState('Surabaya');
   const [shareText, setShareText] = useState('');
   const [shareSubmitted, setShareSubmitted] = useState(false);
-  const [isPlayingAiAudio, setIsPlayingAiAudio] = useState(false);
 
   // Auto-rotate short enjoyments every 4 seconds
   useEffect(() => {
@@ -156,11 +156,6 @@ export default function LandingPage({
     }, 1500);
   };
 
-  const handlePlayAiAudio = () => {
-    setIsPlayingAiAudio(true);
-    setTimeout(() => setIsPlayingAiAudio(false), 3500);
-  };
-
   const faqs = [
     {
       q: 'Apakah istilah "Makan Tuhan" benar-benar Alkitabiah?',
@@ -176,7 +171,7 @@ export default function LandingPage({
     },
     {
       q: 'Apa bedanya paket Standart, Premium, dan Ultimate?',
-      a: 'Paket Standart (Gratis) memberi Anda akses penuh ke 66 Kitab Alkitab Versi Pemulihan dan FKKP edisi minggu ini. Paket Premium membuka seluruh 30 Seri Buku Karakter, 46 Pokok Pembinaan Dasar, dan sinkronisasi Google Play / Apple Books. Paket Ultimate menambahkan fitur Meja Perjamuan lengkap tanpa batas, multi-device sync, serta audio doa-makan harian.'
+      a: 'Paket Standart (Gratis) memberi Anda akses penuh ke 66 Kitab Alkitab Versi Pemulihan dan FKKP edisi minggu ini. Paket Premium membuka seluruh 30 Seri Buku Karakter, 46 Pokok Pembinaan Dasar, dan sinkronisasi Google Play / Apple Books. Paket Ultimate menambahkan fitur Meja Perjamuan lengkap tanpa batas, sinkronisasi multi-perangkat instan, serta jaminan akses pembaruan buku seumur hidup.'
     }
   ];
 
@@ -232,6 +227,18 @@ export default function LandingPage({
 
           {/* Action Buttons: Clean & Never Overflowing */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Quick Scripture Search Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onOpenQuickScripture}
+              className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              title="Cari Cepat Ayat Alkitab & Catatan Kaki"
+            >
+              <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
+              <span className="hidden sm:inline">Cari Ayat</span>
+            </Button>
+
             {/* Read Bible Button */}
             <Button
               variant="outline"
@@ -576,18 +583,6 @@ export default function LandingPage({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    {activeTab === 'fkkp' && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handlePlayAiAudio}
-                        className="rounded-full text-xs font-bold border-amber-500/40 text-amber-900 bg-amber-50/80 hover:bg-amber-100 hidden sm:flex items-center gap-1"
-                      >
-                        <Volume2 className={`w-3.5 h-3.5 text-amber-700 ${isPlayingAiAudio ? 'animate-pulse' : ''}`} />
-                        <span>{isPlayingAiAudio ? 'Memutar Audio...' : 'Audio Firman'}</span>
-                      </Button>
-                    )}
-
                     <Button
                       size="sm"
                       onClick={() => {

@@ -4,7 +4,7 @@ import {
   Trash2, Play, RefreshCw, CheckCircle2, AlertTriangle, 
   Sparkles, Layers, BookOpen, Users, DollarSign, Settings,
   Eye, Check, Pin, X, Plus, Edit2, Search, Filter, Phone,
-  Mail, MapPin, UserCheck, UserX, Camera
+  Mail, MapPin, UserCheck, UserX, Camera, Clock, FileCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,6 +24,11 @@ import {
   updateUser, 
   deleteUser 
 } from '../lib/userManagement';
+import { 
+  getStoreVerifications, 
+  updateVerificationStatus, 
+  deleteStoreVerification 
+} from '../lib/storeSync';
 
 export default function AdminDashboard({ 
   books, 
@@ -42,6 +47,8 @@ export default function AdminDashboard({
   // Store sync state
   const [isSyncingStore, setIsSyncingStore] = useState(false);
   const [syncStatusNote, setSyncStatusNote] = useState('');
+  const [verifications, setVerifications] = useState(getStoreVerifications());
+  const [verificationFilter, setVerificationFilter] = useState('all');
 
   // AI Summary State
   const [editedAiSummary, setEditedAiSummary] = useState(aiSummary || '');
@@ -636,6 +643,156 @@ export default function AdminDashboard({
                   <p>Bundle ID: <span className="font-mono text-[#1C1917]">cloud.baca.perpustakaan</span></p>
                   <p>Sinkronisasi Terakhir: Baru saja (Otomatis)</p>
                 </div>
+              </div>
+            </div>
+
+            {/* Antrean Verifikasi Order ID Pembelian Toko */}
+            <div className="pt-6 border-t border-[#1C1917]/10 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h4 className="font-serif font-bold text-base text-[#1C1917] flex items-center gap-2">
+                    <FileCheck className="w-4 h-4 text-amber-700" />
+                    Antrean Verifikasi Order ID Pembelian Pengguna
+                  </h4>
+                  <p className="text-xs text-[#78716C]">
+                    Tinjau nomor pesanan Google Play (GPA) dan Apple Books untuk mengaktifkan lisensi buku di akun pengguna.
+                  </p>
+                </div>
+
+                {/* Filter Status */}
+                <div className="flex items-center gap-1.5 self-start sm:self-auto">
+                  {[
+                    { id: 'all', label: 'Semua' },
+                    { id: 'pending', label: 'Menunggu' },
+                    { id: 'verified', label: 'Disetujui' },
+                    { id: 'rejected', label: 'Ditolak' }
+                  ].map((f) => (
+                    <button
+                      key={f.id}
+                      onClick={() => setVerificationFilter(f.id)}
+                      className={`px-3 py-1 rounded-xl text-xs font-bold transition ${
+                        verificationFilter === f.id
+                          ? 'bg-[#1C1917] text-white shadow-xs'
+                          : 'bg-[#F7F4ED] text-[#78716C] hover:text-[#1C1917]'
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Table Antrean */}
+              <div className="overflow-x-auto rounded-2xl border border-[#1C1917]/10 bg-white">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-[#FAF8F5] text-[#78716C] font-bold border-b border-[#1C1917]/10 uppercase text-[10px]">
+                    <tr>
+                      <th className="p-3.5">Pengguna</th>
+                      <th className="p-3.5">Platform</th>
+                      <th className="p-3.5">Order ID / Receipt</th>
+                      <th className="p-3.5">Judul Buku</th>
+                      <th className="p-3.5">Status</th>
+                      <th className="p-3.5 text-right">Aksi Tindakan</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#1C1917]/5">
+                    {verifications
+                      .filter((v) => verificationFilter === 'all' || v.status === verificationFilter)
+                      .map((item) => (
+                        <tr key={item.id} className="hover:bg-[#FBF9F5] transition">
+                          <td className="p-3.5">
+                            <p className="font-bold text-[#1C1917]">{item.user_name}</p>
+                            <p className="text-[11px] text-[#78716C]">{item.user_email}</p>
+                          </td>
+                          <td className="p-3.5">
+                            <Badge
+                              variant="outline"
+                              className={`text-[9px] font-bold ${
+                                item.platform === 'Google Play Books'
+                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                                  : 'bg-blue-50 text-blue-800 border-blue-300'
+                              }`}
+                            >
+                              {item.platform}
+                            </Badge>
+                          </td>
+                          <td className="p-3.5 font-mono text-[11px] font-semibold text-[#1C1917]">
+                            {item.order_id}
+                          </td>
+                          <td className="p-3.5 text-[#57534E]">
+                            <p className="font-medium">{item.book_title}</p>
+                            {item.notes && (
+                              <p className="text-[10px] text-[#78716C] italic">{item.notes}</p>
+                            )}
+                          </td>
+                          <td className="p-3.5">
+                            {item.status === 'verified' ? (
+                              <Badge className="bg-emerald-600 text-white text-[9px] gap-1">
+                                <CheckCircle2 className="w-2.5 h-2.5" />
+                                <span>Terverifikasi</span>
+                              </Badge>
+                            ) : item.status === 'rejected' ? (
+                              <Badge className="bg-rose-600 text-white text-[9px]">
+                                Ditolak
+                              </Badge>
+                            ) : (
+                              <Badge className="bg-amber-500 text-white text-[9px] gap-1">
+                                <Clock className="w-2.5 h-2.5" />
+                                <span>Menunggu</span>
+                              </Badge>
+                            )}
+                          </td>
+                          <td className="p-3.5 text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              {item.status !== 'verified' && (
+                                <Button
+                                  size="sm"
+                                  onClick={() => {
+                                    const updated = updateVerificationStatus(item.id, 'verified');
+                                    setVerifications(updated);
+                                  }}
+                                  className="h-7 px-2.5 rounded-lg text-[10px] font-bold bg-emerald-600 hover:bg-emerald-700 text-white gap-1"
+                                  title="Setujui dan Aktifkan Lisensi Buku"
+                                >
+                                  <Check className="w-3 h-3" />
+                                  <span>Setujui</span>
+                                </Button>
+                              )}
+                              {item.status !== 'rejected' && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => {
+                                    const updated = updateVerificationStatus(item.id, 'rejected');
+                                    setVerifications(updated);
+                                  }}
+                                  className="h-7 px-2.5 rounded-lg text-[10px] font-bold border-rose-300 text-rose-700 hover:bg-rose-50 gap-1"
+                                  title="Tolak Pengajuan"
+                                >
+                                  <X className="w-3 h-3" />
+                                  <span>Tolak</span>
+                                </Button>
+                              )}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => {
+                                  if (window.confirm('Hapus entri antrean ini?')) {
+                                    const updated = deleteStoreVerification(item.id);
+                                    setVerifications(updated);
+                                  }
+                                }}
+                                className="h-7 w-7 p-0 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50"
+                                title="Hapus Entri"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

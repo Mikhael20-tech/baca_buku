@@ -70,8 +70,8 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Rangkuman Hayat di Meja Perjamuan tanpa batas harian',
         'Pencarian & Pelajari Firman berbasis teks Yunani & Ibrani',
         'Sinkronisasi instan multi-perangkat (Android, iOS, iPad, Web)',
-        'Audio Doa-Makan & narasi FKKP harian',
-        'Akses prioritas terbitan baru Living Stream Ministry & Yasperin'
+        'Akses prioritas terbitan baru Living Stream Ministry & Yasperin',
+        'Jaminan bebas biaya pembaruan seluruh edisi buku'
       ],
       storeSync: 'Prioritas sinkronisasi lisensi digital real-time',
       cta: 'Tingkatkan ke Ultimate'
