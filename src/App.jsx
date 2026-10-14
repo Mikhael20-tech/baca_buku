@@ -101,7 +101,6 @@ export default function App() {
   const [userRole, setUserRole] = useState('admin'); // 'admin' | 'reader'
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [selectedDetailBook, setSelectedDetailBook] = useState(null);
-  const [isSupabaseModalOpen, setIsSupabaseModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [copiedEnv, setCopiedEnv] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -111,9 +110,22 @@ export default function App() {
   const [isPembinaanModalOpen, setIsPembinaanModalOpen] = useState(false);
   const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
 
+  // Sesi pengguna terautentikasi / tamu
+  const [user, setUser] = useState({
+    id: 'user-demo-baca',
+    email: 'baca@perpustakaan.cloud',
+    full_name: 'Budi Pembaca'
+  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   // Handler memilih Seri Buku Karakter
   const handleSelectKarakterSeries = (seri) => {
     setIsKarakterSeriesModalOpen(false);
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true);
+      showToast('Silakan masuk atau daftar akun terlebih dahulu untuk membaca.');
+      return;
+    }
     if (seri.id === 'all') {
       setCurrentBook({
         id: 'buku-karakter-wl-full',
@@ -136,6 +148,11 @@ export default function App() {
   // Handler memilih Topik Pembinaan Dasar
   const handleSelectPembinaanTopic = (topik) => {
     setIsPembinaanModalOpen(false);
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true);
+      showToast('Silakan masuk atau daftar akun terlebih dahulu untuk membaca.');
+      return;
+    }
     if (topik.id === 'all') {
       setCurrentBook({
         id: 'pembinaan-dasar-wn-full',
@@ -158,6 +175,11 @@ export default function App() {
   // Handler memilih Kitab Alkitab
   const handleSelectBibleBook = (type, bookName) => {
     setIsBibleSelectorModalOpen(false);
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true);
+      showToast('Silakan masuk atau daftar akun terlebih dahulu untuk membaca Alkitab.');
+      return;
+    }
     if (type === 'MATIUS_CATATAN') {
       setCurrentBook({
         id: 'alkitab-pb-pemulihan',
@@ -185,8 +207,13 @@ export default function App() {
     }
   };
 
-  // Handler membuka buku (apakah langsung baca atau buka modal pemilih seri/topik)
+  // Handler membuka buku (wajib login terlebih dahulu)
   const handleOpenBook = (book) => {
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true);
+      showToast('Silakan Masuk atau Daftar akun terlebih dahulu untuk membaca.');
+      return;
+    }
     if (book.id === 'buku-karakter-wl' || book.id?.startsWith('buku-karakter')) {
       setIsKarakterSeriesModalOpen(true);
     } else if (book.id === 'pembinaan-dasar-wn' || book.id?.startsWith('pembinaan-dasar')) {
@@ -198,13 +225,6 @@ export default function App() {
     }
   };
 
-  // Sesi pengguna demo atau terautentikasi
-  const [user, setUser] = useState({
-    id: 'user-demo-baca',
-    email: 'baca@perpustakaan.cloud',
-    full_name: 'Budi Pembaca'
-  });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const showToast = useCallback((msg) => {
     setToastMessage(msg);
@@ -411,9 +431,18 @@ export default function App() {
 
         <LandingPage
           onEnterLibrary={() => setViewMode('library')}
-          onOpenBible={() => setViewMode('bible')}
+          onOpenBible={() => {
+            if (!isLoggedIn) {
+              setIsAuthModalOpen(true);
+              showToast('Silakan masuk atau buat akun baru terlebih dahulu untuk membaca Alkitab.');
+            } else {
+              setViewMode('bible');
+            }
+          }}
           onOpenLogin={() => setIsAuthModalOpen(true)}
-          isSupabaseActive={isSupabaseConfigured()}
+          isLoggedIn={isLoggedIn}
+          user={user}
+          onLogout={handleLogout}
         />
 
         {/* Supabase Auth Modal */}
@@ -421,10 +450,13 @@ export default function App() {
           isOpen={isAuthModalOpen}
           onClose={() => setIsAuthModalOpen(false)}
           onAuthSuccess={(authUser) => {
-            setUserRole('admin');
             setIsLoggedIn(true);
-            setViewMode('library');
-            showToast(`Selamat datang, ${authUser.user_metadata?.full_name || authUser.email}! Akun Admin aktif.`);
+            setUser({
+              id: authUser.id,
+              email: authUser.email,
+              full_name: authUser.user_metadata?.full_name || authUser.email.split('@')[0]
+            });
+            showToast(`Selamat datang, ${authUser.user_metadata?.full_name || authUser.email}!`);
             fetchBooks();
           }}
         />
@@ -433,160 +465,127 @@ export default function App() {
   }
 
   // ----------------------------------------------------
-  // Tampilan Utama: Perpustakaan & Portal Admin
+  // Tampilan Utama: Perpustakaan (Tema Selaras Landing Page)
   // ----------------------------------------------------
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F4EFE6] text-[#1C1917] flex flex-col font-sans selection:bg-[#B96A4A]/25 selection:text-[#3B4B34] relative overflow-x-hidden">
+      
+      {/* Floating Ambient Glow Atmospheric Orbs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="float-slow absolute -top-32 left-1/4 w-[650px] h-[650px] bg-gradient-to-br from-[#8E9C75]/20 via-[#3B4B34]/10 to-transparent rounded-full blur-3xl opacity-60" />
+        <div className="float-slow-reverse absolute top-1/3 -right-40 w-[600px] h-[600px] bg-gradient-to-bl from-[#B96A4A]/15 via-[#B96A4A]/10 to-transparent rounded-full blur-3xl opacity-50" />
+      </div>
+
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl border border-slate-700 text-sm flex items-center gap-2 animate-in slide-in-from-bottom duration-300">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#1C1917] text-[#F4EFE6] px-5 py-3 rounded-2xl shadow-xl border border-[#1C1917]/20 text-xs font-semibold flex items-center gap-2 animate-in slide-in-from-bottom duration-300">
+          <CheckCircle2 className="w-4 h-4 text-[#8E9C75]" />
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-border/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      {/* Top Navigation Bar (Identik dengan Landing Page) */}
+      <header className="sticky top-0 z-40 bg-[#F4EFE6]/90 backdrop-blur-md border-b border-[#1C1917]/8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
           
           {/* Logo & Brand */}
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="default"
-              size="icon"
+          <div className="flex items-center gap-3 shrink-0">
+            <button
               onClick={() => setViewMode('landing')}
-              className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-500 shadow-lg shadow-amber-500/20 text-white hover:scale-105 transition"
+              className="w-10 h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift"
               title="Kembali ke Beranda"
             >
-              <BookOpen className="w-5 h-5" />
-            </Button>
+              <Utensils className="w-5 h-5 text-amber-200" />
+            </button>
             <div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setViewMode('landing')}
-                  className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-slate-100 hover:text-amber-700 transition text-left"
+                  className="font-extrabold text-2xl tracking-tight text-[#1C1917] font-serif hover:text-[#3B4B34] transition text-left"
                 >
-                  Baca
+                  Baca.
                 </button>
-                <Badge variant="secondary" className="text-[10px] uppercase tracking-wider font-semibold bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-300">
-                  Cloud EPUB
-                </Badge>
-                <Button
-                  variant="link"
-                  size="sm"
-                  onClick={() => setViewMode('landing')}
-                  className="text-[11px] font-semibold text-muted-foreground hover:text-foreground h-auto p-0"
-                >
-                  Beranda
-                </Button>
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap">
+                  Mari Makan Tuhan
+                </span>
               </div>
-              <p className="text-[11px] text-muted-foreground hidden sm:block">Perpustakaan Digital & Reader Berbasis Supabase</p>
+              <p className="text-[11px] text-[#78716C] hidden sm:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
             </div>
           </div>
 
-          {/* Quick Actions & Role Switcher */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Actions & Navigation */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             
+            {/* Kembali ke Beranda */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setViewMode('landing')}
+              className="rounded-full text-xs font-bold text-[#78716C] hover:text-[#1C1917] hover:bg-[#1C1917]/5 h-9 px-3.5 btn-lift whitespace-nowrap"
+            >
+              Beranda
+            </Button>
+
             {/* Switch to Bible Section */}
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setViewMode('bible')}
-              className="rounded-full text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800"
-              title="Buka Aplikasi Alkitab Versi Pemulihan (Kejadian - Wahyu)"
+              onClick={() => {
+                if (!isLoggedIn) {
+                  setIsAuthModalOpen(true);
+                  showToast('Silakan masuk atau buat akun baru terlebih dahulu untuk membaca Alkitab.');
+                } else {
+                  setViewMode('bible');
+                }
+              }}
+              className="rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
-              <BookOpen className="w-3.5 h-3.5 mr-1 text-amber-700 dark:text-amber-400" />
+              <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
               <span>Baca Alkitab</span>
             </Button>
-            
-            {/* Supabase Connection Status Pill */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsSupabaseModalOpen(true)}
-              className={`rounded-full text-xs font-medium border transition ${
-                isSupabaseConfigured()
-                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-800'
-                  : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-800'
-              }`}
-            >
-              <Database className="w-3.5 h-3.5 mr-1" />
-              <span className="hidden sm:inline">
-                {isSupabaseConfigured() ? 'Supabase Live' : 'Mode Demo / Offline'}
-              </span>
-              <span className={`w-2 h-2 rounded-full ml-1.5 ${isSupabaseConfigured() ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
-            </Button>
 
-            {/* Role Switcher */}
-            <div className="bg-slate-100 dark:bg-slate-800 p-0.5 rounded-full flex items-center border border-slate-200 dark:border-slate-700 text-xs">
-              <Button
-                variant={userRole === 'reader' ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setUserRole('reader')}
-                className={`h-7 px-3 rounded-full text-xs font-medium transition ${
-                  userRole === 'reader' 
-                    ? 'bg-white text-slate-900 dark:bg-slate-700 dark:text-slate-100 shadow-sm' 
-                    : 'text-slate-500 hover:text-slate-800 dark:text-slate-400'
-                }`}
-                title="Mode Pembaca: Baca & buat anotasi"
-              >
-                <UserCheck className="w-3.5 h-3.5 mr-1.5" />
-                <span className="hidden md:inline">Pembaca</span>
-              </Button>
-              <Button
-                variant={userRole === 'admin' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setUserRole('admin')}
-                className={`h-7 px-3 rounded-full text-xs font-medium transition ${
-                  userRole === 'admin' 
-                    ? 'bg-amber-600 text-white hover:bg-amber-700 shadow-sm' 
-                    : 'text-slate-500 hover:text-slate-800 dark:text-slate-400'
-                }`}
-                title="Mode Admin: Unggah dan kelola koleksi buku"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 mr-1.5" />
-                <span className="hidden md:inline">Admin</span>
-              </Button>
-            </div>
-
-            {/* User Account / Login Button */}
-            {isSupabaseConfigured() && (
-              isLoggedIn ? (
-                <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 pl-3 pr-1.5 py-1 rounded-full text-xs border border-slate-200 dark:border-slate-700">
-                  <span className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] max-w-[100px] sm:max-w-[140px] truncate">
-                    {user.full_name || user.email}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleLogout}
-                    className="h-6 px-2 text-[10px] rounded-full"
-                  >
-                    Keluar
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="rounded-full text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/30 dark:text-amber-400"
-                >
-                  Masuk Akun
-                </Button>
-              )
-            )}
-
-            {/* Upload Button */}
+            {/* Upload Button (Khusus Admin) */}
             {userRole === 'admin' && (
               <Button
-                variant="default"
                 size="sm"
-                onClick={() => setIsUploadModalOpen(true)}
-                className="rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900"
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    setIsAuthModalOpen(true);
+                    showToast('Silakan masuk akun terlebih dahulu untuk mengunggah.');
+                  } else {
+                    setIsUploadModalOpen(true);
+                  }
+                }}
+                className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-white h-9 px-3.5 shadow-sm btn-lift whitespace-nowrap"
               >
-                <UploadCloud className="w-4 h-4 mr-1 text-amber-400" />
+                <UploadCloud className="w-3.5 h-3.5 mr-1 text-amber-300" />
                 <span className="hidden sm:inline">Unggah EPUB</span>
+              </Button>
+            )}
+
+            {/* User Account / Login Button */}
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2 bg-white/80 px-3 py-1 rounded-full border border-[#1C1917]/10 text-xs shadow-xs">
+                <span className="font-semibold text-[#1C1917] text-[11px] max-w-[110px] truncate">
+                  {user.full_name || user.email}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="h-6 px-2 text-[10px] rounded-full text-[#78716C] hover:text-[#1C1917]"
+                >
+                  Keluar
+                </Button>
+              </div>
+            ) : (
+              <Button
+                size="sm"
+                onClick={() => setIsAuthModalOpen(true)}
+                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white h-9 px-4 shadow-sm btn-lift whitespace-nowrap"
+              >
+                <span>Masuk / Daftar</span>
               </Button>
             )}
           </div>
@@ -594,36 +593,34 @@ export default function App() {
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="relative z-10 flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
         
-        {/* Hero Section */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-stone-900 to-amber-950 text-white p-8 sm:p-10 shadow-xl border border-slate-800">
+        {/* Hero Section Banner (Tema Selaras Landing Page) */}
+        <div className="relative overflow-hidden rounded-[32px] p-8 sm:p-10 shadow-2xl text-[#F4EFE6] border border-white/10" style={{ background: 'linear-gradient(135deg, #1C2317 0%, #293322 55%, #151A11 100%)' }}>
           <div className="relative z-10 max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs font-medium border border-white/10">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Dukungan epub.js modern, font disleksia, & highlight warna</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#8E9C75]/25 border border-[#8E9C75]/40 text-[#8E9C75] text-[11px] font-bold tracking-wider uppercase">
+              <Utensils className="w-3.5 h-3.5 text-amber-300" />
+              <span>Meja Perjamuan Firman Rohani</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-              Selamat datang di Perpustakaan <span className="text-amber-400">Baca</span>.
+            <h1 className="text-3xl sm:text-5xl font-serif font-normal leading-tight">
+              Katalog Santapan Hayat & <br />
+              <span className="italic font-light text-amber-200">Pelajaran Kaum Beriman.</span>
             </h1>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              Jelajahi karya klasik, tandai kutipan favorit, buat catatan pribadi, dan simpan progres membaca Anda secara otomatis di cloud.
+            <p className="text-xs sm:text-sm text-[#A8A29E] leading-relaxed">
+              Nikmati santapan firman harian dari FKKP, khazanah Alkitab Versi Pemulihan, 46 pokok pembinaan dasar, dan 30 seri pembentukan karakter rohani.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Badge variant="outline" className="bg-white/5 border-white/20 text-slate-300 text-xs font-normal py-1 px-3">
-                <BookmarkCheck className="w-4 h-4 mr-1.5 text-amber-400" />
-                <span>{books.length} Buku Siap Dibaca</span>
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
+                <BookmarkCheck className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
+                <span>{books.length} Buku Santapan Siap Dibaca</span>
               </Badge>
-              <Badge variant="outline" className="bg-white/5 border-white/20 text-slate-300 text-xs font-normal py-1 px-3">
-                <BookMarked className="w-4 h-4 mr-1.5 text-amber-400" />
-                <span>Highlight & Catatan Tersimpan</span>
+              <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
+                <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
+                <span>Sinkronisasi Otomatis Cloud</span>
               </Badge>
             </div>
           </div>
-
-          {/* Decorative background glow */}
-          <div className="absolute right-0 top-0 bottom-0 w-96 bg-gradient-to-l from-amber-500/15 to-transparent pointer-events-none" />
         </div>
 
         {/* Filter & Search Bar */}
@@ -634,13 +631,13 @@ export default function App() {
             {categories.map(cat => (
               <Button
                 key={cat}
-                variant={selectedCategory === cat ? 'default' : 'outline'}
+                variant="outline"
                 size="sm"
                 onClick={() => setSelectedCategory(cat)}
-                className={`rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                className={`rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 btn-lift ${
                   selectedCategory === cat
-                    ? 'bg-amber-600 text-white hover:bg-amber-700 shadow-sm'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border-slate-200 dark:bg-slate-800 dark:text-slate-300'
+                    ? 'bg-[#3B4B34] text-[#F4EFE6] border-[#3B4B34] shadow-sm'
+                    : 'bg-white/80 text-[#57534E] hover:bg-[#1C1917]/5 border-[#1C1917]/10'
                 }`}
               >
                 {cat}
@@ -650,20 +647,20 @@ export default function App() {
 
           {/* Search Box */}
           <div className="relative min-w-[280px]">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground z-10" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C] z-10" />
             <Input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Cari judul buku atau penulis..."
-              className="pl-10 pr-9 bg-white dark:bg-slate-800 rounded-xl text-xs h-10 border-border"
+              className="pl-10 pr-9 bg-white rounded-full text-xs h-10 border-[#1C1917]/15 focus:border-[#3B4B34] shadow-xs text-[#1C1917]"
             />
             {searchQuery && (
               <Button 
                 variant="ghost"
                 size="icon"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground"
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-[#78716C] hover:text-[#1C1917]"
               >
                 <X className="w-3.5 h-3.5" />
               </Button>
@@ -674,20 +671,28 @@ export default function App() {
         {/* Catalog Grid */}
         {isLoadingBooks ? (
           <div className="py-20 text-center space-y-3">
-            <div className="w-10 h-10 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs text-muted-foreground font-medium">Memuat katalog buku...</p>
+            <div className="w-10 h-10 border-4 border-[#3B4B34] border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-xs text-[#78716C] font-semibold">Menyiapkan hidangan buku santapan...</p>
           </div>
         ) : filteredBooks.length === 0 ? (
-          <Card className="py-16 text-center space-y-3 p-8 border-dashed">
-            <BookOpen className="w-12 h-12 text-muted-foreground/40 mx-auto" />
-            <h3 className="text-base font-bold text-foreground">Tidak ada buku ditemukan</h3>
-            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-              Tidak ada buku yang cocok dengan pencarian &quot;{searchQuery}&quot;. Coba ubah kata kunci atau unggah buku baru.
+          <Card className="rounded-[32px] p-12 text-center bg-white/70 border border-[#1C1917]/10 space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-[#EAE3D5] text-[#3B4B34] flex items-center justify-center mx-auto text-2xl">
+              📖
+            </div>
+            <h3 className="font-serif font-bold text-lg text-[#1C1917]">Tidak Ada Buku yang Cocok</h3>
+            <p className="text-xs text-[#78716C] max-w-sm mx-auto">
+              Cobalah mengganti kata kunci pencarian atau memilih kategori yang berbeda.
             </p>
             {userRole === 'admin' && (
               <Button
-                onClick={() => setIsUploadModalOpen(true)}
-                className="bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-semibold shadow-sm"
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    setIsAuthModalOpen(true);
+                  } else {
+                    setIsUploadModalOpen(true);
+                  }
+                }}
+                className="bg-[#3B4B34] hover:bg-[#20251A] text-white rounded-full text-xs font-bold shadow-sm btn-lift"
               >
                 <UploadCloud className="w-4 h-4 mr-1.5" />
                 Unggah File EPUB
@@ -700,12 +705,12 @@ export default function App() {
               <Card
                 key={book.id}
                 onClick={() => handleOpenBook(book)}
-                className="group relative border-border/80 hover:border-amber-500/80 p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer flex flex-col justify-between overflow-hidden"
+                className="group relative rounded-[28px] p-5 bg-[#F7F4ED] border border-[#1C1917]/10 hover:border-[#8E9C75] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden btn-lift"
               >
                 {/* Book Cover Area */}
                 <div>
                   <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-lg transition flex items-center justify-center p-4 bg-gradient-to-tr ${
-                    book.cover_gradient || 'from-slate-700 via-stone-800 to-amber-950'
+                    book.cover_gradient || 'from-[#1C2317] via-[#293322] to-[#3B4B34]'
                   }`}>
                     {book.cover_url ? (
                       <img 
@@ -716,7 +721,7 @@ export default function App() {
                     ) : (
                       <div className="text-center text-white space-y-3 p-4">
                         <span className="text-4xl filter drop-shadow">{book.cover_icon || '📖'}</span>
-                        <h4 className="font-bold text-sm leading-tight line-clamp-3 text-slate-100 font-serif">
+                        <h4 className="font-bold text-sm leading-tight line-clamp-3 text-white font-serif">
                           {book.title}
                         </h4>
                         <p className="text-[11px] text-amber-200 font-medium tracking-wide">
@@ -726,34 +731,34 @@ export default function App() {
                     )}
 
                     {/* Badge Category */}
-                    <Badge variant="secondary" className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold border-white/20">
+                    <Badge variant="secondary" className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold border-white/20 rounded-full">
                       {book.category || 'Umum'}
                     </Badge>
 
                     {/* Hover Play Button Overlay */}
-                    <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition duration-200">
+                    <div className="absolute inset-0 bg-[#1C1917]/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-[#3B4B34] text-white flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition duration-200">
                         <Play className="w-5 h-5 ml-0.5 fill-current" />
                       </div>
                     </div>
                   </div>
 
                   {/* Metadata */}
-                  <h3 className="font-bold text-foreground text-sm line-clamp-1 group-hover:text-amber-600 transition">
+                  <h3 className="font-serif font-bold text-[#1C1917] text-base line-clamp-1 group-hover:text-[#3B4B34] transition">
                     {book.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                  <p className="text-xs text-[#78716C] mt-1 line-clamp-1 font-semibold">
                     Oleh {book.author}
                   </p>
                   {book.description && (
-                    <p className="text-[11px] text-muted-foreground/80 mt-2 line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] text-[#57534E] mt-2 line-clamp-2 leading-relaxed">
                       {book.description}
                     </p>
                   )}
                 </div>
 
                 {/* Footer Actions */}
-                <div className="mt-5 pt-3 border-t border-border flex items-center justify-between text-xs">
+                <div className="mt-5 pt-3 border-t border-[#1C1917]/8 flex items-center justify-between text-xs">
                   <Button
                     variant="ghost"
                     size="icon"
@@ -761,7 +766,7 @@ export default function App() {
                       e.stopPropagation();
                       setSelectedDetailBook(book);
                     }}
-                    className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                    className="h-8 w-8 text-[#78716C] hover:text-[#1C1917] rounded-full"
                     title="Informasi Buku"
                   >
                     <Info className="w-4 h-4" />
@@ -773,14 +778,14 @@ export default function App() {
                         variant="ghost"
                         size="icon"
                         onClick={(e) => handleDeleteBook(book.id, e)}
-                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        className="h-8 w-8 text-[#78716C] hover:text-rose-600 rounded-full"
                         title="Hapus dari katalog"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     )}
 
-                    <span className="inline-flex items-center gap-1 font-semibold text-amber-600 group-hover:text-amber-700 transition">
+                    <span className="inline-flex items-center gap-1 font-bold text-xs text-[#3B4B34] group-hover:text-[#20251A] transition">
                       Baca <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -791,17 +796,29 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="mt-16 bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 Baca - Cloud EPUB Reader & Annotation System</p>
-          <div className="flex items-center gap-4">
+      {/* Footer (Identik dengan Landing Page) */}
+      <footer className="mt-20 py-10 bg-[#EFE9DF] border-t border-[#1C1917]/10 text-xs text-[#78716C]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="font-serif font-bold text-sm text-[#1C1917]">Baca</span>
+            <span>• Pusat Pembacaan Firman &amp; Perpustakaan Hayat Digital</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <button onClick={() => setViewMode('landing')} className="hover:text-[#1C1917] transition-colors">Beranda</button>
             <button 
-              onClick={() => setIsSupabaseModalOpen(true)}
-              className="hover:text-slate-600 transition underline underline-offset-4"
+              onClick={() => {
+                if (!isLoggedIn) {
+                  setIsAuthModalOpen(true);
+                  showToast('Silakan masuk atau buat akun baru terlebih dahulu untuk membaca Alkitab.');
+                } else {
+                  setViewMode('bible');
+                }
+              }} 
+              className="hover:text-[#1C1917] transition-colors"
             >
-              Status & Panduan Supabase
+              Alkitab (66 Kitab)
             </button>
+            <button onClick={() => setIsAuthModalOpen(true)} className="hover:text-[#1C1917] transition-colors">Admin Portal</button>
           </div>
         </div>
       </footer>
@@ -822,6 +839,12 @@ export default function App() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         onAuthSuccess={(authUser) => {
+          setIsLoggedIn(true);
+          setUser({
+            id: authUser.id,
+            email: authUser.email,
+            full_name: authUser.user_metadata?.full_name || authUser.email.split('@')[0]
+          });
           showToast(`Selamat datang, ${authUser.user_metadata?.full_name || authUser.email}!`);
           fetchBooks();
         }}
@@ -830,28 +853,27 @@ export default function App() {
       {/* Book Detail Modal */}
       <Dialog open={!!selectedDetailBook} onOpenChange={(open) => !open && setSelectedDetailBook(null)}>
         {selectedDetailBook && (
-          <DialogContent className="max-w-md p-6">
-            <DialogHeader className="space-y-2">
+          <DialogContent className="max-w-md rounded-[32px] p-7 bg-[#F7F4ED] border border-[#1C1917]/15 text-[#1C1917]">
+            <DialogHeader className="space-y-2 text-left">
               <div>
-                <Badge variant="secondary" className="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-300">
+                <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-wider text-[#3B4B34] bg-[#8E9C75]/20 border-[#8E9C75]/40 rounded-full">
                   {selectedDetailBook.category || 'Umum'}
                 </Badge>
               </div>
-              <DialogTitle className="text-lg font-bold text-foreground">
+              <DialogTitle className="text-xl font-serif font-bold text-[#1C1917]">
                 {selectedDetailBook.title}
               </DialogTitle>
-              <DialogDescription className="text-xs text-muted-foreground">
+              <DialogDescription className="text-xs text-[#78716C]">
                 Penulis: {selectedDetailBook.author}
               </DialogDescription>
             </DialogHeader>
 
-            <div className="p-4 bg-muted/50 rounded-2xl text-xs text-muted-foreground leading-relaxed border border-border">
-              <p className="font-semibold text-foreground mb-1">Sinopsis / Ringkasan:</p>
+            <div className="p-4 bg-white rounded-2xl text-xs text-[#57534E] leading-relaxed border border-[#1C1917]/8">
+              <p className="font-bold text-[#1C1917] mb-1">Sinopsis / Ringkasan:</p>
               {selectedDetailBook.description || 'Tidak ada deskripsi tambahan.'}
             </div>
 
-            <div className="space-y-1 text-[11px] text-muted-foreground">
-              <p>Path File: <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">{selectedDetailBook.file_path}</code></p>
+            <div className="space-y-1 text-[11px] text-[#78716C]">
               <p>Ditambahkan: {selectedDetailBook.created_at ? new Date(selectedDetailBook.created_at).toLocaleDateString('id-ID') : '-'}</p>
             </div>
 
@@ -860,6 +882,7 @@ export default function App() {
                 variant="outline"
                 size="sm"
                 onClick={() => setSelectedDetailBook(null)}
+                className="rounded-full text-xs font-bold border-[#1C1917]/20 text-[#1C1917]"
               >
                 Tutup
               </Button>
@@ -870,7 +893,7 @@ export default function App() {
                   setSelectedDetailBook(null);
                   handleOpenBook(b);
                 }}
-                className="bg-amber-600 hover:bg-amber-700 text-white shadow-sm"
+                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white btn-lift"
               >
                 <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
                 Baca Buku Ini
@@ -878,109 +901,6 @@ export default function App() {
             </DialogFooter>
           </DialogContent>
         )}
-      </Dialog>
-
-      {/* Supabase Integration Guide Modal */}
-      <Dialog open={isSupabaseModalOpen} onOpenChange={setIsSupabaseModalOpen}>
-        <DialogContent className="max-w-xl p-6 sm:p-7 max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="pb-3 border-b border-border space-y-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 flex items-center justify-center">
-                <Database className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <DialogTitle className="text-base font-bold text-foreground">
-                  Panduan Integrasi Supabase Cloud
-                </DialogTitle>
-                <DialogDescription className="text-[11px] text-muted-foreground">
-                  Status sinkronisasi & langkah deployment backend
-                </DialogDescription>
-              </div>
-            </div>
-          </DialogHeader>
-
-          {/* Connection Status Box */}
-          <div className={`p-4 rounded-2xl border text-xs flex items-center justify-between ${
-            isSupabaseConfigured()
-              ? 'bg-emerald-50/80 border-emerald-200 text-emerald-800 dark:bg-emerald-950/30 dark:border-emerald-800 dark:text-emerald-300'
-              : 'bg-amber-50/80 border-amber-200 text-amber-900 dark:bg-amber-950/30 dark:border-amber-800 dark:text-amber-300'
-          }`}>
-            <div className="flex items-center gap-2.5">
-              <div className={`w-2.5 h-2.5 rounded-full ${isSupabaseConfigured() ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-              <div>
-                <p className="font-bold">
-                  {isSupabaseConfigured() ? 'Supabase Terhubung!' : 'Sedang Berjalan dalam Mode Demo'}
-                </p>
-                <p className="text-[11px] opacity-80">
-                  {isSupabaseConfigured() 
-                    ? 'Semua anotasi, pembacaan, dan berkas EPUB tersinkronisasi ke cloud.' 
-                    : 'Kredensial .env belum diisi. Data tersimpan di memori browser lokal.'}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Step-by-Step Instructions */}
-          <div className="space-y-4 text-xs text-foreground">
-            <h4 className="font-bold text-sm">Langkah Menghubungkan Supabase Cloud:</h4>
-            
-            <div className="space-y-3">
-              <div className="p-3.5 bg-muted/40 rounded-2xl border border-border space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-foreground">1. Atur Kredensial di file .env</span>
-                  <Button 
-                    variant="ghost"
-                    size="sm"
-                    onClick={copyEnvSample}
-                    className="h-7 text-[11px] font-semibold text-amber-600 hover:text-amber-700 p-1"
-                  >
-                    <Copy className="w-3 h-3 mr-1" />
-                    {copiedEnv ? 'Tersalin!' : 'Salin Contoh'}
-                  </Button>
-                </div>
-                <pre className="p-2.5 bg-slate-900 text-amber-300 dark:bg-slate-950 rounded-xl font-mono text-[11px] overflow-x-auto">
-{`VITE_SUPABASE_URL=https://<your-project>.supabase.co
-VITE_SUPABASE_ANON_KEY=<your-anon-key>`}
-                </pre>
-              </div>
-
-              <div className="p-3.5 bg-muted/40 rounded-2xl border border-border space-y-1.5">
-                <p className="font-bold text-foreground">2. Jalankan Skrip Database</p>
-                <p className="text-muted-foreground text-[11px]">
-                  Buka menu <b>SQL Editor</b> di Supabase, lalu jalankan seluruh isi berkas <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">supabase/schema.sql</code> untuk membuat tabel <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">books</code>, <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">annotations</code>, <code className="bg-muted px-1.5 py-0.5 rounded text-foreground font-mono">reading_progress</code>, dan RLS policies.
-                </p>
-              </div>
-
-              <div className="p-3.5 bg-muted/40 rounded-2xl border border-border space-y-1.5">
-                <p className="font-bold text-foreground">3. Siapkan Storage Buckets</p>
-                <p className="text-muted-foreground text-[11px]">
-                  Di menu <b>Storage</b> Supabase, pastikan ada 2 bucket:
-                </p>
-                <ul className="list-disc list-inside text-[11px] space-y-0.5 text-muted-foreground pl-1">
-                  <li><b>books</b>: Private Bucket (hanya dapat diakses melalui Signed URL)</li>
-                  <li><b>book-covers</b>: Public Bucket (untuk gambar sampul)</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter className="pt-2 flex sm:flex-row items-center justify-between border-t border-border gap-2">
-            <a 
-              href="https://supabase.com/dashboard" 
-              target="_blank" 
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700"
-            >
-              Buka Supabase Dashboard <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-            <Button
-              onClick={() => setIsSupabaseModalOpen(false)}
-              className="bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900"
-            >
-              Tutup Panduan
-            </Button>
-          </DialogFooter>
-        </DialogContent>
       </Dialog>
 
       {/* Modal Pemilih Seri Buku Karakter */}

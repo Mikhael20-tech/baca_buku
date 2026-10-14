@@ -71,7 +71,7 @@ function AnimatedCounter({ target, suffix = '', duration = 1400 }) {
   );
 }
 
-export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }) {
+export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin, isLoggedIn, user, onLogout }) {
   const [activeFaq, setActiveFaq] = useState(null);
   const [activeTab, setActiveTab] = useState('fkkp');
 
@@ -125,11 +125,11 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }
       </div>
 
       {/* ===================== HEADER ===================== */}
-      <header className="sticky top-0 z-50 border-b border-[#1C1917]/8 bg-[#F4EFE6]/85 backdrop-blur-md">
-        <div className="max-w-[1240px] mx-auto px-5 sm:px-8 h-18 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-50 border-b border-[#1C1917]/8 bg-[#F4EFE6]/90 backdrop-blur-md">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
           
           {/* Logo & Brand */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <div className="w-10 h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift">
               <Utensils className="w-5 h-5 text-amber-200" />
             </div>
@@ -138,30 +138,30 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }
                 <span className="font-extrabold text-2xl tracking-tight text-[#1C1917] font-serif">
                   Baca.
                 </span>
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30">
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap">
                   Mari Makan Tuhan
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden sm:block">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
+              <p className="text-[11px] text-[#78716C] hidden sm:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-xs font-semibold text-[#78716C]">
-            <a href="#santapan" className="hover:text-[#1C1917] transition-colors">Meja Santapan</a>
-            <a href="#pilar" className="hover:text-[#1C1917] transition-colors">4 Pilar Makanan</a>
-            <a href="#langkah" className="hover:text-[#1C1917] transition-colors">Cara Makan Firman</a>
-            <a href="#kebenaran" className="hover:text-[#1C1917] transition-colors">Kebenaran Alkitab</a>
-            <a href="#faq" className="hover:text-[#1C1917] transition-colors">Tanya Jawab</a>
+          {/* Navigation Links (Clean Non-Wrapping) */}
+          <nav className="hidden xl:flex items-center gap-6 text-xs font-semibold text-[#78716C] shrink-0">
+            <a href="#santapan" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">Meja Santapan</a>
+            <a href="#pilar" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">4 Pilar Makanan</a>
+            <a href="#langkah" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">Cara Makan Firman</a>
+            <a href="#kebenaran" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">Kebenaran Alkitab</a>
+            <a href="#faq" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">Tanya Jawab</a>
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={onOpenBible}
-              className="rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift"
+              className="rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
               <BookOpen className="w-3.5 h-3.5 mr-1.5 text-[#3B4B34]" />
@@ -171,21 +171,36 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }
             <Button
               size="sm"
               onClick={onEnterLibrary}
-              className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] h-9 px-4 shadow-md btn-lift"
+              className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] h-9 px-4 shadow-md btn-lift whitespace-nowrap"
             >
               <span>Katalog Buku</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onOpenLogin}
-              className="rounded-full h-9 w-9 text-[#78716C] hover:text-[#1C1917] hover:bg-[#1C1917]/5 btn-lift"
-              title="Portal Masuk / Admin"
-            >
-              <ShieldCheck className="w-4 h-4" />
-            </Button>
+            {/* Auth Button: Masuk / Daftar vs Profile */}
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2 bg-white/80 px-3 py-1 rounded-full border border-[#1C1917]/10 text-xs shadow-xs">
+                <span className="font-semibold text-[#1C1917] text-[11px] max-w-[110px] truncate">
+                  {user?.full_name || user?.email}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onLogout}
+                  className="h-6 px-2 text-[10px] rounded-full text-[#78716C] hover:text-[#1C1917]"
+                >
+                  Keluar
+                </Button>
+              </div>
+            ) : (
+              <Button
+                size="sm"
+                onClick={onOpenLogin}
+                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-[#F4EFE6] h-9 px-4 shadow-sm btn-lift whitespace-nowrap"
+              >
+                <span>Masuk / Daftar</span>
+              </Button>
+            )}
           </div>
         </div>
       </header>
@@ -356,7 +371,17 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }
 
                   <Button
                     size="sm"
-                    onClick={activeTab === 'alkitab' ? onOpenBible : onEnterLibrary}
+                    onClick={() => {
+                      if (!isLoggedIn) {
+                        onOpenLogin();
+                      } else {
+                        if (activeTab === 'alkitab') {
+                          onOpenBible();
+                        } else {
+                          onEnterLibrary();
+                        }
+                      }
+                    }}
                     className="rounded-full text-xs font-bold bg-[#3B4B34] text-[#F4EFE6] hover:bg-[#20251A] btn-lift"
                   >
                     Buka Langsung <ChevronRight className="w-3.5 h-3.5 ml-1" />
