@@ -243,40 +243,14 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }
             </Button>
           </div>
 
-          {/* Pills Feature Strip */}
-          <div 
-            className="mt-12 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[#78716C] font-semibold w-anim"
-            style={{ animationDelay: '1200ms' }}
-          >
-            <span className="flex items-center gap-1.5 hover:text-[#1C1917] transition-colors">
-              <Sunrise className="w-3.5 h-3.5 text-[#B96A4A]" /> FKKP Kebangunan Pagi
-            </span>
-            <span className="w-1 h-1 rounded-full bg-[#78716C]/40" />
-            <span className="flex items-center gap-1.5 hover:text-[#1C1917] transition-colors">
-              <BookOpen className="w-3.5 h-3.5 text-[#3B4B34]" /> 66 Kitab Versi Pemulihan
-            </span>
-            <span className="w-1 h-1 rounded-full bg-[#78716C]/40" />
-            <span className="flex items-center gap-1.5 hover:text-[#1C1917] transition-colors">
-              <Sparkles className="w-3.5 h-3.5 text-[#B96A4A]" /> 46 Pelajaran Pembinaan
-            </span>
-            <span className="w-1 h-1 rounded-full bg-[#78716C]/40" />
-            <span className="flex items-center gap-1.5 hover:text-[#1C1917] transition-colors">
-              <Compass className="w-3.5 h-3.5 text-[#3B4B34]" /> 30 Seri Karakter Rohani
-            </span>
-          </div>
+
 
         </div>
 
         {/* ===================== INTERACTIVE WORKSPACE PREVIEW (Meja Santapan) ===================== */}
         <div id="santapan" className="relative mt-14 sm:mt-20 max-w-[1140px] mx-auto px-4 sm:px-8 reveal-item">
           
-          {/* Subtle Decorative Floating Icons */}
-          <div className="absolute -top-6 -left-2 float-slow hidden md:block text-2xl z-20 select-none opacity-80">
-            🌾
-          </div>
-          <div className="absolute -bottom-8 -right-3 float-slow-reverse hidden md:block text-2xl z-20 select-none opacity-80">
-            ✨
-          </div>
+
 
           <div className="rounded-[32px] p-2.5 sm:p-4 bg-white/60 backdrop-blur-xl border border-white/80 shadow-2xl shadow-[#1C1917]/10 transition-all duration-500 hover:shadow-3xl">
             <div className="rounded-[24px] overflow-hidden bg-[#FAF7F2] border border-[#1C1917]/8 flex flex-col md:flex-row text-left min-h-[460px]">
@@ -414,14 +388,7 @@ export default function LandingPage({ onEnterLibrary, onOpenBible, onOpenLogin }
                   </div>
                 </div>
 
-                {/* Bottom Status Bar in Preview */}
-                <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[#78716C] pt-2">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#8E9C75]" />
-                    <span>Sinkronisasi Otomatis Cloud &amp; Offline IndexedDB</span>
-                  </div>
-                  <span className="font-medium text-[#B96A4A]">Dukungan Font Disleksia &amp; Sorotan Warna</span>
-                </div>
+
 
               </div>
             </div>
