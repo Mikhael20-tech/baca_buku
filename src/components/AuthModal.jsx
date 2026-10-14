@@ -42,8 +42,8 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
       setErrorMsg('');
       setSuccessMsg('');
       if (initialRole === 'admin') {
-        setEmail('admin123');
-        setPassword('123456');
+        setEmail('');
+        setPassword('');
         setTab('login');
       } else {
         setEmail('');
@@ -207,12 +207,6 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
     }
   };
 
-  const fillAdminCredentials = () => {
-    setTab('login');
-    setEmail('admin123');
-    setPassword('123456');
-    setErrorMsg('');
-  };
 
 
   const handleGoogleSignIn = async () => {
@@ -286,7 +280,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
               </DialogTitle>
               <DialogDescription className="text-xs text-[#78716C]">
                 {roleMode === 'admin' 
-                  ? 'Akses khusus pengelola (user admin123 & pass 123456).' 
+                  ? 'Akses khusus administrator dan pengelola sistem.' 
                   : 'Akses santapan firman, saat teduh & bagi nikmat.'}
               </DialogDescription>
             </div>
@@ -320,8 +314,8 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
               setRoleMode('admin');
               setErrorMsg('');
               setSuccessMsg('');
-              setEmail('admin123');
-              setPassword('123456');
+              setEmail('');
+              setPassword('');
             }}
             className={`py-2 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-all ${
               roleMode === 'admin'
@@ -337,20 +331,6 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
         {/* JIKA MODE ADMIN */}
         {roleMode === 'admin' ? (
           <div className="space-y-3">
-            <div className="p-3 bg-stone-900 text-stone-200 rounded-2xl border border-stone-800 text-xs space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-amber-300 text-[11px] flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                  Kredensial Khusus Admin
-                </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-bold">
-                  Akses Penuh
-                </span>
-              </div>
-              <p className="text-[11px] text-stone-300 font-mono">
-                Username: <strong className="text-white">admin123</strong> | Password: <strong className="text-white">123456</strong>
-              </p>
-            </div>
 
             {errorMsg && (
               <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-xs flex items-start gap-2">
