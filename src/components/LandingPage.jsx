@@ -588,37 +588,6 @@ export default function LandingPage({
                       {activeTab === 'pembinaan' && '46 Pokok Pelajaran Bagi Kaum Beriman Baru'}
                     </h3>
                   </div>
-
-                  <div className="flex items-center gap-2">
-                    <Button
-                      size="sm"
-                      onClick={() => {
-                        if (!isLoggedIn) {
-                          onOpenLogin();
-                        } else {
-                          if (activeTab === 'alkitab') {
-                            onOpenBible();
-                          } else if (activeTab === 'fkkp' && onOpenBook) {
-                            const fkkpBook = books.find(b => b.title?.toLowerCase().includes('fkkp')) || {
-                              id: '4e109d2d-08d5-4d3e-8c12-5a79a9f3e472',
-                              title: `FKKP Kaum Beriman (${fkkpDay.badge})`,
-                              file_path: 'epubs/1792029937814-693nqm.epub',
-                              cover_url: '/covers/fkkp-kaum-beriman.png'
-                            };
-                            onOpenBook({
-                              ...fkkpBook,
-                              initialLocation: fkkpDay.initialLocation
-                            });
-                          } else {
-                            onEnterLibrary();
-                          }
-                        }
-                      }}
-                      className="rounded-full text-xs font-bold bg-[#3B4B34] text-[#F4EFE6] hover:bg-[#20251A] btn-lift"
-                    >
-                      Buka Lengkap <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                    </Button>
-                  </div>
                 </div>
 
                 {/* Content Box with AI Digest */}
