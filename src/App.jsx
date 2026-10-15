@@ -447,34 +447,43 @@ export default function App() {
         b.category !== 'Alkitab & Firman' &&
         !hiddenIds.includes(b.id);
 
+      let dbBooks = [];
       if (isSupabaseConfigured()) {
-        const { data, error } = await supabase
-          .from('books')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (!error && data && data.length > 0) {
-          const uniqueBooks = data
-            .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
-            .filter(isVisibleItem)
-            .map(b => {
-              if ((!b.cover_url || b.cover_url.startsWith('blob:')) && b.title?.toLowerCase().includes('fkkp')) {
-                return { ...b, cover_url: '/covers/fkkp-kaum-beriman.png' };
-              }
-              return b;
-            });
-          setBooks(uniqueBooks);
-          setIsLoadingBooks(false);
-          return;
+        try {
+          const { data, error } = await supabase
+            .from('books')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (!error && data) {
+            dbBooks = data;
+          }
+        } catch (supabaseErr) {
+          console.warn('Supabase fetch books error:', supabaseErr);
         }
       }
 
-      // Fallback demo books
-      const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
-      const combined = localBooks.length > 0 ? localBooks : INITIAL_DEMO_BOOKS;
-      const cleanedLocal = combined.filter(isVisibleItem);
-      localStorage.setItem('baca_demo_books', JSON.stringify(cleanedLocal));
-      setBooks(cleanedLocal);
+      const localUploaded = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
+
+      // Gabungkan buku database Supabase, buku upload lokal, dan buku katalog bawaan (INITIAL_DEMO_BOOKS)
+      const allCandidates = [...dbBooks, ...localUploaded, ...INITIAL_DEMO_BOOKS];
+      const seenIds = new Set();
+      const uniqueBooks = [];
+
+      for (const b of allCandidates) {
+        if (!b || !b.id) continue;
+        if (!seenIds.has(b.id)) {
+          seenIds.add(b.id);
+          if (isVisibleItem(b)) {
+            let processed = { ...b };
+            if ((!processed.cover_url || processed.cover_url.startsWith('blob:')) && processed.title?.toLowerCase().includes('fkkp')) {
+              processed.cover_url = '/covers/fkkp-kaum-beriman.png';
+            }
+            uniqueBooks.push(processed);
+          }
+        }
+      }
+
+      setBooks(uniqueBooks);
     } catch (err) {
       console.warn('Gagal fetch buku:', err);
       setBooks(INITIAL_DEMO_BOOKS);
