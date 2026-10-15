@@ -16,9 +16,12 @@ import BibleGlobalSearchModal from './BibleGlobalSearchModal';
 import BibleRefPreviewModal from './BibleRefPreviewModal';
 
 const FONTS = [
+  { id: 'Cinzel', name: 'Cinzel (Artistik)', font: "'Cinzel', Georgia, serif" },
+  { id: 'Playfair Display', name: 'Playfair (Elegan)', font: "'Playfair Display', Georgia, serif" },
+  { id: 'Cormorant Garamond', name: 'Cormorant (Klasik)', font: "'Cormorant Garamond', Georgia, serif" },
+  { id: 'Lora', name: 'Lora', font: "'Lora', Georgia, serif" },
   { id: 'Merriweather', name: 'Merriweather', font: "'Merriweather', Georgia, serif" },
   { id: 'Literata', name: 'Literata', font: "'Literata', Georgia, serif" },
-  { id: 'Lora', name: 'Lora', font: "'Lora', Georgia, serif" },
   { id: 'Inter', name: 'Inter', font: "'Inter', sans-serif" },
   { id: 'Plus Jakarta Sans', name: 'Jakarta Sans', font: "'Plus Jakarta Sans', sans-serif" }
 ];
@@ -946,18 +949,35 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
       >
         <div className={`mx-auto transition-all ${contentWidth === 'wide' ? 'max-w-4xl' : 'max-w-2xl'} space-y-6 ${transitionAnim}`}>
           
-          {/* Header Judul Kitab & Pasal */}
-          <div className="text-center space-y-2 pb-4 border-b border-slate-200/60 dark:border-zinc-800">
-            <span className="text-[11px] font-bold tracking-widest uppercase font-mono px-3 py-1 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/20 inline-block">
-              {currentBookInfo.testament === 'PL' ? 'Perjanjian Lama' : 'Perjanjian Baru'}
-              {viewMode === 'parallel' && ' • Mode Paralel (ID & EN)'}
-            </span>
-            <h1 className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${themeStyles.text}`}>
-              {currentBookInfo.name}
-              <span className="ml-2.5 text-amber-600 dark:text-amber-400 font-mono font-normal">
+          {/* Header Judul Kitab & Pasal (Artistic Biblical Typography) */}
+          <div className="text-center space-y-3 pb-6 border-b border-amber-500/20 dark:border-zinc-800">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 dark:bg-amber-400/10 text-amber-900 dark:text-amber-300 border border-amber-500/25 dark:border-amber-400/20 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80"></span>
+              <span className="text-[11px] font-bold tracking-[0.22em] uppercase font-serif">
+                {bibleLang === 'en'
+                  ? (currentBookInfo.testament === 'PL' ? 'Old Testament' : 'New Testament')
+                  : (currentBookInfo.testament === 'PL' ? 'Perjanjian Lama' : 'Perjanjian Baru')}
+                {viewMode === 'parallel' && (bibleLang === 'en' ? ' • Parallel Mode' : ' • Mode Paralel')}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80"></span>
+            </div>
+
+            <h1 
+              className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide ${themeStyles.text} flex items-baseline justify-center gap-3 drop-shadow-2xs`}
+              style={{ fontFamily: "'Cinzel', 'Playfair Display', 'Cormorant Garamond', Georgia, serif" }}
+            >
+              <span className="tracking-wide">{currentBookInfo.name}</span>
+              <span className="text-amber-600 dark:text-amber-400 font-normal italic font-serif text-3xl sm:text-4xl md:text-5xl">
                 {selectedChapter}
               </span>
             </h1>
+
+            {/* Classical Artistic Divider */}
+            <div className="flex items-center justify-center gap-3 pt-0.5 text-amber-600/40 dark:text-amber-400/30 select-none">
+              <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-amber-500/40"></div>
+              <span className="text-xs">✦</span>
+              <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-amber-500/40"></div>
+            </div>
           </div>
 
           {/* Pengantar & Pokok Kitab (Khusus Pasal 1 jika tersedia) */}
@@ -1190,8 +1210,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               className={`px-4 py-2.5 rounded-2xl border ${themeStyles.border} ${themeStyles.text} font-bold text-xs hover:opacity-80 transition flex items-center gap-2 shadow-2xs cursor-pointer`}
             >
               <ChevronLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Pasal Sebelumnya</span>
-              <span className="sm:hidden">Sblm</span>
+              <span className="hidden sm:inline">{bibleLang === 'en' ? 'Previous Chapter' : 'Pasal Sebelumnya'}</span>
+              <span className="sm:hidden">{bibleLang === 'en' ? 'Prev' : 'Sblm'}</span>
             </button>
 
             <span className={`text-xs ${themeStyles.secondaryText} font-mono hidden sm:inline`}>
@@ -1202,8 +1222,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               onClick={handleNextChapter}
               className="px-4 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2 cursor-pointer"
             >
-              <span className="hidden sm:inline">Pasal Berikutnya</span>
-              <span className="sm:hidden">Lanjut</span>
+              <span className="hidden sm:inline">{bibleLang === 'en' ? 'Next Chapter' : 'Pasal Berikutnya'}</span>
+              <span className="sm:hidden">{bibleLang === 'en' ? 'Next' : 'Lanjut'}</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -1265,7 +1285,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   type="text"
                   value={bookSearchQuery}
                   onChange={(e) => setBookSearchQuery(e.target.value)}
-                  placeholder="Cari nama kitab..."
+                  placeholder={bibleLang === 'en' ? "Search book name..." : "Cari nama kitab..."}
                   className="w-full pl-8 pr-3 py-1.5 bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl text-xs text-slate-800 dark:text-zinc-100 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20"
                 />
               </div>
@@ -1323,7 +1343,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
               <h3 className="font-extrabold text-base text-slate-800 dark:text-zinc-100">
-                Pilih Pasal • {currentBookInfo.name}
+                {bibleLang === 'en' ? 'Select Chapter' : 'Pilih Pasal'} • {currentBookInfo.name}
               </h3>
               <button 
                 onClick={() => setIsChapterPickerOpen(false)}
