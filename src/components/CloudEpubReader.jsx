@@ -243,9 +243,10 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   const [slideAnimationClass, setSlideAnimationClass] = useState('');
   const isNavigatingRef = useRef(false);
 
-  // Drawer Anotasi & Daftar Isi (TOC)
+  // Drawer Anotasi, Daftar Isi (TOC), & Pengaturan Tampilan
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isTocOpen, setIsTocOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [toc, setToc] = useState([]);
   const [tocSearch, setTocSearch] = useState('');
 
@@ -373,6 +374,59 @@ export default function CloudEpubReader({ book, userId, onBack }) {
       }, 240);
     }, 150);
   }, [playPageTurnSound]);
+
+  // Handler Gulir / Pindah Halaman Cepat (Responsif untuk Mode Gulir & Mode Buku)
+  const handleScrollUp = useCallback(() => {
+    if (modeRef.current === 'paginated') {
+      handlePrevPage();
+      return;
+    }
+    let scrolled = false;
+    if (renditionInstance.current) {
+      try {
+        const contentsList = renditionInstance.current.getContents?.() || [];
+        contentsList.forEach((contents) => {
+          if (contents.window) {
+            contents.window.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
+            scrolled = true;
+          }
+        });
+      } catch {}
+    }
+    if (viewerRef.current) {
+      viewerRef.current.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
+      viewerRef.current.parentElement?.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
+    }
+    if (!scrolled && renditionInstance.current) {
+      try { renditionInstance.current.prev(); } catch {}
+    }
+  }, [handlePrevPage]);
+
+  const handleScrollDown = useCallback(() => {
+    if (modeRef.current === 'paginated') {
+      handleNextPage();
+      return;
+    }
+    let scrolled = false;
+    if (renditionInstance.current) {
+      try {
+        const contentsList = renditionInstance.current.getContents?.() || [];
+        contentsList.forEach((contents) => {
+          if (contents.window) {
+            contents.window.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
+            scrolled = true;
+          }
+        });
+      } catch {}
+    }
+    if (viewerRef.current) {
+      viewerRef.current.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
+      viewerRef.current.parentElement?.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
+    }
+    if (!scrolled && renditionInstance.current) {
+      try { renditionInstance.current.next(); } catch {}
+    }
+  }, [handleNextPage]);
 
   // 1. Bersihkan seleksi native browser di dalam iframe
   const clearSelection = useCallback(() => {
@@ -715,7 +769,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
     if (!viewerRef.current) return;
     viewerRef.current.innerHTML = '';
 
-    const isMobileScreen = window.innerWidth < 768;
+    const isMobileScreen = window.innerWidth < 1024;
     const isScrolled = mode === 'scrolled';
     const effectiveSpread = isScrolled ? 'none' : (pageSpreadRef.current === 'none' ? 'none' : (isMobileScreen ? 'none' : 'auto'));
 
@@ -1527,16 +1581,16 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         </div>
 
         {/* Toolbar Pengaturan Baca */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           
-          {/* Pilihan Font Responsif HP & Desktop (Khusus buku umum; FKKP memakai format aslinya) */}
+          {/* Pilihan Font (Desktop) */}
           {!isFKKP ? (
-            <div className="flex items-center gap-1 bg-black/5 px-2 py-1 rounded-xl">
+            <div className="hidden xl:flex items-center gap-1 bg-black/5 px-2 py-1 rounded-xl">
               <Type className="w-3.5 h-3.5 opacity-60 shrink-0" />
               <select
                 value={activeFont}
                 onChange={(e) => handleFontChange(e.target.value)}
-                className="text-[11px] sm:text-xs bg-transparent border-none focus:outline-none font-semibold cursor-pointer text-inherit max-w-[70px] sm:max-w-none"
+                className="text-[11px] bg-transparent border-none focus:outline-none font-semibold cursor-pointer text-inherit"
               >
                 {FONTS.map(f => (
                   <option key={f.id} value={f.id} className="text-slate-900 bg-white">
@@ -1546,14 +1600,14 @@ export default function CloudEpubReader({ book, userId, onBack }) {
               </select>
             </div>
           ) : (
-            <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-xl text-amber-800 dark:text-amber-200" title="Format dan font 100% mengikuti naskah asli EPUB FKKP">
+            <div className="hidden xl:flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-xl text-amber-800 dark:text-amber-200" title="Format dan font 100% mengikuti naskah asli EPUB FKKP">
               <Type className="w-3.5 h-3.5 text-amber-600 shrink-0" />
               <span className="text-[11px] font-bold whitespace-nowrap">Format Asli FKKP</span>
             </div>
           )}
 
-          {/* Pengatur Ukuran Font */}
-          <div className="flex items-center bg-black/5 rounded-xl p-1">
+          {/* Pengatur Ukuran Font (Desktop) */}
+          <div className="hidden xl:flex items-center bg-black/5 rounded-xl p-1">
             <button
               onClick={() => handleFontSizeChange(-10)}
               className="p-1 hover:bg-black/10 rounded-lg transition"
@@ -1571,8 +1625,8 @@ export default function CloudEpubReader({ book, userId, onBack }) {
             </button>
           </div>
 
-          {/* Pilihan Tema */}
-          <div className="flex items-center bg-black/5 rounded-xl p-1">
+          {/* Pilihan Tema (Desktop) */}
+          <div className="hidden xl:flex items-center bg-black/5 rounded-xl p-1">
             <button
               onClick={() => handleThemeChange('light')}
               className={`p-1.5 rounded-lg transition ${theme === 'light' ? 'bg-white text-slate-900 shadow-sm' : 'opacity-70 hover:opacity-100'}`}
@@ -1597,7 +1651,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </div>
 
           {/* Pilihan Mode Baca: Lembaran Buku 3D vs Gulir Vertikal Kontinu */}
-          <div className="flex items-center bg-black/5 rounded-xl p-1">
+          <div className="flex items-center bg-black/5 rounded-xl p-0.5 sm:p-1">
             <button
               onClick={() => handleReadingModeChange('paginated')}
               className={`px-2 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition ${
@@ -1605,7 +1659,7 @@ export default function CloudEpubReader({ book, userId, onBack }) {
                   ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
                   : 'opacity-65 hover:opacity-100'
               }`}
-              title="Mode Lembaran Buku (Animasi Membalik 3D)"
+              title="Mode Lembaran Buku"
             >
               <BookOpen className="w-3.5 h-3.5 text-amber-600" />
               <span className="hidden sm:inline">Buku</span>
@@ -1617,74 +1671,31 @@ export default function CloudEpubReader({ book, userId, onBack }) {
                   ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
                   : 'opacity-65 hover:opacity-100'
               }`}
-              title="Mode Gulir (Continuous Vertical Scroll)"
+              title="Mode Gulir Vertikal"
             >
               <Scroll className="w-3.5 h-3.5 text-amber-600" />
               <span className="hidden sm:inline">Gulir</span>
             </button>
           </div>
 
-          {/* Toggle Efek Suara Lembaran Kertas Buku */}
-          {readingMode === 'paginated' && (
-            <button
-              onClick={() => setIsSoundEnabled(prev => !prev)}
-              className={`p-1.5 rounded-xl transition ${
-                isSoundEnabled
-                  ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400 hover:bg-amber-500/25'
-                  : 'bg-black/5 opacity-50 hover:opacity-100 text-inherit'
-              }`}
-              title={isSoundEnabled ? 'Suara Lembaran Kertas: Aktif' : 'Suara Lembaran Kertas: Nonaktif'}
-            >
-              {isSoundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-            </button>
-          )}
-
-          {/* Pilihan 1 Halaman vs 2 Halaman (jika di mode Buku) */}
-          {readingMode === 'paginated' && (
-            <div className="flex items-center bg-black/5 rounded-xl p-1">
-              <button
-                onClick={() => handlePageSpreadChange('none')}
-                className={`p-1.5 rounded-lg transition ${
-                  pageSpread === 'none' 
-                    ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
-                    : 'opacity-65 hover:opacity-100'
-                }`}
-                title="1 Halaman Penuh (Satu Kolom Lega)"
-              >
-                <FileText className="w-3.5 h-3.5 text-amber-600" />
-              </button>
-              <button
-                onClick={() => handlePageSpreadChange('auto')}
-                className={`p-1.5 rounded-lg transition ${
-                  pageSpread === 'auto' 
-                    ? 'bg-white dark:bg-zinc-800 text-slate-900 dark:text-zinc-100 shadow-xs' 
-                    : 'opacity-65 hover:opacity-100'
-                }`}
-                title="2 Halaman (Dua Kolom Buku)"
-              >
-                <Columns2 className="w-3.5 h-3.5 text-amber-600" />
-              </button>
-            </div>
-          )}
-
-          {/* Pilihan Kerapatan Baris (Line Height Spacing) */}
-          <div className="flex items-center bg-black/5 rounded-xl p-0.5">
-            <button
-              onClick={() => handleLineHeightChange(lineHeight >= 2.1 ? 1.6 : (lineHeight <= 1.65 ? 1.85 : 2.1))}
-              className="px-2 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 opacity-80 hover:opacity-100 transition"
-              title="Atur Jarak Baris (Normal / Lega / Sangat Lega)"
-            >
-              <AlignJustify className="w-3.5 h-3.5 text-amber-600" />
-              <span className="hidden xl:inline">Jarak:</span>
-              <span>{lineHeight <= 1.65 ? 'Normal' : lineHeight <= 1.9 ? 'Lega' : 'Sangat Lega'}</span>
-            </button>
-          </div>
+          {/* Tombol Pengaturan Tampilan Lengkap (Mobile, Tablet & Desktop) */}
+          <button
+            onClick={() => setIsSettingsOpen(prev => !prev)}
+            className={`px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition ${
+              isSettingsOpen ? 'bg-amber-600 text-white' : 'bg-black/5 hover:bg-black/10'
+            }`}
+            title="Pengaturan Tampilan Baca (Font, Ukuran, Spasi, Tema)"
+          >
+            <Sliders className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Tampilan</span>
+          </button>
 
           {/* Drawer Anotasi */}
           <button
             onClick={() => {
               setIsSidebarOpen(prev => !prev);
               setIsTocOpen(false);
+              setIsSettingsOpen(false);
             }}
             className={`px-2.5 sm:px-3 py-1.5 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition ${
               isSidebarOpen ? 'bg-amber-600 text-white' : 'bg-black/5 hover:bg-black/10'
@@ -1697,6 +1708,137 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </button>
         </div>
       </header>
+
+      {/* Popover Pengaturan Tampilan Baca (Responsif untuk HP, Tab & Desktop) */}
+      {isSettingsOpen && (
+        <div className="absolute top-16 right-3 sm:right-6 z-40 w-80 max-w-[92vw] bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-3xl p-4 shadow-2xl space-y-3.5 text-slate-800 dark:text-zinc-100 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-zinc-800">
+            <h4 className="font-bold text-xs flex items-center gap-1.5 text-amber-600">
+              <Sliders className="w-3.5 h-3.5" /> Preferensi Tampilan Baca
+            </h4>
+            <button onClick={() => setIsSettingsOpen(false)} className="p-1 hover:bg-black/5 rounded-lg">
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Tema Warna */}
+          <div>
+            <label className="text-[10px] font-bold uppercase tracking-wider opacity-60 block mb-1.5">Warna Latar</label>
+            <div className="grid grid-cols-3 gap-1.5">
+              <button
+                onClick={() => handleThemeChange('light')}
+                className={`py-1.5 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1.5 ${
+                  theme === 'light' ? 'border-amber-600 bg-slate-100 text-slate-900' : 'border-slate-200 bg-white text-slate-700'
+                }`}
+              >
+                <Sun className="w-3.5 h-3.5" /> Terang
+              </button>
+              <button
+                onClick={() => handleThemeChange('sepia')}
+                className={`py-1.5 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1.5 ${
+                  theme === 'sepia' ? 'border-amber-600 bg-[#fbf7ed] text-[#b45309]' : 'border-amber-200/50 bg-[#fdfaf3] text-[#78350f]'
+                }`}
+              >
+                <Coffee className="w-3.5 h-3.5" /> Sepia
+              </button>
+              <button
+                onClick={() => handleThemeChange('dark')}
+                className={`py-1.5 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1.5 ${
+                  theme === 'dark' ? 'border-amber-500 bg-zinc-800 text-amber-300' : 'border-zinc-700 bg-zinc-900 text-zinc-300'
+                }`}
+              >
+                <Moon className="w-3.5 h-3.5" /> Gelap
+              </button>
+            </div>
+          </div>
+
+          {/* Ukuran Font */}
+          <div>
+            <label className="text-[10px] font-bold uppercase tracking-wider opacity-60 block mb-1.5">Ukuran Teks</label>
+            <div className="flex items-center justify-between bg-black/5 dark:bg-white/5 rounded-xl p-1">
+              <button
+                onClick={() => handleFontSizeChange(-10)}
+                className="p-1.5 hover:bg-black/10 rounded-lg transition"
+                title="Perkecil Ukuran"
+              >
+                <ZoomOut className="w-4 h-4" />
+              </button>
+              <span className="text-xs font-bold">{fontSize}%</span>
+              <button
+                onClick={() => handleFontSizeChange(10)}
+                className="p-1.5 hover:bg-black/10 rounded-lg transition"
+                title="Perbesar Ukuran"
+              >
+                <ZoomIn className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Tata Letak Kolom (jika mode buku) */}
+          {readingMode === 'paginated' && (
+            <div>
+              <label className="text-[10px] font-bold uppercase tracking-wider opacity-60 block mb-1.5">Kolom Halaman</label>
+              <div className="grid grid-cols-2 gap-1.5">
+                <button
+                  onClick={() => handlePageSpreadChange('none')}
+                  className={`py-1.5 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
+                    pageSpread === 'none' ? 'border-amber-600 bg-amber-500/10 text-amber-700 dark:text-amber-400 font-bold' : 'border-slate-200 dark:border-zinc-700 opacity-70'
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5" /> 1 Kolom
+                </button>
+                <button
+                  onClick={() => handlePageSpreadChange('auto')}
+                  className={`py-1.5 rounded-xl text-xs font-semibold border transition flex items-center justify-center gap-1.5 ${
+                    pageSpread === 'auto' ? 'border-amber-600 bg-amber-500/10 text-amber-700 dark:text-amber-400 font-bold' : 'border-slate-200 dark:border-zinc-700 opacity-70'
+                  }`}
+                >
+                  <Columns2 className="w-3.5 h-3.5" /> 2 Kolom
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Jarak Kerapatan Baris */}
+          <div>
+            <label className="text-[10px] font-bold uppercase tracking-wider opacity-60 block mb-1.5">Jarak Baris</label>
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { label: 'Normal', val: 1.6 },
+                { label: 'Lega', val: 1.85 },
+                { label: 'Ekstra', val: 2.1 }
+              ].map(item => (
+                <button
+                  key={item.label}
+                  onClick={() => handleLineHeightChange(item.val)}
+                  className={`py-1 rounded-xl text-[11px] border transition font-bold ${
+                    lineHeight === item.val ? 'border-amber-600 bg-amber-500/10 text-amber-700 dark:text-amber-400' : 'border-slate-200 dark:border-zinc-700 opacity-70'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Efek Suara (Mode Buku) */}
+          {readingMode === 'paginated' && (
+            <div className="pt-1 flex items-center justify-between text-xs">
+              <span className="font-semibold flex items-center gap-1.5">
+                <Volume2 className="w-3.5 h-3.5 text-amber-600" /> Suara Balik Lembaran
+              </span>
+              <button
+                onClick={() => setIsSoundEnabled(prev => !prev)}
+                className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition ${
+                  isSoundEnabled ? 'bg-amber-600 text-white' : 'bg-black/10 text-slate-600 dark:text-zinc-400'
+                }`}
+              >
+                {isSoundEnabled ? 'Aktif' : 'Mati'}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Area Pembaca & Drawer */}
       <div className="flex-1 w-full h-full relative flex overflow-hidden">
@@ -1793,15 +1935,15 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </button>
         )}
 
-        {/* Kontainer Rendition EPUB dengan Gulir Vertikal Halus */}
-        <div className="flex-1 w-full h-full relative flex items-center justify-center overflow-hidden p-1 sm:p-3 md:p-5">
+        {/* Kontainer Rendition EPUB dengan Gulir Vertikal Halus (Responsif Tanpa Terpotong Sudut) */}
+        <div className="flex-1 w-full h-full relative flex items-center justify-center overflow-hidden p-0 sm:p-2 md:p-4">
           <div
-            className={`w-full h-full relative transition-all duration-300 rounded-2xl sm:rounded-3xl overflow-hidden ${
+            className={`w-full h-full relative transition-all duration-300 rounded-none sm:rounded-2xl overflow-hidden ${
               readingMode === 'scrolled'
-                ? 'max-w-4xl mx-auto shadow-xl ring-1 ring-black/5 dark:ring-white/10'
+                ? 'max-w-4xl mx-auto shadow-md ring-1 ring-black/5 dark:ring-white/10'
                 : pageSpread === 'none'
-                ? 'max-w-3xl mx-auto shadow-xl ring-1 ring-slate-200/80 dark:ring-zinc-800'
-                : 'max-w-5xl mx-auto shadow-xl ring-1 ring-slate-200/80 dark:ring-zinc-800'
+                ? 'max-w-3xl mx-auto shadow-md ring-1 ring-slate-200/80 dark:ring-zinc-800'
+                : 'max-w-5xl mx-auto shadow-md ring-1 ring-slate-200/80 dark:ring-zinc-800'
             } ${
               theme === 'sepia'
                 ? 'bg-[#fcf8f0]'
@@ -1833,33 +1975,23 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </button>
         )}
 
-        {/* Kontrol Navigasi Gulir Vertikal Cepat (saat Mode Gulir aktif) */}
-        {readingMode === 'scrolled' && (
-          <div className="absolute right-3 sm:right-6 bottom-6 z-30 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                if (viewerRef.current) {
-                  viewerRef.current.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
-                }
-              }}
-              className="p-2.5 rounded-full bg-white/90 dark:bg-zinc-800/90 text-slate-700 dark:text-zinc-200 shadow-xl border border-slate-200/80 dark:border-zinc-700 backdrop-blur hover:scale-105 active:scale-95 transition cursor-pointer"
-              title="Gulir ke Atas (Page Up)"
-            >
-              <ChevronUp className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => {
-                if (viewerRef.current) {
-                  viewerRef.current.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
-                }
-              }}
-              className="p-2.5 rounded-full bg-white/90 dark:bg-zinc-800/90 text-slate-700 dark:text-zinc-200 shadow-xl border border-slate-200/80 dark:border-zinc-700 backdrop-blur hover:scale-105 active:scale-95 transition cursor-pointer"
-              title="Gulir ke Bawah (Page Down)"
-            >
-              <ChevronDown className="w-4 h-4" />
-            </button>
-          </div>
-        )}
+        {/* Kontrol Navigasi Gulir Vertikal & Pindah Halaman Cepat */}
+        <div className="absolute right-3 sm:right-6 bottom-6 z-30 flex flex-col gap-2">
+          <button
+            onClick={handleScrollUp}
+            className="p-2.5 rounded-full bg-white/95 dark:bg-zinc-800/95 text-slate-700 dark:text-zinc-200 shadow-xl border border-slate-200/80 dark:border-zinc-700 backdrop-blur hover:scale-105 active:scale-95 transition cursor-pointer flex items-center justify-center"
+            title={readingMode === 'scrolled' ? 'Gulir ke Atas (Page Up)' : 'Halaman Sebelumnya (←)'}
+          >
+            <ChevronUp className="w-4 h-4" />
+          </button>
+          <button
+            onClick={handleScrollDown}
+            className="p-2.5 rounded-full bg-white/95 dark:bg-zinc-800/95 text-slate-700 dark:text-zinc-200 shadow-xl border border-slate-200/80 dark:border-zinc-700 backdrop-blur hover:scale-105 active:scale-95 transition cursor-pointer flex items-center justify-center"
+            title={readingMode === 'scrolled' ? 'Gulir ke Bawah (Page Down)' : 'Halaman Selanjutnya (→)'}
+          >
+            <ChevronDown className="w-4 h-4" />
+          </button>
+        </div>
 
         {/* Sidebar Drawer Anotasi */}
         {isSidebarOpen && (

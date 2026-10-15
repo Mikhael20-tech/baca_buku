@@ -24,11 +24,6 @@ import {
   updateUser, 
   deleteUser 
 } from '../lib/userManagement';
-import { 
-  getStoreVerifications, 
-  updateVerificationStatus, 
-  deleteStoreVerification 
-} from '../lib/storeSync';
 
 export default function AdminDashboard({ 
   books, 
@@ -42,14 +37,8 @@ export default function AdminDashboard({
   onUpdateAiSummary,
   initialTab = 'books'
 }) {
-  const [activeTab, setActiveTab] = useState(initialTab); // 'books' | 'users' | 'stores' | 'community' | 'ai'
+  const [activeTab, setActiveTab] = useState(initialTab); // 'books' | 'users' | 'community' | 'ai'
   
-  // Store sync state
-  const [isSyncingStore, setIsSyncingStore] = useState(false);
-  const [syncStatusNote, setSyncStatusNote] = useState('');
-  const [verifications, setVerifications] = useState(getStoreVerifications());
-  const [verificationFilter, setVerificationFilter] = useState('all');
-
   // AI Summary State
   const [editedAiSummary, setEditedAiSummary] = useState(aiSummary || '');
   const [aiSavedNotice, setAiSavedNotice] = useState(false);
@@ -70,14 +59,7 @@ export default function AdminDashboard({
   const [userFormTier, setUserFormTier] = useState('premium');
   const [userFormStatus, setUserFormStatus] = useState('active');
 
-  const handleTriggerStoreSync = () => {
-    setIsSyncingStore(true);
-    setTimeout(() => {
-      setIsSyncingStore(false);
-      setSyncStatusNote('Katalog berhasil diselaraskan dengan Google Play Books Partner Center & Apple App Store!');
-      setTimeout(() => setSyncStatusNote(''), 4000);
-    }, 1500);
-  };
+
 
   const handleSaveAi = () => {
     onUpdateAiSummary(editedAiSummary);
@@ -189,7 +171,7 @@ export default function AdminDashboard({
                 Administrator (admin123)
               </h1>
               <p className="text-xs text-stone-400 max-w-xl leading-relaxed">
-                Pusat kendali katalog buku EPUB, data pengguna &amp; paket langganan, sinkronisasi Google Play &amp; Apple Books, moderasi bagi nikmat, dan santapan Meja Perjamuan.
+                Pusat kendali katalog buku EPUB, data pengguna &amp; paket langganan, moderasi bagi nikmat, dan santapan Meja Perjamuan.
               </p>
             </div>
           </div>
@@ -239,11 +221,11 @@ export default function AdminDashboard({
 
           <div className="p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
             <div className="flex items-center justify-between text-stone-400">
-              <span>Integrasi Toko Buku</span>
-              <Smartphone className="w-4 h-4 text-blue-400" />
+              <span>Status Server Cloud</span>
+              <Database className="w-4 h-4 text-emerald-400" />
             </div>
-            <p className="text-2xl font-serif font-bold text-white">Google &amp; Apple</p>
-            <p className="text-[10px] text-emerald-400 font-semibold">Sync Berjalan Normal</p>
+            <p className="text-2xl font-serif font-bold text-white">Online &amp; Sinkron</p>
+            <p className="text-[10px] text-emerald-400 font-semibold">Database Siap Pakai</p>
           </div>
 
           <div className="p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
@@ -283,17 +265,7 @@ export default function AdminDashboard({
           <span>Data Pengguna &amp; Langganan ({users.length})</span>
         </button>
 
-        <button
-          onClick={() => setActiveTab('stores')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${
-            activeTab === 'stores'
-              ? 'bg-[#1C1917] text-white shadow-sm'
-              : 'text-[#78716C] hover:text-[#1C1917] hover:bg-stone-200/50'
-          }`}
-        >
-          <Smartphone className="w-3.5 h-3.5" />
-          <span>Integrasi Google Play &amp; App Store</span>
-        </button>
+
 
         <button
           onClick={() => setActiveTab('community')}
@@ -579,221 +551,6 @@ export default function AdminDashboard({
                   )}
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ======================= TAB 3: INTEGRASI TOKO BUKU ======================= */}
-      {activeTab === 'stores' && (
-        <div className="space-y-6 animate-in fade-in duration-200">
-          <div className="p-6 rounded-3xl bg-white border border-[#1C1917]/10 space-y-4">
-            <div className="flex items-center justify-between pb-4 border-b border-[#1C1917]/8">
-              <div>
-                <h3 className="font-serif font-bold text-lg text-[#1C1917]">
-                  Status Lisensi &amp; Integrasi Toko Buku Digital
-                </h3>
-                <p className="text-xs text-[#78716C]">
-                  Sinkronisasi Google Play Books dan Apple App Store dengan database Baca.
-                </p>
-              </div>
-
-              <Button
-                size="sm"
-                onClick={handleTriggerStoreSync}
-                disabled={isSyncingStore}
-                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${isSyncingStore ? 'animate-spin' : ''}`} />
-                {isSyncingStore ? 'Menyinkronkan...' : 'Sinkronkan Sekarang'}
-              </Button>
-            </div>
-
-            {syncStatusNote && (
-              <div className="p-3.5 rounded-2xl bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-medium flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
-                <span>{syncStatusNote}</span>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-[#F7F4ED] border border-[#1C1917]/8 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-[#1C1917]">Google Play Books</span>
-                  <Badge className="bg-emerald-600 text-white text-[10px]">Terhubung (Active)</Badge>
-                </div>
-                <p className="text-xs text-[#57534E] leading-relaxed">
-                  Menghubungkan akun Google Play Merchant dan verifikasi receipt buku terbitan Yasperin / LSM.
-                </p>
-                <div className="text-[11px] text-[#78716C] pt-2 border-t border-[#1C1917]/8">
-                  <p>Client ID: <span className="font-mono text-[#1C1917]">baca-google-play-partner-v2</span></p>
-                  <p>Sinkronisasi Terakhir: Baru saja (Otomatis)</p>
-                </div>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#F7F4ED] border border-[#1C1917]/8 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-[#1C1917]">Apple App Store &amp; Books</span>
-                  <Badge className="bg-emerald-600 text-white text-[10px]">Terhubung (Active)</Badge>
-                </div>
-                <p className="text-xs text-[#57534E] leading-relaxed">
-                  StoreKit v2 Transaction API memeriksa Apple ID pengguna untuk lisensi buku yang sudah dibeli di iOS/iPadOS.
-                </p>
-                <div className="text-[11px] text-[#78716C] pt-2 border-t border-[#1C1917]/8">
-                  <p>Bundle ID: <span className="font-mono text-[#1C1917]">cloud.baca.perpustakaan</span></p>
-                  <p>Sinkronisasi Terakhir: Baru saja (Otomatis)</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Antrean Verifikasi Order ID Pembelian Toko */}
-            <div className="pt-6 border-t border-[#1C1917]/10 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <h4 className="font-serif font-bold text-base text-[#1C1917] flex items-center gap-2">
-                    <FileCheck className="w-4 h-4 text-amber-700" />
-                    Antrean Verifikasi Order ID Pembelian Pengguna
-                  </h4>
-                  <p className="text-xs text-[#78716C]">
-                    Tinjau nomor pesanan Google Play (GPA) dan Apple Books untuk mengaktifkan lisensi buku di akun pengguna.
-                  </p>
-                </div>
-
-                {/* Filter Status */}
-                <div className="flex items-center gap-1.5 self-start sm:self-auto">
-                  {[
-                    { id: 'all', label: 'Semua' },
-                    { id: 'pending', label: 'Menunggu' },
-                    { id: 'verified', label: 'Disetujui' },
-                    { id: 'rejected', label: 'Ditolak' }
-                  ].map((f) => (
-                    <button
-                      key={f.id}
-                      onClick={() => setVerificationFilter(f.id)}
-                      className={`px-3 py-1 rounded-xl text-xs font-bold transition ${
-                        verificationFilter === f.id
-                          ? 'bg-[#1C1917] text-white shadow-xs'
-                          : 'bg-[#F7F4ED] text-[#78716C] hover:text-[#1C1917]'
-                      }`}
-                    >
-                      {f.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Table Antrean */}
-              <div className="overflow-x-auto rounded-2xl border border-[#1C1917]/10 bg-white">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-[#FAF8F5] text-[#78716C] font-bold border-b border-[#1C1917]/10 uppercase text-[10px]">
-                    <tr>
-                      <th className="p-3.5">Pengguna</th>
-                      <th className="p-3.5">Platform</th>
-                      <th className="p-3.5">Order ID / Receipt</th>
-                      <th className="p-3.5">Judul Buku</th>
-                      <th className="p-3.5">Status</th>
-                      <th className="p-3.5 text-right">Aksi Tindakan</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#1C1917]/5">
-                    {verifications
-                      .filter((v) => verificationFilter === 'all' || v.status === verificationFilter)
-                      .map((item) => (
-                        <tr key={item.id} className="hover:bg-[#FBF9F5] transition">
-                          <td className="p-3.5">
-                            <p className="font-bold text-[#1C1917]">{item.user_name}</p>
-                            <p className="text-[11px] text-[#78716C]">{item.user_email}</p>
-                          </td>
-                          <td className="p-3.5">
-                            <Badge
-                              variant="outline"
-                              className={`text-[9px] font-bold ${
-                                item.platform === 'Google Play Books'
-                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
-                                  : 'bg-blue-50 text-blue-800 border-blue-300'
-                              }`}
-                            >
-                              {item.platform}
-                            </Badge>
-                          </td>
-                          <td className="p-3.5 font-mono text-[11px] font-semibold text-[#1C1917]">
-                            {item.order_id}
-                          </td>
-                          <td className="p-3.5 text-[#57534E]">
-                            <p className="font-medium">{item.book_title}</p>
-                            {item.notes && (
-                              <p className="text-[10px] text-[#78716C] italic">{item.notes}</p>
-                            )}
-                          </td>
-                          <td className="p-3.5">
-                            {item.status === 'verified' ? (
-                              <Badge className="bg-emerald-600 text-white text-[9px] gap-1">
-                                <CheckCircle2 className="w-2.5 h-2.5" />
-                                <span>Terverifikasi</span>
-                              </Badge>
-                            ) : item.status === 'rejected' ? (
-                              <Badge className="bg-rose-600 text-white text-[9px]">
-                                Ditolak
-                              </Badge>
-                            ) : (
-                              <Badge className="bg-amber-500 text-white text-[9px] gap-1">
-                                <Clock className="w-2.5 h-2.5" />
-                                <span>Menunggu</span>
-                              </Badge>
-                            )}
-                          </td>
-                          <td className="p-3.5 text-right">
-                            <div className="flex items-center justify-end gap-1.5">
-                              {item.status !== 'verified' && (
-                                <Button
-                                  size="sm"
-                                  onClick={() => {
-                                    const updated = updateVerificationStatus(item.id, 'verified');
-                                    setVerifications(updated);
-                                  }}
-                                  className="h-7 px-2.5 rounded-lg text-[10px] font-bold bg-emerald-600 hover:bg-emerald-700 text-white gap-1"
-                                  title="Setujui dan Aktifkan Lisensi Buku"
-                                >
-                                  <Check className="w-3 h-3" />
-                                  <span>Setujui</span>
-                                </Button>
-                              )}
-                              {item.status !== 'rejected' && (
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => {
-                                    const updated = updateVerificationStatus(item.id, 'rejected');
-                                    setVerifications(updated);
-                                  }}
-                                  className="h-7 px-2.5 rounded-lg text-[10px] font-bold border-rose-300 text-rose-700 hover:bg-rose-50 gap-1"
-                                  title="Tolak Pengajuan"
-                                >
-                                  <X className="w-3 h-3" />
-                                  <span>Tolak</span>
-                                </Button>
-                              )}
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => {
-                                  if (window.confirm('Hapus entri antrean ini?')) {
-                                    const updated = deleteStoreVerification(item.id);
-                                    setVerifications(updated);
-                                  }
-                                }}
-                                className="h-7 w-7 p-0 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50"
-                                title="Hapus Entri"
-                              >
-                                <Trash2 className="w-3 h-3" />
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
             </div>
           </div>
         </div>

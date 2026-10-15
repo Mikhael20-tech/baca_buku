@@ -52,13 +52,17 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
         setCategory('FKKP (Kebangunan Pagi)');
       }
 
-      // Coba ekstrak cover jika ada
+      // Coba ekstrak cover jika ada dan konversi ke Base64 Data URL permanen
       try {
         const coverUrl = await book.loaded.cover;
         if (coverUrl) {
           const coverBlob = await book.archive.getBlob(coverUrl);
           if (coverBlob) {
-            setCoverBlobUrl(URL.createObjectURL(coverBlob));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setCoverBlobUrl(reader.result);
+            };
+            reader.readAsDataURL(coverBlob);
           }
         }
       } catch {
@@ -105,6 +109,12 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
     }
   };
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setErrorMsg('');
+    }
+  }, [isOpen]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return;
@@ -115,32 +125,36 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
     try {
       // Jika Supabase belum dikonfigurasi (mode demo/lokal)
       if (!isSupabaseConfigured()) {
-        saveBookLocally();
+        await saveBookLocally();
         return;
       }
 
-      // Live Supabase Mode: Cek sesi login
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setErrorMsg('AUTH_REQUIRED');
-        setIsUploading(false);
-        return;
+      // Live Supabase Mode: Dapatkan ID user jika ada sesi login
+      let user = null;
+      try {
+        const { data } = await supabase.auth.getUser();
+        user = data?.user;
+      } catch {
+        user = null;
       }
 
       const fileExt = file.name.split('.').pop();
       const uniqueName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `epubs/${uniqueName}`;
 
-      // 1. Upload ke Storage Private 'books'
+      // 1. Upload langsung ke Supabase Cloud Storage bucket 'books'
       const { error: uploadError } = await supabase.storage
         .from('books')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
 
       if (uploadError) {
-        throw new Error(`Gagal upload storage: ${uploadError.message}. Pastikan bucket 'books' sudah dibuat di Supabase.`);
+        throw new Error(`Gagal upload berkas ke Cloud Supabase: ${uploadError.message}. Pastikan policy RLS storage 'books' sudah dijalankan di Supabase.`);
       }
 
-      // 2. Insert baris baru ke tabel 'books'
+      // 2. Insert baris baru ke tabel 'books' Supabase agar bisa dibaca semua pelanggan
       const { data: insertedBook, error: dbError } = await supabase.from('books').insert({
         title: title.trim() || file.name,
         author: author.trim() || 'Penulis Tidak Diketahui',
@@ -148,17 +162,24 @@ export default function AdminUploadModal({ isOpen, onClose, onUploadSuccess, onO
         description: description.trim() || '',
         cover_url: coverBlobUrl || null,
         file_path: filePath,
-        created_by: user.id
+        created_by: user?.id || null
       }).select().single();
 
-      if (dbError) throw dbError;
+      if (dbError) {
+        throw new Error(`Gagal menyimpan data buku ke database Supabase: ${dbError.message}`);
+      }
 
       if (typeof onUploadSuccess === 'function') {
         onUploadSuccess(insertedBook);
       }
       onClose();
     } catch (err) {
-      setErrorMsg(err.message || 'Terjadi kesalahan saat mengunggah buku.');
+      console.warn('Gagal upload ke cloud, beralih ke penyimpanan lokal:', err);
+      try {
+        await saveBookLocally();
+      } catch (localErr) {
+        setErrorMsg(localErr.message || 'Terjadi kesalahan saat mengunggah buku.');
+      }
     } finally {
       setIsUploading(false);
     }

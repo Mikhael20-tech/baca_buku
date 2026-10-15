@@ -6,7 +6,7 @@ export const INITIAL_TESTIMONIALS = [
     role: 'Pelayan Remaja • Jakarta',
     photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     rating: 5,
-    text: 'Aplikasi Baca benar-benar mengubah waktu saat teduh saya. Fitur doa-makan FKKP dengan mode gulir otomatis membuat saya menikmati firman tanpa terdistraksi. Apalagi buku-buku yang pernah saya beli di Google Play Books langsung tersambung otomatis, hemat sekali!',
+    text: 'Aplikasi Baca benar-benar mengubah waktu saat teduh saya. Fitur doa-makan FKKP dengan mode gulir otomatis membuat saya menikmati firman tanpa terdistraksi. Koleksi buku pembinaan dan karakternya juga sangat lengkap!',
     date: '3 hari yang lalu'
   },
   {

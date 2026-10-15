@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/badge';
 export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlanUpdated }) {
   const [selectedBilling, setSelectedBilling] = useState('monthly'); // 'monthly' | 'yearly'
   const [activeTier, setActiveTier] = useState(currentPlan?.tier || 'premium');
-  const [isLinkingStore, setIsLinkingStore] = useState(false);
   const [syncSuccessMsg, setSyncSuccessMsg] = useState('');
 
   const plans = [
@@ -31,14 +30,14 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Penyimpanan progress baca di perangkat lokal',
         'Bisa membagikan nikmat di kolom komunitas'
       ],
-      storeSync: 'Sinkronisasi dasar',
+      storeSync: 'Akses bacaan standar',
       cta: 'Pilih Standart'
     },
     {
       id: 'premium',
       name: 'Premium',
       badge: 'Paling Populer',
-      tagline: 'Koleksi lengkap & bebas beli dua kali',
+      tagline: 'Koleksi lengkap santapan rohani',
       priceMonthly: 'Rp 29.000',
       priceYearly: 'Rp 299.000',
       priceSub: selectedBilling === 'yearly' ? 'Hemat 15% (Rp 24.900/bln)' : 'Per bulan, batalkan kapan saja',
@@ -48,11 +47,11 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Semua fitur dalam paket Standart',
         'Akses seluruh 30 Seri Buku Karakter (Witness Lee)',
         'Akses seluruh 46 Pokok Pembinaan Kaum Beriman (Watchman Nee)',
-        'Sinkronisasi Google Play Books & Apple App Store (Garansi Tanpa Bayar Dua Kali)',
         'Simpan catatan perenungan firman & highlight di Cloud',
-        'Mode baca offline tanpa perlu kuota internet'
+        'Mode baca offline tanpa perlu kuota internet',
+        'Dukungan penuh pembacaan di HP, Tablet & Laptop'
       ],
-      storeSync: 'Integrasi penuh Google Play & Apple Books',
+      storeSync: 'Akses penuh seluruh buku',
       cta: 'Berlangganan Premium'
     },
     {
@@ -73,7 +72,7 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Akses prioritas terbitan baru Living Stream Ministry & Yasperin',
         'Jaminan bebas biaya pembaruan seluruh edisi buku'
       ],
-      storeSync: 'Prioritas sinkronisasi lisensi digital real-time',
+      storeSync: 'Akses prioritas rilis buku terbaru',
       cta: 'Tingkatkan ke Ultimate'
     }
   ];
@@ -94,36 +93,20 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
     }, 1500);
   };
 
-  const handleSimulateSync = (store) => {
-    setIsLinkingStore(true);
-    setTimeout(() => {
-      setIsLinkingStore(false);
-      setSyncSuccessMsg(`Akun ${store} berhasil disinkronkan! 14 buku berlisensi Anda telah diimpor tanpa biaya tambahan.`);
-      if (onPlanUpdated) {
-        onPlanUpdated({
-          ...currentPlan,
-          [store === 'Google Play Books' ? 'googlePlayLinked' : 'appleBooksLinked']: true,
-          syncedBooksCount: (currentPlan?.syncedBooksCount || 0) + 7
-        });
-      }
-      setTimeout(() => setSyncSuccessMsg(''), 4000);
-    }, 1200);
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl p-6 sm:p-8 bg-[#F4EFE6] text-[#1C1917] rounded-[32px] border border-[#1C1917]/15 overflow-y-auto max-h-[92vh]">
         <DialogHeader className="space-y-3 text-center">
           <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full bg-[#8E9C75]/25 border border-[#8E9C75]/40 text-[#3B4B34] text-xs font-bold tracking-wider uppercase mx-auto">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>Pilihan Paket Santapan &amp; Sinkronisasi Toko Digital</span>
+            <span>Pilihan Paket Pembacaan Santapan Rohani</span>
           </div>
 
           <DialogTitle className="text-2xl sm:text-4xl font-serif font-bold text-[#1C1917]">
             Pilih Paket Pembacaan Anda
           </DialogTitle>
           <DialogDescription className="text-xs sm:text-sm text-[#78716C] max-w-xl mx-auto">
-            Terhubung langsung dengan <span className="font-semibold text-[#1C1917]">Google Play Books</span> dan <span className="font-semibold text-[#1C1917]">Apple App Store / Books</span>. Jika Anda sudah pernah membeli buku di kedua platform tersebut, buku akan langsung terbuka di sini tanpa perlu membeli dua kali!
+            Pilih paket pembacaan yang sesuai dengan kebutuhan rohani Anda. Nikmati kemudahan membaca firman dan buku-buku pembinaan di semua perangkat.
           </DialogDescription>
 
           {/* Billing Switcher */}
@@ -230,42 +213,6 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
               </div>
             );
           })}
-        </div>
-
-        {/* Zero Double Charge Banner & Store Linking */}
-        <div className="mt-6 p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-[#3B4B34]/10 border border-[#3B4B34]/20 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="space-y-1 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-bold text-[#1C1917]">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Jaminan Bebas Beli Dua Kali (StoreKit &amp; Google Play Direct Sync)</span>
-            </div>
-            <p className="text-[11px] text-[#78716C] max-w-lg">
-              Pernah membeli buku LSM / Yasperin di Google Play Books atau Apple Books? Hubungkan akun Anda untuk verifikasi instan. Semua buku otomatis muncul di rak bacaan Anda.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={isLinkingStore}
-              onClick={() => handleSimulateSync('Google Play Books')}
-              className="rounded-full text-xs font-bold border-stone-300 hover:bg-white bg-white/80 text-[#1C1917] h-8 px-3.5 shadow-xs"
-            >
-              <RefreshCw className={`w-3 h-3 mr-1.5 text-blue-600 ${isLinkingStore ? 'animate-spin' : ''}`} />
-              <span>Sinkron Google Play</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={isLinkingStore}
-              onClick={() => handleSimulateSync('Apple Books')}
-              className="rounded-full text-xs font-bold border-stone-300 hover:bg-white bg-white/80 text-[#1C1917] h-8 px-3.5 shadow-xs"
-            >
-              <RefreshCw className={`w-3 h-3 mr-1.5 text-stone-800 ${isLinkingStore ? 'animate-spin' : ''}`} />
-              <span>Sinkron Apple Books</span>
-            </Button>
-          </div>
         </div>
       </DialogContent>
     </Dialog>

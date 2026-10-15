@@ -192,7 +192,13 @@ export default function App() {
         if (!error && data && data.length > 0) {
           const uniqueBooks = data
             .filter((v, i, a) => a.findIndex(t => t.id === v.id) === i)
-            .filter(isVisibleItem);
+            .filter(isVisibleItem)
+            .map(b => {
+              if ((!b.cover_url || b.cover_url.startsWith('blob:')) && b.title?.toLowerCase().includes('fkkp')) {
+                return { ...b, cover_url: '/covers/fkkp-kaum-beriman.png' };
+              }
+              return b;
+            });
           setBooks(uniqueBooks);
           setIsLoadingBooks(false);
           return;
@@ -230,6 +236,10 @@ export default function App() {
 
   const handleAuthSuccess = useCallback((authUser) => {
     setIsLoggedIn(true);
+    setIsQuickScriptureOpen(false);
+    setIsBibleSelectorModalOpen(false);
+    setIsKarakterSeriesModalOpen(false);
+    setIsPembinaanModalOpen(false);
     const role = authUser.role || authUser.user_metadata?.role || (authUser.username === 'admin123' || authUser.email?.startsWith('admin') ? 'admin' : 'reader');
     setUserRole(role);
     localStorage.setItem('baca_user_role', role);
@@ -430,6 +440,10 @@ export default function App() {
       try { await supabase.auth.signOut(); } catch (e) {}
     }
     setIsLoggedIn(false);
+    setIsQuickScriptureOpen(false);
+    setIsBibleSelectorModalOpen(false);
+    setIsKarakterSeriesModalOpen(false);
+    setIsPembinaanModalOpen(false);
     setUserRole('guest');
     localStorage.removeItem('baca_is_logged_in');
     localStorage.removeItem('baca_user_role');
@@ -449,22 +463,36 @@ export default function App() {
     if (!window.confirm('Apakah Anda yakin ingin menghapus buku ini dari katalog?')) return;
 
     try {
-      if (isSupabaseConfigured() && isValidUUID(bookId)) {
-        const { error } = await supabase.from('books').delete().eq('id', bookId);
-        if (error) throw error;
-      } else {
-        await deleteBookFromIndexedDB(bookId);
-        const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
-        const updated = localBooks.filter(b => b.id !== bookId);
-        localStorage.setItem('baca_demo_books', JSON.stringify(updated));
+      // 1. Selalu catat ID buku yang dihapus ke baca_hidden_books agar langsung hilang permanen dari katalog
+      const hiddenBooks = JSON.parse(localStorage.getItem('baca_hidden_books') || '[]');
+      if (!hiddenBooks.includes(bookId)) {
+        hiddenBooks.push(bookId);
+        localStorage.setItem('baca_hidden_books', JSON.stringify(hiddenBooks));
+      }
 
-        const hiddenBooks = JSON.parse(localStorage.getItem('baca_hidden_books') || '[]');
-        if (!hiddenBooks.includes(bookId)) {
-          hiddenBooks.push(bookId);
-          localStorage.setItem('baca_hidden_books', JSON.stringify(hiddenBooks));
+      // 2. Bersihkan dari daftar demo/lokal jika ada
+      const localBooks = JSON.parse(localStorage.getItem('baca_demo_books') || '[]');
+      const updated = localBooks.filter(b => b.id !== bookId);
+      localStorage.setItem('baca_demo_books', JSON.stringify(updated));
+
+      // 3. Hapus berkas dari IndexedDB peramban jika tersimpan secara lokal
+      try {
+        await deleteBookFromIndexedDB(bookId);
+      } catch (err) {
+        console.warn('Gagal hapus berkas IndexedDB:', err);
+      }
+
+      // 4. Hapus dari database Supabase jika dikonfigurasi & merupakan ID Supabase
+      if (isSupabaseConfigured() && isValidUUID(bookId)) {
+        try {
+          const { error } = await supabase.from('books').delete().eq('id', bookId);
+          if (error) console.warn('Peringatan hapus buku Supabase:', error.message);
+        } catch (supabaseErr) {
+          console.warn('Gagal menghapus baris di Supabase Cloud:', supabaseErr);
         }
       }
 
+      // 5. Update state tampilan saat ini
       setBooks(prev => prev.filter(b => b.id !== bookId));
       showToast('Buku berhasil dihapus dari perpustakaan.');
     } catch (err) {
@@ -544,7 +572,14 @@ export default function App() {
               setViewMode('bible');
             }
           }}
-          onOpenQuickScripture={() => setIsQuickScriptureOpen(true)}
+          onOpenQuickScripture={() => {
+            if (!isLoggedIn) {
+              openAuthModal('reader');
+              showToast('Silakan masuk akun terlebih dahulu untuk mencari ayat.');
+            } else {
+              setIsQuickScriptureOpen(true);
+            }
+          }}
           onOpenLogin={(targetRole = 'reader') => openAuthModal(targetRole)}
           isLoggedIn={isLoggedIn}
           user={user}
@@ -693,17 +728,19 @@ export default function App() {
 
           {/* Actions: Clean & Compact */}
           <div className="flex items-center gap-2 shrink-0">
-            {/* Quick Scripture Search Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsQuickScriptureOpen(true)}
-              className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
-              title="Cari Cepat Ayat Alkitab & Catatan Kaki"
-            >
-              <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
-              <span className="hidden sm:inline">Cari Ayat</span>
-            </Button>
+            {/* Quick Scripture Search Button (Only shown when logged in) */}
+            {isLoggedIn && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsQuickScriptureOpen(true)}
+                className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                title="Cari Cepat Ayat Alkitab & Catatan Kaki"
+              >
+                <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
+                <span className="hidden sm:inline">Cari Ayat</span>
+              </Button>
+            )}
 
             {/* Switch to Bible Section */}
             <Button
@@ -788,16 +825,6 @@ export default function App() {
                       </div>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem 
-                      onClick={() => setIsSubscriptionModalOpen(true)}
-                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
-                    >
-                      <Smartphone className="w-4 h-4 text-blue-600" />
-                      <div>
-                        <p className="font-bold text-xs text-[#1C1917]">Integrasi &amp; Toko Digital</p>
-                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
-                      </div>
-                    </DropdownMenuItem>
 
                     <DropdownMenuSeparator className="my-1 bg-[#1C1917]/10" />
 
@@ -849,10 +876,10 @@ export default function App() {
                       onClick={() => setIsSubscriptionModalOpen(true)}
                       className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
                     >
-                      <Smartphone className="w-4 h-4 text-blue-600" />
+                      <Sparkles className="w-4 h-4 text-amber-600" />
                       <div>
-                        <p className="font-bold text-xs text-[#1C1917]">Paket &amp; Sinkron Toko</p>
-                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
+                        <p className="font-bold text-xs text-[#1C1917]">Pilihan Paket Santapan</p>
+                        <p className="text-[10px] text-[#78716C]">Standart, Premium, Ultimate</p>
                       </div>
                     </DropdownMenuItem>
 
@@ -961,7 +988,7 @@ export default function App() {
                   </Badge>
                   <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
                     <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
-                    <span>Sinkronisasi Google Play &amp; Apple Books</span>
+                    <span>Akses Offline &amp; Mode Doa-Makan</span>
                   </Badge>
                 </div>
               </div>
@@ -1041,26 +1068,35 @@ export default function App() {
                     className="group relative rounded-[28px] p-5 bg-[#F7F4ED] border border-[#1C1917]/10 hover:border-[#8E9C75] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden btn-lift"
                   >
                     <div>
-                      <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-lg transition flex items-center justify-center p-4 bg-gradient-to-tr ${
-                        book.cover_gradient || 'from-[#1C2317] via-[#293322] to-[#3B4B34]'
-                      }`}>
-                        {book.cover_url ? (
-                          <img 
-                            src={book.cover_url} 
-                            alt={book.title} 
-                            className="w-full h-full object-cover" 
-                          />
-                        ) : (
-                          <div className="text-center text-white space-y-3 p-4">
-                            <span className="text-4xl filter drop-shadow">{book.cover_icon || '📖'}</span>
-                            <h4 className="font-bold text-sm leading-tight line-clamp-3 text-white font-serif">
-                              {book.title}
-                            </h4>
-                            <p className="text-[11px] text-amber-200 font-medium tracking-wide">
-                              {book.author}
-                            </p>
-                          </div>
-                        )}
+                      <div className="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-md group-hover:shadow-lg transition flex items-center justify-center bg-stone-100">
+                        {(() => {
+                          const effectiveCover = (book.cover_url && !book.cover_url.startsWith('blob:'))
+                            ? book.cover_url
+                            : (book.title?.toLowerCase().includes('fkkp') ? '/covers/fkkp-kaum-beriman.png' : null);
+
+                          return effectiveCover ? (
+                            <img 
+                              src={effectiveCover} 
+                              alt={book.title} 
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          ) : (
+                            <div className={`w-full h-full flex flex-col items-center justify-center text-center text-white space-y-3 p-4 bg-gradient-to-tr ${
+                              book.cover_gradient || 'from-[#1C2317] via-[#293322] to-[#3B4B34]'
+                            }`}>
+                              <span className="text-4xl filter drop-shadow">{book.cover_icon || '📖'}</span>
+                              <h4 className="font-bold text-sm leading-tight line-clamp-3 text-white font-serif">
+                                {book.title}
+                              </h4>
+                              <p className="text-[11px] text-amber-200 font-medium tracking-wide">
+                                {book.author}
+                              </p>
+                            </div>
+                          );
+                        })()}
 
                         <Badge variant="secondary" className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold border-white/20 rounded-full">
                           {book.category || 'Umum'}

@@ -81,14 +81,13 @@ BIBLE_BOOKS = [
     {"id": "wahyu", "name": "Wahyu", "testament": "PB", "start": 841897, "end": 847775},
 ]
 
-def main():
-    print("Loading full text...")
-    all_lines = []
-    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-        for line in f:
-            all_lines.append(line)
+print("Loading full text...")
+all_lines = []
+with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+    for line in f:
+        all_lines.append(line)
 
-    print(f"Loaded {len(all_lines):,} lines")
+print(f"Loaded {len(all_lines):,} lines")
 
 def clean_verse_text(txt):
     t = txt

@@ -162,8 +162,8 @@ export default function LandingPage({
       a: 'Sangat Alkitabiah. Dalam Injil Yohanes 6:57, Tuhan Yesus sendiri bersabda: "Sama seperti Bapa yang hidup mengutus Aku dan Aku hidup oleh Bapa, demikian juga barangsiapa yang memakan Aku, ia pun akan hidup oleh Aku." Tuhan Yesus memperkenalkan diri-Nya bukan sebagai filsafat di otak, melainkan sebagai Roti Hayat (Yohanes 6:35) dan Air Hayat (Yohanes 4:14) yang harus kita telan dan nikmati ke dalam batin roh kita.'
     },
     {
-      q: 'Bagaimana integrasi dengan Google Play Books dan Apple App Store bekerja?',
-      a: 'Bagi pelanggan paket Premium dan Ultimate, Anda dapat menghubungkan akun Google Play atau Apple ID Anda. Sistem kami memverifikasi tanda bukti pembelian buku-buku digital terbitan LSM / Yasperin yang pernah Anda beli di platform tersebut, sehingga buku tersebut otomatis aktif di aplikasi Baca tanpa perlu membayar ulang (Jaminan Bebas Bayar Dua Kali).'
+      q: 'Apakah aplikasi Baca bisa diakses secara offline?',
+      a: 'Ya! Seluruh konten buku yang telah Anda buka atau unduh dapat dinikmati secara offline tanpa perlu kuota internet, memudahkan saat teduh di mana pun Anda berada.'
     },
     {
       q: 'Apa itu Meja Perjamuan FKKP?',
@@ -171,7 +171,7 @@ export default function LandingPage({
     },
     {
       q: 'Apa bedanya paket Standart, Premium, dan Ultimate?',
-      a: 'Paket Standart (Gratis) memberi Anda akses penuh ke 66 Kitab Alkitab Versi Pemulihan dan FKKP edisi minggu ini. Paket Premium membuka seluruh 30 Seri Buku Karakter, 46 Pokok Pembinaan Dasar, dan sinkronisasi Google Play / Apple Books. Paket Ultimate menambahkan fitur Meja Perjamuan lengkap tanpa batas, sinkronisasi multi-perangkat instan, serta jaminan akses pembaruan buku seumur hidup.'
+      a: 'Paket Standart (Gratis) memberi Anda akses penuh ke 66 Kitab Alkitab Versi Pemulihan dan FKKP edisi minggu ini. Paket Premium membuka seluruh 30 Seri Buku Karakter, 46 Pokok Pembinaan Dasar, dan penyimpanan catatan di Cloud. Paket Ultimate menambahkan fitur Meja Perjamuan lengkap tanpa batas, sinkronisasi multi-perangkat instan, serta jaminan akses pembaruan buku seumur hidup.'
     }
   ];
 
@@ -227,17 +227,19 @@ export default function LandingPage({
 
           {/* Action Buttons: Clean & Never Overflowing */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            {/* Quick Scripture Search Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onOpenQuickScripture}
-              className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
-              title="Cari Cepat Ayat Alkitab & Catatan Kaki"
-            >
-              <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
-              <span className="hidden sm:inline">Cari Ayat</span>
-            </Button>
+            {/* Quick Scripture Search Button (Only shown when logged in) */}
+            {isLoggedIn && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onOpenQuickScripture}
+                className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                title="Cari Cepat Ayat Alkitab & Catatan Kaki"
+              >
+                <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
+                <span className="hidden sm:inline">Cari Ayat</span>
+              </Button>
+            )}
 
             {/* Read Bible Button */}
             <Button
@@ -314,16 +316,7 @@ export default function LandingPage({
                       </div>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem 
-                      onClick={onOpenPricing}
-                      className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
-                    >
-                      <Smartphone className="w-4 h-4 text-blue-600" />
-                      <div>
-                        <p className="font-bold text-xs text-[#1C1917]">Integrasi &amp; Toko Digital</p>
-                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
-                      </div>
-                    </DropdownMenuItem>
+
 
                     <DropdownMenuSeparator className="my-1 bg-[#1C1917]/10" />
 
@@ -367,10 +360,10 @@ export default function LandingPage({
                       onClick={onOpenPricing}
                       className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
                     >
-                      <Smartphone className="w-4 h-4 text-blue-600" />
+                      <Sparkles className="w-4 h-4 text-amber-600" />
                       <div>
-                        <p className="font-bold text-xs text-[#1C1917]">Paket &amp; Sinkron Toko</p>
-                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
+                        <p className="font-bold text-xs text-[#1C1917]">Pilihan Paket Santapan</p>
+                        <p className="text-[10px] text-[#78716C]">Standart, Premium, Ultimate</p>
                       </div>
                     </DropdownMenuItem>
 
@@ -402,10 +395,10 @@ export default function LandingPage({
                       onClick={onOpenPricing}
                       className="rounded-xl px-2.5 py-2 text-xs font-medium cursor-pointer flex items-center gap-2 hover:bg-white focus:bg-white"
                     >
-                      <Smartphone className="w-4 h-4 text-blue-600" />
+                      <Sparkles className="w-4 h-4 text-amber-600" />
                       <div>
-                        <p className="font-bold text-xs text-[#1C1917]">Paket &amp; Sinkron Toko</p>
-                        <p className="text-[10px] text-[#78716C]">Google Play &amp; Apple Books</p>
+                        <p className="font-bold text-xs text-[#1C1917]">Pilihan Paket Santapan</p>
+                        <p className="text-[10px] text-[#78716C]">Standart, Premium, Ultimate</p>
                       </div>
                     </DropdownMenuItem>
                   </>
@@ -915,7 +908,7 @@ export default function LandingPage({
                 Testimoni Para Pembaca Firman
               </h3>
               <p className="text-xs sm:text-sm text-[#78716C] max-w-xl mx-auto">
-                Pengalaman nyata menikmati doa-makan harian, kemudahan sinkronisasi Google Play &amp; Apple Books tanpa beli dua kali.
+                Pengalaman nyata menikmati doa-makan harian, kemudahan membaca firman dan khazanah rohani kapan saja.
               </p>
             </div>
 
@@ -1247,7 +1240,7 @@ export default function LandingPage({
             <span className="italic font-light text-amber-200">Kecaplah dan Nikmatilah Kebaikan-Nya.</span>
           </h2>
           <p className="max-w-xl mx-auto text-sm text-[#A8A29E] leading-relaxed">
-            Tersedia paket Standart (Gratis), Premium, dan Ultimate terintegrasi Google Play &amp; Apple Books tanpa beli dua kali.
+            Tersedia paket Standart (Gratis), Premium, dan Ultimate untuk mendukung pertumbuhan rohani harian Anda.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
