@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { BookOpen, Sparkles, ChevronRight, Search } from 'lucide-react';
+import { BookOpen, Sparkles, ChevronRight, Search, Lock } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { isBookLocked } from '../lib/accessControl';
 
 const ALL_30_KARAKTER = [
   { id: 1, num: 1, title: 'Benar', desc: 'Kebenaran, integritas, dan keadilan di hadapan Allah dan manusia.', tag: 'Fondasi Karakter' },
@@ -46,8 +47,16 @@ const ALL_30_KARAKTER = [
   { id: 30, num: 30, title: 'Bobot', desc: 'Bobot dan kadar rohani yang berat, bernilai kekal di hadapan Tuhan.', tag: 'Bobot Rohani' }
 ];
 
-export default function KarakterSeriesModal({ isOpen, onClose, onSelectSeries }) {
+export default function KarakterSeriesModal({ 
+  isOpen, 
+  onClose, 
+  onSelectSeries,
+  userPlan,
+  userRole = 'reader',
+  onOpenPricing
+}) {
   const [search, setSearch] = useState('');
+  const isLocked = isBookLocked({ id: 'buku-karakter-wl' }, userPlan, userRole);
 
   const filteredTraits = useMemo(() => {
     if (!search.trim()) return ALL_30_KARAKTER;
@@ -69,8 +78,13 @@ export default function KarakterSeriesModal({ isOpen, onClose, onSelectSeries })
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <DialogTitle className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100">
-                Buku Karakter: 30 Seri Lengkap
+              <DialogTitle className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                <span>Buku Karakter: 30 Seri Lengkap</span>
+                {isLocked && (
+                  <Badge variant="outline" className="text-[10px] bg-amber-500/10 border-amber-500/30 text-amber-700 font-bold">
+                    <Lock className="w-3 h-3 mr-1" /> Premium
+                  </Badge>
+                )}
               </DialogTitle>
               <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
                 Karya Witness Lee • 30 Buku Pembentukan Karakter Manusia yang Berguna bagi Tuhan
@@ -78,6 +92,29 @@ export default function KarakterSeriesModal({ isOpen, onClose, onSelectSeries })
             </div>
           </div>
         </DialogHeader>
+
+        {/* Tier Warning Banner if Locked */}
+        {isLocked && (
+          <div className="my-1.5 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-amber-950 dark:text-amber-200">
+            <div className="flex items-center gap-2">
+              <Lock className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                <strong>Paket Standart:</strong> Memerlukan paket <strong>Premium</strong> untuk membaca seluruh 30 seri karakter.
+              </span>
+            </div>
+            <Button
+              size="sm"
+              onClick={() => {
+                onClose();
+                if (typeof onOpenPricing === 'function') onOpenPricing();
+              }}
+              className="rounded-full h-7 px-3.5 text-[11px] font-bold bg-amber-500 hover:bg-amber-600 text-stone-950 shrink-0 shadow-xs self-start sm:self-auto"
+            >
+              <Sparkles className="w-3 h-3 mr-1" />
+              Upgrade Sekarang &rarr;
+            </Button>
+          </div>
+        )}
 
         {/* Search Bar */}
         <div className="relative my-1">
@@ -128,9 +165,15 @@ export default function KarakterSeriesModal({ isOpen, onClose, onSelectSeries })
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                     Buku Seri {seri.num}
                   </span>
-                  <span className="text-blue-600 dark:text-blue-400 font-bold flex items-center group-hover:translate-x-0.5 transition">
-                    Baca <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                  </span>
+                  {isLocked ? (
+                    <span className="text-amber-700 dark:text-amber-400 font-bold flex items-center text-[11px]">
+                      <Lock className="w-3 h-3 mr-1" /> Premium
+                    </span>
+                  ) : (
+                    <span className="text-blue-600 dark:text-blue-400 font-bold flex items-center group-hover:translate-x-0.5 transition">
+                      Baca <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                    </span>
+                  )}
                 </div>
               </Card>
             ))}

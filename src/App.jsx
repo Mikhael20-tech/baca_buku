@@ -3,7 +3,7 @@ import {
   BookOpen, Search, UploadCloud, Database, ShieldCheck, UserCheck, 
   Trash2, Play, Info, Sparkles, CheckCircle2, Copy, 
   ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils,
-  User, Smartphone, ChevronDown, LogIn, Settings, Users
+  User, Smartphone, ChevronDown, LogIn, Settings, Users, Lock
 } from 'lucide-react';
 import { 
   DropdownMenu, 
@@ -27,6 +27,8 @@ import UserDashboard from './components/UserDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import SubscriptionModal from './components/SubscriptionModal';
 import QuickScriptureModal from './components/QuickScriptureModal';
+import LockedBookModal from './components/LockedBookModal';
+import { isBookLocked, getBookAccessInfo } from './lib/accessControl';
 import { 
   getStoredEnjoyments, 
   saveStoredEnjoyments, 
@@ -145,6 +147,7 @@ export default function App() {
   const [isPembinaanModalOpen, setIsPembinaanModalOpen] = useState(false);
   const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
   const [isQuickScriptureOpen, setIsQuickScriptureOpen] = useState(false);
+  const [lockedBookNotice, setLockedBookNotice] = useState(null);
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('baca_user_profile');
     if (saved) {
@@ -273,6 +276,16 @@ export default function App() {
       showToast('Silakan masuk atau daftar akun terlebih dahulu untuk membaca.');
       return;
     }
+    // Cek apakah paket saat ini mengizinkan membaca seri buku karakter (Wajib Premium/Ultimate)
+    if (isBookLocked({ id: 'buku-karakter-wl' }, userPlan, userRole)) {
+      setLockedBookNotice({
+        id: 'buku-karakter-wl',
+        title: seri.id === 'all' ? 'Buku Karakter: 30 Butir Lengkap' : `Buku Karakter Seri ${seri.id}: ${seri.title}`,
+        author: 'Witness Lee',
+        cover_icon: '💎'
+      });
+      return;
+    }
     if (seri.id === 'all') {
       setCurrentBook({
         id: 'buku-karakter-wl-full',
@@ -298,6 +311,16 @@ export default function App() {
     if (!isLoggedIn) {
       setIsAuthModalOpen(true);
       showToast('Silakan masuk atau daftar akun terlebih dahulu untuk membaca.');
+      return;
+    }
+    // Cek apakah paket saat ini mengizinkan membaca pembinaan dasar (Wajib Premium/Ultimate)
+    if (isBookLocked({ id: 'pembinaan-dasar-wn' }, userPlan, userRole)) {
+      setLockedBookNotice({
+        id: 'pembinaan-dasar-wn',
+        title: topik.id === 'all' ? 'Pembinaan Dasar Kaum Beriman (Volume Lengkap)' : `Pembinaan Dasar: Pelajaran ${topik.id} - ${topik.title}`,
+        author: 'Watchman Nee',
+        cover_icon: '🌱'
+      });
       return;
     }
     if (topik.id === 'all') {
@@ -354,7 +377,7 @@ export default function App() {
     }
   };
 
-  // Handler membuka buku (wajib login terlebih dahulu)
+  // Handler membuka buku (wajib login & cek hak akses paket)
   const handleOpenBook = (book) => {
     if (!isLoggedIn) {
       setIsAuthModalOpen(true);
@@ -368,6 +391,11 @@ export default function App() {
     } else if (book.is_bible || book.id?.startsWith('alkitab-')) {
       setViewMode('bible');
     } else {
+      // Periksa apakah buku memerlukan paket Premium/Ultimate
+      if (isBookLocked(book, userPlan, userRole)) {
+        setLockedBookNotice(book);
+        return;
+      }
       setCurrentBook(book);
     }
   };
@@ -624,6 +652,53 @@ export default function App() {
           onClose={() => setIsSubscriptionModalOpen(false)}
           currentPlan={userPlan}
           onPlanUpdated={handlePlanUpdated}
+        />
+
+        <LockedBookModal
+          isOpen={!!lockedBookNotice}
+          onClose={() => setLockedBookNotice(null)}
+          book={lockedBookNotice}
+          userPlan={userPlan}
+          onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+        />
+
+        <KarakterSeriesModal
+          isOpen={isKarakterSeriesModalOpen}
+          onClose={() => setIsKarakterSeriesModalOpen(false)}
+          onSelectSeries={handleSelectKarakterSeries}
+          userPlan={userPlan}
+          userRole={userRole}
+          onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+        />
+
+        <PembinaanTopicsModal
+          isOpen={isPembinaanModalOpen}
+          onClose={() => setIsPembinaanModalOpen(false)}
+          onSelectTopic={handleSelectPembinaanTopic}
+          userPlan={userPlan}
+          userRole={userRole}
+          onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+        />
+
+        <BibleSelectorModal
+          isOpen={isBibleSelectorModalOpen}
+          onClose={() => setIsBibleSelectorModalOpen(false)}
+          onSelectBibleBook={handleSelectBibleBook}
+        />
+
+        <QuickScriptureModal
+          isOpen={isQuickScriptureOpen}
+          onClose={() => setIsQuickScriptureOpen(false)}
+          onNavigateToVerse={(verse) => {
+            setIsQuickScriptureOpen(false);
+            if (!isLoggedIn) {
+              setIsAuthModalOpen(true);
+              showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
+            } else {
+              setViewMode('bible');
+              showToast(`Membuka ${verse.book} ${verse.chapter}:${verse.verse} di Pembaca Alkitab`);
+            }
+          }}
         />
       </>
     );
@@ -1107,9 +1182,19 @@ export default function App() {
                           {book.category || 'Umum'}
                         </Badge>
 
+                        {isBookLocked(book, userPlan, userRole) && (
+                          <Badge className="absolute top-3 right-3 bg-amber-500 text-stone-950 font-bold text-[10px] border border-amber-400/40 rounded-full flex items-center gap-1 shadow-sm">
+                            <Lock className="w-2.5 h-2.5" /> Premium
+                          </Badge>
+                        )}
+
                         <div className="absolute inset-0 bg-[#1C1917]/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <div className="w-12 h-12 rounded-full bg-[#3B4B34] text-white flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition duration-200">
-                            <Play className="w-5 h-5 ml-0.5 fill-current" />
+                            {isBookLocked(book, userPlan, userRole) ? (
+                              <Lock className="w-5 h-5 text-amber-300" />
+                            ) : (
+                              <Play className="w-5 h-5 ml-0.5 fill-current" />
+                            )}
                           </div>
                         </div>
                       </div>
@@ -1142,9 +1227,15 @@ export default function App() {
                       </Button>
 
                       <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1 font-bold text-xs text-[#3B4B34] group-hover:text-[#20251A] transition">
-                          Baca <ArrowRight className="w-3.5 h-3.5" />
-                        </span>
+                        {isBookLocked(book, userPlan, userRole) ? (
+                          <span className="inline-flex items-center gap-1 font-bold text-xs text-amber-800">
+                            <Lock className="w-3.5 h-3.5 text-amber-600" /> Khusus Premium
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 font-bold text-xs text-[#3B4B34] group-hover:text-[#20251A] transition">
+                            Baca <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                        )}
                       </div>
                     </div>
                   </Card>
@@ -1277,6 +1368,9 @@ export default function App() {
         isOpen={isKarakterSeriesModalOpen}
         onClose={() => setIsKarakterSeriesModalOpen(false)}
         onSelectSeries={handleSelectKarakterSeries}
+        userPlan={userPlan}
+        userRole={userRole}
+        onOpenPricing={() => setIsSubscriptionModalOpen(true)}
       />
 
       {/* Modal Pemilih Topik Pembinaan Dasar */}
@@ -1284,6 +1378,18 @@ export default function App() {
         isOpen={isPembinaanModalOpen}
         onClose={() => setIsPembinaanModalOpen(false)}
         onSelectTopic={handleSelectPembinaanTopic}
+        userPlan={userPlan}
+        userRole={userRole}
+        onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+      />
+
+      {/* Modal Upgrade / Akses Buku Terkunci */}
+      <LockedBookModal
+        isOpen={!!lockedBookNotice}
+        onClose={() => setLockedBookNotice(null)}
+        book={lockedBookNotice}
+        userPlan={userPlan}
+        onOpenPricing={() => setIsSubscriptionModalOpen(true)}
       />
 
       {/* Modal Pemilih Kitab Alkitab */}

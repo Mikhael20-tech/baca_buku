@@ -543,7 +543,10 @@ export default function LandingPage({
                         <Compass className="w-4 h-4 text-amber-300" />
                         <span>Buku Karakter</span>
                       </span>
-                      <span className="text-[10px] opacity-70">30 Butir</span>
+                      <span className="flex items-center gap-1 text-[10px] opacity-80">
+                        <span>30 Butir</span>
+                        <span className="text-[9px] font-bold text-amber-300 bg-amber-400/20 px-1 py-0.2 rounded">🔒 Premium</span>
+                      </span>
                     </button>
 
                     <button
@@ -558,7 +561,10 @@ export default function LandingPage({
                         <Sparkles className="w-4 h-4 text-amber-300" />
                         <span>Pembinaan Dasar</span>
                       </span>
-                      <span className="text-[10px] opacity-70">46 Pelajaran</span>
+                      <span className="flex items-center gap-1 text-[10px] opacity-80">
+                        <span>46 Pelajaran</span>
+                        <span className="text-[9px] font-bold text-amber-300 bg-amber-400/20 px-1 py-0.2 rounded">🔒 Premium</span>
+                      </span>
                     </button>
                   </div>
                 </div>

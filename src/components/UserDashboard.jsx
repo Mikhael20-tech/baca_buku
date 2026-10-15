@@ -5,7 +5,7 @@ import {
   Heart, Sun, Sunrise, Play, BookMarked, ShieldCheck,
   ChevronRight, ExternalLink, User, Settings, Phone,
   Mail, MapPin, Camera, Save, Highlighter, Trash2,
-  Edit3, Plus, Search, Check, Clock, AlertCircle, FileCheck
+  Edit3, Plus, Search, Check, Clock, AlertCircle, FileCheck, Lock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -366,9 +366,16 @@ export default function UserDashboard({
                     💎
                   </div>
                   <div>
-                    <h4 className="font-serif font-bold text-xs text-[#1C1917] group-hover:text-[#3B4B34]">
-                      30 Butir Karakter
-                    </h4>
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="font-serif font-bold text-xs text-[#1C1917] group-hover:text-[#3B4B34]">
+                        30 Butir Karakter
+                      </h4>
+                      {(plan?.tier || 'standart') === 'standart' && (
+                        <span className="text-[9px] font-bold text-amber-700 bg-amber-100/80 px-1.5 py-0.2 rounded-full inline-flex items-center gap-0.5">
+                          <Lock className="w-2.5 h-2.5" /> Premium
+                        </span>
+                      )}
+                    </div>
                     <p className="text-[10px] text-[#78716C]">Seri 1 s/d 30 • Witness Lee</p>
                   </div>
                 </div>
@@ -386,9 +393,16 @@ export default function UserDashboard({
                     🌱
                   </div>
                   <div>
-                    <h4 className="font-serif font-bold text-xs text-[#1C1917] group-hover:text-[#3B4B34]">
-                      Pembinaan Dasar
-                    </h4>
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="font-serif font-bold text-xs text-[#1C1917] group-hover:text-[#3B4B34]">
+                        Pembinaan Dasar
+                      </h4>
+                      {(plan?.tier || 'standart') === 'standart' && (
+                        <span className="text-[9px] font-bold text-amber-700 bg-amber-100/80 px-1.5 py-0.2 rounded-full inline-flex items-center gap-0.5">
+                          <Lock className="w-2.5 h-2.5" /> Premium
+                        </span>
+                      )}
+                    </div>
                     <p className="text-[10px] text-[#78716C]">46 Pokok Pelajaran • Watchman Nee</p>
                   </div>
                 </div>

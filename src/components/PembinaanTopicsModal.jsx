@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { BookOpen, Sparkles, ChevronRight, Search } from 'lucide-react';
+import { BookOpen, Sparkles, ChevronRight, Search, Lock } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { isBookLocked } from '../lib/accessControl';
 
 const ALL_46_PEMBINAAN = [
   { id: 1, num: 1, title: 'Berbagai Jenis Sidang', desc: 'Pengenalan berbagai macam pertemuan gereja dan tujuannya bagi kaum beriman.', tag: 'Pertemuan Gereja' },
@@ -62,8 +63,16 @@ const ALL_46_PEMBINAAN = [
   { id: 46, num: 46, title: 'Bangun Pagi-pagi Menghampiri Tuhan', desc: 'Teladan dan manfaat rohani bangun pagi untuk bersekutu dan menikmati hadirat Tuhan.', tag: 'Saat Teduh' }
 ];
 
-export default function PembinaanTopicsModal({ isOpen, onClose, onSelectTopic }) {
+export default function PembinaanTopicsModal({ 
+  isOpen, 
+  onClose, 
+  onSelectTopic,
+  userPlan,
+  userRole = 'reader',
+  onOpenPricing
+}) {
   const [search, setSearch] = useState('');
+  const isLocked = isBookLocked({ id: 'pembinaan-dasar-wn' }, userPlan, userRole);
 
   const filteredTopics = useMemo(() => {
     if (!search.trim()) return ALL_46_PEMBINAAN;
@@ -85,8 +94,13 @@ export default function PembinaanTopicsModal({ isOpen, onClose, onSelectTopic })
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <DialogTitle className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100">
-                Pembinaan Dasar: 46 Topik Lengkap
+              <DialogTitle className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                <span>Pembinaan Dasar: 46 Topik Lengkap</span>
+                {isLocked && (
+                  <Badge variant="outline" className="text-[10px] bg-amber-500/10 border-amber-500/30 text-amber-700 font-bold">
+                    <Lock className="w-3 h-3 mr-1" /> Premium
+                  </Badge>
+                )}
               </DialogTitle>
               <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
                 Karya Watchman Nee • 46 Pelajaran Pembinaan Kaum Beriman Baru
@@ -94,6 +108,29 @@ export default function PembinaanTopicsModal({ isOpen, onClose, onSelectTopic })
             </div>
           </div>
         </DialogHeader>
+
+        {/* Tier Warning Banner if Locked */}
+        {isLocked && (
+          <div className="my-1.5 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-amber-950 dark:text-amber-200">
+            <div className="flex items-center gap-2">
+              <Lock className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                <strong>Paket Standart:</strong> Memerlukan paket <strong>Premium</strong> untuk membaca seluruh 46 topik pelajaran pembinaan.
+              </span>
+            </div>
+            <Button
+              size="sm"
+              onClick={() => {
+                onClose();
+                if (typeof onOpenPricing === 'function') onOpenPricing();
+              }}
+              className="rounded-full h-7 px-3.5 text-[11px] font-bold bg-amber-500 hover:bg-amber-600 text-stone-950 shrink-0 shadow-xs self-start sm:self-auto"
+            >
+              <Sparkles className="w-3 h-3 mr-1" />
+              Upgrade Sekarang &rarr;
+            </Button>
+          </div>
+        )}
 
         {/* Search Bar */}
         <div className="relative my-1">
@@ -144,9 +181,15 @@ export default function PembinaanTopicsModal({ isOpen, onClose, onSelectTopic })
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                     Buku Pelajaran {topik.num}
                   </span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center group-hover:translate-x-0.5 transition">
-                    Baca <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                  </span>
+                  {isLocked ? (
+                    <span className="text-amber-700 dark:text-amber-400 font-bold flex items-center text-[11px]">
+                      <Lock className="w-3 h-3 mr-1" /> Premium
+                    </span>
+                  ) : (
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center group-hover:translate-x-0.5 transition">
+                      Baca <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                    </span>
+                  )}
                 </div>
               </Card>
             ))}
