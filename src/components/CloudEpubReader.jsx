@@ -20,7 +20,7 @@ import {
   DialogDescription, 
   DialogFooter 
 } from '@/components/ui/dialog';
-import { getFkkpSettings } from '../lib/fkkpSchedule';
+import { getFkkpSettings, getCurrentFkkpDay, DAY_NAMES } from '../lib/fkkpSchedule';
 
 // Patch window.addEventListener agar saat epub.js mendaftarkan 'unload', dialihkan secara aman ke 'pagehide'
 // Ini mencegah peringatan browser Chrome: "[Violation] Permissions policy violation: unload is not allowed in this document"
@@ -179,50 +179,207 @@ export const isFKKPBook = (b) => {
 // Helper validasi UUID untuk kolom UUID di database Supabase (menghindari error 400 Bad Request jika user demo)
 export const isValidUUID = (id) => typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
 
-// Helper mendeteksi nomor minggu dari teks label atau konten bab FKKP
-export function parseFkkpWeekNumber(text) {
-  if (!text || typeof text !== 'string') return null;
-  const clean = text.toLowerCase();
+// Helper mendeteksi nomor minggu dan nomor hari dari teks label atau link file FKKP
+export function parseFkkpWeekAndDay(text = '', href = '') {
+  let week = null;
+  let day = null;
 
-  // 1. Angka arab: "minggu 4", "minggu-4", "minggu ke-4", "week 4"
-  const numMatch = clean.match(/(?:minggu|week)(?:\s*(?:ke|-)?\s*)(\d+)/i);
-  if (numMatch) return parseInt(numMatch[1], 10);
+  const cleanText = (text || '').toLowerCase();
+  const cleanHref = (href || '').toLowerCase();
 
-  // 2. Angka romawi setelah kata minggu: "minggu iv", "minggu ii", dst
-  if (/(?:minggu|week)\s+(?:xii|12)\b/i.test(clean)) return 12;
-  if (/(?:minggu|week)\s+(?:xi|11)\b/i.test(clean)) return 11;
-  if (/(?:minggu|week)\s+(?:x|10)\b/i.test(clean)) return 10;
-  if (/(?:minggu|week)\s+(?:ix|9)\b/i.test(clean)) return 9;
-  if (/(?:minggu|week)\s+(?:viii|8)\b/i.test(clean)) return 8;
-  if (/(?:minggu|week)\s+(?:vii|7)\b/i.test(clean)) return 7;
-  if (/(?:minggu|week)\s+(?:vi|6)\b/i.test(clean)) return 6;
-  if (/(?:minggu|week)\s+(?:v|5)\b/i.test(clean)) return 5;
-  if (/(?:minggu|week)\s+(?:iv|4)\b/i.test(clean)) return 4;
-  if (/(?:minggu|week)\s+(?:iii|3)\b/i.test(clean)) return 3;
-  if (/(?:minggu|week)\s+(?:ii|2)\b/i.test(clean)) return 2;
-  if (/(?:minggu|week)\s+(?:i|1)\b/i.test(clean)) return 1;
-
-  // 3. Kata bilangan Indonesia
-  if (clean.includes('minggu pertama') || clean.includes('minggu satu')) return 1;
-  if (clean.includes('minggu kedua') || clean.includes('minggu dua')) return 2;
-  if (clean.includes('minggu ketiga') || clean.includes('minggu tiga')) return 3;
-  if (clean.includes('minggu keempat') || clean.includes('minggu empat')) return 4;
-  if (clean.includes('minggu kelima') || clean.includes('minggu lima')) return 5;
-  if (clean.includes('minggu keenam') || clean.includes('minggu enam')) return 6;
-
-  // 4. Cek nomor file Summer Training: 6-12 (W1), 13-19 (W2), 20-26 (W3), 27-33 (W4), 34-40 (W5), 41-47 (W6)
-  const fileMatch = clean.match(/summer_training-(\d+)\.xhtml/i);
-  if (fileMatch) {
-    const fileNum = parseInt(fileMatch[1], 10);
-    if (fileNum >= 6 && fileNum <= 12) return 1;
-    if (fileNum >= 13 && fileNum <= 19) return 2;
-    if (fileNum >= 20 && fileNum <= 26) return 3;
-    if (fileNum >= 27 && fileNum <= 33) return 4;
-    if (fileNum >= 34 && fileNum <= 40) return 5;
-    if (fileNum >= 41 && fileNum <= 47) return 6;
+  // 1. Ekstraksi Minggu dari Text
+  const weekNumMatch = cleanText.match(/(?:minggu|week)(?:\s*(?:ke|-)?\s*)(\d+)/i);
+  if (weekNumMatch) {
+    week = parseInt(weekNumMatch[1], 10);
+  } else if (/(?:minggu|week)\s+(?:xii|12)\b/i.test(cleanText)) {
+    week = 12;
+  } else if (/(?:minggu|week)\s+(?:xi|11)\b/i.test(cleanText)) {
+    week = 11;
+  } else if (/(?:minggu|week)\s+(?:x|10)\b/i.test(cleanText)) {
+    week = 10;
+  } else if (/(?:minggu|week)\s+(?:ix|9)\b/i.test(cleanText)) {
+    week = 9;
+  } else if (/(?:minggu|week)\s+(?:viii|8)\b/i.test(cleanText)) {
+    week = 8;
+  } else if (/(?:minggu|week)\s+(?:vii|7)\b/i.test(cleanText)) {
+    week = 7;
+  } else if (/(?:minggu|week)\s+(?:vi|6)\b/i.test(cleanText)) {
+    week = 6;
+  } else if (/(?:minggu|week)\s+(?:v|5)\b/i.test(cleanText)) {
+    week = 5;
+  } else if (/(?:minggu|week)\s+(?:iv|4)\b/i.test(cleanText)) {
+    week = 4;
+  } else if (/(?:minggu|week)\s+(?:iii|3)\b/i.test(cleanText)) {
+    week = 3;
+  } else if (/(?:minggu|week)\s+(?:ii|2)\b/i.test(cleanText)) {
+    week = 2;
+  } else if (/(?:minggu|week)\s+(?:i|1)\b/i.test(cleanText)) {
+    week = 1;
+  } else if (cleanText.includes('minggu pertama') || cleanText.includes('minggu satu')) {
+    week = 1;
+  } else if (cleanText.includes('minggu kedua') || cleanText.includes('minggu dua')) {
+    week = 2;
+  } else if (cleanText.includes('minggu ketiga') || cleanText.includes('minggu tiga')) {
+    week = 3;
+  } else if (cleanText.includes('minggu keempat') || cleanText.includes('minggu empat')) {
+    week = 4;
+  } else if (cleanText.includes('minggu kelima') || cleanText.includes('minggu lima')) {
+    week = 5;
+  } else if (cleanText.includes('minggu keenam') || cleanText.includes('minggu enam')) {
+    week = 6;
+  } else if (cleanText.includes('minggu ketujuh') || cleanText.includes('minggu tujuh')) {
+    week = 7;
+  } else if (cleanText.includes('minggu kedelapan') || cleanText.includes('minggu delapan')) {
+    week = 8;
+  } else if (cleanText.includes('minggu kesembilan') || cleanText.includes('minggu sembilan')) {
+    week = 9;
+  } else if (cleanText.includes('minggu kesepuluh') || cleanText.includes('minggu sepuluh')) {
+    week = 10;
+  } else if (cleanText.includes('minggu kesebelas') || cleanText.includes('minggu sebelas')) {
+    week = 11;
+  } else if (cleanText.includes('minggu kedua belas') || cleanText.includes('minggu dua belas')) {
+    week = 12;
   }
 
-  return null;
+  const isGarisBesar = cleanText.includes('garis besar') || cleanText.includes('outline') || cleanHref.includes('garis_besar');
+
+  // 2. Ekstraksi Hari dari Text (Hanya jika BUKAN Garis Besar, agar sub-heading "HARI 1" di dalam Garis Besar tidak mengacaukan status overview)
+  if (!isGarisBesar) {
+    const dayNumMatch = cleanText.match(/(?:hari|day)(?:\s*(?:ke|-)?\s*)(\d+)/i);
+    if (dayNumMatch) {
+      day = parseInt(dayNumMatch[1], 10);
+    } else if (/\bhari\s+senin\b/i.test(cleanText)) {
+      day = 1;
+    } else if (/\bhari\s+selasa\b/i.test(cleanText)) {
+      day = 2;
+    } else if (/\bhari\s+rabu\b/i.test(cleanText)) {
+      day = 3;
+    } else if (/\bhari\s+kamis\b/i.test(cleanText)) {
+      day = 4;
+    } else if (/\bhari\s+jumat\b/i.test(cleanText)) {
+      day = 5;
+    } else if (/\bhari\s+sabtu\b/i.test(cleanText)) {
+      day = 6;
+    } else if (/\b(?:hari\s+tuhan|hari\s+minggu)\b/i.test(cleanText)) {
+      day = 7;
+    } else if (/\bhari\s+vii\b/i.test(cleanText)) {
+      day = 7;
+    } else if (/\bhari\s+vi\b/i.test(cleanText)) {
+      day = 6;
+    } else if (/\bhari\s+v\b/i.test(cleanText)) {
+      day = 5;
+    } else if (/\bhari\s+iv\b/i.test(cleanText)) {
+      day = 4;
+    } else if (/\bhari\s+iii\b/i.test(cleanText)) {
+      day = 3;
+    } else if (/\bhari\s+ii\b/i.test(cleanText)) {
+      day = 2;
+    } else if (/\bhari\s+i\b/i.test(cleanText)) {
+      day = 1;
+    } else if (cleanText.includes('hari pertama')) {
+      day = 1;
+    } else if (cleanText.includes('hari kedua')) {
+      day = 2;
+    } else if (cleanText.includes('hari ketiga')) {
+      day = 3;
+    } else if (cleanText.includes('hari keempat')) {
+      day = 4;
+    } else if (cleanText.includes('hari kelima')) {
+      day = 5;
+    } else if (cleanText.includes('hari keenam')) {
+      day = 6;
+    } else if (cleanText.includes('hari ketujuh')) {
+      day = 7;
+    }
+  } else {
+    // Garis Besar bukan hari 1-7, melainkan rangkuman pembuka sepekan (day = 0)
+    day = 0;
+  }
+
+  // 3. Ekstraksi dari Filename (href) Summer Training (Tiap minggu terdiri dari 8 file: 1 Garis Besar + 7 Hari Santapan)
+  // File 4 = Minggu 1 Garis Besar, File 5-11 = Minggu 1 Hari 1-7
+  // File 12 = Minggu 2 Garis Besar, File 13-19 = Minggu 2 Hari 1-7
+  // File 20 = Minggu 3 Garis Besar, File 21-27 = Minggu 3 Hari 1-7
+  const fileMatch = (cleanHref || cleanText).match(/summer_training-(\d+)\.xhtml/i);
+  if (fileMatch) {
+    const fileNum = parseInt(fileMatch[1], 10);
+    if (fileNum >= 4) {
+      const offset = fileNum - 4;
+      const fileWeek = Math.floor(offset / 8) + 1;
+      const fileSubIndex = offset % 8; // 0 = Garis Besar, 1..7 = Hari 1..7
+      if (week === null) week = fileWeek;
+      if (day === null) {
+        day = fileSubIndex === 0 ? 0 : fileSubIndex;
+      }
+    }
+  }
+
+  return { week, day };
+}
+
+// Kompatibilitas fungsi deteksi minggu
+export function parseFkkpWeekNumber(text) {
+  return parseFkkpWeekAndDay(text, text).week;
+}
+
+// Logika apakah bagian firman FKKP terkunci untuk paket Standart:
+// 1. Minggu sebelumnya (week < activeWeek) -> Buka penuh (kebuka)
+// 2. Minggu setelahnya (week > activeWeek) -> Kunci (🔒 Premium)
+// 3. Minggu berjalan (week === activeWeek) -> Garis Besar (day 0) buka, hari <= activeDay buka, hari > activeDay kunci
+export function isFkkpSectionLocked(week, day, activeWeek = 2, activeDay = 4) {
+  if (week === null || week === undefined) return false;
+
+  if (week < activeWeek) {
+    return false;
+  }
+
+  if (week > activeWeek) {
+    return true;
+  }
+
+  // Untuk minggu berjalan (week === activeWeek):
+  // Garis Besar (day === 0) atau konten umum tanpa hari spesifik selalu dibuka
+  if (day === 0 || day === null || day === undefined) {
+    return false;
+  }
+
+  return day > activeDay;
+}
+
+// Memproses struktur Daftar Isi agar item seperti "Rawatan Pagi" mewarisi Minggu dan Hari dari judul di atasnya
+export function annotateFkkpToc(items, inheritedWeek = null, inheritedDay = null) {
+  let runningWeek = inheritedWeek;
+  let runningDay = inheritedDay;
+
+  return items.map((item) => {
+    const parsed = parseFkkpWeekAndDay(item.label, item.href);
+
+    if (parsed.week !== null && parsed.week !== runningWeek) {
+      runningWeek = parsed.week;
+      runningDay = null;
+    }
+
+    if (parsed.day !== null) {
+      // Jika Garis Besar (day === 0), jangan set runningDay ke angka hari santapan
+      runningDay = parsed.day === 0 ? null : parsed.day;
+    }
+
+    const itemWeek = parsed.week ?? runningWeek;
+    const itemDay = parsed.day ?? runningDay;
+
+    if (parsed.week !== null) runningWeek = parsed.week;
+
+    const subitems = item.subitems && item.subitems.length > 0
+      ? annotateFkkpToc(item.subitems, itemWeek, itemDay)
+      : item.subitems;
+
+    return {
+      ...item,
+      fkkpWeek: itemWeek,
+      fkkpDay: itemDay,
+      subitems
+    };
+  });
 }
 
 export default function CloudEpubReader({ 
@@ -238,8 +395,18 @@ export default function CloudEpubReader({
   const renditionInstance = useRef(null);
 
   // Status Reader & Tier Restriction
-  const fkkpSettings = useMemo(() => getFkkpSettings(), []);
-  const activeFkkpWeek = fkkpSettings?.currentWeek || 2;
+  const [fkkpSettings, setFkkpSettings] = useState(() => getFkkpSettings());
+  useEffect(() => {
+    const handleSettingsUpdate = (e) => {
+      setFkkpSettings(e.detail || getFkkpSettings());
+    };
+    window.addEventListener('fkkp_settings_updated', handleSettingsUpdate);
+    return () => window.removeEventListener('fkkp_settings_updated', handleSettingsUpdate);
+  }, []);
+
+  const currentFkkp = useMemo(() => getCurrentFkkpDay(fkkpSettings), [fkkpSettings]);
+  const activeFkkpWeek = currentFkkp?.week || 2;
+  const activeFkkpDay = currentFkkp?.day || 4;
   const isStandartUser = (userPlan?.tier || 'standart').toLowerCase() === 'standart' && userRole !== 'admin';
   const [lockedWeekDialog, setLockedWeekDialog] = useState(null);
 
@@ -1055,12 +1222,24 @@ export default function CloudEpubReader({
       // Terapkan penimpaan gaya teks tema & font ke dokumen iframe
       applyReaderStyles(themeRef.current, fontRef.current);
 
-      // Proteksi FKKP untuk paket Standart (Hanya boleh membaca minggu berjalan / activeFkkpWeek)
+      // Proteksi FKKP untuk paket Standart:
+      // 1. Minggu sebelumnya (week < activeWeek) -> Buka penuh (kebuka)
+      // 2. Minggu setelahnya (week > activeWeek) -> Kunci (🔒 Premium)
+      // 3. Minggu berjalan (week === activeWeek) -> Dapat per hari (hari <= activeDay buka, hari > activeDay kunci)
       if (isFKKP && isStandartUser) {
         const docText = contents.document?.body?.innerText || '';
-        const detectedWeek = parseFkkpWeekNumber(section.href) || parseFkkpWeekNumber(docText.slice(0, 500));
-        
-        if (detectedWeek && detectedWeek !== activeFkkpWeek) {
+        const parsed = parseFkkpWeekAndDay(docText.slice(0, 800), section.href);
+        const isLocked = isFkkpSectionLocked(parsed.week, parsed.day, activeFkkpWeek, activeFkkpDay);
+
+        if (isLocked) {
+          const isFutureDayInCurrentWeek = parsed.week === activeFkkpWeek && parsed.day && parsed.day > activeFkkpDay;
+          const lockTitle = isFutureDayInCurrentWeek
+            ? `Materi Hari ${parsed.day} (${DAY_NAMES[parsed.day] || ''}) Terkunci`
+            : `FKKP Minggu ${parsed.week || ''} Terkunci`;
+          const lockDesc = isFutureDayInCurrentWeek
+            ? `Paket <strong>Standart (Gratis)</strong> membuka santapan firman setiap hari secara bertahap hingga hari ini (<strong>${DAY_NAMES[activeFkkpDay] || `Hari ${activeFkkpDay}`}</strong>).<br/>Hari ${parsed.day} akan terbuka sesuai jadwal harian, atau dapat diakses sekarang dengan paket <strong>Premium</strong>.`
+            : `Paket <strong>Standart (Gratis)</strong> hanya mencakup materi pada <strong>Minggu Berjalan (Minggu ${activeFkkpWeek})</strong> dan minggu-minggu sebelumnya.<br/>Materi Minggu ${parsed.week || ''} memerlukan langganan paket <strong>Premium</strong> atau <strong>Ultimate</strong>.`;
+
           contents.document.body.innerHTML = `
             <div style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; box-sizing: border-box; background: transparent;">
               <div style="max-width: 480px; width: 100%; background: #FBF9F5; border: 2px solid rgba(217, 119, 6, 0.35); border-radius: 28px; padding: 40px 28px; box-shadow: 0 20px 45px rgba(0,0,0,0.1); margin: 0 auto; color: #1c1917;">
@@ -1071,18 +1250,17 @@ export default function CloudEpubReader({
                   Khusus Paket Premium
                 </div>
                 <h2 style="font-size: 22px; font-weight: 800; color: #1c1917; margin: 0 0 10px 0; font-family: Georgia, serif;">
-                  FKKP Minggu ${detectedWeek} Terkunci
+                  ${lockTitle}
                 </h2>
                 <p style="font-size: 13px; color: #57534e; line-height: 1.6; margin: 0 0 24px 0;">
-                  Paket <strong>Standart (Gratis)</strong> hanya mencakup pembacaan firman pada <strong>Minggu Berjalan (Minggu ${activeFkkpWeek})</strong>.<br/>
-                  Materi Minggu ${detectedWeek} dan seluruh arsip pelatihan tersedia lengkap di paket <strong>Premium</strong> dan <strong>Ultimate</strong>.
+                  ${lockDesc}
                 </p>
                 <button id="btn-upgrade-fkkp-paywall" style="background: #3B4B34; color: #ffffff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(59,75,52,0.35); margin-bottom: 12px; width: 100%; transition: all 0.2s;">
                   ✨ Upgrade ke Premium Sekarang
                 </button>
                 <div>
                   <button id="btn-return-fkkp-current" style="background: transparent; color: #78716c; border: none; font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px 14px; text-decoration: underline;">
-                    &larr; Kembali ke FKKP Minggu ${activeFkkpWeek}
+                    &larr; Kembali ke Santapan Hari Ini (${DAY_NAMES[activeFkkpDay] || `Hari ${activeFkkpDay}`})
                   </button>
                 </div>
               </div>
@@ -1097,7 +1275,7 @@ export default function CloudEpubReader({
           const btnReturn = contents.document.getElementById('btn-return-fkkp-current');
           if (btnReturn) {
             btnReturn.addEventListener('click', () => {
-              const defaultWeekLoc = book.initialLocation || 'FKKP_2026-4_Summer_Training-13.xhtml#_idParaDest-22';
+              const defaultWeekLoc = currentFkkp?.initialLocation || book.initialLocation || 'FKKP_2026-4_Summer_Training-13.xhtml#_idParaDest-22';
               rendition.display(defaultWeekLoc);
             });
           }
@@ -1242,14 +1420,14 @@ export default function CloudEpubReader({
         // Ambil Navigasi / Daftar Isi (TOC)
         epubBook.loaded.navigation.then((nav) => {
           if (nav && nav.toc && nav.toc.length > 0) {
-            setToc(nav.toc);
+            setToc(isFKKP ? annotateFkkpToc(nav.toc) : nav.toc);
           } else if (epubBook.spine && epubBook.spine.items) {
             const fallbackToc = epubBook.spine.items.map((item, idx) => ({
               id: item.idref || `spine-${idx}`,
               href: item.href,
               label: `Bab / Bagian ${idx + 1}`
             }));
-            setToc(fallbackToc);
+            setToc(isFKKP ? annotateFkkpToc(fallbackToc) : fallbackToc);
           }
         }).catch((err) => {
           console.debug('TOC load info:', err);
@@ -1432,15 +1610,18 @@ export default function CloudEpubReader({
   };
 
   // Navigasi ke bab tertentu dari Daftar Isi
-  const handleJumpToChapter = async (href, label = '') => {
+  const handleJumpToChapter = async (href, label = '', itemWeek = null, itemDay = null) => {
     if (!renditionInstance.current) return;
     try {
       if (isFKKP && isStandartUser) {
-        const targetWeek = parseFkkpWeekNumber(label) || parseFkkpWeekNumber(href);
-        if (targetWeek && targetWeek !== activeFkkpWeek) {
+        const parsed = parseFkkpWeekAndDay(label, href);
+        const targetWeek = itemWeek ?? parsed.week;
+        const targetDay = itemDay ?? parsed.day;
+        if (isFkkpSectionLocked(targetWeek, targetDay, activeFkkpWeek, activeFkkpDay)) {
           setLockedWeekDialog({
             week: targetWeek,
-            label: label || `Minggu ${targetWeek}`
+            day: targetDay,
+            label: label || (targetWeek ? `Minggu ${targetWeek}${targetDay ? ` Hari ${targetDay}` : ''}` : '')
           });
           return;
         }
@@ -1586,27 +1767,29 @@ export default function CloudEpubReader({
   const filteredToc = filterTocItems(toc, tocSearch);
 
   // Render rekursif Daftar Isi
-  const renderTocList = (items, depth = 0, inheritedWeek = null) => {
+  const renderTocList = (items, depth = 0, inheritedWeek = null, inheritedDay = null) => {
     return items.map((item, idx) => {
-      const itemWeek = parseFkkpWeekNumber(item.label) || parseFkkpWeekNumber(item.href) || inheritedWeek;
-      const isLockedWeek = isFKKP && isStandartUser && itemWeek !== null && itemWeek !== activeFkkpWeek;
+      const itemWeek = item.fkkpWeek ?? inheritedWeek ?? parseFkkpWeekNumber(item.label) ?? parseFkkpWeekNumber(item.href);
+      const itemDay = item.fkkpDay ?? inheritedDay;
+      const isLocked = isFKKP && isStandartUser && isFkkpSectionLocked(itemWeek, itemDay, activeFkkpWeek, activeFkkpDay);
 
       return (
         <div key={item.id || `${item.href}-${idx}`}>
           <button
             onClick={() => {
-              if (isLockedWeek) {
+              if (isLocked) {
                 setLockedWeekDialog({
                   week: itemWeek,
+                  day: itemDay,
                   label: item.label
                 });
                 return;
               }
-              handleJumpToChapter(item.href, item.label);
+              handleJumpToChapter(item.href, item.label, itemWeek, itemDay);
             }}
             style={{ paddingLeft: `${depth * 14 + 10}px` }}
             className={`w-full text-left py-2 pr-3 rounded-xl transition flex items-center justify-between group ${
-              isLockedWeek 
+              isLocked 
                 ? 'opacity-80 hover:bg-amber-500/10 text-stone-600 dark:text-stone-400' 
                 : 'hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400'
             }`}
@@ -1614,13 +1797,13 @@ export default function CloudEpubReader({
             <span className="truncate font-medium group-hover:font-semibold flex items-center gap-1.5">
               {item.label?.trim() || `Bagian ${idx + 1}`}
             </span>
-            {isLockedWeek && (
+            {isLocked && (
               <Badge variant="outline" className="text-[9px] bg-amber-500/15 border-amber-500/30 text-amber-700 dark:text-amber-400 font-bold ml-2 shrink-0 flex items-center gap-0.5">
                 <Lock className="w-2.5 h-2.5" /> Premium
               </Badge>
             )}
           </button>
-          {item.subitems && item.subitems.length > 0 && renderTocList(item.subitems, depth + 1, itemWeek)}
+          {item.subitems && item.subitems.length > 0 && renderTocList(item.subitems, depth + 1, itemWeek, itemDay)}
         </div>
       );
     });
@@ -2422,10 +2605,22 @@ export default function CloudEpubReader({
                 <span>Khusus Paket Premium</span>
               </div>
               <DialogTitle className="text-xl font-serif font-bold text-[#1C1917]">
-                FKKP Minggu {lockedWeekDialog.week} Terkunci
+                {lockedWeekDialog.week === activeFkkpWeek && lockedWeekDialog.day
+                  ? `Materi ${lockedWeekDialog.label || `Hari ${lockedWeekDialog.day}`} Terkunci`
+                  : `FKKP Minggu ${lockedWeekDialog.week || ''} Terkunci`}
               </DialogTitle>
               <DialogDescription className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
-                Paket <strong>Standart (Gratis)</strong> hanya mencakup materi pada <strong>Minggu Berjalan (Minggu {activeFkkpWeek})</strong>. Materi {lockedWeekDialog.label || `Minggu ${lockedWeekDialog.week}`} dan seluruh arsip pelatihan memerlukan langganan paket <strong>Premium</strong> atau <strong>Ultimate</strong>.
+                {lockedWeekDialog.week === activeFkkpWeek && lockedWeekDialog.day ? (
+                  <>
+                    Paket <strong>Standart (Gratis)</strong> membuka santapan firman setiap hari secara bertahap hingga hari ini (<strong>{DAY_NAMES[activeFkkpDay] || `Hari ${activeFkkpDay}`}</strong>).<br className="hidden sm:inline" />
+                    Materi {lockedWeekDialog.label || `Hari ${lockedWeekDialog.day}`} akan terbuka sesuai jadwal harian, atau buka akses tanpa batas sekarang dengan paket <strong>Premium</strong>.
+                  </>
+                ) : (
+                  <>
+                    Paket <strong>Standart (Gratis)</strong> hanya mencakup materi pada <strong>Minggu Berjalan (Minggu {activeFkkpWeek})</strong> dan minggu-minggu sebelumnya.<br className="hidden sm:inline" />
+                    Materi {lockedWeekDialog.label || `Minggu ${lockedWeekDialog.week}`} dan seluruh arsip pelatihan mendatang memerlukan langganan paket <strong>Premium</strong> atau <strong>Ultimate</strong>.
+                  </>
+                )}
               </DialogDescription>
             </DialogHeader>
 
