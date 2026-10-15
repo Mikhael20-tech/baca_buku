@@ -96,7 +96,9 @@ export default function LandingPage({
   onOpenAdminDashboard,
   onOpenPricing,
   enjoyments = INITIAL_SHORT_ENJOYMENTS,
-  onAddEnjoyment
+  onAddEnjoyment,
+  books = [],
+  onOpenBook
 }) {
   const [activeFaq, setActiveFaq] = useState(null);
   const [activeTab, setActiveTab] = useState('fkkp');
@@ -568,7 +570,7 @@ export default function LandingPage({
                       {activeTab === 'fkkp' ? 'FKKP Rangkuman Fajar (Bagi Nikmat Hari Ini)' : activeTab === 'alkitab' ? 'Wahyu Ilahi' : 'Pertumbuhan Rohani'}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#1C1917] mt-1.5 transition-all duration-300">
-                      {activeTab === 'fkkp' && 'Menikmati Kristus sebagai Hayat: Rangkuman Fajar'}
+                      {activeTab === 'fkkp' && 'Kaum Beriman: Minggu 2 • Hari 4 (Rangkuman Fajar)'}
                       {activeTab === 'alkitab' && 'Injil Yohanes: Firman yang Menjadi Daging'}
                       {activeTab === 'karakter' && 'Pembentukan Karakter yang Berguna bagi Tuhan'}
                       {activeTab === 'pembinaan' && '46 Pokok Pelajaran Bagi Kaum Beriman Baru'}
@@ -584,6 +586,17 @@ export default function LandingPage({
                         } else {
                           if (activeTab === 'alkitab') {
                             onOpenBible();
+                          } else if (activeTab === 'fkkp' && onOpenBook) {
+                            const fkkpBook = books.find(b => b.title?.toLowerCase().includes('fkkp')) || {
+                              id: '4e109d2d-08d5-4d3e-8c12-5a79a9f3e472',
+                              title: 'FKKP Kaum Beriman (Minggu 2 Hari 4)',
+                              file_path: 'epubs/1792029937814-693nqm.epub',
+                              cover_url: '/covers/fkkp-kaum-beriman.png'
+                            };
+                            onOpenBook({
+                              ...fkkpBook,
+                              initialLocation: 'FKKP_2026-4_Summer_Training-16.xhtml#_idParaDest-28'
+                            });
                           } else {
                             onEnterLibrary();
                           }
@@ -606,10 +619,10 @@ export default function LandingPage({
                         </div>
                         <div>
                           <p className="font-serif text-lg sm:text-xl italic text-[#1C1917] leading-relaxed">
-                            "Sama seperti Bapa yang hidup mengutus Aku dan Aku hidup oleh Bapa, demikian juga barangsiapa yang memakan Aku, ia pun akan hidup oleh Aku."
+                            "Aku akan minta kepada Bapa, dan Ia akan memberikan kepadamu seorang Penolong yang lain, supaya Ia menyertai kamu selama-lamanya, yaitu Roh Kebenaran... Dialah yang akan mengajarkan segala sesuatu kepadamu."
                           </p>
                           <p className="text-xs font-bold text-[#8E9C75] mt-1">
-                            Yohanes 6:57 • Ayat Kunci FKKP Minggu 1
+                            Yohanes 14:16-17, 26 • Ayat Kunci FKKP Minggu 2 Hari 4
                           </p>
                         </div>
                       </div>
@@ -624,10 +637,10 @@ export default function LandingPage({
                           <span className="text-[10px] text-stone-500">Disarikan dari Bahan FKKP Pagi</span>
                         </div>
                         <p className="text-stone-800">
-                          Pagi ini firman menyingkapkan bahwa hubungan kita dengan Kristus bukanlah sekadar mengikuti agama lahiriah, melainkan memakan Dia secara organik. Kristus adalah roti hidup yang telah dipecah-pecahkan di kayu salib agar dapat kita kecap, telan, dan cerna menjadi hayat sejati sepanjang hari ini.
+                          Pagi ini firman menyingkapkan bahwa Roh yang berhuni di dalam kita adalah Penolong yang lain (Roh Kebenaran dan Roh Hayat). Roh ini masuk ke dalam kita sebagai Roh esensial bagi hayat dan keberadaan kita, membagikan hayat ilahi ke seluruh batin kita, serta mengajarkan dan mengingatkan segala firman Kristus kepada kita.
                         </p>
                         <p className="text-[#3B4B34] font-medium italic pt-1 border-t border-amber-200/40">
-                          Doa Serapan: "Tuhan Yesus, terima kasih Engkau telah menjadi makananku! Pagi ini aku membuka rohku, memakan firman-Mu, dan hidup oleh Engkau!"
+                          Doa Serapan: "O Tuhan Yesus, terima kasih Engkau telah datang ke dalam kami sebagai Roh Penolong dan Roh Hayat! Hari ini kami berserah kepada bimbingan Roh Kebenaran di dalam roh kami!"
                         </p>
                       </div>
                     </div>

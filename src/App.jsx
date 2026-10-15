@@ -43,14 +43,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 
 const INITIAL_DEMO_BOOKS = [
   {
-    id: 'fkkp-kebangunan-pagi-m1',
-    title: 'FKKP: Menikmati Kristus sebagai Hayat (Minggu 1)',
-    author: 'Yasperin / Living Stream Ministry',
+    id: 'fkkp-kaum-beriman-m2h4',
+    title: 'FKKP: Kaum Beriman (Minggu 2 Hari 4)',
+    author: 'Living Stream Ministry / Yasperin',
     category: 'FKKP (Kebangunan Pagi)',
-    description: 'Firman Kudus untuk Kebangunan Pagi (FKKP) — Panduan doa-makan firman harian (Senin s/d Sabtu). Otomatis dibaca dengan mode gulir vertikal ke bawah.',
+    description: 'Firman Kudus untuk Kebangunan Pagi (FKKP) — Kaum Beriman: Roh Kebenaran Sebagai Penolong & Roh Hayat (Minggu 2 Hari 4). Otomatis dibaca dengan mode gulir vertikal ke bawah.',
+    cover_url: '/covers/fkkp-kaum-beriman.png',
     cover_gradient: 'from-amber-600 via-orange-800 to-amber-950',
     cover_icon: '🌅',
-    file_path: '/books/fkkp-kebangunan-pagi-minggu-1.epub',
+    file_path: 'epubs/1792029937814-693nqm.epub',
+    initialLocation: 'FKKP_2026-4_Summer_Training-16.xhtml#_idParaDest-28',
     created_at: new Date('2026-01-06').toISOString()
   },
   {
@@ -606,6 +608,8 @@ export default function App() {
           onOpenPricing={() => setIsSubscriptionModalOpen(true)}
           enjoyments={enjoyments}
           onAddEnjoyment={handleAddEnjoyment}
+          books={books}
+          onOpenBook={handleOpenBook}
         />
 
         <AuthModal
@@ -941,6 +945,7 @@ export default function App() {
             enjoyments={enjoyments}
             onAddEnjoyment={handleAddEnjoyment}
             initialTab={userDashboardTab}
+            books={books}
           />
         )}
 

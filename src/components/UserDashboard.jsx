@@ -41,7 +41,8 @@ export default function UserDashboard({
   onEnterLibrary,
   enjoyments,
   onAddEnjoyment,
-  initialTab = 'santapan'
+  initialTab = 'santapan',
+  books = []
 }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'santapan' | 'notes' | 'profile' | 'stores'
 
@@ -272,19 +273,19 @@ export default function UserDashboard({
                   </div>
                 </div>
 
-                <span className="text-[11px] font-semibold text-[#8E9C75]">Minggu 1 • Hari Ini</span>
+                <span className="text-[11px] font-semibold text-[#8E9C75]">Minggu 2 • Hari 4 (Kamis)</span>
               </div>
 
               {/* Reading Verse & Thought */}
               <div className="my-5 p-5 rounded-2xl bg-[#FBF9F5] border border-[#1C1917]/8 space-y-3">
                 <p className="font-serif text-base sm:text-lg italic text-[#1C1917] leading-relaxed">
-                  "Sama seperti Bapa yang hidup mengutus Aku dan Aku hidup oleh Bapa, demikian juga barangsiapa yang memakan Aku, ia pun akan hidup oleh Aku."
+                  "Aku akan minta kepada Bapa, dan Ia akan memberikan kepadamu seorang Penolong yang lain, supaya Ia menyertai kamu selama-lamanya, yaitu Roh Kebenaran... Dialah yang akan mengajarkan segala sesuatu kepadamu."
                 </p>
                 <p className="text-xs font-bold text-[#8E9C75]">
-                  Yohanes 6:57 • Tema Santapan FKKP
+                  Yohanes 14:16-17, 26 • FKKP Minggu 2 Hari 4
                 </p>
                 <div className="pt-2 text-xs text-[#57534E] leading-relaxed border-t border-[#1C1917]/5">
-                  <span className="font-bold text-[#1C1917]">Pancaran Terang:</span> Tuhan Yesus tidak memanggil kita sekadar menjadi pengagum ajaran-Nya, melainkan menjadi penikmat hidup-Nya. Saat kita memakan firman melalui doa-makan di awal fajar, zat hayat ilahi itu membaur ke dalam batin kita.
+                  <span className="font-bold text-[#1C1917]">Pancaran Terang:</span> Kristus melalui kebangkitan telah menjadi Roh pemberi-hayat dan Penolong yang lain (Roh Kebenaran dan Roh Hayat) di dalam batin kita. Roh ini hidup di dalam kita, menjadi esensi diri kita, dan membimbing seluruh kehidupan kita.
                 </div>
               </div>
 
@@ -292,17 +293,24 @@ export default function UserDashboard({
               <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                 <Button
                   size="sm"
-                  onClick={() => onOpenBook({
-                    id: 'fkkp-kebangunan-pagi-m1',
-                    title: 'FKKP: Menikmati Kristus sebagai Hayat (Minggu 1)',
-                    author: 'Yasperin / Living Stream Ministry',
-                    file_path: '/books/fkkp-kebangunan-pagi-minggu-1.epub',
-                    cover_icon: '🌅'
-                  })}
+                  onClick={() => {
+                    const fkkpBook = books.find(b => b.title?.toLowerCase().includes('fkkp')) || {
+                      id: '4e109d2d-08d5-4d3e-8c12-5a79a9f3e472',
+                      title: 'FKKP Kaum Beriman (Minggu 2 Hari 4)',
+                      author: 'Living Stream Ministry / Yasperin',
+                      file_path: 'epubs/1792029937814-693nqm.epub',
+                      cover_url: '/covers/fkkp-kaum-beriman.png',
+                      cover_icon: '🌅'
+                    };
+                    onOpenBook({
+                      ...fkkpBook,
+                      initialLocation: 'FKKP_2026-4_Summer_Training-16.xhtml#_idParaDest-28'
+                    });
+                  }}
                   className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white btn-lift"
                 >
                   <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
-                  Mulai Doa-Makan FKKP
+                  Mulai Doa-Makan Minggu 2 Hari 4
                 </Button>
 
                 <Button

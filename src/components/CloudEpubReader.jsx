@@ -1163,8 +1163,9 @@ export default function CloudEpubReader({ book, userId, onBack }) {
         // Generate locations untuk hitung persentase
         epubBook.locations.generate(1000).catch(() => {});
 
-        // Setup Rendition awal
-        await setupRendition(epubBook, modeRef.current, lastCfi);
+        // Setup Rendition awal (buka posisi target bab/hari jika diberikan, atau posisi terakhir)
+        const initialTarget = book.initialLocation || lastCfi;
+        await setupRendition(epubBook, modeRef.current, initialTarget);
 
         // Event resize otomatis saat orientasi HP / tablet diputar
         const handleResize = () => {
