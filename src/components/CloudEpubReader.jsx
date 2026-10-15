@@ -418,23 +418,21 @@ export default function CloudEpubReader({
       handlePrevPage();
       return;
     }
-    let scrolled = false;
-    if (renditionInstance.current) {
-      try {
-        const contentsList = renditionInstance.current.getContents?.() || [];
-        contentsList.forEach((contents) => {
-          if (contents.window) {
-            contents.window.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
-            scrolled = true;
+    const container = viewerRef.current;
+    if (container) {
+      const prevScrollTop = container.scrollTop;
+      const scrollDelta = Math.max(250, Math.floor(window.innerHeight * 0.7));
+      container.scrollBy({ top: -scrollDelta, behavior: 'smooth' });
+
+      // Cek apakah sudah di puncak section; jika ya, pindah ke section sebelumnya
+      setTimeout(() => {
+        if (container.scrollTop <= 10 || container.scrollTop === prevScrollTop) {
+          if (renditionInstance.current) {
+            try { renditionInstance.current.prev(); } catch {}
           }
-        });
-      } catch {}
-    }
-    if (viewerRef.current) {
-      viewerRef.current.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
-      viewerRef.current.parentElement?.scrollBy({ top: -window.innerHeight * 0.75, behavior: 'smooth' });
-    }
-    if (!scrolled && renditionInstance.current) {
+        }
+      }, 200);
+    } else if (renditionInstance.current) {
       try { renditionInstance.current.prev(); } catch {}
     }
   }, [handlePrevPage]);
@@ -444,23 +442,22 @@ export default function CloudEpubReader({
       handleNextPage();
       return;
     }
-    let scrolled = false;
-    if (renditionInstance.current) {
-      try {
-        const contentsList = renditionInstance.current.getContents?.() || [];
-        contentsList.forEach((contents) => {
-          if (contents.window) {
-            contents.window.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
-            scrolled = true;
+    const container = viewerRef.current;
+    if (container) {
+      const prevScrollTop = container.scrollTop;
+      const scrollDelta = Math.max(250, Math.floor(window.innerHeight * 0.7));
+      container.scrollBy({ top: scrollDelta, behavior: 'smooth' });
+
+      // Cek apakah sudah mencapai ujung bawah section; jika ya, gulir ke section berikutnya
+      setTimeout(() => {
+        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight <= 30;
+        if (isNearBottom || container.scrollTop === prevScrollTop) {
+          if (renditionInstance.current) {
+            try { renditionInstance.current.next(); } catch {}
           }
-        });
-      } catch {}
-    }
-    if (viewerRef.current) {
-      viewerRef.current.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
-      viewerRef.current.parentElement?.scrollBy({ top: window.innerHeight * 0.75, behavior: 'smooth' });
-    }
-    if (!scrolled && renditionInstance.current) {
+        }
+      }, 200);
+    } else if (renditionInstance.current) {
       try { renditionInstance.current.next(); } catch {}
     }
   }, [handleNextPage]);

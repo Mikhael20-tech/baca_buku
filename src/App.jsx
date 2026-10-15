@@ -92,6 +92,265 @@ const INITIAL_DEMO_BOOKS = [
     file_path: '/books/martir-dan-salib-watchman-nee.epub',
     created_at: new Date('2026-01-02').toISOString()
   },
+  // ==========================================
+  // KIDUNG & SUPLEMEN (Koleksi Lagu Pujian Rohani)
+  // ==========================================
+  {
+    id: 'kidung-jemaat-indonesia',
+    title: 'Kidung Rohani (Kidung 1 – 792)',
+    author: 'Yasperin / LSM',
+    category: 'Kidung & Pujian',
+    description: 'Koleksi lengkap 792 Kidung Rohani (Hymns) Indonesia: lirik bait, koor/refrein, metrum not lagu, serta kisah latar belakang pengarang rohani.',
+    cover_gradient: 'from-amber-600 via-yellow-700 to-amber-950',
+    cover_icon: '🎵',
+    file_path: '/books/kidung-jemaat-indonesia.epub',
+    created_at: new Date('2026-01-07').toISOString()
+  },
+  {
+    id: 'suplemen-kidung-indonesia',
+    title: 'Suplemen Kidung Rohani (S. 1 – 341)',
+    author: 'Yasperin / LSM',
+    category: 'Kidung & Pujian',
+    description: 'Koleksi lengkap 341 Kidung Suplemen (New Songs): Kata-kata Pujian, Roh dan Hayat, Menikmati Kristus, Visi Gereja, dan Pembangunan Tubuh Kristus.',
+    cover_gradient: 'from-amber-500 via-orange-700 to-amber-900',
+    cover_icon: '🎶',
+    file_path: '/books/suplemen-kidung-indonesia.epub',
+    created_at: new Date('2026-01-07').toISOString()
+  },
+  // ==========================================
+  // PELAJARAN HAYAT (Life-Study of the Bible)
+  // ==========================================
+  {
+    id: 'ph-matius',
+    title: 'Pelajaran Hayat: Injil Matius',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '105 Berita eksposisi hayat atas Injil Kerajaan (Matius): Silsilah Raja, Pelayanan Raja Surgawi, dan Salib serta Kebangkitan Kristus.',
+    cover_gradient: 'from-blue-700 via-sky-800 to-slate-900',
+    cover_icon: '👑',
+    file_path: '/books/pelajaran-hayat-matius.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-markus',
+    title: 'Pelajaran Hayat: Injil Markus',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '141 Berita eksposisi hayat atas Injil Hamba Allah (Markus): Pelayanan Juruselamat-Hamba yang setia dalam kasih karunia dan kuasa ilahi.',
+    cover_gradient: 'from-cyan-700 via-blue-900 to-slate-950',
+    cover_icon: '🕊️',
+    file_path: '/books/pelajaran-hayat-markus.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-lukas',
+    title: 'Pelajaran Hayat: Injil Lukas',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '106 Berita eksposisi hayat atas Injil Manusia Sejati (Lukas): Juruselamat-Manusia yang sempurna dalam belas kasihan ilahi.',
+    cover_gradient: 'from-teal-700 via-emerald-900 to-slate-950',
+    cover_icon: '🌿',
+    file_path: '/books/pelajaran-hayat-lukas.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-yohanes',
+    title: 'Pelajaran Hayat: Injil Yohanes',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '52 Berita eksposisi hayat atas Injil Hayat (Yohanes): Kristus sebagai Firman Allah, Anak Domba Allah, Roti Hayat, dan Pokok Anggur Sejati.',
+    cover_gradient: 'from-indigo-700 via-blue-900 to-slate-950',
+    cover_icon: '✨',
+    file_path: '/books/pelajaran-hayat-yohanes.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-roma',
+    title: 'Pelajaran Hayat: Surat Roma',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '70 Berita eksposisi lengkap Surat Roma: Pembenaran oleh iman, Pengudusan dalam hayat, Pemuliaan, dan Kehidupan Praktis Tubuh Kristus.',
+    cover_gradient: 'from-violet-700 via-purple-900 to-slate-950',
+    cover_icon: '📜',
+    file_path: '/books/pelajaran-hayat-roma.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-korintus',
+    title: 'Pelajaran Hayat: Surat 1 & 2 Korintus',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '223 Berita eksposisi lengkap Surat Korintus: Kristus sebagai bagian unik kita, Roh Pemberi Hayat, dan Pelayanan Perjanjian Baru.',
+    cover_gradient: 'from-amber-700 via-orange-900 to-stone-950',
+    cover_icon: '🏛️',
+    file_path: '/books/pelajaran-hayat-korintus.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-galatia-efesus',
+    title: 'Pelajaran Hayat: Surat Galatia & Efesus',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '208 Berita: Kemerdekaan dalam Kristus (Galatia), serta Rahasia Ekonomi Allah dan Kemuliaan Tubuh Kristus (Efesus).',
+    cover_gradient: 'from-emerald-700 via-teal-900 to-slate-950',
+    cover_icon: '🌟',
+    file_path: '/books/pelajaran-hayat-galatia-efesus.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-filipi-kolose',
+    title: 'Pelajaran Hayat: Surat Filipi & Kolose',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '669 Berita: Pengalaman kenikmatan Kristus sebagai pola (Filipi), serta Kealmuhitan dan Keunggulan Kristus di atas segala sesuatu (Kolose).',
+    cover_gradient: 'from-fuchsia-700 via-purple-900 to-slate-950',
+    cover_icon: '💎',
+    file_path: '/books/pelajaran-hayat-filipi-kolose.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-ibrani',
+    title: 'Pelajaran Hayat: Surat Ibrani',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '70 Berita eksposisi Surat Ibrani: Kristus Imam Besar Agung kita di Tempat Mahakudus menurut peraturan Melkisedek.',
+    cover_gradient: 'from-rose-700 via-pink-900 to-slate-950',
+    cover_icon: '⚓',
+    file_path: '/books/pelajaran-hayat-ibrani.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-wahyu',
+    title: 'Pelajaran Hayat: Kitab Wahyu',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '69 Berita Wahyu Yesus Kristus: Tujuh kaki dian emas, Tujuh Materai, Tujuh Terompet, Pemenang, dan Yerusalem Baru.',
+    cover_gradient: 'from-red-700 via-amber-900 to-stone-950',
+    cover_icon: '🎺',
+    file_path: '/books/pelajaran-hayat-wahyu.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  {
+    id: 'ph-kejadian-keluaran',
+    title: 'Pelajaran Hayat: Kitab Kejadian & Keluaran',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: '291 Berita: Tujuan penciptaan Allah, panggilan para bapa leluhur, penebusan Paskah di Mesir, dan Pembangunan Kemah Suci.',
+    cover_gradient: 'from-stone-700 via-stone-800 to-stone-950',
+    cover_icon: '🌄',
+    file_path: '/books/pelajaran-hayat-kejadian-keluaran.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-08').toISOString()
+  },
+  // ==========================================
+  // MINISTRY BOOKS (Buku-buku Pelayanan Rohani)
+  // ==========================================
+  {
+    id: 'mb-all-inclusive-christ',
+    title: 'The All-Inclusive Christ',
+    author: 'Witness Lee',
+    category: 'Ministry Books',
+    description: 'Witness Lee\'s masterpiece expounding the rich types of the good land in Deuteronomy as a type of the all-inclusive Christ.',
+    cover_gradient: 'from-blue-600 via-indigo-900 to-slate-950',
+    cover_icon: '🌾',
+    file_path: '/books/the-all-inclusive-christ.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-economy-of-god',
+    title: 'The Economy of God',
+    author: 'Witness Lee',
+    category: 'Ministry Books',
+    description: 'A landmark classic unfolding God\'s household administration to impart Himself in His Divine Trinity into His chosen believers.',
+    cover_gradient: 'from-emerald-700 via-teal-950 to-slate-950',
+    cover_icon: '🏛️',
+    file_path: '/books/the-economy-of-god.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-glorious-church',
+    title: 'The Glorious Church',
+    author: 'Watchman Nee',
+    category: 'Ministry Books',
+    description: 'Four profound biblical types of the church in God\'s eternal purpose: Eve, Rebekah, Asenath, and the Sun-clothed Woman.',
+    cover_gradient: 'from-purple-700 via-indigo-950 to-slate-950',
+    cover_icon: '👰',
+    file_path: '/books/the-glorious-church.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-normal-church-life',
+    title: 'The Normal Christian Church Life',
+    author: 'Watchman Nee',
+    category: 'Ministry Books',
+    description: 'Watchman Nee\'s essential work on the biblical pattern and practice of the church, the apostles, and the boundary of the local church.',
+    cover_gradient: 'from-cyan-700 via-sky-950 to-slate-950',
+    cover_icon: '⛪',
+    file_path: '/books/the-normal-christian-church-life.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-knowledge-of-life',
+    title: 'The Knowledge of Life',
+    author: 'Witness Lee',
+    category: 'Ministry Books',
+    description: 'The foundational teaching on divine life: What life is, the law of the spirit of life, the sense of life, and the clearance of the past.',
+    cover_gradient: 'from-amber-600 via-orange-950 to-stone-950',
+    cover_icon: '🌱',
+    file_path: '/books/the-knowledge-of-life.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-experience-of-life',
+    title: 'The Experience of Life',
+    author: 'Witness Lee',
+    category: 'Ministry Books',
+    description: 'The definitive guide to the progressive steps of spiritual experience in Christ: from regeneration and consecration to reigning in life.',
+    cover_gradient: 'from-rose-700 via-rose-950 to-stone-950',
+    cover_icon: '🕊️',
+    file_path: '/books/the-experience-of-life.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-release-of-the-spirit',
+    title: 'The Release of the Spirit',
+    author: 'Watchman Nee',
+    category: 'Ministry Books',
+    description: 'Profound messages on the breaking of the outer man so that the inner man and the Holy Spirit may be released to minister life.',
+    cover_gradient: 'from-teal-600 via-slate-900 to-stone-950',
+    cover_icon: '💧',
+    file_path: '/books/the-release-of-the-spirit.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-spiritual-authority',
+    title: 'Spiritual Authority',
+    author: 'Watchman Nee',
+    category: 'Ministry Books',
+    description: 'Authoritative messages on God\'s throne, the authority of Christ, and the spiritual principles of obedience and delegated authority.',
+    cover_gradient: 'from-indigo-800 via-slate-950 to-black',
+    cover_icon: '👑',
+    file_path: '/books/spiritual-authority.epub',
+    required_tier: 'premium',
+    created_at: new Date('2026-01-09').toISOString()
+  },
   {
     id: 'demo-meditasi',
     title: 'Meditasi: Menemukan Kedamaian Stoa',
