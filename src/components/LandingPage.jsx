@@ -162,8 +162,8 @@ export default function LandingPage({
       a: 'Sangat Alkitabiah. Dalam Injil Yohanes 6:57, Tuhan Yesus sendiri bersabda: "Sama seperti Bapa yang hidup mengutus Aku dan Aku hidup oleh Bapa, demikian juga barangsiapa yang memakan Aku, ia pun akan hidup oleh Aku." Tuhan Yesus memperkenalkan diri-Nya bukan sebagai filsafat di otak, melainkan sebagai Roti Hayat (Yohanes 6:35) dan Air Hayat (Yohanes 4:14) yang harus kita telan dan nikmati ke dalam batin roh kita.'
     },
     {
-      q: 'Apakah aplikasi Baca bisa diakses secara offline?',
-      a: 'Ya! Seluruh konten buku yang telah Anda buka atau unduh dapat dinikmati secara offline tanpa perlu kuota internet, memudahkan saat teduh di mana pun Anda berada.'
+      q: 'Apakah buku bisa diunduh atau dibaca secara offline?',
+      a: 'Tidak. Aplikasi Baca disajikan secara online (Cloud Streaming Reader). Seluruh buku dan santapan firman diakses secara online guna menjaga keamanan hak cipta penerbit serta memastikan seluruh catatan dan progres pembacaan Anda tersimpan aman dan tersinkronisasi di server cloud.'
     },
     {
       q: 'Apa itu Meja Perjamuan FKKP?',
@@ -465,7 +465,7 @@ export default function LandingPage({
         </div>
 
         {/* ===================== MEJA PERJAMUAN (FKKP RANGKUMAN FAJAR) ===================== */}
-        <div id="santapan" className="relative mt-14 sm:mt-18 max-w-[1140px] mx-auto px-4 sm:px-8 reveal-item">
+        <div id="santapan" className="relative mt-14 sm:mt-18 max-w-[1140px] mx-auto px-4 sm:px-8 reveal-item scroll-mt-24">
           
           <div className="rounded-[32px] p-2.5 sm:p-4 bg-white/70 backdrop-blur-xl border border-white/90 shadow-2xl shadow-[#1C1917]/10 transition-all duration-500 hover:shadow-3xl">
             <div className="rounded-[24px] overflow-hidden bg-[#FAF7F2] border border-[#1C1917]/8 flex flex-col md:flex-row text-left min-h-[480px]">
@@ -804,7 +804,7 @@ export default function LandingPage({
         </div>
 
         {/* ===================== TESTIMONI & BAGI NIKMAT YANG GONTA-GANTI ===================== */}
-        <div id="testimoni" className="relative mt-16 max-w-[1140px] mx-auto px-4 sm:px-8 space-y-10">
+        <div id="testimoni" className="relative mt-16 max-w-[1140px] mx-auto px-4 sm:px-8 space-y-10 scroll-mt-24">
           
           {/* 1. BAGI NIKMAT SINGKAT YANG BERGANTI-GANTI (ROTATING LIVE TICKER) */}
           <div className="rounded-[28px] p-5 sm:p-7 bg-white/80 backdrop-blur-md border border-[#1C1917]/10 shadow-lg reveal-item relative overflow-hidden">
@@ -995,7 +995,7 @@ export default function LandingPage({
       </section>
 
       {/* ===================== 4 PILAR SANTAPAN ===================== */}
-      <section id="pilar" className="relative z-10 py-20 sm:py-28 bg-[#EDE7DC]">
+      <section id="pilar" className="relative z-10 py-20 sm:py-28 bg-[#EDE7DC] scroll-mt-24">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 text-center space-y-4">
           
           <div className="reveal-item space-y-3">
@@ -1190,9 +1190,9 @@ export default function LandingPage({
       </section>
 
       {/* ===================== FAQ ACCORDION ===================== */}
-      <section id="faq" className="relative z-10 py-20 sm:py-28 bg-[#EDE7DC]">
+      <section id="faq" className="relative z-10 py-20 sm:py-28 bg-[#EDE7DC] scroll-mt-28">
         <div className="max-w-[840px] mx-auto px-5 sm:px-8 space-y-4">
-          <div className="text-center space-y-2 mb-10 reveal-item">
+          <div className="text-center space-y-2 mb-10 pt-2 reveal-item">
             <span className="text-xs font-bold tracking-widest uppercase text-[#8E9C75]">Tanya Jawab Rohani</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#1C1917]">
               Mengenal Prinsip Doa-Makan Firman

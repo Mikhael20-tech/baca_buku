@@ -48,7 +48,7 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Akses seluruh 30 Seri Buku Karakter (Witness Lee)',
         'Akses seluruh 46 Pokok Pembinaan Kaum Beriman (Watchman Nee)',
         'Simpan catatan perenungan firman & highlight di Cloud',
-        'Mode baca offline tanpa perlu kuota internet',
+        'Akses Cloud Reader cepat, aman & hemat kuota',
         'Dukungan penuh pembacaan di HP, Tablet & Laptop'
       ],
       storeSync: 'Akses penuh seluruh buku',

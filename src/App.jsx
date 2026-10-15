@@ -988,7 +988,7 @@ export default function App() {
                   </Badge>
                   <Badge variant="outline" className="bg-white/5 border-white/20 text-[#D6D3D1] text-xs py-1 px-3 rounded-full">
                     <Sparkles className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
-                    <span>Akses Offline &amp; Mode Doa-Makan</span>
+                    <span>Cloud Streaming &amp; Mode Doa-Makan</span>
                   </Badge>
                 </div>
               </div>
