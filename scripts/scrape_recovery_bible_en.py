@@ -107,13 +107,16 @@ def scrape_chapter(book_slug, ch_num):
 
         # Replace anchor spans with footnotes
         marked = re.sub(r"<span class=['\"]anchor['\"]>\s*<sup>(.*?)</sup>\s*(.*?)\s*</span>", replace_anchor, clean_block)
-        # Remove remaining HTML tags
-        marked = unescape(re.sub(r'<[^>]+>', ' ', marked))
+        # Remove remaining HTML tags but PRESERVE <fn n="..."/>
+        marked = re.sub(r'<(?!/?fn\b)[^>]+>', ' ', marked)
+        marked = unescape(marked)
         marked = ' '.join(marked.split())
+        marked = re.sub(r'\s+([,.:;?!])', r'\1', marked)
 
         # Clean plain text
         plain = re.sub(r'<fn n="\d+"/>', '', marked)
         plain = ' '.join(plain.split())
+        plain = re.sub(r'\s+([,.:;?!])', r'\1', plain)
 
         parsed_verses.append({
             'verse': v_num,
@@ -122,26 +125,48 @@ def scrape_chapter(book_slug, ch_num):
             'outlines': [o['text'] for o in outlines] if (v_num == 1 and outlines) else None
         })
 
-    # 3. Parse Footnotes
-    note_blocks = re.findall(r'<li class="jNote" data-anchor="(\d+)_(\d+)_(\w+)">(.*?)</li>', n_html, re.DOTALL)
+    # 3. Parse Footnotes & References
+    all_notes = re.findall(r'<li class="jNote" data-anchor="([^"]+)">(.*?)</li>', n_html, re.DOTALL)
     parsed_notes = []
-    for ch_str, v_str, n_idx, body in note_blocks:
-        if not n_idx.isdigit():
+    for anchor, body in all_notes:
+        parts = anchor.split('_')
+        if len(parts) < 3:
             continue
-        v_num = int(v_str)
+        v_num = int(parts[1])
+        idx_str = parts[2]
+        digits = re.findall(r'\d+', idx_str)
+        if not digits:
+            continue
+        note_idx = int(digits[0])
+
         kw_match = re.search(r'<b>\s*<a[^>]*>\d+:\d+</a>\s*</b><sup>.*?</sup>\s*<b>([^<]+)</b>', body)
         kw = unescape(kw_match.group(1)).strip() if kw_match else ""
 
         txt_match = re.search(r'<div class="text">(.*?)</div>', body, re.DOTALL)
-        raw_txt = txt_match.group(1) if txt_match else body
-        note_txt = unescape(re.sub(r'<[^>]+>', ' ', raw_txt))
-        note_txt = ' '.join(note_txt.split())
+        ref_match = re.search(r'<div class="reference">(.*?)</div>', body, re.DOTALL)
+
+        txt = unescape(re.sub(r'<[^>]+>', ' ', txt_match.group(1))).strip() if txt_match else ""
+        txt = ' '.join(txt.split())
+
+        ref = unescape(re.sub(r'<[^>]+>', ' ', ref_match.group(1))).strip() if ref_match else ""
+        ref = ' '.join(ref.split())
+
+        combined = ""
+        if txt and ref:
+            combined = f"{txt}\n\nRef: {ref}"
+        elif txt:
+            combined = txt
+        elif ref:
+            combined = f"Ref: {ref}"
+
+        if not combined:
+            continue
 
         parsed_notes.append({
             'verse': v_num,
-            'note_idx': int(n_idx),
+            'note_idx': note_idx,
             'keyword': kw,
-            'text': note_txt
+            'text': combined
         })
 
     return ch_num, {
@@ -151,7 +176,7 @@ def scrape_chapter(book_slug, ch_num):
         'footnotes': parsed_notes
     }
 
-def scrape_book(book_meta):
+def scrape_book(book_meta, force=False):
     book_id = book_meta['id']
     book_name_en = book_meta['name_en']
     book_slug = book_meta['slug']
@@ -159,7 +184,7 @@ def scrape_book(book_meta):
     target_path = os.path.join(OUTPUT_DIR, f"{book_id}.json")
 
     # If already scraped and valid, skip
-    if os.path.exists(target_path) and os.path.getsize(target_path) > 10000:
+    if not force and os.path.exists(target_path) and os.path.getsize(target_path) > 10000:
         try:
             with open(target_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
@@ -212,9 +237,10 @@ def main():
     print(f"Total NT Books: {len(NT_BOOKS)}")
     print("=" * 60)
 
+    force = '--force' in sys.argv
     # Scrape books one by one (with multi-threaded chapters per book)
     for b in NT_BOOKS:
-        scrape_book(b)
+        scrape_book(b, force=force)
 
     # Generate books.json in public/bible/en/books.json
     books_index = []

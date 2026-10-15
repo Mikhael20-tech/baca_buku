@@ -619,7 +619,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         style={{ minHeight: 0 }}
       >
         <div 
-          key={`${selectedBookId}-${selectedChapter}`}
+          key={`${bibleLang}-${selectedBookId}-${selectedChapter}`}
           className={`${transitionAnim} ${contentWidth === 'wide' ? 'max-w-5xl' : 'max-w-4xl'} mx-auto w-full ${themeStyles.contentBg} rounded-2xl sm:rounded-3xl p-4 sm:p-10 shadow-sm border ${themeStyles.border} space-y-6 transition-colors`}
         >
           
@@ -706,9 +706,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             </div>
           ) : (
             <div className="space-y-1">
-              {filteredVerses.map((item) => {
+              {filteredVerses.map((item, idx) => {
                 return (
-                  <div key={item.verse}>
+                  <div key={`${bibleLang}-${selectedBookId}-${selectedChapter}-${item.verse}-${idx}`}>
                     {/* Garis Besar Rohani di atas ayat (jika ada) */}
                     {showOutlines && item.outlines && item.outlines.length > 0 && (
                       <div className="pt-6 pb-2.5 space-y-1.5 text-center px-4">
