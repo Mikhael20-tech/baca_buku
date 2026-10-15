@@ -655,11 +655,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 </button>
               </div>
 
-              {/* Pokok Kitab Ringkas */}
-              {bookData.intro.Pokok && (
+              {/* Pokok / Subject Kitab Ringkas */}
+              {(bookData.intro.Pokok || bookData.intro.Subject) && (
                 <div className="mt-2.5 text-xs sm:text-sm font-semibold italic border-l-2 border-amber-500 pl-2.5 text-amber-950 dark:text-amber-200">
-                  <span className="font-bold not-italic text-amber-700 dark:text-amber-300">Pokok: </span>
-                  {bookData.intro.Pokok}
+                  <span className="font-bold not-italic text-amber-700 dark:text-amber-300">
+                    {bookData.intro.Subject ? 'Subject: ' : 'Pokok: '}
+                  </span>
+                  {bookData.intro.Subject || bookData.intro.Pokok}
                 </div>
               )}
 
@@ -667,7 +669,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               {isIntroExpanded && (
                 <div className="mt-3 pt-3 border-t border-black/10 dark:border-white/10 space-y-2 text-xs sm:text-sm">
                   {Object.entries(bookData.intro).map(([k, v]) => {
-                    if (k === 'Pokok') return null;
+                    if (k === 'Pokok' || k === 'Subject') return null;
                     return (
                       <div key={k} className="grid grid-cols-1 sm:grid-cols-4 gap-1 sm:gap-2">
                         <span className="font-bold opacity-80 sm:col-span-1">{k}:</span>
