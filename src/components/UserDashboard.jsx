@@ -21,6 +21,7 @@ import {
   DialogFooter
 } from '@/components/ui/dialog';
 import { getStoredNotes, saveStoredNotes, addNote, deleteNote } from '../lib/notesStorage';
+import { getCurrentFkkpDay } from '../lib/fkkpSchedule';
 
 const PRESET_AVATARS = [
   'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
@@ -63,6 +64,17 @@ export default function UserDashboard({
   // Notes & Highlights State
   const [userNotes, setUserNotes] = useState(getStoredNotes());
   const [noteSearch, setNoteSearch] = useState('');
+
+  // Dynamic FKKP Schedule State
+  const [fkkpDay, setFkkpDay] = useState(getCurrentFkkpDay());
+
+  React.useEffect(() => {
+    const handleUpdate = () => {
+      setFkkpDay(getCurrentFkkpDay());
+    };
+    window.addEventListener('fkkp_settings_updated', handleUpdate);
+    return () => window.removeEventListener('fkkp_settings_updated', handleUpdate);
+  }, []);
   const [noteColorFilter, setNoteColorFilter] = useState('all');
   const [isAddNoteModalOpen, setIsAddNoteModalOpen] = useState(false);
   const [newNoteBook, setNewNoteBook] = useState('Alkitab Versi Pemulihan');
@@ -273,19 +285,19 @@ export default function UserDashboard({
                   </div>
                 </div>
 
-                <span className="text-[11px] font-semibold text-[#8E9C75]">Minggu 2 • Hari 4 (Kamis)</span>
+                <span className="text-[11px] font-semibold text-[#8E9C75]">{fkkpDay.badge}</span>
               </div>
 
               {/* Reading Verse & Thought */}
               <div className="my-5 p-5 rounded-2xl bg-[#FBF9F5] border border-[#1C1917]/8 space-y-3">
                 <p className="font-serif text-base sm:text-lg italic text-[#1C1917] leading-relaxed">
-                  "Aku akan minta kepada Bapa, dan Ia akan memberikan kepadamu seorang Penolong yang lain, supaya Ia menyertai kamu selama-lamanya, yaitu Roh Kebenaran... Dialah yang akan mengajarkan segala sesuatu kepadamu."
+                  "{fkkpDay.verse}"
                 </p>
                 <p className="text-xs font-bold text-[#8E9C75]">
-                  Yohanes 14:16-17, 26 • FKKP Minggu 2 Hari 4
+                  {fkkpDay.verseRef}
                 </p>
                 <div className="pt-2 text-xs text-[#57534E] leading-relaxed border-t border-[#1C1917]/5">
-                  <span className="font-bold text-[#1C1917]">Pancaran Terang:</span> Kristus melalui kebangkitan telah menjadi Roh pemberi-hayat dan Penolong yang lain (Roh Kebenaran dan Roh Hayat) di dalam batin kita. Roh ini hidup di dalam kita, menjadi esensi diri kita, dan membimbing seluruh kehidupan kita.
+                  <span className="font-bold text-[#1C1917]">Pancaran Terang ({fkkpDay.theme}):</span> {fkkpDay.summary}
                 </div>
               </div>
 
@@ -296,7 +308,7 @@ export default function UserDashboard({
                   onClick={() => {
                     const fkkpBook = books.find(b => b.title?.toLowerCase().includes('fkkp')) || {
                       id: '4e109d2d-08d5-4d3e-8c12-5a79a9f3e472',
-                      title: 'FKKP Kaum Beriman (Minggu 2 Hari 4)',
+                      title: `FKKP Kaum Beriman (${fkkpDay.badge})`,
                       author: 'Living Stream Ministry / Yasperin',
                       file_path: 'epubs/1792029937814-693nqm.epub',
                       cover_url: '/covers/fkkp-kaum-beriman.png',
@@ -304,13 +316,13 @@ export default function UserDashboard({
                     };
                     onOpenBook({
                       ...fkkpBook,
-                      initialLocation: 'FKKP_2026-4_Summer_Training-16.xhtml#_idParaDest-28'
+                      initialLocation: fkkpDay.initialLocation
                     });
                   }}
                   className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white btn-lift"
                 >
                   <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
-                  Mulai Doa-Makan Minggu 2 Hari 4
+                  Mulai Doa-Makan {fkkpDay.badge}
                 </Button>
 
                 <Button

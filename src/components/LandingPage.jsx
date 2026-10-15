@@ -21,6 +21,7 @@ import {
   DropdownMenuLabel 
 } from '@/components/ui/dropdown-menu';
 import { INITIAL_TESTIMONIALS, INITIAL_SHORT_ENJOYMENTS } from '../lib/communityStorage';
+import { getCurrentFkkpDay } from '../lib/fkkpSchedule';
 
 // Animated Words component for staggered reveal effect
 function AnimatedWords({ text, baseDelay = 0, className = "" }) {
@@ -110,6 +111,17 @@ export default function LandingPage({
   const [shareCity, setShareCity] = useState('Surabaya');
   const [shareText, setShareText] = useState('');
   const [shareSubmitted, setShareSubmitted] = useState(false);
+
+  // Dynamic FKKP Schedule State
+  const [fkkpDay, setFkkpDay] = useState(getCurrentFkkpDay());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setFkkpDay(getCurrentFkkpDay());
+    };
+    window.addEventListener('fkkp_settings_updated', handleUpdate);
+    return () => window.removeEventListener('fkkp_settings_updated', handleUpdate);
+  }, []);
 
   // Auto-rotate short enjoyments every 4 seconds
   useEffect(() => {
@@ -570,7 +582,7 @@ export default function LandingPage({
                       {activeTab === 'fkkp' ? 'FKKP Rangkuman Fajar (Bagi Nikmat Hari Ini)' : activeTab === 'alkitab' ? 'Wahyu Ilahi' : 'Pertumbuhan Rohani'}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#1C1917] mt-1.5 transition-all duration-300">
-                      {activeTab === 'fkkp' && 'Kaum Beriman: Minggu 2 • Hari 4 (Rangkuman Fajar)'}
+                      {activeTab === 'fkkp' && `Kaum Beriman: ${fkkpDay.badge} (Rangkuman Fajar)`}
                       {activeTab === 'alkitab' && 'Injil Yohanes: Firman yang Menjadi Daging'}
                       {activeTab === 'karakter' && 'Pembentukan Karakter yang Berguna bagi Tuhan'}
                       {activeTab === 'pembinaan' && '46 Pokok Pelajaran Bagi Kaum Beriman Baru'}
@@ -589,13 +601,13 @@ export default function LandingPage({
                           } else if (activeTab === 'fkkp' && onOpenBook) {
                             const fkkpBook = books.find(b => b.title?.toLowerCase().includes('fkkp')) || {
                               id: '4e109d2d-08d5-4d3e-8c12-5a79a9f3e472',
-                              title: 'FKKP Kaum Beriman (Minggu 2 Hari 4)',
+                              title: `FKKP Kaum Beriman (${fkkpDay.badge})`,
                               file_path: 'epubs/1792029937814-693nqm.epub',
                               cover_url: '/covers/fkkp-kaum-beriman.png'
                             };
                             onOpenBook({
                               ...fkkpBook,
-                              initialLocation: 'FKKP_2026-4_Summer_Training-16.xhtml#_idParaDest-28'
+                              initialLocation: fkkpDay.initialLocation
                             });
                           } else {
                             onEnterLibrary();
@@ -619,10 +631,10 @@ export default function LandingPage({
                         </div>
                         <div>
                           <p className="font-serif text-lg sm:text-xl italic text-[#1C1917] leading-relaxed">
-                            "Aku akan minta kepada Bapa, dan Ia akan memberikan kepadamu seorang Penolong yang lain, supaya Ia menyertai kamu selama-lamanya, yaitu Roh Kebenaran... Dialah yang akan mengajarkan segala sesuatu kepadamu."
+                            "{fkkpDay.verse}"
                           </p>
                           <p className="text-xs font-bold text-[#8E9C75] mt-1">
-                            Yohanes 14:16-17, 26 • Ayat Kunci FKKP Minggu 2 Hari 4
+                            {fkkpDay.verseRef}
                           </p>
                         </div>
                       </div>
@@ -632,15 +644,15 @@ export default function LandingPage({
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-amber-900 flex items-center gap-1 text-[11px] uppercase tracking-wider">
                             <Sparkles className="w-3 h-3 text-amber-600" />
-                            Rangkuman Hayat Hari Ini:
+                            Rangkuman Hayat ({fkkpDay.theme}):
                           </span>
                           <span className="text-[10px] text-stone-500">Disarikan dari Bahan FKKP Pagi</span>
                         </div>
-                        <p className="text-stone-800">
-                          Pagi ini firman menyingkapkan bahwa Roh yang berhuni di dalam kita adalah Penolong yang lain (Roh Kebenaran dan Roh Hayat). Roh ini masuk ke dalam kita sebagai Roh esensial bagi hayat dan keberadaan kita, membagikan hayat ilahi ke seluruh batin kita, serta mengajarkan dan mengingatkan segala firman Kristus kepada kita.
+                        <p className="text-stone-800 leading-relaxed">
+                          {fkkpDay.summary}
                         </p>
                         <p className="text-[#3B4B34] font-medium italic pt-1 border-t border-amber-200/40">
-                          Doa Serapan: "O Tuhan Yesus, terima kasih Engkau telah datang ke dalam kami sebagai Roh Penolong dan Roh Hayat! Hari ini kami berserah kepada bimbingan Roh Kebenaran di dalam roh kami!"
+                          Doa Serapan: "{fkkpDay.prayer}"
                         </p>
                       </div>
                     </div>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   ShieldCheck, UploadCloud, Database, Smartphone, 
   Trash2, Play, RefreshCw, CheckCircle2, AlertTriangle, 
   Sparkles, Layers, BookOpen, Users, DollarSign, Settings,
   Eye, Check, Pin, X, Plus, Edit2, Search, Filter, Phone,
-  Mail, MapPin, UserCheck, UserX, Camera, Clock, FileCheck
+  Mail, MapPin, UserCheck, UserX, Camera, Clock, FileCheck,
+  Calendar, Sun, Flame, RotateCcw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,6 +25,14 @@ import {
   updateUser, 
   deleteUser 
 } from '../lib/userManagement';
+import {
+  getFkkpSettings,
+  saveFkkpSettings,
+  getCurrentFkkpDay,
+  DAY_NAMES,
+  FKKP_DEFAULT_DAYS_WEEK2,
+  getCalendarDayIndex
+} from '../lib/fkkpSchedule';
 
 export default function AdminDashboard({ 
   books, 
@@ -42,6 +51,86 @@ export default function AdminDashboard({
   // AI Summary State
   const [editedAiSummary, setEditedAiSummary] = useState(aiSummary || '');
   const [aiSavedNotice, setAiSavedNotice] = useState(false);
+
+  // FKKP Schedule State & Controls
+  const [fkkpSettings, setFkkpSettings] = useState(getFkkpSettings());
+  const [selectedPreviewDay, setSelectedPreviewDay] = useState(() => {
+    return fkkpSettings.mode === 'manual' ? fkkpSettings.manualDay : getCalendarDayIndex();
+  });
+  const [fkkpNotice, setFkkpNotice] = useState(null);
+
+  const currentFkkpLive = getCurrentFkkpDay(fkkpSettings);
+
+  // Day data for currently selected tab in editor
+  const previewDayData = useMemo(() => {
+    const defaultData = FKKP_DEFAULT_DAYS_WEEK2[selectedPreviewDay] || FKKP_DEFAULT_DAYS_WEEK2[4];
+    const key = `w${fkkpSettings.currentWeek}d${selectedPreviewDay}`;
+    const override = fkkpSettings.customOverrides?.[key] || {};
+    return {
+      verse: override.verse !== undefined ? override.verse : defaultData.verse,
+      verseRef: override.verseRef !== undefined ? override.verseRef : (fkkpSettings.currentWeek === 2 ? defaultData.verseRef : `FKKP Minggu ${fkkpSettings.currentWeek} Hari ${selectedPreviewDay}`),
+      theme: override.theme !== undefined ? override.theme : defaultData.theme,
+      summary: override.summary !== undefined ? override.summary : defaultData.summary,
+      prayer: override.prayer !== undefined ? override.prayer : defaultData.prayer,
+      file: defaultData.file,
+      anchor: defaultData.anchor,
+      isOverridden: !!fkkpSettings.customOverrides?.[key]
+    };
+  }, [fkkpSettings, selectedPreviewDay]);
+
+  const [formVerse, setFormVerse] = useState(previewDayData.verse);
+  const [formVerseRef, setFormVerseRef] = useState(previewDayData.verseRef);
+  const [formTheme, setFormTheme] = useState(previewDayData.theme);
+  const [formSummary, setFormSummary] = useState(previewDayData.summary);
+  const [formPrayer, setFormPrayer] = useState(previewDayData.prayer);
+
+  // Sync edit form when selected day changes or week changes
+  useEffect(() => {
+    setFormVerse(previewDayData.verse);
+    setFormVerseRef(previewDayData.verseRef);
+    setFormTheme(previewDayData.theme);
+    setFormSummary(previewDayData.summary);
+    setFormPrayer(previewDayData.prayer);
+  }, [previewDayData, selectedPreviewDay]);
+
+  const handleSaveFkkpSettings = (newSettings, updatedDayFields = null) => {
+    let toSave = { ...newSettings };
+    if (updatedDayFields) {
+      const key = `w${toSave.currentWeek}d${selectedPreviewDay}`;
+      toSave.customOverrides = {
+        ...(toSave.customOverrides || {}),
+        [key]: updatedDayFields
+      };
+    }
+    saveFkkpSettings(toSave);
+    setFkkpSettings(toSave);
+    setFkkpNotice({ type: 'success', text: 'Pengaturan jadwal & santapan FKKP berhasil disimpan dan langsung aktif!' });
+    setTimeout(() => setFkkpNotice(null), 3500);
+  };
+
+  const handleResetDayDefault = () => {
+    const key = `w${fkkpSettings.currentWeek}d${selectedPreviewDay}`;
+    const newOverrides = { ...(fkkpSettings.customOverrides || {}) };
+    delete newOverrides[key];
+    const newSettings = { ...fkkpSettings, customOverrides: newOverrides };
+    saveFkkpSettings(newSettings);
+    setFkkpSettings(newSettings);
+    setFkkpNotice({ type: 'info', text: `Teks Hari ${selectedPreviewDay} dikembalikan ke isi asli buku FKKP.` });
+    setTimeout(() => setFkkpNotice(null), 3000);
+  };
+
+  const handleTestInReader = () => {
+    const fkkpBook = books.find(b => b.title?.toLowerCase().includes('fkkp')) || {
+      id: '4e109d2d-08d5-4d3e-8c12-5a79a9f3e472',
+      title: 'FKKP Kaum Beriman',
+      file_path: 'epubs/1792029937814-693nqm.epub',
+      cover_url: '/covers/fkkp-kaum-beriman.png'
+    };
+    onOpenBook({
+      ...fkkpBook,
+      initialLocation: currentFkkpLive.initialLocation
+    });
+  };
 
   // User Management State (CRUD)
   const [users, setUsers] = useState(getStoredUsers());
@@ -620,43 +709,350 @@ export default function AdminDashboard({
       {/* ======================= TAB 5: PENGATURAN SANTAPAN FKKP MEJA PERJAMUAN ======================= */}
       {activeTab === 'ai' && (
         <div className="space-y-6 animate-in fade-in duration-200">
-          <div className="p-6 rounded-3xl bg-white border border-[#1C1917]/10 space-y-4">
-            <div className="flex items-center justify-between pb-4 border-b border-[#1C1917]/8">
-              <div>
-                <h3 className="font-serif font-bold text-lg text-[#1C1917]">
-                  Rangkuman Santapan FKKP Meja Perjamuan Hari Ini
+          {/* Header Banner */}
+          <div className="p-6 rounded-3xl bg-gradient-to-br from-stone-900 via-[#1C1917] to-[#20251A] text-white shadow-xl relative overflow-hidden">
+            <div className="absolute right-0 top-0 translate-x-10 -translate-y-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                  <Calendar className="w-3 h-3" />
+                  Pusat Pengaturan Kalender FKKP
+                </span>
+                <h3 className="font-serif font-bold text-xl sm:text-2xl text-white">
+                  Jadwal &amp; Santapan Harian FKKP
                 </h3>
-                <p className="text-xs text-[#78716C]">
-                  Rangkuman ini akan langsung ditampilkan di bagian Meja Perjamuan bagi seluruh pengguna.
+                <p className="text-xs text-stone-300 max-w-2xl leading-relaxed">
+                  Kelola apakah santapan FKKP berganti otomatis mengikuti kalender (Senin - Sabtu), atau tetapkan secara manual minggu dan hari bacaan bagi seluruh jemaat.
                 </p>
               </div>
 
-              <Button
-                onClick={handleSaveAi}
-                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white"
-              >
-                <Check className="w-3.5 h-3.5 mr-1" />
-                Simpan Perubahan Santapan
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={handleTestInReader}
+                  className="rounded-full text-xs font-bold bg-amber-500 hover:bg-amber-600 text-stone-950 px-4 shadow-lg btn-lift"
+                >
+                  <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
+                  Uji Buka di Reader Sekarang
+                </Button>
+              </div>
             </div>
 
-            {aiSavedNotice && (
-              <div className="p-3.5 rounded-2xl bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-medium flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
-                <span>Rangkuman Santapan Meja Perjamuan berhasil diperbarui dan dipublikasikan!</span>
+            {/* Live Status Card */}
+            <div className="mt-6 pt-5 border-t border-stone-800 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="p-3.5 rounded-2xl bg-stone-800/60 border border-stone-700/60">
+                <span className="text-stone-400 text-[11px] block">Mode Berjalan Saat Ini</span>
+                <p className="font-bold text-sm text-white mt-0.5 flex items-center gap-1.5">
+                  {fkkpSettings.mode === 'auto' ? (
+                    <>
+                      <Sun className="w-4 h-4 text-emerald-400" />
+                      Otomatis Kalender
+                    </>
+                  ) : (
+                    <>
+                      <Clock className="w-4 h-4 text-amber-400" />
+                      Manual (Terkunci)
+                    </>
+                  )}
+                </p>
+                <p className="text-[10px] text-stone-400 mt-1">
+                  {fkkpSettings.mode === 'auto' ? 'Berganti sendiri tiap pk 00:00' : 'Sesuai pilihan admin'}
+                </p>
               </div>
-            )}
 
-            <div className="space-y-3">
-              <label className="text-xs font-bold text-[#1C1917] block">
-                Teks Intisari &amp; Bagi Nikmat (FKKP Hari Ini):
-              </label>
-              <textarea
-                value={editedAiSummary}
-                onChange={(e) => setEditedAiSummary(e.target.value)}
-                rows={6}
-                className="w-full rounded-2xl p-4 bg-[#FBF9F5] border border-[#1C1917]/15 text-xs text-[#1C1917] leading-relaxed font-sans focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
-              />
+              <div className="p-3.5 rounded-2xl bg-stone-800/60 border border-stone-700/60">
+                <span className="text-stone-400 text-[11px] block">Santapan Tayang Sekarang</span>
+                <p className="font-bold text-sm text-amber-300 mt-0.5">
+                  {currentFkkpLive.badge}
+                </p>
+                <p className="text-[10px] text-stone-300 truncate mt-1">
+                  {currentFkkpLive.verseRef}
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-stone-800/60 border border-stone-700/60">
+                <span className="text-stone-400 text-[11px] block">Pergantian Hari Besok</span>
+                <p className="font-bold text-sm text-emerald-400 mt-0.5">
+                  {fkkpSettings.mode === 'auto' ? (
+                    `Otomatis Hari ${(getCalendarDayIndex() % 7) + 1} (${DAY_NAMES[(getCalendarDayIndex() % 7) + 1] || 'Hari Tuhan'})`
+                  ) : (
+                    'Tidak berganti (Mode Manual)'
+                  )}
+                </p>
+                <p className="text-[10px] text-stone-400 mt-1">
+                  {fkkpSettings.mode === 'auto' ? 'Ayat & renungan otomatis berganti' : 'Ubah ke mode otomatis untuk aktif'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Feedback Notice */}
+          {fkkpNotice && (
+            <div className={`p-4 rounded-2xl border text-xs font-medium flex items-center gap-2.5 animate-in fade-in duration-200 ${
+              fkkpNotice.type === 'success' 
+                ? 'bg-emerald-50 border-emerald-300 text-emerald-900' 
+                : 'bg-amber-50 border-amber-300 text-amber-900'
+            }`}>
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+              <span>{fkkpNotice.text}</span>
+            </div>
+          )}
+
+          {/* Mode & Schedule Controller */}
+          <div className="p-6 rounded-3xl bg-white border border-[#1C1917]/10 space-y-6">
+            <div className="space-y-1">
+              <h4 className="font-serif font-bold text-base text-[#1C1917]">
+                1. Mode Pergantian Hari Santapan
+              </h4>
+              <p className="text-xs text-[#78716C]">
+                Tentukan bagaimana aplikasi menyajikan santapan harian bagi pembaca.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Option: Auto */}
+              <button
+                type="button"
+                onClick={() => handleSaveFkkpSettings({ ...fkkpSettings, mode: 'auto' })}
+                className={`p-4 rounded-2xl border text-left transition-all relative ${
+                  fkkpSettings.mode === 'auto'
+                    ? 'border-[#3B4B34] bg-[#3B4B34]/5 shadow-sm ring-2 ring-[#3B4B34]/20'
+                    : 'border-[#1C1917]/10 bg-[#FBF9F5] hover:border-[#1C1917]/30'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                      <Sun className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-xs text-[#1C1917]">Otomatis Ikuti Kalender (Rekomendasi)</h5>
+                      <span className="text-[10px] text-emerald-700 font-semibold">Besok langsung berganti hari</span>
+                    </div>
+                  </div>
+                  {fkkpSettings.mode === 'auto' && (
+                    <Badge className="bg-[#3B4B34] text-white text-[10px]">Aktif</Badge>
+                  )}
+                </div>
+                <p className="text-[11px] text-[#78716C] mt-3 leading-relaxed">
+                  Sistem otomatis mendeteksi hari kalender (Senin=Hari 1 s/d Sabtu=Hari 6). Setiap hari jam 00:00 santapan, ayat, dan ringkasan akan berganti otomatis tanpa perlu diubah admin lagi.
+                </p>
+              </button>
+
+              {/* Option: Manual */}
+              <button
+                type="button"
+                onClick={() => handleSaveFkkpSettings({ ...fkkpSettings, mode: 'manual' })}
+                className={`p-4 rounded-2xl border text-left transition-all relative ${
+                  fkkpSettings.mode === 'manual'
+                    ? 'border-[#3B4B34] bg-[#3B4B34]/5 shadow-sm ring-2 ring-[#3B4B34]/20'
+                    : 'border-[#1C1917]/10 bg-[#FBF9F5] hover:border-[#1C1917]/30'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
+                      <Clock className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-xs text-[#1C1917]">Manual (Kunci Hari Tertentu)</h5>
+                      <span className="text-[10px] text-stone-500">Kunci hari dan minggu santapan</span>
+                    </div>
+                  </div>
+                  {fkkpSettings.mode === 'manual' && (
+                    <Badge className="bg-amber-700 text-white text-[10px]">Aktif</Badge>
+                  )}
+                </div>
+                <p className="text-[11px] text-[#78716C] mt-3 leading-relaxed">
+                  Admin mengunci tampilan santapan di minggu dan hari tertentu secara statis. Cocok jika jemaat ingin mendalami atau mengejar materi hari tertentu secara serentak.
+                </p>
+              </button>
+            </div>
+
+            {/* Select Week & Manual Day Controls */}
+            <div className="pt-4 border-t border-[#1C1917]/8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#1C1917] block">
+                  Minggu Buku FKKP yang Sedang Dipelajari:
+                </label>
+                <select
+                  value={fkkpSettings.currentWeek}
+                  onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(e.target.value) })}
+                  className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                >
+                  {[...Array(12)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      Minggu ke-{i + 1} {i + 1 === 2 ? '(FKKP Kaum Beriman yang Sedang Berjalan)' : ''}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[10px] text-[#78716C]">
+                  Buku FKKP memiliki 12 Minggu. Pilih minggu yang sedang dipelajari jemaat saat ini.
+                </p>
+              </div>
+
+              {fkkpSettings.mode === 'manual' && (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#1C1917] block">
+                    Kunci Hari Santapan (Mode Manual):
+                  </label>
+                  <select
+                    value={fkkpSettings.manualDay}
+                    onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, manualDay: Number(e.target.value) })}
+                    className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                  >
+                    <option value={1}>Hari 1 (Senin)</option>
+                    <option value={2}>Hari 2 (Selasa)</option>
+                    <option value={3}>Hari 3 (Rabu)</option>
+                    <option value={4}>Hari 4 (Kamis)</option>
+                    <option value={5}>Hari 5 (Jumat)</option>
+                    <option value={6}>Hari 6 (Sabtu)</option>
+                    <option value={7}>Hari 7 (Hari Tuhan / Kidung Review)</option>
+                  </select>
+                  <p className="text-[10px] text-amber-700 font-semibold">
+                    Santapan akan terkunci di hari ini sampai admin menggantinya.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Day Content Editor */}
+          <div className="p-6 rounded-3xl bg-white border border-[#1C1917]/10 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1C1917]/8">
+              <div>
+                <h4 className="font-serif font-bold text-base text-[#1C1917]">
+                  2. Editor Teks Ayat &amp; Rangkuman Fajar (Bagi Nikmat)
+                </h4>
+                <p className="text-xs text-[#78716C]">
+                  Pilih hari untuk meninjau atau menyesuaikan teks renungan, ayat, dan doa serapan.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {previewDayData.isOverridden && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleResetDayDefault}
+                    className="rounded-full text-xs border-amber-300 text-amber-800 hover:bg-amber-50"
+                  >
+                    <RotateCcw className="w-3 h-3 mr-1" />
+                    Reset ke Asli Buku
+                  </Button>
+                )}
+
+                <Button
+                  size="sm"
+                  onClick={() => handleSaveFkkpSettings(fkkpSettings, {
+                    theme: formTheme,
+                    verse: formVerse,
+                    verseRef: formVerseRef,
+                    summary: formSummary,
+                    prayer: formPrayer
+                  })}
+                  className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white px-4 shadow-sm"
+                >
+                  <Check className="w-3.5 h-3.5 mr-1" />
+                  Simpan Teks Hari {selectedPreviewDay}
+                </Button>
+              </div>
+            </div>
+
+            {/* Day Selector Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+              {[1, 2, 3, 4, 5, 6, 7].map((d) => {
+                const isSelected = selectedPreviewDay === d;
+                const isToday = getCalendarDayIndex() === d;
+                const isLive = currentFkkpLive.day === d;
+                return (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => setSelectedPreviewDay(d)}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                      isSelected
+                        ? 'bg-[#1C1917] text-white shadow-sm'
+                        : 'bg-[#FBF9F5] text-[#78716C] hover:bg-stone-200/60'
+                    }`}
+                  >
+                    <span>Hari {d} ({DAY_NAMES[d]})</span>
+                    {isLive && (
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" title="Sedang Tayang Live" />
+                    )}
+                    {isToday && (
+                      <span className="text-[9px] px-1 py-0.2 bg-amber-200 text-amber-900 rounded font-normal">Hari Ini</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Form Fields for Day Content */}
+            <div className="space-y-4 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-[#1C1917]">
+                    Tema Renungan (Pancaran Terang):
+                  </label>
+                  <Input
+                    type="text"
+                    value={formTheme}
+                    onChange={(e) => setFormTheme(e.target.value)}
+                    placeholder="Contoh: Roh Kebenaran Sebagai Penolong"
+                    className="rounded-xl bg-[#FBF9F5] text-xs h-9"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-[#1C1917]">
+                    Referensi Ayat Alkitab:
+                  </label>
+                  <Input
+                    type="text"
+                    value={formVerseRef}
+                    onChange={(e) => setFormVerseRef(e.target.value)}
+                    placeholder="Contoh: Yohanes 14:16-17, 26"
+                    className="rounded-xl bg-[#FBF9F5] text-xs h-9"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-[#1C1917]">
+                  Teks Firman / Ayat Kunci:
+                </label>
+                <textarea
+                  value={formVerse}
+                  onChange={(e) => setFormVerse(e.target.value)}
+                  rows={2}
+                  className="w-full rounded-2xl p-3 bg-[#FBF9F5] border border-[#1C1917]/15 text-xs text-[#1C1917] leading-relaxed font-serif italic focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-[#1C1917]">
+                  Rangkuman Fajar (Bagi Nikmat Hayat):
+                </label>
+                <textarea
+                  value={formSummary}
+                  onChange={(e) => setFormSummary(e.target.value)}
+                  rows={4}
+                  className="w-full rounded-2xl p-3 bg-[#FBF9F5] border border-[#1C1917]/15 text-xs text-[#1C1917] leading-relaxed font-sans focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-[#1C1917]">
+                  Butir Doa Serapan (Doa-Makan Pagi):
+                </label>
+                <textarea
+                  value={formPrayer}
+                  onChange={(e) => setFormPrayer(e.target.value)}
+                  rows={2}
+                  className="w-full rounded-2xl p-3 bg-[#FBF9F5] border border-[#1C1917]/15 text-xs text-[#1C1917] leading-relaxed font-sans focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                />
+              </div>
             </div>
           </div>
         </div>
