@@ -1030,7 +1030,8 @@ export default function CloudEpubReader({
       // 3. Minggu berjalan (week === activeWeek) -> Dapat per hari (hari <= activeDay buka, hari > activeDay kunci)
       if (isFKKP && isStandartUser) {
         const docText = contents.document?.body?.innerText || '';
-        const parsed = parseFkkpWeekAndDay(docText.slice(0, 800), section.href);
+        const sectionHref = contents.section?.href || contents.url || '';
+        const parsed = parseFkkpWeekAndDay(docText.slice(0, 800), sectionHref);
         const isLocked = isFkkpSectionLocked(parsed.week, parsed.day, activeFkkpWeek, activeFkkpDay);
 
         if (isLocked) {
@@ -1109,13 +1110,28 @@ export default function CloudEpubReader({
       setSelectedAnnoPopup(null);
     });
 
-    // Event Perubahan Posisi Halaman (Auto-save Progress)
+    // Event Perubahan Posisi Halaman (Auto-save Progress & Proteksi Akses)
     rendition.on('relocated', async (location) => {
       try {
         const cfi = location.start.cfi;
         const percentage = epubBook.locations?.percentageFromCfi(cfi) || 0;
         const pctVal = Number((percentage * 100).toFixed(2));
         setProgressPercent(pctVal);
+
+        // Cegah pengguna Standart menembus ke hari/minggu yang terkunci lewat tombol panah / scroll
+        if (isFKKP && isStandartUser && location?.start?.href) {
+          const parsed = parseFkkpWeekAndDay('', location.start.href);
+          if (isFkkpSectionLocked(parsed.week, parsed.day, activeFkkpWeek, activeFkkpDay)) {
+            setLockedWeekDialog({
+              week: parsed.week,
+              day: parsed.day,
+              label: parsed.week ? `Minggu ${parsed.week}${parsed.day ? ` Hari ${parsed.day}` : ''}` : ''
+            });
+            const fallbackLoc = currentFkkp?.initialLocation || 'FKKP_2026-4_Summer_Training-13.xhtml#_idParaDest-22';
+            rendition.display(fallbackLoc);
+            return;
+          }
+        }
 
         if (isSupabaseConfigured() && isValidUUID(userId) && isValidUUID(book.id)) {
           await supabase.from('reading_progress').upsert({
@@ -1261,7 +1277,14 @@ export default function CloudEpubReader({
         epubBook.locations.generate(1000).catch(() => {});
 
         // Setup Rendition awal (buka posisi target bab/hari jika diberikan, atau posisi terakhir)
-        const initialTarget = book.initialLocation || lastCfi;
+        let initialTarget = book.initialLocation || lastCfi;
+        if (isFKKP && isStandartUser && initialTarget) {
+          const parsedTarget = parseFkkpWeekAndDay('', initialTarget);
+          if (isFkkpSectionLocked(parsedTarget.week, parsedTarget.day, activeFkkpWeek, activeFkkpDay)) {
+            // Jika posisi terakhir pengguna yang tersimpan sebelumnya berada di hari terkunci, paksa kembali ke hari aktif
+            initialTarget = currentFkkp?.initialLocation || 'FKKP_2026-4_Summer_Training-13.xhtml#_idParaDest-22';
+          }
+        }
         await setupRendition(epubBook, modeRef.current, initialTarget);
 
         // Event resize otomatis saat orientasi HP / tablet diputar
