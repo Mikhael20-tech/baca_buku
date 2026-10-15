@@ -106,54 +106,59 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
-    setBookData(null);
-    setParallelBookData(null);
-
-    const primaryUrl = bibleLang === 'en'
-      ? `/bible/en/${selectedBookId}.json?v=${Date.now()}`
-      : `/bible/${selectedBookId}.json?v=${Date.now()}`;
-
-    const fetchPrimary = fetch(primaryUrl).then(res => {
-      if (!res.ok) {
-        if (bibleLang === 'en') {
-          return fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.json());
-        }
-        throw new Error('Berkas kitab tidak ditemukan');
-      }
-      return res.json();
-    });
-
-    const promises = [fetchPrimary];
 
     if (viewMode === 'parallel') {
-      const parallelUrl = bibleLang === 'en'
-        ? `/bible/${selectedBookId}.json?v=${Date.now()}`
-        : `/bible/en/${selectedBookId}.json?v=${Date.now()}`;
+      const fetchId = fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.ok ? r.json() : null);
+      const fetchEn = fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`).then(r => r.ok ? r.json() : null);
 
-      const fetchParallel = fetch(parallelUrl)
-        .then(res => res.ok ? res.json() : null)
-        .catch(() => null);
+      Promise.all([fetchId, fetchEn])
+        .then(([idData, enData]) => {
+          if (!isMounted) return;
+          // In parallel mode: bookData is ID, parallelBookData is EN
+          setBookData(idData || enData);
+          setParallelBookData(enData || idData);
+          setIsLoading(false);
 
-      promises.push(fetchParallel);
+          const primary = idData || enData;
+          const availableChaps = Object.keys(primary?.chapters || {}).map(Number);
+          if (!availableChaps.includes(selectedChapter) && availableChaps.length > 0) {
+            setSelectedChapter(availableChaps[0]);
+          }
+        })
+        .catch(err => {
+          if (!isMounted) return;
+          console.error('Gagal memuat isi kitab paralel:', err);
+          setIsLoading(false);
+        });
+    } else {
+      setParallelBookData(null);
+      const primaryUrl = bibleLang === 'en'
+        ? `/bible/en/${selectedBookId}.json?v=${Date.now()}`
+        : `/bible/${selectedBookId}.json?v=${Date.now()}`;
+
+      fetch(primaryUrl)
+        .then(res => {
+          if (!res.ok && bibleLang === 'en') {
+            return fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.json());
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (!isMounted) return;
+          setBookData(data);
+          setIsLoading(false);
+
+          const availableChaps = Object.keys(data.chapters || {}).map(Number);
+          if (!availableChaps.includes(selectedChapter) && availableChaps.length > 0) {
+            setSelectedChapter(availableChaps[0]);
+          }
+        })
+        .catch(err => {
+          if (!isMounted) return;
+          console.error('Gagal memuat isi kitab:', err);
+          setIsLoading(false);
+        });
     }
-
-    Promise.all(promises)
-      .then(([primary, parallel]) => {
-        if (!isMounted) return;
-        setBookData(primary);
-        if (parallel) setParallelBookData(parallel);
-        setIsLoading(false);
-
-        const availableChaps = Object.keys(primary.chapters || {}).map(Number);
-        if (!availableChaps.includes(selectedChapter) && availableChaps.length > 0) {
-          setSelectedChapter(availableChaps[0]);
-        }
-      })
-      .catch(err => {
-        if (!isMounted) return;
-        console.error('Gagal memuat isi kitab:', err);
-        setIsLoading(false);
-      });
 
     localStorage.setItem('last_bible_book', selectedBookId);
     return () => { isMounted = false; };
@@ -337,7 +342,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
     }
   };
 
-  const handleOpenFootnote = (verseNum, noteIdx, foundNote, isParallelCol = false) => {
+  const handleOpenFootnote = (verseNum, noteIdx, foundNote, noteLang = bibleLang) => {
     const key = `${verseNum}-${noteIdx}`;
     setActiveNoteKey(key);
     setHighlightedVerse(verseNum);
@@ -347,12 +352,14 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
       verseEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
+    const isNoteEn = noteLang === 'en';
     setIsClosingFootnote(false);
     setActiveFootnotePopup({
       verse: verseNum,
       noteIdx: noteIdx,
       keyword: foundNote?.keyword || '',
-      text: foundNote?.text || 'Catatan kaki tidak ditemukan.'
+      text: foundNote?.text || (isNoteEn ? 'Footnote not found.' : 'Catatan kaki tidak ditemukan.'),
+      lang: noteLang
     });
 
     setTimeout(() => {
@@ -418,6 +425,10 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   };
 
   const handleSelectBookmarkOrSearchResult = (target) => {
+    if (target.lang && target.lang !== bibleLang) {
+      setBibleLang(target.lang);
+      localStorage.setItem('bible_language', target.lang);
+    }
     setSelectedBookId(target.bookId);
     setSelectedChapter(target.chapter);
     setTimeout(() => {
@@ -491,7 +502,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   }, [chapterData, searchVerse]);
 
   // Helper render teks catatan kaki dengan referensi yang bisa diklik
-  const renderFootnoteTextWithLinks = (text) => {
+  const renderFootnoteTextWithLinks = (text, footnoteLang = bibleLang) => {
     if (!text) return null;
     const regex = /(\b(?:[1-3]\s*[A-Za-z]+|[A-Za-z]+)\.?\s+\d+:\d+(?:-\d+)?\b)/g;
     const parts = text.split(regex);
@@ -503,7 +514,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             key={idx}
             onClick={(e) => {
               e.stopPropagation();
-              setPreviewReference(part);
+              setPreviewReference({ text: part, lang: footnoteLang });
             }}
             className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-lg font-mono text-xs sm:text-sm font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900 border border-amber-300/80 dark:border-amber-700/80 underline decoration-amber-500 hover:decoration-amber-700 transition select-none cursor-pointer shadow-2xs"
             title={`Lihat ayat rujukan: ${part}`}
@@ -522,7 +533,10 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
       return item.text;
     }
 
-    const currentMap = sourceLang === 'id' ? footnoteMap : parallelFootnoteMap;
+    const currentMap = viewMode === 'parallel'
+      ? (sourceLang === 'en' ? parallelFootnoteMap : footnoteMap)
+      : footnoteMap;
+
     const parts = item.marked_text.split(/(<fn n="\d+"\/>)/g);
     return parts.map((part, pIdx) => {
       const match = part.match(/<fn n="(\d+)"\/>/);
@@ -536,7 +550,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             key={pIdx}
             onClick={(e) => {
               e.stopPropagation();
-              handleOpenFootnote(item.verse, noteIdx, foundNote, sourceLang !== bibleLang);
+              handleOpenFootnote(item.verse, noteIdx, foundNote, sourceLang);
             }}
             className={`inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 mx-0.5 -translate-y-1 rounded-full text-[11px] font-bold font-sans cursor-pointer select-none transition-all duration-200 ease-out shadow-2xs ${
               activeNoteKey === `${item.verse}-${noteIdx}`
@@ -544,7 +558,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 : 'bg-amber-500/15 dark:bg-amber-400/20 text-amber-700 dark:text-amber-300 hover:bg-amber-500 hover:text-white dark:hover:bg-amber-500 dark:hover:text-white hover:scale-115 active:scale-95'
             }`}
             style={{ textDecoration: 'none' }}
-            title={`Catatan Kaki ${noteIdx}${foundNote?.keyword ? `: ${foundNote.keyword}` : ''}`}
+            title={`${sourceLang === 'en' ? 'Footnote' : 'Catatan Kaki'} ${noteIdx}${foundNote?.keyword ? `: ${foundNote.keyword}` : ''}`}
           >
             {noteIdx}
           </sup>
@@ -1362,10 +1376,10 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 rounded-lg bg-amber-500 text-white font-mono font-bold text-xs shadow-2xs">
-                  Catatan {activeFootnotePopup.noteIdx}
+                  {activeFootnotePopup.lang === 'en' ? `Note ${activeFootnotePopup.noteIdx}` : `Catatan ${activeFootnotePopup.noteIdx}`}
                 </span>
                 <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-zinc-100">
-                  {currentBookInfo.name} {selectedChapter}:{activeFootnotePopup.verse}
+                  {activeFootnotePopup.lang === 'en' ? (currentBookInfo.nameEn || currentBookInfo.name) : currentBookInfo.name} {selectedChapter}:{activeFootnotePopup.verse}
                 </h3>
               </div>
               <button 
@@ -1378,7 +1392,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
 
             {activeFootnotePopup.keyword && (
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-xs font-bold text-amber-900 dark:text-amber-200">
-                <span className="opacity-70">Kata / Frasa:</span>
+                <span className="opacity-70">{activeFootnotePopup.lang === 'en' ? 'Word / Phrase:' : 'Kata / Frasa:'}</span>
                 <span className="underline decoration-amber-500 font-extrabold">{activeFootnotePopup.keyword}</span>
               </div>
             )}
@@ -1392,28 +1406,30 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   lineHeight: 1.85 
                 }}
               >
-                {renderFootnoteTextWithLinks(activeFootnotePopup.text)}
+                {renderFootnoteTextWithLinks(activeFootnotePopup.text, activeFootnotePopup.lang || bibleLang)}
               </div>
             </div>
 
             <div className="pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between gap-2">
               <button
                 onClick={() => {
-                  const copyText = `${currentBookInfo.name} ${selectedChapter}:${activeFootnotePopup.verse} [Catatan ${activeFootnotePopup.noteIdx}${activeFootnotePopup.keyword ? ` - ${activeFootnotePopup.keyword}` : ''}]:\n${activeFootnotePopup.text}`;
+                  const bookName = activeFootnotePopup.lang === 'en' ? (currentBookInfo.nameEn || currentBookInfo.name) : currentBookInfo.name;
+                  const label = activeFootnotePopup.lang === 'en' ? 'Note' : 'Catatan';
+                  const copyText = `${bookName} ${selectedChapter}:${activeFootnotePopup.verse} [${label} ${activeFootnotePopup.noteIdx}${activeFootnotePopup.keyword ? ` - ${activeFootnotePopup.keyword}` : ''}]:\n${activeFootnotePopup.text}`;
                   navigator.clipboard.writeText(copyText);
-                  alert('Catatan kaki berhasil disalin!');
+                  alert(activeFootnotePopup.lang === 'en' ? 'Footnote copied to clipboard!' : 'Catatan kaki berhasil disalin!');
                 }}
                 className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-800 text-xs font-semibold flex items-center gap-1.5 text-slate-600 dark:text-zinc-300 transition"
               >
                 <Copy className="w-3.5 h-3.5" />
-                <span>Salin Catatan</span>
+                <span>{activeFootnotePopup.lang === 'en' ? 'Copy Note' : 'Salin Catatan'}</span>
               </button>
 
               <button
                 onClick={handleCloseFootnote}
                 className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs"
               >
-                Tutup
+                {activeFootnotePopup.lang === 'en' ? 'Close' : 'Tutup'}
               </button>
             </div>
           </div>
@@ -1451,9 +1467,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
       {/* MODAL 7: PREVIEW RUJUKAN SILANG DARI CATATAN KAKI */}
       <BibleRefPreviewModal
         isOpen={Boolean(previewReference)}
-        referenceText={previewReference}
+        referenceText={typeof previewReference === 'object' ? previewReference?.text : previewReference}
         onClose={() => setPreviewReference(null)}
-        bibleLang={bibleLang}
+        bibleLang={typeof previewReference === 'object' ? (previewReference?.lang || bibleLang) : bibleLang}
         books={books}
         fontSize={fontSize}
         fontFamily={activeFontFamily}
