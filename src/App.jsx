@@ -559,6 +559,9 @@ export default function App() {
         <CloudEpubReader 
           book={currentBook} 
           userId={user.id} 
+          userPlan={userPlan}
+          userRole={userRole}
+          onOpenPricing={() => setIsSubscriptionModalOpen(true)}
           onBack={() => setCurrentBook(null)} 
         />
       </div>

@@ -8,10 +8,19 @@ import {
   Bookmark, Sun, Moon, Coffee, ZoomIn, ZoomOut, Type, Trash2, ArrowLeft,
   Loader2, AlertCircle, List, Search, Sliders,
   BookOpen, Scroll, Volume2, VolumeX, ChevronDown, ChevronUp,
-  Columns2, FileText, AlignJustify
+  Columns2, FileText, AlignJustify, Lock, Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription, 
+  DialogFooter 
+} from '@/components/ui/dialog';
+import { getFkkpSettings } from '../lib/fkkpSchedule';
 
 // Patch window.addEventListener agar saat epub.js mendaftarkan 'unload', dialihkan secara aman ke 'pagehide'
 // Ini mencegah peringatan browser Chrome: "[Violation] Permissions policy violation: unload is not allowed in this document"
@@ -170,10 +179,69 @@ export const isFKKPBook = (b) => {
 // Helper validasi UUID untuk kolom UUID di database Supabase (menghindari error 400 Bad Request jika user demo)
 export const isValidUUID = (id) => typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
 
-export default function CloudEpubReader({ book, userId, onBack }) {
+// Helper mendeteksi nomor minggu dari teks label atau konten bab FKKP
+export function parseFkkpWeekNumber(text) {
+  if (!text || typeof text !== 'string') return null;
+  const clean = text.toLowerCase();
+
+  // 1. Angka arab: "minggu 4", "minggu-4", "minggu ke-4", "week 4"
+  const numMatch = clean.match(/(?:minggu|week)(?:\s*(?:ke|-)?\s*)(\d+)/i);
+  if (numMatch) return parseInt(numMatch[1], 10);
+
+  // 2. Angka romawi setelah kata minggu: "minggu iv", "minggu ii", dst
+  if (/(?:minggu|week)\s+(?:xii|12)\b/i.test(clean)) return 12;
+  if (/(?:minggu|week)\s+(?:xi|11)\b/i.test(clean)) return 11;
+  if (/(?:minggu|week)\s+(?:x|10)\b/i.test(clean)) return 10;
+  if (/(?:minggu|week)\s+(?:ix|9)\b/i.test(clean)) return 9;
+  if (/(?:minggu|week)\s+(?:viii|8)\b/i.test(clean)) return 8;
+  if (/(?:minggu|week)\s+(?:vii|7)\b/i.test(clean)) return 7;
+  if (/(?:minggu|week)\s+(?:vi|6)\b/i.test(clean)) return 6;
+  if (/(?:minggu|week)\s+(?:v|5)\b/i.test(clean)) return 5;
+  if (/(?:minggu|week)\s+(?:iv|4)\b/i.test(clean)) return 4;
+  if (/(?:minggu|week)\s+(?:iii|3)\b/i.test(clean)) return 3;
+  if (/(?:minggu|week)\s+(?:ii|2)\b/i.test(clean)) return 2;
+  if (/(?:minggu|week)\s+(?:i|1)\b/i.test(clean)) return 1;
+
+  // 3. Kata bilangan Indonesia
+  if (clean.includes('minggu pertama') || clean.includes('minggu satu')) return 1;
+  if (clean.includes('minggu kedua') || clean.includes('minggu dua')) return 2;
+  if (clean.includes('minggu ketiga') || clean.includes('minggu tiga')) return 3;
+  if (clean.includes('minggu keempat') || clean.includes('minggu empat')) return 4;
+  if (clean.includes('minggu kelima') || clean.includes('minggu lima')) return 5;
+  if (clean.includes('minggu keenam') || clean.includes('minggu enam')) return 6;
+
+  // 4. Cek nomor file Summer Training: 6-12 (W1), 13-19 (W2), 20-26 (W3), 27-33 (W4), 34-40 (W5), 41-47 (W6)
+  const fileMatch = clean.match(/summer_training-(\d+)\.xhtml/i);
+  if (fileMatch) {
+    const fileNum = parseInt(fileMatch[1], 10);
+    if (fileNum >= 6 && fileNum <= 12) return 1;
+    if (fileNum >= 13 && fileNum <= 19) return 2;
+    if (fileNum >= 20 && fileNum <= 26) return 3;
+    if (fileNum >= 27 && fileNum <= 33) return 4;
+    if (fileNum >= 34 && fileNum <= 40) return 5;
+    if (fileNum >= 41 && fileNum <= 47) return 6;
+  }
+
+  return null;
+}
+
+export default function CloudEpubReader({ 
+  book, 
+  userId, 
+  onBack,
+  userPlan,
+  userRole = 'reader',
+  onOpenPricing
+}) {
   const viewerRef = useRef(null);
   const bookInstance = useRef(null);
   const renditionInstance = useRef(null);
+
+  // Status Reader & Tier Restriction
+  const fkkpSettings = useMemo(() => getFkkpSettings(), []);
+  const activeFkkpWeek = fkkpSettings?.currentWeek || 2;
+  const isStandartUser = (userPlan?.tier || 'standart').toLowerCase() === 'standart' && userRole !== 'admin';
+  const [lockedWeekDialog, setLockedWeekDialog] = useState(null);
 
   // Status Reader
   const [activeFont, setActiveFont] = useState(() => localStorage.getItem('reader_font') || 'Merriweather');
@@ -986,6 +1054,55 @@ export default function CloudEpubReader({ book, userId, onBack }) {
 
       // Terapkan penimpaan gaya teks tema & font ke dokumen iframe
       applyReaderStyles(themeRef.current, fontRef.current);
+
+      // Proteksi FKKP untuk paket Standart (Hanya boleh membaca minggu berjalan / activeFkkpWeek)
+      if (isFKKP && isStandartUser) {
+        const docText = contents.document?.body?.innerText || '';
+        const detectedWeek = parseFkkpWeekNumber(section.href) || parseFkkpWeekNumber(docText.slice(0, 500));
+        
+        if (detectedWeek && detectedWeek !== activeFkkpWeek) {
+          contents.document.body.innerHTML = `
+            <div style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; box-sizing: border-box; background: transparent;">
+              <div style="max-width: 480px; width: 100%; background: #FBF9F5; border: 2px solid rgba(217, 119, 6, 0.35); border-radius: 28px; padding: 40px 28px; box-shadow: 0 20px 45px rgba(0,0,0,0.1); margin: 0 auto; color: #1c1917;">
+                <div style="width: 64px; height: 64px; border-radius: 20px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #b45309; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 32px;">
+                  🔒
+                </div>
+                <div style="display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #92400e; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">
+                  Khusus Paket Premium
+                </div>
+                <h2 style="font-size: 22px; font-weight: 800; color: #1c1917; margin: 0 0 10px 0; font-family: Georgia, serif;">
+                  FKKP Minggu ${detectedWeek} Terkunci
+                </h2>
+                <p style="font-size: 13px; color: #57534e; line-height: 1.6; margin: 0 0 24px 0;">
+                  Paket <strong>Standart (Gratis)</strong> hanya mencakup pembacaan firman pada <strong>Minggu Berjalan (Minggu ${activeFkkpWeek})</strong>.<br/>
+                  Materi Minggu ${detectedWeek} dan seluruh arsip pelatihan tersedia lengkap di paket <strong>Premium</strong> dan <strong>Ultimate</strong>.
+                </p>
+                <button id="btn-upgrade-fkkp-paywall" style="background: #3B4B34; color: #ffffff; border: none; border-radius: 999px; padding: 13px 26px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(59,75,52,0.35); margin-bottom: 12px; width: 100%; transition: all 0.2s;">
+                  ✨ Upgrade ke Premium Sekarang
+                </button>
+                <div>
+                  <button id="btn-return-fkkp-current" style="background: transparent; color: #78716c; border: none; font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px 14px; text-decoration: underline;">
+                    &larr; Kembali ke FKKP Minggu ${activeFkkpWeek}
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          const btnUpgrade = contents.document.getElementById('btn-upgrade-fkkp-paywall');
+          if (btnUpgrade) {
+            btnUpgrade.addEventListener('click', () => {
+              if (typeof onOpenPricing === 'function') onOpenPricing();
+            });
+          }
+          const btnReturn = contents.document.getElementById('btn-return-fkkp-current');
+          if (btnReturn) {
+            btnReturn.addEventListener('click', () => {
+              const defaultWeekLoc = book.initialLocation || 'FKKP_2026-4_Summer_Training-13.xhtml#_idParaDest-22';
+              rendition.display(defaultWeekLoc);
+            });
+          }
+        }
+      }
     });
 
     // Event Seleksi Teks
@@ -1315,9 +1432,19 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   };
 
   // Navigasi ke bab tertentu dari Daftar Isi
-  const handleJumpToChapter = async (href) => {
+  const handleJumpToChapter = async (href, label = '') => {
     if (!renditionInstance.current) return;
     try {
+      if (isFKKP && isStandartUser) {
+        const targetWeek = parseFkkpWeekNumber(label) || parseFkkpWeekNumber(href);
+        if (targetWeek && targetWeek !== activeFkkpWeek) {
+          setLockedWeekDialog({
+            week: targetWeek,
+            label: label || `Minggu ${targetWeek}`
+          });
+          return;
+        }
+      }
       await renditionInstance.current.display(href);
       setIsTocOpen(false);
     } catch (err) {
@@ -1459,21 +1586,44 @@ export default function CloudEpubReader({ book, userId, onBack }) {
   const filteredToc = filterTocItems(toc, tocSearch);
 
   // Render rekursif Daftar Isi
-  const renderTocList = (items, depth = 0) => {
-    return items.map((item, idx) => (
-      <div key={item.id || `${item.href}-${idx}`}>
-        <button
-          onClick={() => handleJumpToChapter(item.href)}
-          style={{ paddingLeft: `${depth * 14 + 10}px` }}
-          className="w-full text-left py-2 pr-3 rounded-xl hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 transition flex items-center justify-between group"
-        >
-          <span className="truncate font-medium group-hover:font-semibold">
-            {item.label?.trim() || `Bagian ${idx + 1}`}
-          </span>
-        </button>
-        {item.subitems && item.subitems.length > 0 && renderTocList(item.subitems, depth + 1)}
-      </div>
-    ));
+  const renderTocList = (items, depth = 0, inheritedWeek = null) => {
+    return items.map((item, idx) => {
+      const itemWeek = parseFkkpWeekNumber(item.label) || parseFkkpWeekNumber(item.href) || inheritedWeek;
+      const isLockedWeek = isFKKP && isStandartUser && itemWeek !== null && itemWeek !== activeFkkpWeek;
+
+      return (
+        <div key={item.id || `${item.href}-${idx}`}>
+          <button
+            onClick={() => {
+              if (isLockedWeek) {
+                setLockedWeekDialog({
+                  week: itemWeek,
+                  label: item.label
+                });
+                return;
+              }
+              handleJumpToChapter(item.href, item.label);
+            }}
+            style={{ paddingLeft: `${depth * 14 + 10}px` }}
+            className={`w-full text-left py-2 pr-3 rounded-xl transition flex items-center justify-between group ${
+              isLockedWeek 
+                ? 'opacity-80 hover:bg-amber-500/10 text-stone-600 dark:text-stone-400' 
+                : 'hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400'
+            }`}
+          >
+            <span className="truncate font-medium group-hover:font-semibold flex items-center gap-1.5">
+              {item.label?.trim() || `Bagian ${idx + 1}`}
+            </span>
+            {isLockedWeek && (
+              <Badge variant="outline" className="text-[9px] bg-amber-500/15 border-amber-500/30 text-amber-700 dark:text-amber-400 font-bold ml-2 shrink-0 flex items-center gap-0.5">
+                <Lock className="w-2.5 h-2.5" /> Premium
+              </Badge>
+            )}
+          </button>
+          {item.subitems && item.subitems.length > 0 && renderTocList(item.subitems, depth + 1, itemWeek)}
+        </div>
+      );
+    });
   };
 
   // Cek apakah seleksi yang aktif saat ini sudah memiliki highlight sebelumnya
@@ -2258,6 +2408,51 @@ export default function CloudEpubReader({ book, userId, onBack }) {
           </div>
         </div>
       )}
+
+      {/* Modal Dialog Peringatan Minggu FKKP Terkunci */}
+      <Dialog open={!!lockedWeekDialog} onOpenChange={(open) => !open && setLockedWeekDialog(null)}>
+        {lockedWeekDialog && (
+          <DialogContent className="sm:max-w-md p-6 sm:p-7 bg-[#F4EFE6] text-[#1C1917] rounded-[28px] border border-[#1C1917]/15 shadow-2xl">
+            <DialogHeader className="space-y-3 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-700 flex items-center justify-center mx-auto">
+                <Lock className="w-7 h-7" />
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-900 text-xs font-bold uppercase tracking-wider mx-auto">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                <span>Khusus Paket Premium</span>
+              </div>
+              <DialogTitle className="text-xl font-serif font-bold text-[#1C1917]">
+                FKKP Minggu {lockedWeekDialog.week} Terkunci
+              </DialogTitle>
+              <DialogDescription className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
+                Paket <strong>Standart (Gratis)</strong> hanya mencakup materi pada <strong>Minggu Berjalan (Minggu {activeFkkpWeek})</strong>. Materi {lockedWeekDialog.label || `Minggu ${lockedWeekDialog.week}`} dan seluruh arsip pelatihan memerlukan langganan paket <strong>Premium</strong> atau <strong>Ultimate</strong>.
+              </DialogDescription>
+            </DialogHeader>
+
+            <DialogFooter className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setLockedWeekDialog(null)}
+                className="rounded-full text-xs font-semibold text-[#78716C] order-2 sm:order-1"
+              >
+                Nanti Saja
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => {
+                  setLockedWeekDialog(null);
+                  if (typeof onOpenPricing === 'function') onOpenPricing();
+                }}
+                className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white px-5 shadow-md btn-lift gap-1.5 order-1 sm:order-2"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <span>Upgrade ke Premium</span>
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 }
