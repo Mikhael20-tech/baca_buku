@@ -34,7 +34,7 @@ const NT_BOOKS = [
 ];
 
 export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook }) {
-  const [activeTab, setActiveTab] = useState('PB'); // 'PB' | 'PL'
+  const [activeTab, setActiveTab] = useState('PL'); // 'PL' | 'PB'
   const [search, setSearch] = useState('');
 
   const currentList = activeTab === 'PB' ? NT_BOOKS : OT_BOOKS;
@@ -72,18 +72,18 @@ export default function BibleSelectorModal({ isOpen, onClose, onSelectBibleBook 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-3">
             <TabsList className="grid grid-cols-2 w-full sm:w-auto h-10 p-1 bg-[#EFE9DF] rounded-full border border-[#1C1917]/10">
               <TabsTrigger 
-                value="PB" 
-                className="gap-1.5 text-xs font-bold px-4 rounded-full data-[state=active]:bg-[#3B4B34] data-[state=active]:text-[#F4EFE6] transition-all"
-              >
-                <span>Perjanjian Baru</span>
-                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-amber-200/50 text-[#1C1917]">27</Badge>
-              </TabsTrigger>
-              <TabsTrigger 
                 value="PL" 
                 className="gap-1.5 text-xs font-bold px-4 rounded-full data-[state=active]:bg-[#3B4B34] data-[state=active]:text-[#F4EFE6] transition-all"
               >
                 <span>Perjanjian Lama</span>
                 <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-amber-200/50 text-[#1C1917]">39</Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="PB" 
+                className="gap-1.5 text-xs font-bold px-4 rounded-full data-[state=active]:bg-[#3B4B34] data-[state=active]:text-[#F4EFE6] transition-all"
+              >
+                <span>Perjanjian Baru</span>
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-amber-200/50 text-[#1C1917]">27</Badge>
               </TabsTrigger>
             </TabsList>
 

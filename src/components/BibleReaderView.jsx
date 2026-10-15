@@ -29,7 +29,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   // Navigation Modals
   const [isBookPickerOpen, setIsBookPickerOpen] = useState(false);
   const [isChapterPickerOpen, setIsChapterPickerOpen] = useState(false);
-  const [bookPickerTab, setBookPickerTab] = useState('PB'); // 'PB' | 'PL'
+  const [bookPickerTab, setBookPickerTab] = useState('PL'); // 'PL' | 'PB'
   const [bookSearchQuery, setBookSearchQuery] = useState('');
 
   // Reader Settings
@@ -390,7 +390,12 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setIsBookPickerOpen(true)}
+              onClick={() => {
+                if (currentBookInfo?.testament) {
+                  setBookPickerTab(currentBookInfo.testament);
+                }
+                setIsBookPickerOpen(true);
+              }}
               className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition h-8 px-2.5 min-w-0`}
             >
               <span className="truncate max-w-[100px] sm:max-w-[160px]">📖 {currentBookInfo.name}</span>
@@ -831,20 +836,20 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <div className="flex p-1 bg-slate-100 dark:bg-zinc-800 rounded-2xl">
                 <button
-                  onClick={() => setBookPickerTab('PB')}
-                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-xl text-xs font-bold transition ${
-                    bookPickerTab === 'PB' ? 'bg-white dark:bg-zinc-700 text-amber-700 dark:text-amber-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
-                  }`}
-                >
-                  Perjanjian Baru (27)
-                </button>
-                <button
                   onClick={() => setBookPickerTab('PL')}
                   className={`flex-1 sm:flex-none px-4 py-1.5 rounded-xl text-xs font-bold transition ${
                     bookPickerTab === 'PL' ? 'bg-white dark:bg-zinc-700 text-blue-700 dark:text-blue-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
                   }`}
                 >
-                  Perjanjian Lama (39)
+                  {bibleLang === 'en' ? 'Old Testament (39)' : 'Perjanjian Lama (39)'}
+                </button>
+                <button
+                  onClick={() => setBookPickerTab('PB')}
+                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-xl text-xs font-bold transition ${
+                    bookPickerTab === 'PB' ? 'bg-white dark:bg-zinc-700 text-amber-700 dark:text-amber-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
+                  }`}
+                >
+                  {bibleLang === 'en' ? 'New Testament (27)' : 'Perjanjian Baru (27)'}
                 </button>
               </div>
 
