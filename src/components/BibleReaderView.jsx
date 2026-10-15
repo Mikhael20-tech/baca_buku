@@ -18,6 +18,7 @@ const FONTS = [
 ];
 
 export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
+  const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'en'
   const [books, setBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(() => localStorage.getItem('last_bible_book') || 'matius');
   const [selectedChapter, setSelectedChapter] = useState(() => Number(localStorage.getItem('last_bible_chapter')) || 1);
@@ -51,13 +52,19 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
 
   const contentRef = useRef(null);
 
-  // 1. Fetch Daftar 66 Kitab
+  // 1. Fetch Daftar 66 Kitab (menyesuaikan bahasa)
   useEffect(() => {
-    fetch('/bible/books.json')
-      .then(res => res.json())
+    const booksUrl = bibleLang === 'en' ? '/bible/en/books.json' : '/bible/books.json';
+    fetch(booksUrl)
+      .then(res => {
+        if (!res.ok && bibleLang === 'en') {
+          return fetch('/bible/books.json').then(r => r.json());
+        }
+        return res.json();
+      })
       .then(data => setBooks(data))
       .catch(err => console.error('Gagal memuat index Alkitab:', err));
-  }, []);
+  }, [bibleLang]);
 
   // 2. Fetch Data Kitab yang Aktif
   useEffect(() => {
@@ -65,9 +72,19 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
     setIsLoading(true);
     setBookData(null);
 
-    fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`)
+    const bookUrl = bibleLang === 'en'
+      ? `/bible/en/${selectedBookId}.json?v=${Date.now()}`
+      : `/bible/${selectedBookId}.json?v=${Date.now()}`;
+
+    fetch(bookUrl)
       .then(res => {
-        if (!res.ok) throw new Error('Berkas kitab tidak ditemukan');
+        if (!res.ok) {
+          if (bibleLang === 'en') {
+            // fallback if this book is not yet in EN
+            return fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.json());
+          }
+          throw new Error('Berkas kitab tidak ditemukan');
+        }
         return res.json();
       })
       .then(data => {
@@ -88,7 +105,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
 
     localStorage.setItem('last_bible_book', selectedBookId);
     return () => { isMounted = false; };
-  }, [selectedBookId]);
+  }, [selectedBookId, bibleLang]);
 
   // Simpan pasal aktif ke local storage & scroll ke atas saat berganti pasal
   useEffect(() => {
@@ -386,7 +403,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               onClick={() => setIsChapterPickerOpen(true)}
               className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2.5`}
             >
-              <span>Ps {selectedChapter}</span>
+              <span>{bibleLang === 'en' ? 'Ch' : 'Ps'} {selectedChapter}</span>
               <List className="w-3.5 h-3.5 ml-1 opacity-70" />
             </Button>
           </div>
@@ -417,6 +434,40 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             >
               <ChevronRight className="w-4 h-4" />
             </Button>
+          </div>
+
+          {/* Language Selector: ID (Versi Pemulihan) | EN (Recovery Version) */}
+          <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5`}>
+            <button
+              type="button"
+              onClick={() => {
+                setBibleLang('id');
+                localStorage.setItem('bible_language', 'id');
+              }}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                bibleLang === 'id'
+                  ? 'bg-[#3B4B34] text-white shadow-xs'
+                  : `${themeStyles.text} opacity-60 hover:opacity-100`
+              }`}
+              title="Alkitab Versi Pemulihan (Bahasa Indonesia)"
+            >
+              ID
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setBibleLang('en');
+                localStorage.setItem('bible_language', 'en');
+              }}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                bibleLang === 'en'
+                  ? 'bg-[#3B4B34] text-white shadow-xs'
+                  : `${themeStyles.text} opacity-60 hover:opacity-100`
+              }`}
+              title="Holy Bible Recovery Version (English with Footnotes)"
+            >
+              EN
+            </button>
           </div>
 
           {/* Tampilan / Setting Font & Tema */}
@@ -579,7 +630,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               style={{ fontFamily: activeFontFamily }}
             >
               {currentBookInfo.name} <br />
-              <span className="text-lg sm:text-2xl font-bold opacity-80">Pasal {selectedChapter}</span>
+              <span className="text-lg sm:text-2xl font-bold opacity-80">
+                {bibleLang === 'en' ? 'Chapter' : 'Pasal'} {selectedChapter}
+              </span>
             </h1>
           </div>
 
@@ -593,7 +646,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
                   <h3 className="font-extrabold text-sm sm:text-base">
-                    Pengantar Kitab {bookData.name} (Versi Pemulihan)
+                    {bibleLang === 'en' ? `Introduction to ${bookData.name} (Recovery Version)` : `Pengantar Kitab ${bookData.name} (Versi Pemulihan)`}
                   </h3>
                 </div>
                 <button className="text-xs font-bold flex items-center gap-1 opacity-75 hover:opacity-100">
@@ -810,7 +863,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                 {books
                   .filter(b => b.testament === bookPickerTab)
-                  .filter(b => b.name.toLowerCase().includes(bookSearchQuery.toLowerCase()))
+                  .filter(b => b.name.toLowerCase().includes(bookSearchQuery.toLowerCase()) || (b.name_id && b.name_id.toLowerCase().includes(bookSearchQuery.toLowerCase())))
                   .map(b => (
                     <button
                       key={b.id}
@@ -829,7 +882,12 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                     >
                       <div>
                         <h5 className="text-xs font-bold leading-tight">{b.name}</h5>
-                        <span className="text-[10px] text-slate-400 dark:text-zinc-500">{b.chapters_count} pasal</span>
+                        {b.name_id && bibleLang === 'en' && (
+                          <span className="text-[10px] text-amber-700/80 dark:text-amber-300/80 font-medium block">
+                            {b.name_id}
+                          </span>
+                        )}
+                        <span className="text-[10px] text-slate-400 dark:text-zinc-500">{b.chapters_count} {bibleLang === 'en' ? 'chs' : 'pasal'}</span>
                       </div>
                       <ChevronRight className="w-3.5 h-3.5 opacity-40" />
                     </button>
