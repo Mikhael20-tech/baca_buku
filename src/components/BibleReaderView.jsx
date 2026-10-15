@@ -505,7 +505,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               e.stopPropagation();
               setPreviewReference(part);
             }}
-            className="inline-flex items-center px-1.5 py-0.5 mx-0.5 rounded-md font-mono text-[11px] font-bold bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900 border border-amber-300/60 dark:border-amber-700/60 underline decoration-amber-500/50 hover:decoration-amber-600 transition select-none cursor-pointer"
+            className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-lg font-mono text-xs sm:text-sm font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900 border border-amber-300/80 dark:border-amber-700/80 underline decoration-amber-500 hover:decoration-amber-700 transition select-none cursor-pointer shadow-2xs"
             title={`Lihat ayat rujukan: ${part}`}
           >
             {part}
@@ -1385,8 +1385,12 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
 
             <div className="overflow-y-auto pr-1 flex-1">
               <div 
-                className="text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-200 whitespace-pre-line"
-                style={{ fontFamily: activeFontFamily }}
+                className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-zinc-200 whitespace-pre-line"
+                style={{ 
+                  fontFamily: activeFontFamily,
+                  fontSize: `${Math.max(15, fontSize - 2)}px`,
+                  lineHeight: 1.85 
+                }}
               >
                 {renderFootnoteTextWithLinks(activeFootnotePopup.text)}
               </div>
@@ -1451,6 +1455,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         onClose={() => setPreviewReference(null)}
         bibleLang={bibleLang}
         books={books}
+        fontSize={fontSize}
+        fontFamily={activeFontFamily}
         onJumpToPassage={handleSelectBookmarkOrSearchResult}
       />
 

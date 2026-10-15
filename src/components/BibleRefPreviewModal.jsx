@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, ExternalLink, X, Loader2 } from 'lucide-react';
+import { BookOpen, ExternalLink, X, Loader2, ZoomIn, ZoomOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { parseReference } from '@/utils/bibleRefParser';
 
@@ -11,13 +11,22 @@ export default function BibleRefPreviewModal({
   onClose,
   bibleLang = 'id',
   books = [],
+  fontSize = 20,
+  fontFamily = "'Lora', Georgia, serif",
   onJumpToPassage
 }) {
   const [loading, setLoading] = useState(true);
   const [resolvedPassage, setResolvedPassage] = useState(null);
   const [error, setError] = useState(null);
+  const [previewFontSize, setPreviewFontSize] = useState(fontSize || 20);
 
   const isEn = bibleLang === 'en';
+
+  useEffect(() => {
+    if (fontSize) {
+      setPreviewFontSize(Math.max(18, fontSize));
+    }
+  }, [fontSize, isOpen]);
 
   useEffect(() => {
     if (!isOpen || !referenceText) {
@@ -84,55 +93,88 @@ export default function BibleRefPreviewModal({
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-zinc-900 rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 max-h-[80vh] flex flex-col space-y-3.5 animate-modal-card-in"
+        className="bg-white dark:bg-zinc-900 rounded-3xl max-w-xl sm:max-w-2xl w-full p-5 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 max-h-[85vh] flex flex-col space-y-4 animate-modal-card-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400">
-              <BookOpen className="w-4 h-4" />
+        <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-zinc-800">
+          <div className="flex items-center gap-2.5">
+            <span className="p-2 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400">
+              <BookOpen className="w-5 h-5" />
             </span>
             <div>
-              <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-zinc-100">
+              <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-zinc-100">
                 {resolvedPassage 
                   ? `${resolvedPassage.bookName} ${resolvedPassage.chapter}:${resolvedPassage.verseStart}${resolvedPassage.verseEnd !== resolvedPassage.verseStart ? `-${resolvedPassage.verseEnd}` : ''}`
                   : referenceText}
               </h3>
-              <p className="text-[11px] text-slate-400">
-                {isEn ? 'Footnote Cross-Reference' : 'Rujukan Silang Catatan Kaki'}
+              <p className="text-xs text-amber-700/80 dark:text-amber-300/80 font-medium">
+                {isEn ? 'Scripture Cross-Reference' : 'Ayat Rujukan Silang'}
               </p>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-1 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition"
-          >
-            <X className="w-5 h-5" />
-          </button>
+
+          <div className="flex items-center gap-1.5">
+            {/* Quick Font Size Controls */}
+            <div className="flex items-center border border-slate-200 dark:border-zinc-700 rounded-xl p-0.5 bg-slate-50 dark:bg-zinc-800 mr-1">
+              <button
+                type="button"
+                onClick={() => setPreviewFontSize(prev => Math.max(14, prev - 2))}
+                className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-600 dark:text-zinc-300 transition"
+                title="Perkecil Teks"
+              >
+                <ZoomOut className="w-3.5 h-3.5" />
+              </button>
+              <span className="text-[11px] font-mono font-bold px-1.5 text-slate-600 dark:text-zinc-300">
+                {previewFontSize}px
+              </span>
+              <button
+                type="button"
+                onClick={() => setPreviewFontSize(prev => Math.min(34, prev + 2))}
+                className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-600 dark:text-zinc-300 transition"
+                title="Perbesar Teks"
+              >
+                <ZoomIn className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <button 
+              onClick={onClose}
+              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Body Content */}
-        <div className="overflow-y-auto pr-1 flex-1 py-1">
+        <div className="overflow-y-auto pr-1 flex-1 py-2">
           {loading ? (
-            <div className="py-12 text-center space-y-2">
-              <Loader2 className="w-7 h-7 text-amber-600 animate-spin mx-auto" />
-              <p className="text-xs text-slate-400">
-                {isEn ? 'Fetching reference...' : 'Memuat ayat rujukan...'}
+            <div className="py-16 text-center space-y-2.5">
+              <Loader2 className="w-8 h-8 text-amber-600 animate-spin mx-auto" />
+              <p className="text-xs text-slate-500 font-medium">
+                {isEn ? 'Fetching scripture text...' : 'Memuat ayat firman...'}
               </p>
             </div>
           ) : error ? (
-            <div className="py-10 text-center text-xs text-rose-500 font-medium">
+            <div className="py-12 text-center text-sm text-rose-500 font-medium">
               {error}
             </div>
           ) : resolvedPassage ? (
-            <div className="space-y-2.5">
+            <div className="space-y-4">
               {resolvedPassage.verses.map((v) => (
-                <div key={v.verse} className="flex items-start gap-2.5 text-xs sm:text-sm">
-                  <span className="shrink-0 w-6 h-6 rounded-lg bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono text-[10px] font-bold flex items-center justify-center mt-0.5">
+                <div key={v.verse} className="flex items-start gap-3 p-2 rounded-2xl hover:bg-amber-50/30 dark:hover:bg-amber-950/20 transition">
+                  <span className="shrink-0 w-8 h-8 rounded-xl bg-amber-500/15 text-amber-800 dark:text-amber-300 font-mono text-xs font-bold border border-amber-400/30 flex items-center justify-center mt-1 select-none shadow-2xs">
                     {v.verse}
                   </span>
-                  <p className="flex-1 text-slate-700 dark:text-zinc-200 leading-relaxed font-serif">
+                  <p 
+                    className="flex-1 text-slate-800 dark:text-zinc-100 leading-relaxed font-serif"
+                    style={{ 
+                      fontSize: `${previewFontSize}px`, 
+                      fontFamily: fontFamily || "'Lora', Georgia, serif",
+                      lineHeight: 1.85 
+                    }}
+                  >
                     {v.text}
                   </p>
                 </div>
@@ -154,9 +196,9 @@ export default function BibleRefPreviewModal({
                 });
                 onClose();
               }}
-              className="rounded-xl text-xs font-bold gap-1.5 bg-amber-600 hover:bg-amber-700 text-white shadow-xs"
+              className="rounded-xl text-xs font-bold gap-1.5 bg-amber-600 hover:bg-amber-700 text-white shadow-xs px-4"
             >
-              <span>{isEn ? 'Open Chapter' : 'Buka di Pembaca'}</span>
+              <span>{isEn ? 'Open in Reader' : 'Buka Pasal di Pembaca'}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Button>
           )}
@@ -165,7 +207,7 @@ export default function BibleRefPreviewModal({
             size="sm"
             variant="outline"
             onClick={onClose}
-            className="rounded-xl text-xs font-semibold ml-auto"
+            className="rounded-xl text-xs font-semibold ml-auto px-5"
           >
             {isEn ? 'Close' : 'Tutup'}
           </Button>
