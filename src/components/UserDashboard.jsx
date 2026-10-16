@@ -53,16 +53,16 @@ export default function UserDashboard({
   const [whatsapp, setWhatsapp] = useState(user?.whatsapp || '0812-3456-7890');
   const [email, setEmail] = useState(user?.email || 'baca@perpustakaan.cloud');
   const [distrikLokal, setDistrikLokal] = useState(user?.distrik_lokal || 'Surabaya - Rungkut');
-  const [photoUrl, setPhotoUrl] = useState(
-    user?.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'
-  );
+  const [photoUrl, setPhotoUrl] = useState(() => {
+    return user?.photo_url || localStorage.getItem('baca_user_avatar') || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80';
+  });
   const [profileSavedMsg, setProfileSavedMsg] = useState(false);
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const fileInputRef = React.useRef(null);
 
-  // Unggah & kompresi foto profil lokal via Canvas
+  // Unggah & kompresi foto profil lokal via Canvas (160x160 ~5KB)
   const handlePhotoFileUpload = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -85,8 +85,8 @@ export default function UserDashboard({
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-          // Buat thumbnail persegi berkualitas tinggi yang ringkas untuk avatar
-          const size = 320;
+          // Buat thumbnail persegi 160x160 (kualitas 80% JPEG hanya ~5KB, tajam dan sangat ringan)
+          const size = 160;
           const canvas = document.createElement('canvas');
           canvas.width = size;
           canvas.height = size;
@@ -99,9 +99,12 @@ export default function UserDashboard({
 
           ctx.drawImage(img, startX, startY, minSide, minSide, 0, 0, size, size);
 
-          // Konversi ke JPEG base64 berkualitas tinggi tapi hemat ruang (~25KB)
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+          // Konversi ke JPEG base64 berkualitas tinggi tapi hemat ruang (~5KB)
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.80);
           setPhotoUrl(compressedDataUrl);
+          try {
+            localStorage.setItem('baca_user_avatar', compressedDataUrl);
+          } catch (storageErr) {}
           setIsUploadingPhoto(false);
         };
         img.onerror = () => {
@@ -148,7 +151,12 @@ export default function UserDashboard({
     if (user?.whatsapp) setWhatsapp(user.whatsapp);
     if (user?.email) setEmail(user.email);
     if (user?.distrik_lokal) setDistrikLokal(user.distrik_lokal);
-    if (user?.photo_url) setPhotoUrl(user.photo_url);
+    const customAvatar = localStorage.getItem('baca_user_avatar');
+    if (customAvatar) {
+      setPhotoUrl(customAvatar);
+    } else if (user?.photo_url) {
+      setPhotoUrl(user.photo_url);
+    }
   }, [user]);
 
   const [noteColorFilter, setNoteColorFilter] = useState('all');
@@ -162,14 +170,18 @@ export default function UserDashboard({
   // Simpan Perubahan Profil Pengguna
   const handleSaveProfile = (e) => {
     e.preventDefault();
+    const finalPhoto = photoUrl.trim() || localStorage.getItem('baca_user_avatar') || '';
     const updatedProfile = {
       ...user,
       full_name: fullName.trim(),
       whatsapp: whatsapp.trim(),
       email: email.trim(),
       distrik_lokal: distrikLokal.trim(),
-      photo_url: photoUrl.trim()
+      photo_url: finalPhoto
     };
+    try {
+      if (finalPhoto) localStorage.setItem('baca_user_avatar', finalPhoto);
+    } catch (err) {}
     if (typeof onUpdateProfile === 'function') {
       onUpdateProfile(updatedProfile);
     }
@@ -964,7 +976,11 @@ export default function UserDashboard({
                         type="button"
                         variant="ghost"
                         size="sm"
-                        onClick={() => { setPhotoUrl(PRESET_AVATARS[0]); setUploadError(''); }}
+                        onClick={() => { 
+                          setPhotoUrl(PRESET_AVATARS[0]); 
+                          setUploadError(''); 
+                          try { localStorage.removeItem('baca_user_avatar'); } catch (e) {}
+                        }}
                         className="rounded-xl text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 h-9 px-2.5 flex items-center gap-1"
                         title="Kembalikan ke avatar default"
                       >

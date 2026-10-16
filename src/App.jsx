@@ -390,13 +390,19 @@ export default function App() {
   const [kidungInitialSongId, setKidungInitialSongId] = useState(null);
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('baca_user_profile');
+    const customAvatar = localStorage.getItem('baca_user_avatar');
     if (saved) {
-      try { return JSON.parse(saved); } catch (e) {}
+      try { 
+        const parsed = JSON.parse(saved); 
+        if (customAvatar) parsed.photo_url = customAvatar;
+        return parsed;
+      } catch (e) {}
     }
     return {
       id: 'user-demo-baca',
       email: 'baca@perpustakaan.cloud',
-      full_name: 'Budi Pembaca'
+      full_name: 'Budi Pembaca',
+      photo_url: customAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'
     };
   });
 
@@ -410,6 +416,9 @@ export default function App() {
     setUser(updatedProfile);
     try {
       localStorage.setItem('baca_user_profile', JSON.stringify(updatedProfile));
+      if (updatedProfile.photo_url) {
+        localStorage.setItem('baca_user_avatar', updatedProfile.photo_url);
+      }
     } catch (e) {
       console.warn('Gagal menyimpan profil ke localStorage:', e);
     }
@@ -717,12 +726,16 @@ export default function App() {
           if (raw) saved = JSON.parse(raw);
         } catch (e) {}
 
+        const customAvatar = localStorage.getItem('baca_user_avatar');
+
         const finalProfile = {
           ...saved,
           id: authUser.id,
           email: authUser.email,
-          full_name: saved.full_name || authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Pembaca Hayat',
-          photo_url: saved.photo_url || authUser.user_metadata?.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+          full_name: (saved.full_name && saved.full_name !== authUser.email?.split('@')[0])
+            ? saved.full_name
+            : (authUser.user_metadata?.full_name || saved.full_name || authUser.email?.split('@')[0] || 'Pembaca Hayat'),
+          photo_url: customAvatar || saved.photo_url || authUser.user_metadata?.photo_url || authUser.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
           whatsapp: saved.whatsapp || authUser.user_metadata?.whatsapp || '',
           distrik_lokal: saved.distrik_lokal || authUser.user_metadata?.distrik_lokal || ''
         };
@@ -730,6 +743,9 @@ export default function App() {
         setUser(finalProfile);
         try {
           localStorage.setItem('baca_user_profile', JSON.stringify(finalProfile));
+          if (finalProfile.photo_url) {
+            localStorage.setItem('baca_user_avatar', finalProfile.photo_url);
+          }
         } catch (e) {}
         setIsLoggedIn(true);
       };
