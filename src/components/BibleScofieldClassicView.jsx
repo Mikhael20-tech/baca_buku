@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { BookOpen, ChevronLeft, ChevronRight, Compass, Sparkles, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-// Estimates traditional Ussher biblical chronology dates for major eras
+// Traditional Ussher biblical chronology dates
 const BOOK_CHRONOLOGY = {
   kejadian: 'B.C. 4004',
   keluaran: 'B.C. 1491',
@@ -16,6 +16,33 @@ const BOOK_CHRONOLOGY = {
   '2-samuel': 'B.C. 1056',
   '1-raja-raja': 'B.C. 1015',
   '2-raja-raja': 'B.C. 896',
+  '1-tawarikh': 'B.C. 1015',
+  '2-tawarikh': 'B.C. 1015',
+  ezra: 'B.C. 536',
+  nehemia: 'B.C. 446',
+  ester: 'B.C. 521',
+  ayub: 'B.C. 1520',
+  mazmur: 'B.C. 1060',
+  amsal: 'B.C. 1000',
+  pengkhotbah: 'B.C. 977',
+  'kidung-agung': 'B.C. 1014',
+  yesaya: 'B.C. 760',
+  yeremia: 'B.C. 629',
+  ratapan: 'B.C. 588',
+  yehezkiel: 'B.C. 595',
+  daniel: 'B.C. 607',
+  hosea: 'B.C. 785',
+  yoel: 'B.C. 800',
+  amos: 'B.C. 787',
+  obaja: 'B.C. 587',
+  yunus: 'B.C. 862',
+  mikha: 'B.C. 750',
+  nahum: 'B.C. 713',
+  habakuk: 'B.C. 626',
+  zefanya: 'B.C. 630',
+  hagai: 'B.C. 520',
+  zakharia: 'B.C. 520',
+  maleakhi: 'B.C. 397',
   matius: 'A.D. 38',
   markus: 'A.D. 65',
   lukas: 'A.D. 63',
@@ -48,9 +75,9 @@ const BOOK_CHRONOLOGY = {
 export default function BibleScofieldClassicView({
   bookData,
   selectedChapter,
+  fontSize = 18,
   onOpenFootnote,
   onOpenIndex,
-  onOpenBookIntro,
   onPrevChapter,
   onNextChapter,
   canPrev,
@@ -63,25 +90,24 @@ export default function BibleScofieldClassicView({
   const currentChapterData = bookData.chapters?.[String(selectedChapter)] || { verses: [], footnotes: [] };
   const verses = currentChapterData.verses || [];
   const footnotes = currentChapterData.footnotes || [];
-  const bookIntro = bookData.intro;
   const bookName = bookData.name || 'Genesis';
   const bookId = bookData.id || 'kejadian';
   const chronology = BOOK_CHRONOLOGY[bookId] || 'B.C.';
 
-  // Split verses for 2 columns
+  // Split verses into 2 text columns: Left (half) and Right (half)
   const half = Math.ceil(verses.length / 2);
   const leftVerses = verses.slice(0, half);
   const rightVerses = verses.slice(half);
 
   // Group middle column references from footnotes
-  const marginRefs = [];
+  const middleRefs = [];
   footnotes.forEach((fn) => {
-    if (fn.references && fn.references.length > 0) {
-      marginRefs.push({
+    if ((fn.references && fn.references.length > 0) || fn.keyword) {
+      middleRefs.push({
         verse: fn.verse,
         note_idx: fn.note_idx,
         keyword: fn.keyword,
-        refs: fn.references.slice(0, 3)
+        refs: fn.references || []
       });
     }
   });
@@ -107,16 +133,15 @@ export default function BibleScofieldClassicView({
               if (onOpenFootnote && fnObj) {
                 onOpenFootnote(vItem.verse, noteIdx, fnObj);
               }
-              // Also scroll bottom footnote panel
               const noteEl = document.getElementById(`scofield-fn-${noteIdx}`);
               if (noteEl) {
                 noteEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
               }
             }}
-            className={`font-serif font-black mx-0.5 cursor-pointer select-none transition ${
+            className={`font-serif font-black mx-1 cursor-pointer select-none transition inline-flex items-center justify-center px-1.5 py-0.5 rounded text-xs leading-none -translate-y-1 shadow-2xs ${
               isSelected 
-                ? 'bg-amber-300 text-red-950 px-1 py-0.2 rounded ring-1 ring-red-800' 
-                : 'text-red-900 hover:text-red-700 hover:underline'
+                ? 'bg-red-800 text-white ring-2 ring-red-900 scale-110' 
+                : 'bg-red-100 hover:bg-red-200 text-red-900 border border-red-300 font-bold'
             }`}
             title={`Scofield Note ${noteIdx}`}
           >
@@ -128,158 +153,147 @@ export default function BibleScofieldClassicView({
     });
   };
 
+  const actualFontSize = Math.max(16, fontSize);
+
   return (
-    <div className="w-full flex justify-center py-2 sm:py-4 px-2 sm:px-4 font-serif">
-      {/* Kontainer Kertas Buku Klasik 1917 */}
-      <div className="w-full max-w-5xl bg-[#fdfaf3] text-stone-900 shadow-2xl border-2 border-stone-400 rounded-lg flex flex-col overflow-hidden min-h-[82vh]">
+    <div className="w-full flex justify-center py-2 sm:py-4 font-serif">
+      {/* Kontainer Kertas Buku Cetak 1917 */}
+      <div className="w-full max-w-5xl bg-[#fdfaf3] text-[#1a1612] shadow-2xl border-2 border-stone-400 rounded-2xl flex flex-col overflow-hidden min-h-[85vh]">
         
         {/* 1. HEADER ATAS HALAMAN (Buku Klasik 1917) */}
-        <header className="border-b-2 border-stone-800 mx-4 sm:mx-8 pt-4 pb-2 flex justify-between items-baseline text-[11px] sm:text-xs tracking-widest uppercase select-none">
-          <div className="flex items-center gap-3">
-            <span className="font-bold text-stone-700">{chronology}</span>
+        <header className="border-b-2 border-stone-900 mx-4 sm:mx-8 pt-4 pb-3 flex justify-between items-center text-xs tracking-widest uppercase select-none">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="font-extrabold text-stone-900 bg-amber-200/80 border border-amber-400 px-2.5 py-0.5 rounded-md font-mono text-xs">
+              {chronology}
+            </span>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={onOpenIndex}
-              className="h-6 px-2 text-[10px] text-amber-900 bg-amber-100/70 hover:bg-amber-200 border border-amber-300/80 rounded-md font-sans tracking-normal font-bold flex items-center gap-1"
+              className="h-7 px-2.5 text-xs text-amber-950 bg-amber-100 hover:bg-amber-200 border-amber-400 rounded-lg font-sans font-bold flex items-center gap-1 shadow-2xs"
             >
-              <Compass className="w-3 h-3" />
-              <span>Topical Index</span>
+              <Compass className="w-3.5 h-3.5 text-amber-800" />
+              <span>Indeks Topikal</span>
             </Button>
           </div>
 
-          <h2 className="font-bold text-sm sm:text-base tracking-[0.25em] text-center text-stone-900">
+          <h2 className="font-extrabold text-sm sm:text-base md:text-lg tracking-[0.25em] text-center text-stone-950 font-serif">
             {bookName.toUpperCase()} — CHAPTER {selectedChapter}
           </h2>
 
           <div className="flex items-center gap-2">
-            <span className="text-stone-600 font-mono">Ch. {selectedChapter}</span>
-            <div className="flex items-center gap-1">
+            <span className="text-stone-800 font-mono text-xs font-bold hidden sm:inline">Ch. {selectedChapter}</span>
+            <div className="flex items-center gap-1 border border-stone-400 rounded-lg bg-stone-100 p-0.5">
               <button 
                 onClick={onPrevChapter}
                 disabled={!canPrev}
-                className="p-1 rounded hover:bg-stone-200 disabled:opacity-30 cursor-pointer"
+                className="p-1 rounded hover:bg-stone-200 disabled:opacity-30 cursor-pointer text-stone-900"
                 title="Previous Chapter"
               >
-                <ChevronLeft className="w-3.5 h-3.5" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
               <button 
                 onClick={onNextChapter}
                 disabled={!canNext}
-                className="p-1 rounded hover:bg-stone-200 disabled:opacity-30 cursor-pointer"
+                className="p-1 rounded hover:bg-stone-200 disabled:opacity-30 cursor-pointer text-stone-900"
                 title="Next Chapter"
               >
-                <ChevronRight className="w-3.5 h-3.5" />
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         </header>
 
-        {/* 2. AREA UTAMA: PENGANTAR (Pasal 1) + 3 KOLOM */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-5">
-          
-          {/* Pengantar Kitab (Book Introduction) */}
-          {selectedChapter === 1 && bookIntro?.text && (
-            <section className="border-b-2 border-stone-400 pb-5 mb-5 text-xs sm:text-[13px] leading-relaxed text-justify bg-amber-50/40 p-4 rounded-md">
-              <p className="text-center tracking-widest text-[11px] uppercase mb-1 text-stone-600 font-semibold">
-                THE SCOFIELD REFERENCE BIBLE (1917)
-              </p>
-              <h1 className="text-center font-bold text-2xl sm:text-3xl tracking-widest mb-1 font-serif text-stone-900">
-                {bookName.toUpperCase()}
-              </h1>
-              <p className="text-center font-bold text-[11px] uppercase tracking-wider mb-3 text-stone-700">
-                BOOK INTRODUCTION & EXPOSITION
-              </p>
-              <p className="text-stone-800 leading-relaxed font-serif first-letter:text-3xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
-                {bookIntro.text.slice(0, 500)}...
-              </p>
-              <div className="text-center mt-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onOpenBookIntro}
-                  className="h-7 text-xs font-sans font-bold border-stone-400 hover:bg-stone-200 text-stone-800"
-                >
-                  <BookOpen className="w-3.5 h-3.5 mr-1" />
-                  Read Full Book Introduction
-                </Button>
-              </div>
-            </section>
-          )}
-
-          {/* GRID TATA LETAK 1917: Kiri (Kolom Teks 1) | Tengah (Margin Ref) | Kanan (Kolom Teks 2) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 text-sm">
+        {/* 2. AREA UTAMA: 3 BAGIAN / KOLOM (KIRI: 5 | TENGAH: 2 | KANAN: 5) */}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-7 py-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 text-justify">
             
-            {/* KOLOM KIRI (Ayat 1 s/d Pertengahan) */}
-            <div className="md:col-span-5 md:pr-4 md:border-r border-stone-300 text-justify leading-relaxed space-y-3">
-              <div className="text-center font-bold text-sm tracking-widest border-b border-stone-300 pb-1 mb-2">
+            {/* BAGIAN 1 / KOLOM KIRI (Ayat 1 s/d Pertengahan) */}
+            <div className="md:col-span-5 md:pr-3 space-y-4">
+              <div className="text-center font-bold text-sm tracking-widest border-b border-stone-300 pb-2 mb-3 text-stone-900 font-serif">
                 CHAPTER {selectedChapter}.
               </div>
 
               {leftVerses.map(v => (
                 <div key={v.verse} id={`classic-verse-${v.verse}`} className="leading-relaxed">
-                  <span className="font-bold mr-1.5 font-serif text-stone-900 text-sm">
-                    {v.verse}
-                  </span>
-                  <span className="text-stone-800 font-serif">
-                    {renderClassicVerseText(v)}
-                  </span>
+                  <p 
+                    className="text-[#1a1612] font-serif"
+                    style={{ fontSize: `${actualFontSize}px`, lineHeight: 1.85 }}
+                  >
+                    <span className="font-bold mr-1.5 font-serif text-amber-950 text-base select-none">
+                      {v.verse}
+                    </span>
+                    <span>
+                      {renderClassicVerseText(v)}
+                    </span>
+                  </p>
                 </div>
               ))}
             </div>
 
-            {/* KOLOM TENGAH (Referensi Silang & Rantai Scofield) */}
-            <div className="hidden md:block md:col-span-2 text-[11px] leading-tight text-stone-700 space-y-3 px-1 text-center">
-              <div className="font-bold text-xs border-b border-stone-400 pb-1 text-stone-800">
+            {/* BAGIAN 2 / KOLOM TENGAH (Tahun Ussher & Rujukan Kolom Tengah) */}
+            <div className="hidden md:block md:col-span-2 text-xs leading-normal text-stone-800 space-y-3 px-2 border-x border-stone-300 text-center">
+              <div className="font-extrabold text-xs border-b border-stone-400 pb-1 text-stone-900 font-mono">
                 {chronology}
               </div>
-              <div className="space-y-3 pt-1">
-                {marginRefs.length > 0 ? (
-                  marginRefs.slice(0, 8).map((mr, mIdx) => (
+
+              <div className="space-y-3 pt-1 text-left">
+                {middleRefs.length > 0 ? (
+                  middleRefs.map((mr, mIdx) => (
                     <div 
                       key={mIdx}
                       onClick={() => {
                         setSelectedNoteIdx(mr.note_idx);
                         const fnObj = footnotes.find(f => f.note_idx === mr.note_idx);
                         if (onOpenFootnote && fnObj) onOpenFootnote(mr.verse, mr.note_idx, fnObj);
+                        const noteEl = document.getElementById(`scofield-fn-${mr.note_idx}`);
+                        if (noteEl) noteEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                       }}
-                      className="p-1 rounded hover:bg-amber-100/60 transition cursor-pointer text-left border-b border-stone-200 pb-1.5"
+                      className="p-1.5 rounded-lg bg-amber-50/70 hover:bg-amber-100 transition cursor-pointer border border-stone-200"
                     >
-                      <div className="font-bold text-red-900 font-serif">
-                        v. {mr.verse} [{mr.note_idx}]
+                      <div className="flex items-center gap-1 font-bold text-red-900 font-serif text-xs">
+                        <span>v. {mr.verse}</span>
+                        <span className="text-[11px]">[{mr.note_idx}]</span>
                       </div>
                       {mr.keyword && (
-                        <div className="italic text-[10px] text-stone-800 truncate">
+                        <div className="italic text-[11px] font-semibold text-stone-900 truncate">
                           {mr.keyword}
                         </div>
                       )}
-                      <div className="text-[10px] font-mono text-amber-900 mt-0.5">
-                        {mr.refs.join('; ')}
-                      </div>
+                      {mr.refs.length > 0 && (
+                        <div className="text-[11px] font-mono text-amber-950 font-medium mt-0.5 break-words">
+                          {mr.refs.slice(0, 3).join('; ')}
+                        </div>
+                      )}
                     </div>
                   ))
                 ) : (
-                  <div className="text-[10px] italic text-stone-400 py-4">
+                  <div className="text-xs italic text-stone-400 py-6 text-center">
                     — Margin Refs —
                   </div>
                 )}
               </div>
             </div>
 
-            {/* KOLOM KANAN (Ayat Pertengahan s/d Akhir) */}
-            <div className="md:col-span-5 md:pl-4 md:border-l border-stone-300 text-justify leading-relaxed space-y-3">
-              <div className="hidden md:block text-center font-bold text-xs tracking-wider text-stone-500 border-b border-stone-300 pb-1 mb-2">
+            {/* BAGIAN 3 / KOLOM KANAN (Ayat Pertengahan s/d Akhir) */}
+            <div className="md:col-span-5 md:pl-3 space-y-4">
+              <div className="hidden md:block text-center font-bold text-xs tracking-wider text-stone-600 border-b border-stone-300 pb-2 mb-3 font-serif">
                 CONTINUED
               </div>
 
               {rightVerses.map(v => (
                 <div key={v.verse} id={`classic-verse-${v.verse}`} className="leading-relaxed">
-                  <span className="font-bold mr-1.5 font-serif text-stone-900 text-sm">
-                    {v.verse}
-                  </span>
-                  <span className="text-stone-800 font-serif">
-                    {renderClassicVerseText(v)}
-                  </span>
+                  <p 
+                    className="text-[#1a1612] font-serif"
+                    style={{ fontSize: `${actualFontSize}px`, lineHeight: 1.85 }}
+                  >
+                    <span className="font-bold mr-1.5 font-serif text-amber-950 text-base select-none">
+                      {v.verse}
+                    </span>
+                    <span>
+                      {renderClassicVerseText(v)}
+                    </span>
+                  </p>
                 </div>
               ))}
             </div>
@@ -288,18 +302,18 @@ export default function BibleScofieldClassicView({
         </div>
 
         {/* 3. PANEL CATATAN KAKI BAWAH HALAMAN (Scofield Footnotes Footer) */}
-        <footer className="border-t-2 border-stone-800 mx-4 sm:mx-8 py-3 bg-[#f9f4e8] text-[12px] leading-snug text-justify max-h-56 overflow-y-auto">
-          <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-stone-300 text-[11px] font-bold text-stone-700 uppercase tracking-wider">
+        <footer className="border-t-2 border-stone-900 mx-4 sm:mx-8 py-3.5 bg-[#f9f4e8] max-h-64 overflow-y-auto">
+          <div className="flex items-center justify-between pb-1.5 mb-2.5 border-b border-stone-300 text-xs font-bold text-stone-900 uppercase tracking-wider">
             <span>The Scofield Reference Notes ({footnotes.length} Notes in Ch. {selectedChapter})</span>
-            <span className="text-[10px] font-normal text-stone-500">Click a note number to inspect</span>
+            <span className="text-[11px] font-medium text-stone-600">Klik nomor catatan untuk detail</span>
           </div>
 
           {footnotes.length === 0 ? (
             <p className="text-center text-xs text-stone-500 italic py-3">
-              No Scofield footnotes on this chapter.
+              Tidak ada catatan kaki Scofield pada pasal ini.
             </p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-justify">
               {footnotes.map((fn) => {
                 const isSelected = selectedNoteIdx === fn.note_idx;
                 return (
@@ -310,20 +324,20 @@ export default function BibleScofieldClassicView({
                       setSelectedNoteIdx(fn.note_idx);
                       if (onOpenFootnote) onOpenFootnote(fn.verse, fn.note_idx, fn);
                     }}
-                    className={`p-2 rounded-md transition cursor-pointer ${
+                    className={`p-2.5 rounded-lg transition cursor-pointer text-xs sm:text-[13px] leading-relaxed border ${
                       isSelected 
-                        ? "bg-amber-200/90 ring-1 ring-amber-700 shadow-xs" 
-                        : "hover:bg-amber-100/50"
+                        ? "bg-amber-200/90 border-amber-600 ring-1 ring-amber-600 shadow-xs" 
+                        : "bg-white/80 hover:bg-amber-100/70 border-stone-300"
                     }`}
                   >
-                    <sup className="font-bold text-red-900 text-xs mr-1">
+                    <sup className="font-bold text-red-900 text-sm mr-1.5">
                       [{fn.note_idx}]
                     </sup>
-                    <span className="font-bold text-stone-900">
+                    <span className="font-bold text-stone-950 font-serif">
                       ({selectedChapter}:{fn.verse}) {fn.keyword ? `${fn.keyword}: ` : ''}
                     </span>
-                    <span className="text-stone-800 font-serif">
-                      {fn.text.slice(0, 180)}{fn.text.length > 180 ? '...' : ''}
+                    <span className="text-[#1a1612] font-serif">
+                      {fn.text.slice(0, 220)}{fn.text.length > 220 ? '...' : ''}
                     </span>
                   </div>
                 );

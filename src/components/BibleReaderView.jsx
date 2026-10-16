@@ -1253,6 +1253,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             <BibleScofieldClassicView
               bookData={bookData}
               selectedChapter={selectedChapter}
+              fontSize={fontSize}
               onOpenFootnote={(vNum, nIdx, fn) => handleOpenFootnote(vNum, nIdx, fn, 'scofield')}
               onOpenIndex={() => setIsScofieldIndexOpen(true)}
               onOpenBookIntro={() => setIsIntroModalOpen(true)}
@@ -1264,8 +1265,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
           ) : (
             <>
 
-          {/* Pengantar & Pokok Kitab (Khusus Pasal 1 jika tersedia) */}
-          {selectedChapter === 1 && bookData?.intro && (
+          {/* Pengantar & Pokok Kitab (Khusus Versi Pemulihan, BUKAN Scofield) */}
+          {selectedChapter === 1 && bookData?.intro && bibleLang !== 'scofield' && (
             <div className={`rounded-2xl border p-4 sm:p-5 transition-all ${themeStyles.outlineBadge}`}>
               <div 
                 className="flex items-center justify-between cursor-pointer select-none"
