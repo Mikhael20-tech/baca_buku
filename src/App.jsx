@@ -351,28 +351,6 @@ const INITIAL_DEMO_BOOKS = [
     file_path: '/books/spiritual-authority.epub',
     required_tier: 'premium',
     created_at: new Date('2026-01-09').toISOString()
-  },
-  {
-    id: 'demo-meditasi',
-    title: 'Meditasi: Menemukan Kedamaian Stoa',
-    author: 'Marcus Aurelius',
-    category: 'Filsafat & Pengembangan Diri',
-    description: 'Kumpulan perenungan pribadi Kaisar Romawi Marcus Aurelius mengenai kebajikan, ketabahan batin (ataraxia), dan kebijaksanaan hidup menghadapi tantangan duniawi.',
-    cover_gradient: 'from-amber-600 via-amber-800 to-stone-900',
-    cover_icon: '🏛️',
-    file_path: '/books/meditasi-marcus-aurelius.epub',
-    created_at: new Date('2026-01-01').toISOString()
-  },
-  {
-    id: 'demo-sang-pangeran',
-    title: 'Sang Pangeran (Il Principe)',
-    author: 'Niccolo Machiavelli',
-    category: 'Filsafat & Politik',
-    description: 'Risalah politik abad ke-16 tentang strategi kepemimpinan, seni mempertahankan kekuasaan, dan realisme politik yang legendaris.',
-    cover_gradient: 'from-rose-700 via-red-900 to-stone-950',
-    cover_icon: '👑',
-    file_path: '/books/sang-pangeran-machiavelli.epub',
-    created_at: new Date('2026-01-01').toISOString()
   }
 ];
 
@@ -447,6 +425,7 @@ export default function App() {
       const isVisibleItem = (b) => 
         !b.is_bible && 
         !b.id?.startsWith('alkitab-') && 
+        !b.id?.startsWith('demo-') &&
         b.category !== 'Alkitab & Firman' &&
         !hiddenIds.includes(b.id);
 
