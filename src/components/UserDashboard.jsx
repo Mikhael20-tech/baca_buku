@@ -5,7 +5,8 @@ import {
   Heart, Sun, Sunrise, Play, BookMarked, ShieldCheck,
   ChevronRight, ExternalLink, User, Settings, Phone,
   Mail, MapPin, Camera, Save, Highlighter, Trash2,
-  Edit3, Plus, Search, Check, Clock, AlertCircle, FileCheck, Lock
+  Edit3, Plus, Search, Check, Clock, AlertCircle, FileCheck, Lock,
+  Upload, Link as LinkIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -56,6 +57,72 @@ export default function UserDashboard({
     user?.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'
   );
   const [profileSavedMsg, setProfileSavedMsg] = useState(false);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const fileInputRef = React.useRef(null);
+
+  // Unggah & kompresi foto profil lokal via Canvas
+  const handlePhotoFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Harap pilih file gambar (JPG, PNG, WebP).');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError('Ukuran file maksimal 10MB.');
+      return;
+    }
+
+    setIsUploadingPhoto(true);
+    setUploadError('');
+
+    try {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          // Buat thumbnail persegi berkualitas tinggi yang ringkas untuk avatar
+          const size = 320;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+
+          // Crop center (square cover)
+          const minSide = Math.min(img.width, img.height);
+          const startX = (img.width - minSide) / 2;
+          const startY = (img.height - minSide) / 2;
+
+          ctx.drawImage(img, startX, startY, minSide, minSide, 0, 0, size, size);
+
+          // Konversi ke JPEG base64 berkualitas tinggi tapi hemat ruang (~25KB)
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
+          setPhotoUrl(compressedDataUrl);
+          setIsUploadingPhoto(false);
+        };
+        img.onerror = () => {
+          setUploadError('Gagal memproses gambar.');
+          setIsUploadingPhoto(false);
+        };
+        img.src = event.target.result;
+      };
+      reader.onerror = () => {
+        setUploadError('Gagal membaca berkas gambar.');
+        setIsUploadingPhoto(false);
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      console.error('Error handling photo file:', err);
+      setUploadError('Terjadi kesalahan saat mengunggah foto.');
+      setIsUploadingPhoto(false);
+    } finally {
+      if (e.target) e.target.value = '';
+    }
+  };
 
   // Bagi Nikmat State
   const [enjoymentInput, setEnjoymentInput] = useState('');
@@ -830,23 +897,96 @@ export default function UserDashboard({
               <label className="text-xs font-bold text-[#1C1917] block">
                 Foto Profil Anda
               </label>
-              <div className="flex items-center gap-4">
-                <img 
-                  src={photoUrl} 
-                  alt="Preview" 
-                  className="w-16 h-16 rounded-2xl object-cover border-2 border-[#3B4B34] shadow-sm"
-                />
-                <div className="flex-1 space-y-1">
-                  <Input
-                    type="url"
-                    value={photoUrl}
-                    onChange={(e) => setPhotoUrl(e.target.value)}
-                    placeholder="URL Foto (https://...)"
-                    className="rounded-xl text-xs h-9 bg-[#FBF9F5]"
+
+              {/* Hidden File Input untuk memilih file dari komputer / HP */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handlePhotoFileUpload}
+              />
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 rounded-2xl bg-[#FBF9F5] border border-[#1C1917]/10">
+                {/* Avatar Preview dengan Clickable Overlay Kamera */}
+                <div 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="relative group w-20 h-20 rounded-2xl overflow-hidden cursor-pointer border-2 border-[#3B4B34] shadow-sm shrink-0 bg-stone-200"
+                  title="Klik untuk memilih foto dari galeri / perangkat"
+                >
+                  <img 
+                    src={photoUrl} 
+                    alt="Preview Foto Profil" 
+                    className="w-full h-full object-cover transition duration-200 group-hover:scale-105"
                   />
-                  <p className="text-[10px] text-[#78716C]">
-                    Masukkan link URL gambar atau pilih avatar yang tersedia di bawah:
-                  </p>
+                  <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition duration-200">
+                    <Camera className="w-5 h-5 mb-0.5 text-amber-200" />
+                    <span className="text-[10px] font-bold">Ubah Foto</span>
+                  </div>
+                </div>
+
+                {/* Tombol Aksi Upload & URL */}
+                <div className="flex-1 space-y-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isUploadingPhoto}
+                      className="rounded-xl text-xs font-bold bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] h-9 px-3.5 shadow-sm flex items-center gap-1.5 btn-lift"
+                    >
+                      <Upload className="w-3.5 h-3.5 text-amber-200" />
+                      <span>{isUploadingPhoto ? 'Memproses Foto...' : 'Upload Foto dari Galeri / Kamera'}</span>
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowUrlInput(!showUrlInput)}
+                      className="rounded-xl text-xs font-bold border-[#1C1917]/15 bg-white hover:bg-stone-50 text-[#1C1917] h-9 px-3 shadow-xs flex items-center gap-1.5"
+                    >
+                      <LinkIcon className="w-3.5 h-3.5 text-stone-500" />
+                      <span>{showUrlInput ? 'Tutup URL' : 'Gunakan Link URL'}</span>
+                    </Button>
+
+                    {photoUrl !== PRESET_AVATARS[0] && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => { setPhotoUrl(PRESET_AVATARS[0]); setUploadError(''); }}
+                        className="rounded-xl text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 h-9 px-2.5 flex items-center gap-1"
+                        title="Kembalikan ke avatar default"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Reset</span>
+                      </Button>
+                    )}
+                  </div>
+
+                  {uploadError && (
+                    <p className="text-[11px] text-rose-600 font-medium flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" />
+                      {uploadError}
+                    </p>
+                  )}
+
+                  {showUrlInput ? (
+                    <div className="space-y-1 pt-1 animate-in fade-in duration-150">
+                      <Input
+                        type="url"
+                        value={photoUrl.startsWith('data:') ? '' : photoUrl}
+                        onChange={(e) => setPhotoUrl(e.target.value)}
+                        placeholder="Tempel tautan URL gambar (https://...)"
+                        className="rounded-xl text-xs h-8 bg-white border-[#1C1917]/15"
+                      />
+                    </div>
+                  ) : (
+                    <p className="text-[10px] text-[#78716C]">
+                      Pilih foto langsung dari HP / Laptop Anda (JPG, PNG, WebP) atau pilih Avatar Cepat di bawah.
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -857,7 +997,7 @@ export default function UserDashboard({
                   <button
                     key={idx}
                     type="button"
-                    onClick={() => setPhotoUrl(url)}
+                    onClick={() => { setPhotoUrl(url); setUploadError(''); }}
                     className={`w-8 h-8 rounded-xl overflow-hidden border-2 transition ${
                       photoUrl === url ? 'border-[#3B4B34] scale-110 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'
                     }`}
