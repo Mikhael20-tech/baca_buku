@@ -112,6 +112,29 @@ export default function BibleScofieldClassicView({
     }
   });
 
+  // Parse full book introduction into styled paragraphs
+  const introParagraphs = React.useMemo(() => {
+    if (!bookData?.intro) return [];
+    const htmlStr = bookData.intro.html || '';
+    if (htmlStr) {
+      // Remove generic title paragraph like <p style="font-weight:bold;">Book Introduction - ...</p>
+      const cleaned = htmlStr.replace(/<p[^>]*>\s*Book Introduction[^<]*<\/p>/gi, '');
+      const rawParas = cleaned.split(/<\/p>/i);
+      const list = [];
+      for (let p of rawParas) {
+        p = p.replace(/<p[^>]*>/gi, '').trim();
+        if (!p) continue;
+        p = p.replace(/<ref>(.*?)<\/ref>/gi, '<span class="font-mono text-amber-900 font-bold">$1</span>');
+        list.push(p);
+      }
+      if (list.length > 0) return list;
+    }
+    if (bookData.intro.text) {
+      return [bookData.intro.text];
+    }
+    return [];
+  }, [bookData]);
+
   const renderClassicVerseText = (vItem) => {
     if (!vItem.marked_text || !vItem.marked_text.includes('<fn')) {
       return vItem.text;
@@ -204,8 +227,33 @@ export default function BibleScofieldClassicView({
           </div>
         </header>
 
-        {/* 2. AREA UTAMA: 3 BAGIAN / KOLOM (KIRI: 5 | TENGAH: 2 | KANAN: 5) */}
+        {/* 2. AREA UTAMA: PENGANTAR LENGKAP (Pasal 1) + 3 BAGIAN / KOLOM */}
         <div className="flex-1 overflow-y-auto px-4 sm:px-7 py-6">
+          
+          {/* PENGANTAR LENGKAP KITAB (FULL BOOK INTRODUCTION ON CHAPTER 1) */}
+          {selectedChapter === 1 && introParagraphs.length > 0 && (
+            <section className="border-b-2 border-stone-800 pb-6 mb-7 bg-amber-50/60 p-5 sm:p-7 rounded-2xl border border-stone-300 shadow-xs">
+              <p className="text-center tracking-[0.25em] text-[11px] uppercase mb-1 text-stone-600 font-bold font-sans">
+                THE SCOFIELD REFERENCE BIBLE (1917)
+              </p>
+              <h1 className="text-center font-bold text-2xl sm:text-3xl tracking-widest mb-1.5 font-serif text-stone-950">
+                {bookName.toUpperCase()}
+              </h1>
+              <p className="text-center font-extrabold text-xs uppercase tracking-wider mb-4 text-amber-950 border-b border-stone-300 pb-2 font-mono">
+                BOOK INTRODUCTION & EXPOSITION
+              </p>
+              <div className="space-y-3.5 text-stone-900 leading-relaxed font-serif text-sm sm:text-base text-justify">
+                {introParagraphs.map((paraHtml, pIdx) => (
+                  <p 
+                    key={pIdx} 
+                    className="leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: paraHtml }}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 text-justify">
             
             {/* BAGIAN 1 / KOLOM KIRI (Ayat 1 s/d Pertengahan) */}

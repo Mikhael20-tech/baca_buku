@@ -1265,6 +1265,42 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
           ) : (
             <>
 
+          {/* Pengantar Lengkap Kitab Scofield (Modern Mode Pada Pasal 1) */}
+          {selectedChapter === 1 && bookData?.intro && bibleLang === 'scofield' && (
+            <div className="rounded-2xl border border-amber-300 dark:border-amber-700/80 p-5 sm:p-6 bg-amber-50/60 dark:bg-amber-950/30 text-stone-900 dark:text-zinc-100 font-serif space-y-3.5 shadow-xs">
+              <div className="border-b border-amber-200 dark:border-zinc-800 pb-2.5 text-center">
+                <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-amber-800 dark:text-amber-400 block mb-0.5">
+                  The Scofield Reference Bible (1917)
+                </span>
+                <h3 className="font-bold text-xl sm:text-2xl tracking-wide">
+                  {bookData.name} — Book Introduction
+                </h3>
+              </div>
+              <div className="space-y-3 text-sm sm:text-base leading-relaxed text-justify">
+                {(() => {
+                  const htmlStr = bookData.intro.html || '';
+                  if (htmlStr) {
+                    const cleaned = htmlStr.replace(/<p[^>]*>\s*Book Introduction[^<]*<\/p>/gi, '');
+                    const rawParas = cleaned.split(/<\/p>/i);
+                    const list = [];
+                    for (let p of rawParas) {
+                      p = p.replace(/<p[^>]*>/gi, '').trim();
+                      if (!p) continue;
+                      p = p.replace(/<ref>(.*?)<\/ref>/gi, '<span class="font-mono text-amber-900 dark:text-amber-300 font-bold">$1</span>');
+                      list.push(p);
+                    }
+                    if (list.length > 0) {
+                      return list.map((p, idx) => (
+                        <p key={idx} dangerouslySetInnerHTML={{ __html: p }} />
+                      ));
+                    }
+                  }
+                  return <p>{bookData.intro.text}</p>;
+                })()}
+              </div>
+            </div>
+          )}
+
           {/* Pengantar & Pokok Kitab (Khusus Versi Pemulihan, BUKAN Scofield) */}
           {selectedChapter === 1 && bookData?.intro && bibleLang !== 'scofield' && (
             <div className={`rounded-2xl border p-4 sm:p-5 transition-all ${themeStyles.outlineBadge}`}>
