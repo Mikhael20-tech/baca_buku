@@ -60,7 +60,57 @@ SUPLEMEN_CATEGORIES = [
 def clean_line(s):
     if not s:
         return ""
-    return s.strip().replace('\xa0', ' ').replace('\r', '')
+    return s.strip().replace('\xa0', ' ').replace('\r', '').replace('’', "'").replace('‘', "'").replace('”', '"').replace('“', '"')
+
+def is_key_signature(l):
+    if re.search(r'([A-Ga-g]\s*=\s*\d+/\d+|\d+/\d+\s*=\s*[A-Ga-g][a-z#b]?|\bKey\s*=\s*[A-Ga-g])', l):
+        return True
+    if re.match(r'^[A-Ga-g]\s*=\s*[\d/]+', l):
+        return True
+    if re.match(r'^\d+/\d+\s+[A-Ga-g][a-z#b]?$', l):
+        return True
+    if re.match(r'^[A-Ga-g]$', l):
+        return True
+    return False
+
+def is_meter_or_ref(l):
+    if re.match(r'^(\d{1,2}\s+){2,}\d{1,2}', l):
+        return True
+    if re.match(r'^\d+(\s+\d+)+', l) and len(l) <= 45:
+        return True
+    return False
+
+def check_meta(l, in_paren):
+    if in_paren:
+        if ')' in l:
+            return True, False
+        return True, True
+
+    if l.startswith('('):
+        if ')' in l:
+            return True, False
+        else:
+            return True, True
+
+    if is_key_signature(l):
+        return True, False
+
+    if is_meter_or_ref(l):
+        return True, False
+
+    if re.search(r'\(?\s*Ing\s*\.?\s*\d+\s*\)?', l, re.IGNORECASE):
+        return True, False
+
+    if re.match(r'^(Not lagu|Lagu:|Asli\s*:|digubah\s*:|tr\.\s*by|not\s*:|Lagu sama dengan|LAGU SAMA DENGAN|Syair ke|Syair Kesatu|SYAIR KE)', l, re.IGNORECASE):
+        return True, False
+
+    if re.search(r'(Sejarah Kidung|Abad ke-\d+|diterjemahkan oleh|digubah oleh)', l, re.IGNORECASE):
+        return True, False
+
+    if re.match(r'^[IVXLCDM]+\.\s+\w+', l):
+        return True, False
+
+    return False, False
 
 def parse_song_block(raw_header, body_lines, song_type):
     # Determine number and title
@@ -117,11 +167,10 @@ def parse_song_block(raw_header, body_lines, song_type):
     current_stanza_num = None
     current_stanza_lines = []
 
-    # First pass: identify meta lines vs lyrics lines
     in_lyrics = False
-    lyrics_lines = []
+    in_paren = False
 
-    for raw_l in body_lines:
+    for idx, raw_l in enumerate(body_lines):
         is_break = ('\xa0' in raw_l)
         raw_trimmed = raw_l.strip()
         l = raw_trimmed.replace('\xa0', ' ').replace('\r', '').replace('’', "'").replace('‘', "'").replace('”', '"').replace('“', '"')
@@ -139,28 +188,35 @@ def parse_song_block(raw_header, body_lines, song_type):
             continue
 
         if not in_lyrics:
-            # Check if this line is metadata
-            if l.startswith('('):
-                if 'Ing.' in l:
-                    english_ref = l.strip('()')
-                elif any(a in l for a in ['WL', 'W.L', 'C.W.', 'M.E.B.', 'D.T.', 'B.M.', 'Frances', 'Ken', 'Heber', 'Watts', 'Wesley', 'Cowper', 'Newton']):
-                    author = l.strip('()')
+            is_m, in_paren = check_meta(l, in_paren)
+            if is_m:
                 meta_lines.append(l)
+                if not english_ref:
+                    m_ing = re.search(r'(?:Ing|ing)\s*\.?\s*(\d+)', l)
+                    if m_ing:
+                        english_ref = m_ing.group(1)
+                if not key_meter and is_key_signature(l):
+                    key_meter = l
+                if not meter and is_meter_or_ref(l):
+                    meter = l
+                if not author:
+                    if l.startswith('(') and any(a in l for a in ['WL', 'W.L', 'C.W.', 'Ken', 'Heber', 'Watts', 'Wesley', 'Cowper', 'Newton', 'Simpson', 'Darby', 'Guyon', 'Crosby']):
+                        author = l.strip('()')
                 continue
-            elif 'Ing.' in l:
-                english_ref = l.strip('()')
-                meta_lines.append(l)
-                continue
-            elif re.match(r'^[\d\s]+$', l) and len(l) <= 15:
-                # Metrum like "8 5 8 3"
-                meter = l
-                meta_lines.append(l)
-                continue
-            elif re.match(r'^(Not lagu|Lagu:)', l, re.IGNORECASE):
-                meta_lines.append(l)
-                continue
-            elif '=' in l or re.match(r'^[A-Ga-g]=', l) or re.match(r'^\d+/\d+', l) or re.match(r'^[A-Ga-g]\s+\d+/\d+', l):
-                key_meter = l
+
+            if re.match(r'^(1\.|1\s+|1\)|Koor|Chorus|Refrein)', l, re.IGNORECASE):
+                in_lyrics = True
+            elif any(check_meta(b.strip(), False)[0] for b in body_lines[idx+1:idx+6] if b.strip()):
+                # Title continuation or subtitle before metadata
+                if title:
+                    if title.endswith('-') or title.endswith('–') or title.endswith('—'):
+                        title = f"{title.rstrip('-–— ')} - {l}"
+                    elif l.startswith('(') and l.endswith(')'):
+                        title = f"{title} {l}"
+                    else:
+                        title = f"{title} - {l}"
+                else:
+                    title = l
                 meta_lines.append(l)
                 continue
             else:
@@ -214,14 +270,28 @@ def parse_song_block(raw_header, body_lines, song_type):
             "lines": current_stanza_lines
         })
 
-    # Extract snippets for search & list display
+    # Clean up title
+    if title:
+        title = title.replace('\ufffd', ' ').replace('\xa0', ' ')
+        title = re.sub(r'\s+', ' ', title).strip()
+
+    # Extract snippets for search & list display (neat line extraction without cutting off mid-word)
     first_line = ""
     chorus_snippet = ""
     for s in stanzas:
         if s["type"] == "verse" and not first_line and s["lines"]:
-            first_line = " ".join(s["lines"])[:120]
+            first_line = s["lines"][0]
+            if len(first_line) < 35 and len(s["lines"]) > 1:
+                first_line = f"{first_line} {s['lines'][1]}"
         elif s["type"] == "chorus" and not chorus_snippet and s["lines"]:
-            chorus_snippet = " ".join(s["lines"])[:100]
+            chorus_snippet = s["lines"][0]
+            if len(chorus_snippet) < 35 and len(s["lines"]) > 1:
+                chorus_snippet = f"{chorus_snippet} {s['lines'][1]}"
+
+    if not first_line and chorus_snippet:
+        first_line = chorus_snippet
+    if not first_line and stanzas and stanzas[0]["lines"]:
+        first_line = stanzas[0]["lines"][0]
 
     return {
         "id": song_id,
