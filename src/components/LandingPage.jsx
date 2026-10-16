@@ -296,15 +296,19 @@ export default function LandingPage({
                 <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
                   {isLoggedIn ? (
                     <>
-                      {user?.photo_url ? (
+                      {userRole === 'admin' ? (
+                        <div className="w-5 h-5 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center text-[10px] font-black shadow-xs shrink-0">
+                          A
+                        </div>
+                      ) : user?.photo_url ? (
                         <img 
                           src={user.photo_url} 
                           alt="Foto Profil" 
                           className="w-5 h-5 rounded-full object-cover border border-[#3B4B34]/30 shrink-0" 
                         />
                       ) : (
-                        <div className={`w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold ${userRole === 'admin' ? 'bg-amber-800' : 'bg-[#3B4B34]'}`}>
-                          {userRole === 'admin' ? 'A' : (user?.full_name?.charAt(0) || 'U')}
+                        <div className="w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold bg-[#3B4B34] shrink-0">
+                          {user?.full_name?.charAt(0) || 'U'}
                         </div>
                       )}
                       <span className="max-w-[85px] truncate hidden sm:inline text-[11px]">

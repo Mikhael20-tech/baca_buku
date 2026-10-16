@@ -530,12 +530,12 @@ export default function App() {
     setUserRole(role);
     localStorage.setItem('baca_user_role', role);
     localStorage.setItem('baca_is_logged_in', 'true');
-    const customAvatar = localStorage.getItem('baca_user_avatar');
+    const customAvatar = role === 'admin' ? null : localStorage.getItem('baca_user_avatar');
     const profile = {
       id: authUser.id,
       email: authUser.email,
-      full_name: authUser.full_name || authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || (role === 'admin' ? 'Administrator' : 'Budi Pembaca'),
-      photo_url: customAvatar || authUser.photo_url || authUser.user_metadata?.photo_url || authUser.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+      full_name: role === 'admin' ? 'Administrator' : (authUser.full_name || authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Pembaca Hayat'),
+      photo_url: role === 'admin' ? '' : (customAvatar || authUser.photo_url || authUser.user_metadata?.photo_url || authUser.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'),
       role: role
     };
     setUser(profile);
@@ -1204,15 +1204,19 @@ export default function App() {
                 <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
                   {isLoggedIn ? (
                     <>
-                      {user?.photo_url ? (
+                      {userRole === 'admin' ? (
+                        <div className="w-5 h-5 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center text-[10px] font-black shadow-xs shrink-0">
+                          A
+                        </div>
+                      ) : user?.photo_url ? (
                         <img 
                           src={user.photo_url} 
                           alt="Foto Profil" 
                           className="w-5 h-5 rounded-full object-cover border border-[#3B4B34]/30 shrink-0" 
                         />
                       ) : (
-                        <div className={`w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold ${userRole === 'admin' ? 'bg-amber-800' : 'bg-[#3B4B34]'}`}>
-                          {userRole === 'admin' ? 'A' : (user?.full_name?.charAt(0) || 'U')}
+                        <div className="w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold bg-[#3B4B34] shrink-0">
+                          {user?.full_name?.charAt(0) || 'U'}
                         </div>
                       )}
                       <span className="max-w-[85px] truncate hidden sm:inline text-[11px]">
