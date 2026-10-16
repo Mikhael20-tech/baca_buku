@@ -1197,10 +1197,18 @@ export default function App() {
                 <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
                   {isLoggedIn ? (
                     <>
-                      <div className={`w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold ${userRole === 'admin' ? 'bg-amber-800' : 'bg-[#3B4B34]'}`}>
-                        {userRole === 'admin' ? 'A' : (user?.full_name?.charAt(0) || 'U')}
-                      </div>
-                      <span className="max-w-[75px] truncate hidden sm:inline text-[11px]">
+                      {user?.photo_url ? (
+                        <img 
+                          src={user.photo_url} 
+                          alt="Foto Profil" 
+                          className="w-5 h-5 rounded-full object-cover border border-[#3B4B34]/30 shrink-0" 
+                        />
+                      ) : (
+                        <div className={`w-5 h-5 rounded-full text-white flex items-center justify-center text-[10px] font-bold ${userRole === 'admin' ? 'bg-amber-800' : 'bg-[#3B4B34]'}`}>
+                          {userRole === 'admin' ? 'A' : (user?.full_name?.charAt(0) || 'U')}
+                        </div>
+                      )}
+                      <span className="max-w-[85px] truncate hidden sm:inline text-[11px]">
                         {userRole === 'admin' ? 'Admin' : (user?.full_name?.split(' ')[0] || 'User')}
                       </span>
                     </>
@@ -1267,11 +1275,24 @@ export default function App() {
                   </>
                 ) : isLoggedIn && userRole === 'reader' ? (
                   <>
-                    <div className="px-2.5 py-1.5 border-b border-[#1C1917]/10 mb-1">
-                      <p className="font-bold text-xs text-[#1C1917] truncate">{user?.full_name || 'Pembaca'}</p>
-                      <p className="text-[10px] text-emerald-800 font-semibold uppercase tracking-wider">
-                        Paket: {userPlan?.tier ? userPlan.tier.toUpperCase() : 'PREMIUM'}
-                      </p>
+                    <div className="px-2.5 py-2 border-b border-[#1C1917]/10 mb-1 flex items-center gap-2.5">
+                      {user?.photo_url ? (
+                        <img 
+                          src={user.photo_url} 
+                          alt="Avatar" 
+                          className="w-8 h-8 rounded-full object-cover border border-[#3B4B34]/30 shrink-0" 
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-[#3B4B34] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                          {user?.full_name?.charAt(0) || 'U'}
+                        </div>
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold text-xs text-[#1C1917] truncate">{user?.full_name || 'Pembaca'}</p>
+                        <p className="text-[10px] text-emerald-800 font-semibold uppercase tracking-wider">
+                          Paket: {userPlan?.tier ? userPlan.tier.toUpperCase() : 'PREMIUM'}
+                        </p>
+                      </div>
                     </div>
 
                     <DropdownMenuItem 
