@@ -570,6 +570,21 @@ export default function KidungReaderView({
                       <span>Romanji: {showPhonetic ? 'ON' : 'OFF'}</span>
                     </button>
                   )}
+
+                  {activeLang === 'ja' && (
+                    <button
+                      onClick={() => setShowPhonetic(prev => !prev)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 border shadow-xs ${
+                        showPhonetic
+                          ? 'bg-amber-500/25 text-amber-900 dark:text-amber-200 border-amber-500/50'
+                          : 'bg-black/5 dark:bg-white/10 text-[#78716C] border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/15'
+                      }`}
+                      title="Nyalakan / Matikan Transliterasi Romaji Jepang"
+                    >
+                      <span className="font-serif font-bold text-xs">あ</span>
+                      <span>Romaji: {showPhonetic ? 'ON' : 'OFF'}</span>
+                    </button>
+                  )}
                 </div>
               </div>
             )}
@@ -730,6 +745,11 @@ export default function KidungReaderView({
                           {langObj.romanTitle}
                         </p>
                       )}
+                      {activeLang === 'ja' && langObj?.romajiTitle && (
+                        <p className="text-xs sm:text-sm font-semibold text-amber-700 dark:text-amber-400 font-sans tracking-wide mb-2">
+                          {langObj.romajiTitle}
+                        </p>
+                      )}
                     </>
                   )}
 
@@ -753,6 +773,7 @@ export default function KidungReaderView({
                   const verseNum = isChorus ? null : (stanza.num || runningVerseNumber++);
                   const isChinese = activeLang === 'zh' || activeLang === 'zht';
                   const isKorean = activeLang === 'ko';
+                  const isJapanese = activeLang === 'ja';
 
                   // Label koor disesuaikan dengan bahasa masing-masing
                   const chorusLabel = 
@@ -762,6 +783,7 @@ export default function KidungReaderView({
                     activeLang === 'pt' ? 'Refrão:' :
                     isChinese ? '副歌:' :
                     isKorean ? '후렴:' :
+                    isJapanese ? 'コーラス:' :
                     'Koor:';
 
                   if (isChorus) {
@@ -776,6 +798,7 @@ export default function KidungReaderView({
                             const phoneticLine = 
                               (showPhonetic && isChinese && stanza.pinyinLines) ? stanza.pinyinLines[lIdx] :
                               (showPhonetic && isKorean && stanza.romanLines) ? stanza.romanLines[lIdx] :
+                              (showPhonetic && isJapanese && stanza.romajiLines) ? stanza.romajiLines[lIdx] :
                               null;
 
                             return (
@@ -809,6 +832,7 @@ export default function KidungReaderView({
                           const phoneticLine = 
                             (showPhonetic && isChinese && stanza.pinyinLines) ? stanza.pinyinLines[lIdx] :
                             (showPhonetic && isKorean && stanza.romanLines) ? stanza.romanLines[lIdx] :
+                            (showPhonetic && isJapanese && stanza.romajiLines) ? stanza.romajiLines[lIdx] :
                             null;
 
                           return (

@@ -337,28 +337,42 @@ export default function AdminDashboard({
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       
-      {/* Banner Notifikasi Aksi Admin */}
+      {/* Floating Toast Notifikasi Aksi Admin (Modern, Glassmorphism & Selalu Terlihat Saat Scroll) */}
       {adminNotice && (
-        <div className={`p-4 rounded-2xl flex items-center justify-between gap-3 text-xs font-semibold shadow-lg animate-in slide-in-from-top-2 duration-300 ${
-          adminNotice.type === 'success' 
-            ? 'bg-emerald-950/90 text-emerald-200 border border-emerald-500/30 shadow-emerald-950/20' 
-            : 'bg-rose-950/90 text-rose-200 border border-rose-500/30 shadow-rose-950/20'
-        }`}>
-          <div className="flex items-center gap-2.5">
-            {adminNotice.type === 'success' ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            ) : (
-              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
-            )}
-            <span>{adminNotice.message}</span>
+        <div className="fixed bottom-6 right-6 z-50 max-w-md w-[calc(100vw-3rem)] animate-in slide-in-from-bottom-5 duration-300">
+          <div className={`p-4 rounded-2xl flex items-start gap-3.5 shadow-2xl border backdrop-blur-xl ${
+            adminNotice.type === 'success' 
+              ? 'bg-[#1C2317]/95 text-stone-100 border-emerald-500/40 shadow-emerald-950/40' 
+              : 'bg-[#2A1517]/95 text-stone-100 border-rose-500/40 shadow-rose-950/40'
+          }`}>
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-md ${
+              adminNotice.type === 'success'
+                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+            }`}>
+              {adminNotice.type === 'success' ? (
+                <CheckCircle2 className="w-5 h-5" />
+              ) : (
+                <AlertTriangle className="w-5 h-5" />
+              )}
+            </div>
+            <div className="flex-1 min-w-0 pr-1 pt-0.5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400">
+                {adminNotice.type === 'success' ? 'Sukses Memperbarui' : 'Peringatan Admin'}
+              </p>
+              <p className="text-xs sm:text-sm font-medium leading-snug mt-0.5 text-stone-100">
+                {adminNotice.message}
+              </p>
+            </div>
+            <button 
+              type="button"
+              onClick={() => setAdminNotice(null)}
+              className="p-1.5 hover:bg-white/10 rounded-xl transition text-stone-400 hover:text-white shrink-0 -mr-1"
+              title="Tutup Notifikasi"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
-          <button 
-            type="button"
-            onClick={() => setAdminNotice(null)}
-            className="p-1 hover:bg-white/10 rounded-lg transition"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
         </div>
       )}
 

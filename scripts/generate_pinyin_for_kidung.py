@@ -3,6 +3,7 @@ import re
 import time
 import pypinyin
 from korean_romanizer.romanizer import Romanizer
+import pykakasi
 import os
 import sys
 
@@ -10,6 +11,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 JSON_IN_PATH = r'd:\Magang\Baca\public\kidung\kidung_data.json'
 DIST_OUT_PATH = r'd:\Magang\Baca\dist\kidung\kidung_data.json'
+
+k_japanese = pykakasi.kakasi()
 
 def clean_pinyin_line(line_hanzi):
     if not line_hanzi or not line_hanzi.strip():
@@ -30,6 +33,17 @@ def clean_korean_roman_line(line_korean):
     except Exception as e:
         return ""
 
+def clean_japanese_romaji_line(line_japanese):
+    if not line_japanese or not line_japanese.strip():
+        return ""
+    try:
+        res = k_japanese.convert(line_japanese.strip())
+        raw = ' '.join(item['hepburn'] for item in res if item.get('hepburn'))
+        cleaned = re.sub(r'\s+([，。！？、；：,!?~…])', r'\1', raw)
+        return cleaned.strip()
+    except Exception:
+        return ""
+
 def main():
     print("Loading kidung_data.json...")
     t0 = time.time()
@@ -38,6 +52,7 @@ def main():
 
     total_chinese = 0
     total_korean = 0
+    total_japanese = 0
 
     print("Generating Pinyin for Chinese songs (zh and zht)...")
     for pool_name, pool in [("Kidung", data['kidung']), ("Suplemen", data['suplemen'])]:
@@ -69,6 +84,21 @@ def main():
                 total_korean += 1
 
     print(f"Generated Romanization for {total_korean} Korean songs.")
+
+    print("Generating Romaji for Japanese songs (ja)...")
+    for pool_name, pool in [("Kidung", data['kidung']), ("Suplemen", data['suplemen'])]:
+        for song in pool:
+            languages = song.get('languages', {})
+            if 'ja' in languages:
+                item = languages['ja']
+                title = item.get('title', '')
+                item['romajiTitle'] = clean_japanese_romaji_line(title)
+                for st in item.get('stanzas', []):
+                    lines = st.get('lines', [])
+                    st['romajiLines'] = [clean_japanese_romaji_line(l) for l in lines]
+                total_japanese += 1
+
+    print(f"Generated Romaji for {total_japanese} Japanese songs.")
     print(f"Total processing completed in {time.time()-t0:.2f}s.")
 
     # Save compact json
