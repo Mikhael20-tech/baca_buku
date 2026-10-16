@@ -530,10 +530,12 @@ export default function App() {
     setUserRole(role);
     localStorage.setItem('baca_user_role', role);
     localStorage.setItem('baca_is_logged_in', 'true');
+    const customAvatar = localStorage.getItem('baca_user_avatar');
     const profile = {
       id: authUser.id,
       email: authUser.email,
       full_name: authUser.full_name || authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || (role === 'admin' ? 'Administrator' : 'Budi Pembaca'),
+      photo_url: customAvatar || authUser.photo_url || authUser.user_metadata?.photo_url || authUser.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
       role: role
     };
     setUser(profile);
@@ -743,6 +745,7 @@ export default function App() {
         setUser(finalProfile);
         try {
           localStorage.setItem('baca_user_profile', JSON.stringify(finalProfile));
+          localStorage.setItem('baca_is_logged_in', 'true');
           if (finalProfile.photo_url) {
             localStorage.setItem('baca_user_avatar', finalProfile.photo_url);
           }
@@ -756,17 +759,21 @@ export default function App() {
         }
       });
 
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
         if (session?.user) {
           applyAuthUser(session.user);
-        } else {
+        } else if (event === 'SIGNED_OUT') {
+          // Hanya logout jika user secara eksplisit memicu event SIGNED_OUT dari Supabase
           setIsLoggedIn(false);
+          localStorage.removeItem('baca_is_logged_in');
+          localStorage.removeItem('baca_user_role');
           setUser({
-            id: 'user-demo-baca',
-            email: 'baca@perpustakaan.cloud',
-            full_name: 'Budi Pembaca'
+            id: 'guest',
+            email: '',
+            full_name: 'Tamu'
           });
         }
+        // Jangan logout pada event INITIAL_SESSION tanpa session, agar sesi lokal tetap bertahan!
       });
 
       return () => {
