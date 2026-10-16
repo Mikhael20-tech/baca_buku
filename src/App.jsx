@@ -806,8 +806,7 @@ export default function App() {
 
   // Handler Hapus Buku (Khusus Admin)
   const handleDeleteBook = async (bookId, e) => {
-    if (e) e.stopPropagation();
-    if (!window.confirm('Apakah Anda yakin ingin menghapus buku ini dari katalog?')) return;
+    if (e && e.stopPropagation) e.stopPropagation();
 
     try {
       // 1. Selalu catat ID buku yang dihapus ke baca_hidden_books agar langsung hilang permanen dari katalog
@@ -1423,6 +1422,7 @@ export default function App() {
               showToast('Rangkuman Meja Perjamuan berhasil disimpan.');
             }}
             initialTab={adminDashboardTab}
+            showToast={showToast}
           />
         )}
 

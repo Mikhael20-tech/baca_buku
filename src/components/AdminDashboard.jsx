@@ -44,10 +44,28 @@ export default function AdminDashboard({
   onTogglePinEnjoyment,
   aiSummary,
   onUpdateAiSummary,
-  initialTab = 'books'
+  initialTab = 'books',
+  showToast
 }) {
   const [activeTab, setActiveTab] = useState(initialTab); // 'books' | 'users' | 'community' | 'ai'
   
+  // Modal Konfirmasi Hapus Kustom (Admin)
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    type: null, // 'book' | 'user' | 'enjoyment'
+    id: null,
+    headline: '',
+    title: '',
+    subtitle: '',
+    detail: '',
+    icon: null,
+    avatar: null,
+    badgeText: '',
+    warningText: ''
+  });
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [adminNotice, setAdminNotice] = useState(null); // { type: 'success' | 'error', message: string }
+
   // AI Summary State
   const [editedAiSummary, setEditedAiSummary] = useState(aiSummary || '');
   const [aiSavedNotice, setAiSavedNotice] = useState(false);
@@ -215,11 +233,92 @@ export default function AdminDashboard({
     setIsUserModalOpen(false);
   };
 
-  // Delete User
-  const handleDeleteUser = (id, name) => {
-    if (window.confirm(`Hapus pengguna "${name}" dari perpustakaan?`)) {
-      const updated = deleteUser(id);
-      setUsers(updated);
+  // --- HANDLER MODAL KONFIRMASI HAPUS ADMIN ---
+  const triggerDeleteBook = (book, e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    setDeleteModal({
+      isOpen: true,
+      type: 'book',
+      id: book.id,
+      headline: 'Hapus Buku dari Katalog?',
+      title: book.title || 'Judul Buku',
+      subtitle: `Penulis: ${book.author || 'Anonim'} • Kategori: ${book.category || 'Umum'}`,
+      detail: null,
+      icon: book.cover_icon || '📖',
+      avatar: null,
+      badgeText: 'Katalog Perpustakaan',
+      warningText: 'Buku ini akan dicabut permanen dari perpustakaan publik, cache peramban, dan penyimpanan cloud.'
+    });
+  };
+
+  const triggerDeleteUser = (user) => {
+    setDeleteModal({
+      isOpen: true,
+      type: 'user',
+      id: user.id,
+      headline: 'Hapus Akun Pengguna?',
+      title: user.full_name || 'Nama Pengguna',
+      subtitle: `${user.email} • ${user.distrik_lokal || 'Distrik Belum Diatur'}`,
+      detail: `Paket Langganan: ${(user.plan_tier || 'standart').toUpperCase()} • WhatsApp: ${user.whatsapp || '-'}`,
+      icon: null,
+      avatar: user.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+      badgeText: `User: ${(user.plan_tier || 'standart').toUpperCase()}`,
+      warningText: 'Seluruh akses akun pembaca ini akan dinonaktifkan dan dihapus permanen dari sistem perpustakaan.'
+    });
+  };
+
+  const triggerDeleteEnjoyment = (item) => {
+    setDeleteModal({
+      isOpen: true,
+      type: 'enjoyment',
+      id: item.id,
+      headline: 'Hapus Bagi Nikmat?',
+      title: `Bagi Nikmat: ${item.name}`,
+      subtitle: `Asal Kota: ${item.city || '-'} • Waktu: ${item.time || 'Terkini'}`,
+      detail: item.text,
+      icon: '💬',
+      avatar: null,
+      badgeText: 'Moderasi Komunitas',
+      warningText: 'Kutipan kenikmatan firman ini akan dihapus permanen dari ruang komunitas Meja Perjamuan.'
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteModal.id || !deleteModal.type) return;
+    setIsDeleting(true);
+    try {
+      if (deleteModal.type === 'book') {
+        if (onDeleteBook) {
+          await onDeleteBook(deleteModal.id);
+        }
+        const msg = `Buku "${deleteModal.title}" berhasil dihapus dari katalog!`;
+        if (showToast) showToast(msg);
+        setAdminNotice({ type: 'success', message: msg });
+      } else if (deleteModal.type === 'user') {
+        const updated = deleteUser(deleteModal.id);
+        setUsers(updated);
+        const msg = `Pengguna "${deleteModal.title}" berhasil dihapus dari perpustakaan!`;
+        if (showToast) showToast(msg);
+        setAdminNotice({ type: 'success', message: msg });
+      } else if (deleteModal.type === 'enjoyment') {
+        if (onDeleteEnjoyment) {
+          onDeleteEnjoyment(deleteModal.id);
+        }
+        const msg = `Bagi nikmat dari "${deleteModal.title}" berhasil dihapus dari moderasi!`;
+        if (showToast) showToast(msg);
+        setAdminNotice({ type: 'success', message: msg });
+      }
+      setDeleteModal(prev => ({ ...prev, isOpen: false }));
+      setTimeout(() => {
+        setAdminNotice(null);
+      }, 5000);
+    } catch (err) {
+      console.error('Gagal menghapus item:', err);
+      const errMsg = 'Gagal menghapus: ' + (err.message || 'Terjadi kesalahan');
+      if (showToast) showToast(errMsg);
+      setAdminNotice({ type: 'error', message: errMsg });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -238,6 +337,31 @@ export default function AdminDashboard({
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       
+      {/* Banner Notifikasi Aksi Admin */}
+      {adminNotice && (
+        <div className={`p-4 rounded-2xl flex items-center justify-between gap-3 text-xs font-semibold shadow-lg animate-in slide-in-from-top-2 duration-300 ${
+          adminNotice.type === 'success' 
+            ? 'bg-emerald-950/90 text-emerald-200 border border-emerald-500/30 shadow-emerald-950/20' 
+            : 'bg-rose-950/90 text-rose-200 border border-rose-500/30 shadow-rose-950/20'
+        }`}>
+          <div className="flex items-center gap-2.5">
+            {adminNotice.type === 'success' ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            ) : (
+              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+            )}
+            <span>{adminNotice.message}</span>
+          </div>
+          <button 
+            type="button"
+            onClick={() => setAdminNotice(null)}
+            className="p-1 hover:bg-white/10 rounded-lg transition"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
       {/* Top Admin Banner */}
       <div className="relative overflow-hidden rounded-[32px] p-6 sm:p-8 text-white border border-stone-800 shadow-2xl bg-stone-900">
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -456,7 +580,7 @@ export default function AdminDashboard({
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={(e) => onDeleteBook(b.id, e)}
+                            onClick={(e) => triggerDeleteBook(b, e)}
                             className="h-8 px-2 text-rose-600 hover:bg-rose-50 rounded-xl text-xs"
                           >
                             <Trash2 className="w-3.5 h-3.5 mr-1" />
@@ -628,7 +752,7 @@ export default function AdminDashboard({
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => handleDeleteUser(u.id, u.full_name)}
+                              onClick={() => triggerDeleteUser(u)}
                               className="h-8 px-2 text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -692,7 +816,7 @@ export default function AdminDashboard({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => onDeleteEnjoyment(item.id)}
+                      onClick={() => triggerDeleteEnjoyment(item)}
                       className="h-7 px-2 text-[10px] rounded-full text-rose-600 hover:bg-rose-50"
                     >
                       <Trash2 className="w-3 h-3 mr-1" />
@@ -1175,6 +1299,108 @@ export default function AdminDashboard({
               </Button>
             </div>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* ======================= MODAL DIALOG KONFIRMASI HAPUS ADMIN (MODERN & ELEGAN) ======================= */}
+      <Dialog 
+        open={deleteModal.isOpen} 
+        onOpenChange={(open) => {
+          if (!open && !isDeleting) {
+            setDeleteModal(prev => ({ ...prev, isOpen: false }));
+          }
+        }}
+      >
+        <DialogContent className="max-w-md w-full bg-[#FAF7F2] border border-[#1C1917]/10 shadow-2xl rounded-[28px] p-6 overflow-hidden">
+          {/* Header Dialog dengan Icon Trash2 Bernuansa Rose */}
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-rose-100 border border-rose-200/80 flex items-center justify-center text-rose-600 shrink-0 shadow-xs">
+              <Trash2 className="w-6 h-6 stroke-[2.2]" />
+            </div>
+            <div className="space-y-1 pr-3">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700 bg-rose-100/70 border border-rose-300/60 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 text-rose-600" />
+                {deleteModal.badgeText || 'Konfirmasi Tindakan Admin'}
+              </span>
+              <DialogTitle className="text-lg font-serif font-bold text-[#1C1917] leading-tight">
+                {deleteModal.headline || 'Konfirmasi Penghapusan'}
+              </DialogTitle>
+              <DialogDescription className="text-xs text-[#78716C] leading-relaxed">
+                Tindakan ini permanen. Mohon periksa kembali rincian data di bawah ini sebelum melanjutkan.
+              </DialogDescription>
+            </div>
+          </div>
+
+          {/* Kartu Ringkasan Detail Data yang Akan Dihapus */}
+          <div className="mt-4 p-4 rounded-2xl bg-white border border-[#1C1917]/10 shadow-xs space-y-3">
+            <div className="flex items-center gap-3">
+              {deleteModal.icon && (
+                <div className="w-11 h-11 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-xl shadow-2xs shrink-0">
+                  {deleteModal.icon}
+                </div>
+              )}
+              {deleteModal.avatar && (
+                <img 
+                  src={deleteModal.avatar} 
+                  alt={deleteModal.title} 
+                  className="w-11 h-11 rounded-xl object-cover border border-[#1C1917]/15 shrink-0 shadow-2xs"
+                />
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-bold text-[#1C1917] truncate leading-tight">
+                  {deleteModal.title}
+                </p>
+                <p className="text-[11px] text-[#78716C] truncate mt-0.5">
+                  {deleteModal.subtitle}
+                </p>
+              </div>
+            </div>
+
+            {deleteModal.detail && (
+              <div className="p-3 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/5 text-[11px] text-stone-700 font-serif italic leading-relaxed">
+                "{deleteModal.detail}"
+              </div>
+            )}
+
+            {/* Warning Box */}
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5 text-amber-950 text-[11px] leading-relaxed">
+              <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+              <span className="font-medium">
+                {deleteModal.warningText || 'Data akan dihapus permanen dari sistem.'}
+              </span>
+            </div>
+          </div>
+
+          {/* Tombol Aksi */}
+          <div className="mt-5 flex items-center justify-end gap-2.5">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isDeleting}
+              onClick={() => setDeleteModal(prev => ({ ...prev, isOpen: false }))}
+              className="rounded-xl px-4 h-9 text-xs font-semibold border-stone-300 hover:bg-stone-100 text-stone-700"
+            >
+              Batal
+            </Button>
+            <Button
+              type="button"
+              disabled={isDeleting}
+              onClick={handleConfirmDelete}
+              className="rounded-xl px-5 h-9 text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-md shadow-rose-600/20 flex items-center gap-1.5 transition-all active:scale-95"
+            >
+              {isDeleting ? (
+                <>
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  Menghapus...
+                </>
+              ) : (
+                <>
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Ya, Hapus Sekarang
+                </>
+              )}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
 
