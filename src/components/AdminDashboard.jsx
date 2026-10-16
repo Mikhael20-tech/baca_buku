@@ -1316,7 +1316,7 @@ export default function AdminDashboard({
         </DialogContent>
       </Dialog>
 
-      {/* ======================= MODAL DIALOG KONFIRMASI HAPUS ADMIN (MODERN & ELEGAN) ======================= */}
+      {/* ======================= MODAL DIALOG KONFIRMASI HAPUS ADMIN (MODERN, PRESISI & RESPONSIVE) ======================= */}
       <Dialog 
         open={deleteModal.isOpen} 
         onOpenChange={(open) => {
@@ -1325,31 +1325,33 @@ export default function AdminDashboard({
           }
         }}
       >
-        <DialogContent className="sm:max-w-md w-full bg-[#FAF7F2] border border-[#1C1917]/15 shadow-2xl rounded-[32px] p-6 sm:p-7">
-          {/* Header Dialog dengan Icon Trash2 Bernuansa Rose */}
-          <div className="flex items-start gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-rose-100 border border-rose-200/80 flex items-center justify-center text-rose-600 shrink-0 shadow-xs">
+        <DialogContent className="w-[92vw] max-w-[440px] bg-[#FAF7F2] border border-[#1C1917]/15 shadow-2xl rounded-2xl sm:rounded-3xl p-5 sm:p-6 gap-0">
+          {/* Header Dialog */}
+          <div className="flex items-start gap-3 pb-3.5 border-b border-[#1C1917]/8 pr-6">
+            <div className="w-10 h-10 rounded-xl bg-rose-100/80 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0 shadow-xs">
               <Trash2 className="w-5 h-5 stroke-[2.2]" />
             </div>
-            <div className="space-y-1 min-w-0 flex-1 pr-6">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700 bg-rose-100/70 border border-rose-300/60 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
-                <AlertTriangle className="w-3 h-3 text-rose-600" />
-                {deleteModal.badgeText || 'Konfirmasi Tindakan Admin'}
-              </span>
-              <DialogTitle className="text-base sm:text-lg font-serif font-bold text-[#1C1917] leading-snug">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 border border-rose-200/80 px-2 py-0.5 rounded-md inline-flex items-center gap-1">
+                  <AlertTriangle className="w-3 h-3 text-rose-600 shrink-0" />
+                  <span>{deleteModal.badgeText || 'Konfirmasi Tindakan'}</span>
+                </span>
+              </div>
+              <DialogTitle className="text-base sm:text-lg font-serif font-bold text-[#1C1917] leading-tight">
                 {deleteModal.headline || 'Konfirmasi Penghapusan'}
               </DialogTitle>
-              <DialogDescription className="text-xs text-[#78716C] leading-relaxed">
-                Tindakan ini permanen. Mohon periksa kembali rincian data di bawah ini sebelum melanjutkan.
+              <DialogDescription className="text-xs text-[#78716C] mt-1 leading-snug">
+                Tindakan ini permanen. Periksa kembali data di bawah ini.
               </DialogDescription>
             </div>
           </div>
 
           {/* Kartu Ringkasan Detail Data yang Akan Dihapus */}
-          <div className="mt-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-[#1C1917]/10 shadow-xs space-y-3">
-            <div className="flex items-center gap-3">
+          <div className="py-3.5 space-y-2.5">
+            <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-[#1C1917]/10 shadow-xs flex items-center gap-3">
               {deleteModal.icon && (
-                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-xl shadow-2xs shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-amber-50 border border-amber-200/60 flex items-center justify-center text-xl shadow-2xs shrink-0">
                   {deleteModal.icon}
                 </div>
               )}
@@ -1357,36 +1359,36 @@ export default function AdminDashboard({
                 <img 
                   src={deleteModal.avatar} 
                   alt={deleteModal.title} 
-                  className="w-10 h-10 rounded-xl object-cover border border-[#1C1917]/15 shrink-0 shadow-2xs"
+                  className="w-10 h-10 rounded-lg object-cover border border-[#1C1917]/15 shrink-0 shadow-2xs"
                 />
               )}
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-bold text-[#1C1917] truncate leading-tight">
+                <p className="text-xs sm:text-sm font-bold text-[#1C1917] leading-snug break-words">
                   {deleteModal.title}
                 </p>
-                <p className="text-[11px] text-[#78716C] truncate mt-0.5 leading-snug">
+                <p className="text-[11px] text-[#78716C] mt-0.5 leading-snug break-words">
                   {deleteModal.subtitle}
                 </p>
               </div>
             </div>
 
             {deleteModal.detail && (
-              <div className="p-3 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/5 text-[11px] text-stone-700 font-serif italic leading-relaxed">
+              <div className="p-2.5 rounded-xl bg-[#F4EFE6] border border-[#1C1917]/8 text-[11px] text-stone-700 font-serif italic leading-relaxed break-words">
                 "{deleteModal.detail}"
               </div>
             )}
 
             {/* Warning Box */}
-            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-2.5 text-amber-950 text-[11px] leading-relaxed">
-              <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-              <span className="font-medium min-w-0 flex-1 leading-snug break-words">
+            <div className="p-2.5 sm:p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-start gap-2 text-amber-950 text-[11px] leading-snug">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
+              <span className="font-medium break-words">
                 {deleteModal.warningText || 'Data akan dihapus permanen dari sistem.'}
               </span>
             </div>
           </div>
 
           {/* Tombol Aksi */}
-          <div className="mt-4 flex items-center justify-end gap-2.5">
+          <div className="pt-3 border-t border-[#1C1917]/8 flex items-center justify-end gap-2 sm:gap-2.5">
             <Button
               type="button"
               variant="outline"
@@ -1405,12 +1407,12 @@ export default function AdminDashboard({
               {isDeleting ? (
                 <>
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  Menghapus...
+                  <span>Menghapus...</span>
                 </>
               ) : (
                 <>
                   <Trash2 className="w-3.5 h-3.5" />
-                  Ya, Hapus Sekarang
+                  <span>Ya, Hapus Sekarang</span>
                 </>
               )}
             </Button>

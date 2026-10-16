@@ -18,6 +18,77 @@ import BibleVerseCardModal from './BibleVerseCardModal';
 import BiblePersonalNoteModal from './BiblePersonalNoteModal';
 import BibleNotesListModal from './BibleNotesListModal';
 import BibleVerseCompareModal from './BibleVerseCompareModal';
+import BibleScofieldIndexModal from './BibleScofieldIndexModal';
+import BibleScofieldClassicView from './BibleScofieldClassicView';
+
+const BIBLE_ABBR_MAP = {
+  gen: 'kejadian', genesis: 'kejadian', kej: 'kejadian',
+  exo: 'keluaran', exodus: 'keluaran', kel: 'keluaran',
+  lev: 'imamat', leviticus: 'imamat', im: 'imamat',
+  num: 'bilangan', numbers: 'bilangan', bil: 'bilangan',
+  deu: 'ulangan', deuteronomy: 'ulangan', ul: 'ulangan',
+  jos: 'yosua', joshua: 'yosua', yos: 'yosua',
+  jdg: 'hakim-hakim', judges: 'hakim-hakim', hak: 'hakim-hakim',
+  rut: 'rut', ruth: 'rut',
+  '1sa': '1-samuel', '1samuel': '1-samuel', '1sam': '1-samuel',
+  '2sa': '2-samuel', '2samuel': '2-samuel', '2sam': '2-samuel',
+  '1ki': '1-raja-raja', '1kings': '1-raja-raja', '1raj': '1-raja-raja',
+  '2ki': '2-raja-raja', '2kings': '2-raja-raja', '2raj': '2-raja-raja',
+  '1ch': '1-tawarikh', '1chronicles': '1-tawarikh', '1taw': '1-tawarikh',
+  '2ch': '2-tawarikh', '2chronicles': '2-tawarikh', '2taw': '2-tawarikh',
+  ezr: 'ezra', ezra: 'ezra',
+  neh: 'nehemia', nehemiah: 'nehemia',
+  est: 'ester', esther: 'ester',
+  job: 'ayub', ayub: 'ayub',
+  psa: 'mazmur', psalms: 'mazmur', psalm: 'mazmur', maz: 'mazmur',
+  pro: 'amsal', proverbs: 'amsal', ams: 'amsal',
+  ecc: 'pengkhotbah', ecclesiastes: 'pengkhotbah', pkh: 'pengkhotbah',
+  sol: 'kidung-agung', song: 'kidung-agung', 'song of solomon': 'kidung-agung', kid: 'kidung-agung',
+  isa: 'yesaya', isaiah: 'yesaya', yes: 'yesaya',
+  jer: 'yeremia', jeremiah: 'yeremia', yer: 'yeremia',
+  lam: 'ratapan', lamentations: 'ratapan', rat: 'ratapan',
+  eze: 'yehezkiel', ezekiel: 'yehezkiel', yeh: 'yehezkiel',
+  dan: 'daniel',
+  hos: 'hosea',
+  joe: 'yoel', joel: 'yoel',
+  amo: 'amos',
+  oba: 'obaja', obadiah: 'obaja',
+  jon: 'yunus', jonah: 'yunus',
+  mic: 'mikha', micah: 'mikha',
+  nah: 'nahum',
+  hab: 'habakuk', habakkuk: 'habakuk',
+  zep: 'zefanya', zephaniah: 'zefanya',
+  hag: 'hagai', haggai: 'hagai',
+  zec: 'zakharia', zechariah: 'zakharia',
+  mal: 'maleakhi', malachi: 'maleakhi',
+  mat: 'matius', matthew: 'matius',
+  mar: 'markus', mark: 'markus',
+  luk: 'lukas', luke: 'lukas',
+  joh: 'yohanes', john: 'yohanes', yoh: 'yohanes',
+  act: 'kisah-para-rasul', acts: 'kisah-para-rasul', kis: 'kisah-para-rasul',
+  rom: 'roma', romans: 'roma',
+  '1co': '1-korintus', '1corinthians': '1-korintus', '1kor': '1-korintus',
+  '2co': '2-korintus', '2corinthians': '2-korintus', '2kor': '2-korintus',
+  gal: 'galatia', galatians: 'galatia',
+  eph: 'efesus', ephesians: 'efesus',
+  php: 'filipi', philippians: 'filipi',
+  col: 'kolose', colossians: 'kolose',
+  '1th': '1-tesalonika', '1thessalonians': '1-tesalonika', '1tes': '1-tesalonika',
+  '2th': '2-tesalonika', '2thessalonians': '2-tesalonika', '2tes': '2-tesalonika',
+  '1ti': '1-timotius', '1timothy': '1-timotius', '1tim': '1-timotius',
+  '2ti': '2-timotius', '2timothy': '2-timotius', '2tim': '2-timotius',
+  tit: 'titus',
+  phm: 'filemon', philemon: 'filemon',
+  heb: 'ibrani', hebrews: 'ibrani',
+  jas: 'yakobus', james: 'yakobus', yak: 'yakobus',
+  '1pe': '1-petrus', '1peter': '1-petrus', '1pet': '1-petrus',
+  '2pe': '2-petrus', '2peter': '2-petrus', '2pet': '2-petrus',
+  '1jo': '1-yohanes', '1john': '1-yohanes', '1yoh': '1-yohanes',
+  '2jo': '2-yohanes', '2john': '2-yohanes', '2yoh': '2-yohanes',
+  '3jo': '3-yohanes', '3john': '3-yohanes', '3yoh': '3-yohanes',
+  jud: 'yudas', jude: 'yudas',
+  rev: 'wahyu', revelation: 'wahyu', wah: 'wahyu'
+};
 
 const FONTS = [
   { id: 'Cinzel', name: 'Cinzel (Artistik)', font: "'Cinzel', Georgia, serif" },
@@ -31,8 +102,10 @@ const FONTS = [
 ];
 
 export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
-  const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'en'
+  const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'en' | 'scofield'
+  const [scofieldLayout, setScofieldLayout] = useState(() => localStorage.getItem('bible_scofield_layout') || 'classic'); // 'classic' | 'modern'
   const [viewMode, setViewMode] = useState(() => localStorage.getItem('bible_view_mode') || 'single'); // 'single' | 'parallel'
+  const [isScofieldIndexOpen, setIsScofieldIndexOpen] = useState(false);
   
   const [books, setBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(() => localStorage.getItem('last_bible_book') || 'matius');
@@ -113,10 +186,16 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
 
   // 1. Fetch Daftar 66 Kitab
   useEffect(() => {
-    const booksUrl = bibleLang === 'en' ? '/bible/en/books.json' : '/bible/books.json';
+    let booksUrl = '/bible/books.json';
+    if (bibleLang === 'en') {
+      booksUrl = '/bible/en/books.json';
+    } else if (bibleLang === 'scofield') {
+      booksUrl = '/bible/scofield/books.json';
+    }
+
     fetch(booksUrl)
       .then(res => {
-        if (!res.ok && bibleLang === 'en') {
+        if (!res.ok) {
           return fetch('/bible/books.json').then(r => r.json());
         }
         return res.json();
@@ -155,13 +234,16 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         });
     } else {
       setParallelBookData(null);
-      const primaryUrl = bibleLang === 'en'
-        ? `/bible/en/${selectedBookId}.json?v=${Date.now()}`
-        : `/bible/${selectedBookId}.json?v=${Date.now()}`;
+      let primaryUrl = `/bible/${selectedBookId}.json?v=${Date.now()}`;
+      if (bibleLang === 'en') {
+        primaryUrl = `/bible/en/${selectedBookId}.json?v=${Date.now()}`;
+      } else if (bibleLang === 'scofield') {
+        primaryUrl = `/bible/scofield/${selectedBookId}.json?v=${Date.now()}`;
+      }
 
       fetch(primaryUrl)
         .then(res => {
-          if (!res.ok && bibleLang === 'en') {
+          if (!res.ok) {
             return fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.json());
           }
           return res.json();
@@ -489,6 +571,35 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         setTimeout(() => setHighlightedVerse(null), 3000);
       }
     }, 400);
+  };
+
+  const handleSelectScofieldReference = (refStr) => {
+    if (!refStr) return;
+    const match = refStr.match(/^([0-9]?\s*[A-Za-z]+)\.?\s*(\d+)(?::(\d+))?/);
+    if (!match) return;
+    const rawBook = match[1].toLowerCase().replace(/\s+/g, '');
+    const chap = Number(match[2]) || 1;
+    const v = match[3] ? Number(match[3]) : null;
+
+    const targetBookId = BIBLE_ABBR_MAP[rawBook] || rawBook;
+    if (targetBookId) {
+      if (bibleLang !== 'scofield') {
+        setBibleLang('scofield');
+        localStorage.setItem('bible_language', 'scofield');
+      }
+      setSelectedBookId(targetBookId);
+      setSelectedChapter(chap);
+      if (v) {
+        setTimeout(() => {
+          const el = document.getElementById(`verse-${v}`) || document.getElementById(`classic-verse-${v}`);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setHighlightedVerse(v);
+            setTimeout(() => setHighlightedVerse(null), 3000);
+          }
+        }, 500);
+      }
+    }
   };
 
   // Theme Styles
@@ -829,6 +940,22 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               </button>
               <button
                 type="button"
+                onClick={() => {
+                  setViewMode('single');
+                  setBibleLang('scofield');
+                  localStorage.setItem('bible_language', 'scofield');
+                }}
+                className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  viewMode === 'single' && bibleLang === 'scofield'
+                    ? 'bg-amber-800 text-white shadow-xs'
+                    : `${themeStyles.text} opacity-60 hover:opacity-100`
+                }`}
+                title="The Scofield Reference Bible 1917"
+              >
+                Scofield
+              </button>
+              <button
+                type="button"
                 onClick={() => setViewMode(prev => prev === 'parallel' ? 'single' : 'parallel')}
                 className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
                   viewMode === 'parallel'
@@ -1069,6 +1196,74 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
             </div>
           </div>
 
+          {/* Scofield 1917 Specific Toolbar & View Switcher */}
+          {bibleLang === 'scofield' && (
+            <div className="flex flex-wrap items-center justify-between gap-2.5 p-3 sm:p-3.5 bg-amber-500/10 dark:bg-amber-950/40 border border-amber-300/80 dark:border-amber-800/80 rounded-2xl shadow-xs">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-amber-950 dark:text-amber-200 font-serif">
+                  Tata Letak:
+                </span>
+                <div className="flex items-center p-0.5 rounded-xl border border-amber-300 dark:border-amber-700 bg-white dark:bg-zinc-800">
+                  <button
+                    onClick={() => {
+                      setScofieldLayout('classic');
+                      localStorage.setItem('bible_scofield_layout', 'classic');
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold font-serif transition ${
+                      scofieldLayout === 'classic'
+                        ? 'bg-amber-800 text-white shadow-xs'
+                        : 'text-stone-700 dark:text-zinc-300 hover:text-amber-800'
+                    }`}
+                  >
+                    📜 Cetak 1917
+                  </button>
+                  <button
+                    onClick={() => {
+                      setScofieldLayout('modern');
+                      localStorage.setItem('bible_scofield_layout', 'modern');
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold font-serif transition ${
+                      scofieldLayout === 'modern'
+                        ? 'bg-amber-800 text-white shadow-xs'
+                        : 'text-stone-700 dark:text-zinc-300 hover:text-amber-800'
+                    }`}
+                  >
+                    📱 Modern
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsScofieldIndexOpen(true)}
+                  className="h-8 rounded-xl bg-white dark:bg-zinc-800 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-300 font-bold text-xs flex items-center gap-1.5 hover:bg-amber-100"
+                >
+                  <Compass className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                  <span>Indeks Topikal</span>
+                  <Badge variant="secondary" className="text-[10px] h-4 px-1 bg-amber-100 text-amber-900 font-mono">541</Badge>
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* If Scofield Classic View is selected */}
+          {bibleLang === 'scofield' && scofieldLayout === 'classic' ? (
+            <BibleScofieldClassicView
+              bookData={bookData}
+              selectedChapter={selectedChapter}
+              onOpenFootnote={(vNum, nIdx, fn) => handleOpenFootnote(vNum, nIdx, fn, 'scofield')}
+              onOpenIndex={() => setIsScofieldIndexOpen(true)}
+              onOpenBookIntro={() => setIsIntroModalOpen(true)}
+              onPrevChapter={handlePrevChapter}
+              onNextChapter={handleNextChapter}
+              canPrev={selectedChapter > 1 || books.findIndex(b => b.id === selectedBookId) > 0}
+              canNext={selectedChapter < totalChapters || books.findIndex(b => b.id === selectedBookId) < books.length - 1}
+            />
+          ) : (
+            <>
+
           {/* Pengantar & Pokok Kitab (Khusus Pasal 1 jika tersedia) */}
           {selectedChapter === 1 && bookData?.intro && (
             <div className={`rounded-2xl border p-4 sm:p-5 transition-all ${themeStyles.outlineBadge}`}>
@@ -1301,30 +1496,57 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                             <FileText className="w-3.5 h-3.5" />
                           </button>
 
-                          {/* Compare ID & EN Translation (Nomor 6) */}
+                          {/* Compare ID, EN & Scofield Translation (Nomor 6) */}
                           <button
                             onClick={async () => {
                               const vNum = item.verse;
                               let idV = item;
                               let enV = enItem;
-                              if (!enV) {
+                              let scofieldV = null;
+
+                              if (bibleLang === 'scofield') {
+                                scofieldV = item;
                                 try {
-                                  const res = await fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`);
-                                  if (res.ok) {
-                                    const d = await res.json();
+                                  const resId = await fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`);
+                                  if (resId.ok) {
+                                    const d = await resId.json();
+                                    idV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
+                                  }
+                                  const resEn = await fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`);
+                                  if (resEn.ok) {
+                                    const d = await resEn.json();
                                     enV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
                                   }
                                 } catch(e) {}
+                              } else {
+                                if (!enV) {
+                                  try {
+                                    const res = await fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`);
+                                    if (res.ok) {
+                                      const d = await res.json();
+                                      enV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
+                                    }
+                                  } catch(e) {}
+                                }
+                                try {
+                                  const sRes = await fetch(`/bible/scofield/${selectedBookId}.json?v=${Date.now()}`);
+                                  if (sRes.ok) {
+                                    const sData = await sRes.json();
+                                    scofieldV = sData?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
+                                  }
+                                } catch(e) {}
                               }
+
                               setCompareVerseData({
                                 verseNum: vNum,
                                 idVerse: idV,
-                                enVerse: enV
+                                enVerse: enV,
+                                scofieldVerse: scofieldV
                               });
                               setActiveVerseMenu(null);
                             }}
                             className="p-1.5 rounded-full text-slate-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-zinc-700 transition"
-                            title={bibleLang === 'en' ? 'Compare ID & EN' : 'Bandingkan Terjemahan ID & EN'}
+                            title={bibleLang === 'en' ? 'Compare ID, EN & Scofield' : 'Bandingkan Terjemahan (3 Versi)'}
                           >
                             <Columns className="w-3.5 h-3.5" />
                           </button>
@@ -1374,6 +1596,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 );
               })}
             </div>
+          )}
+          </>
           )}
 
           {/* Navigasi Bawah Pasal */}
@@ -1754,7 +1978,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         bibleLang={bibleLang}
       />
 
-      {/* MODAL 12: QUICK VERSE COMPARE ID & EN (Nomor 6) */}
+      {/* MODAL 12: QUICK VERSE COMPARE ID, EN & SCOFIELD (Nomor 6) */}
       <BibleVerseCompareModal
         isOpen={Boolean(compareVerseData)}
         onClose={() => setCompareVerseData(null)}
@@ -1764,6 +1988,15 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         chapter={selectedChapter}
         idVerse={compareVerseData?.idVerse}
         enVerse={compareVerseData?.enVerse}
+        scofieldVerse={compareVerseData?.scofieldVerse}
+        bibleLang={bibleLang}
+      />
+
+      {/* MODAL 13: SCOFIELD TOPICAL INDEX */}
+      <BibleScofieldIndexModal
+        isOpen={isScofieldIndexOpen}
+        onClose={() => setIsScofieldIndexOpen(false)}
+        onSelectReference={handleSelectScofieldReference}
         bibleLang={bibleLang}
       />
 

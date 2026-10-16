@@ -6,7 +6,8 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang }
   if (!isOpen || !bookData || !bookData.intro) return null;
 
   const intro = bookData.intro;
-  const isEn = bibleLang === 'en';
+  const isEn = bibleLang === 'en' || bibleLang === 'scofield';
+  const isScofield = bibleLang === 'scofield' || bookData.translation_short === 'Scofield 1917';
 
   const subject = isEn ? intro.Subject : (intro.Pokok || intro.Subject);
   const author = isEn ? intro.Author : (intro.Penulis || intro.Author);
@@ -20,21 +21,25 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang }
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-zinc-900 rounded-3xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 max-h-[85vh] flex flex-col space-y-4 animate-modal-card-in"
+        className="bg-[#fcfaf5] dark:bg-zinc-900 rounded-3xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 max-h-[85vh] flex flex-col space-y-4 animate-modal-card-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
+        <div className="flex items-center justify-between pb-3 border-b border-amber-200/70 dark:border-zinc-800">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-zinc-100">
-                {isEn ? `Book Overview: ${bookData.name}` : `Pengantar Kitab: ${bookData.name}`}
+              <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-zinc-100 font-serif">
+                {isScofield 
+                  ? `Scofield 1917: ${bookData.name}` 
+                  : isEn ? `Book Overview: ${bookData.name}` : `Pengantar Kitab: ${bookData.name}`}
               </h3>
-              <p className="text-[11px] text-slate-500 dark:text-zinc-400">
-                {isEn ? 'Holy Bible Recovery Version • Footnotes & Outlines' : 'Alkitab Versi Pemulihan • Catatan Kaki & Garis Besar'}
+              <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-mono">
+                {isScofield 
+                  ? 'The Scofield Reference Bible (1917 Edition) • Book Exposition'
+                  : isEn ? 'Holy Bible Recovery Version • Footnotes & Outlines' : 'Alkitab Versi Pemulihan • Catatan Kaki & Garis Besar'}
               </p>
             </div>
           </div>
@@ -48,6 +53,20 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang }
 
         {/* Content Body */}
         <div className="overflow-y-auto pr-1 flex-1 space-y-4 text-xs sm:text-sm">
+          {/* Scofield Book Introduction Text */}
+          {intro.text && (
+            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-800/60 border border-amber-200/80 dark:border-zinc-700 space-y-3 shadow-2xs font-serif">
+              <div className="border-b border-amber-200/60 dark:border-zinc-700 pb-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 block">
+                  {intro.title || 'Book Introduction'}
+                </span>
+              </div>
+              <div className="text-stone-800 dark:text-zinc-200 text-sm sm:text-base leading-relaxed space-y-3 whitespace-pre-line text-justify">
+                {intro.text}
+              </div>
+            </div>
+          )}
+
           {/* Pokok / Subject (Highlighted Card) */}
           {subject && (
             <div className="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-950 dark:text-amber-200 space-y-1">
