@@ -4,7 +4,7 @@ import {
   ChevronRight, Heart, Flame, Sun, Sunrise, Compass,
   CheckCircle2, Utensils, MessageSquare, Quote, Layers,
   ChevronDown, BookMarked, Play, Star, Smartphone, RefreshCw,
-  Send, User, Volume2, ChevronLeft, LogIn, Settings, Users, Search
+  Send, User, Volume2, ChevronLeft, LogIn, Settings, Users, Search, Music
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -87,6 +87,7 @@ function AnimatedCounter({ target, suffix = '', duration = 1400 }) {
 export default function LandingPage({ 
   onEnterLibrary, 
   onOpenBible, 
+  onOpenKidung,
   onOpenQuickScripture,
   onOpenLogin, 
   isLoggedIn, 
@@ -265,6 +266,18 @@ export default function LandingPage({
             >
               <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
               <span className="hidden sm:inline">Alkitab</span>
+            </Button>
+
+            {/* Kidung & Suplemen Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onOpenKidung && onOpenKidung('kidung')}
+              className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              title="Kidung Rohani & Suplemen"
+            >
+              <Music className="w-3.5 h-3.5 mr-1 text-amber-700" />
+              <span className="hidden sm:inline">Kidung</span>
             </Button>
 
             {/* Katalog Buku Button */}

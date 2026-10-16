@@ -3,7 +3,7 @@ import {
   BookOpen, Search, UploadCloud, Database, ShieldCheck, UserCheck, 
   Trash2, Play, Info, Sparkles, CheckCircle2, Copy, 
   ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils,
-  User, Smartphone, ChevronDown, LogIn, Settings, Users, Lock
+  User, Smartphone, ChevronDown, LogIn, Settings, Users, Lock, Music
 } from 'lucide-react';
 import { 
   DropdownMenu, 
@@ -23,6 +23,7 @@ import KarakterSeriesModal from './components/KarakterSeriesModal';
 import PembinaanTopicsModal from './components/PembinaanTopicsModal';
 import BibleSelectorModal from './components/BibleSelectorModal';
 import BibleReaderView from './components/BibleReaderView';
+import KidungReaderView from './components/KidungReaderView';
 import UserDashboard from './components/UserDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import SubscriptionModal from './components/SubscriptionModal';
@@ -97,10 +98,10 @@ const INITIAL_DEMO_BOOKS = [
   // ==========================================
   {
     id: 'kidung-jemaat-indonesia',
-    title: 'Kidung Rohani (Kidung 1 – 792)',
+    title: 'Kidung Rohani (Kidung 1 – 786)',
     author: 'Yasperin / LSM',
     category: 'Kidung & Pujian',
-    description: 'Koleksi lengkap 792 Kidung Rohani (Hymns) Indonesia: lirik bait, koor/refrein, metrum not lagu, serta kisah latar belakang pengarang rohani.',
+    description: 'Koleksi lengkap 786 Kidung Rohani (Hymns) Indonesia: lirik bait, koor/refrein, nada/birama, dan indeks 29 kategori tematik.',
     cover_gradient: 'from-amber-600 via-yellow-700 to-amber-950',
     cover_icon: '🎵',
     file_path: '/books/kidung-jemaat-indonesia.epub',
@@ -108,10 +109,10 @@ const INITIAL_DEMO_BOOKS = [
   },
   {
     id: 'suplemen-kidung-indonesia',
-    title: 'Suplemen Kidung Rohani (S. 1 – 341)',
+    title: 'Suplemen Kidung Rohani (S. 0001 – S. 2032)',
     author: 'Yasperin / LSM',
     category: 'Kidung & Pujian',
-    description: 'Koleksi lengkap 341 Kidung Suplemen (New Songs): Kata-kata Pujian, Roh dan Hayat, Menikmati Kristus, Visi Gereja, dan Pembangunan Tubuh Kristus.',
+    description: 'Koleksi lengkap 372 Kidung Suplemen penomoran 4 digit (S. 0001 – S. 2032): Kata-kata Pujian, Roh & Hayat, Menikmati Kristus, Visi Gereja, hingga S. 2032 Kasih Karunia.',
     cover_gradient: 'from-amber-500 via-orange-700 to-amber-900',
     cover_icon: '🎶',
     file_path: '/books/suplemen-kidung-indonesia.epub',
@@ -407,6 +408,8 @@ export default function App() {
   const [isBibleSelectorModalOpen, setIsBibleSelectorModalOpen] = useState(false);
   const [isQuickScriptureOpen, setIsQuickScriptureOpen] = useState(false);
   const [lockedBookNotice, setLockedBookNotice] = useState(null);
+  const [kidungInitialTab, setKidungInitialTab] = useState('kidung');
+  const [kidungInitialSongId, setKidungInitialSongId] = useState(null);
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('baca_user_profile');
     if (saved) {
@@ -658,6 +661,14 @@ export default function App() {
       setIsPembinaanModalOpen(true);
     } else if (book.is_bible || book.id?.startsWith('alkitab-')) {
       setViewMode('bible');
+    } else if (book.id === 'kidung-jemaat-indonesia') {
+      setKidungInitialTab('kidung');
+      setKidungInitialSongId(null);
+      setViewMode('kidung');
+    } else if (book.id === 'suplemen-kidung-indonesia') {
+      setKidungInitialTab('suplemen');
+      setKidungInitialSongId(null);
+      setViewMode('kidung');
     } else {
       // Periksa apakah buku memerlukan paket Premium/Ultimate
       if (isBookLocked(book, userPlan, userRole)) {
@@ -851,6 +862,23 @@ export default function App() {
   }
 
   // ----------------------------------------------------
+  // Jika sedang membaca Kidung Rohani & Suplemen (RHV 2019)
+  // ----------------------------------------------------
+  if (!currentBook && viewMode === 'kidung') {
+    return (
+      <div className="fixed inset-0 z-50 bg-white">
+        <KidungReaderView 
+          initialTab={kidungInitialTab}
+          initialSongId={kidungInitialSongId}
+          onBackToHome={() => setViewMode('landing')} 
+          onOpenLibrary={() => setViewMode('library')} 
+          onOpenBible={() => setViewMode('bible')}
+        />
+      </div>
+    );
+  }
+
+  // ----------------------------------------------------
   // Halaman Page Awal (Landing Page)
   // ----------------------------------------------------
   if (!currentBook && viewMode === 'landing') {
@@ -872,6 +900,11 @@ export default function App() {
             } else {
               setViewMode('bible');
             }
+          }}
+          onOpenKidung={(targetTab = 'kidung', targetSongId = null) => {
+            setKidungInitialTab(targetTab);
+            setKidungInitialSongId(targetSongId);
+            setViewMode('kidung');
           }}
           onOpenQuickScripture={() => {
             if (!isLoggedIn) {
@@ -1043,6 +1076,22 @@ export default function App() {
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>Katalog</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setKidungInitialTab('kidung');
+                setKidungInitialSongId(null);
+                setViewMode('kidung');
+              }}
+              className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+                viewMode === 'kidung'
+                  ? 'bg-[#3B4B34] text-white shadow-xs'
+                  : 'text-[#78716C] hover:text-[#1C1917]'
+              }`}
+            >
+              <Music className="w-3.5 h-3.5 text-amber-400" />
+              <span>Kidung</span>
             </button>
 
             {/* HANYA MUNCUL JIKA USER PEMBACA */}
