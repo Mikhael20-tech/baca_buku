@@ -3,7 +3,8 @@ import {
   BookOpen, Search, UploadCloud, Database, ShieldCheck, UserCheck, 
   Trash2, Play, Info, Sparkles, CheckCircle2, Copy, 
   ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils,
-  User, Smartphone, ChevronDown, LogIn, Settings, Users, Lock, Music
+  User, Smartphone, ChevronDown, LogIn, Settings, Users, Lock, Music,
+  Menu, Home
 } from 'lucide-react';
 import { 
   DropdownMenu, 
@@ -412,6 +413,7 @@ export default function App() {
   const [lockedBookNotice, setLockedBookNotice] = useState(null);
   const [kidungInitialTab, setKidungInitialTab] = useState('kidung');
   const [kidungInitialSongId, setKidungInitialSongId] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('baca_user_profile');
     const customAvatar = localStorage.getItem('baca_user_avatar');
@@ -1121,30 +1123,30 @@ export default function App() {
 
       {/* Top Navigation Bar with Role and Dashboard Switcher */}
       <header className="sticky top-0 z-40 bg-[#F4EFE6]/90 backdrop-blur-md border-b border-[#1C1917]/8">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* Logo & Brand */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
             <button
               onClick={() => setViewMode('landing')}
-              className="w-10 h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift"
               title="Kembali ke Beranda"
             >
-              <Utensils className="w-5 h-5 text-amber-200" />
+              <Utensils className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-200" />
             </button>
             <div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setViewMode('landing')}
-                  className="font-extrabold text-2xl tracking-tight text-[#1C1917] font-serif hover:text-[#3B4B34] transition text-left"
+                  className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#1C1917] font-serif hover:text-[#3B4B34] transition text-left"
                 >
                   Baca.
                 </button>
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap">
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden sm:inline-flex">
                   Mari Makan Tuhan
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden sm:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
+              <p className="text-[11px] text-[#78716C] hidden md:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
             </div>
           </div>
 
@@ -1217,18 +1219,18 @@ export default function App() {
           </nav>
 
           {/* Actions: Clean & Compact */}
-          <div className="flex items-center gap-2 shrink-0">
-            {/* Quick Scripture Search Button (Only shown when logged in) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Quick Scripture Search Button (Only shown when logged in, desktop/tablet) */}
             {isLoggedIn && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setIsQuickScriptureOpen(true)}
-                className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
                 title="Cari Cepat Ayat Alkitab & Catatan Kaki"
               >
                 <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
-                <span className="hidden sm:inline">Cari Ayat</span>
+                <span>Cari Ayat</span>
               </Button>
             )}
 
@@ -1244,11 +1246,11 @@ export default function App() {
                   setViewMode('bible');
                 }
               }}
-              className="rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              className="hidden sm:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
               <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
-              <span className="hidden sm:inline">Alkitab</span>
+              <span>Alkitab</span>
             </Button>
 
             {/* Dropdown Akun & Paket (ROLE-SEPARATED) */}
@@ -1436,12 +1438,143 @@ export default function App() {
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Mobile Hamburger Menu Toggle Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white border border-[#1C1917]/15 text-[#1C1917] transition active:scale-95 shadow-xs"
+              aria-label="Toggle menu navigasi mobile"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-4.5 h-4.5 text-[#3B4B34]" />
+              ) : (
+                <Menu className="w-4.5 h-4.5 text-[#1C1917]" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Slide-down Drawer */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-[#1C1917]/10 bg-[#FAF7F2]/95 backdrop-blur-xl px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200 shadow-xl">
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold">
+              <button
+                onClick={() => {
+                  setViewMode('landing');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2.5 p-3 rounded-2xl transition active:scale-95 ${
+                  viewMode === 'landing' ? 'bg-[#3B4B34] text-white shadow-xs' : 'bg-white border border-[#1C1917]/10 text-[#1C1917]'
+                }`}
+              >
+                <Home className="w-4 h-4 text-amber-300" />
+                <span>Beranda</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setViewMode('library');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2.5 p-3 rounded-2xl transition active:scale-95 ${
+                  viewMode === 'library' ? 'bg-[#3B4B34] text-white shadow-xs' : 'bg-white border border-[#1C1917]/10 text-[#1C1917]'
+                }`}
+              >
+                <BookOpen className="w-4 h-4 text-amber-300" />
+                <span>Katalog Buku</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setKidungInitialTab('kidung');
+                  setKidungInitialSongId(null);
+                  setViewMode('kidung');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2.5 p-3 rounded-2xl transition active:scale-95 ${
+                  viewMode === 'kidung' ? 'bg-[#3B4B34] text-white shadow-xs' : 'bg-amber-50 border border-amber-600/20 text-amber-900'
+                }`}
+              >
+                <Music className="w-4 h-4 text-amber-600" />
+                <span>Kidung &amp; Suplemen</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    setIsAuthModalOpen(true);
+                    showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
+                  } else {
+                    setViewMode('bible');
+                  }
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-2.5 p-3 rounded-2xl transition active:scale-95 ${
+                  viewMode === 'bible' ? 'bg-[#3B4B34] text-white shadow-xs' : 'bg-white border border-[#1C1917]/10 text-[#3B4B34]'
+                }`}
+              >
+                <BookMarked className="w-4 h-4 text-[#3B4B34]" />
+                <span>Alkitab Pemulihan</span>
+              </button>
+            </div>
+
+            {isLoggedIn ? (
+              <div className="pt-2 border-t border-[#1C1917]/10 flex flex-col gap-1.5 text-xs font-bold">
+                {userRole === 'admin' ? (
+                  <button
+                    onClick={() => {
+                      setViewMode('admin-dashboard');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full p-2.5 rounded-xl bg-stone-900 text-white flex items-center justify-center gap-2 shadow-xs"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    <span>Buka Dashboard Admin</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setViewMode('user-dashboard');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full p-2.5 rounded-xl bg-[#3B4B34] text-white flex items-center justify-center gap-2 shadow-xs"
+                  >
+                    <User className="w-4 h-4 text-amber-300" />
+                    <span>Buka Dashboard Saya</span>
+                  </button>
+                )}
+
+                <button
+                  onClick={() => {
+                    setIsQuickScriptureOpen(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full p-2.5 rounded-xl bg-amber-50 border border-amber-600/20 text-amber-900 flex items-center justify-center gap-2"
+                >
+                  <Search className="w-4 h-4 text-amber-700" />
+                  <span>Cari Cepat Ayat Alkitab</span>
+                </button>
+              </div>
+            ) : (
+              <div className="pt-2 border-t border-[#1C1917]/10">
+                <button
+                  onClick={() => {
+                    setIsAuthModalOpen(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full p-2.5 rounded-xl bg-[#3B4B34] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-xs"
+                >
+                  <LogIn className="w-4 h-4 text-amber-300" />
+                  <span>Masuk / Daftar Akun</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </header>
 
       {/* Main Container */}
-      <main className="relative z-10 flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
+      <main className="relative z-10 flex-1 max-w-[1280px] w-full mx-auto px-4 sm:px-8 py-8 pb-24 md:pb-8 space-y-8">
         
         {/* RENDER VIEW 1: USER DASHBOARD */}
         {viewMode === 'user-dashboard' && (
@@ -1847,10 +1980,95 @@ export default function App() {
             showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
           } else {
             setViewMode('bible');
-            showToast(`Membuka ${verse.book} ${verse.chapter}:${verse.verse} di Pembaca Alkitab`);
           }
         }}
       />
+
+      {/* Floating Mobile Bottom Navigation Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-xl border-t border-[#1C1917]/10 px-3 py-1.5 flex items-center justify-around shadow-lg">
+        <button
+          onClick={() => setViewMode('landing')}
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${
+            viewMode === 'landing' ? 'text-[#3B4B34] font-bold' : 'text-[#78716C] hover:text-[#1C1917]'
+          }`}
+        >
+          <Home className={`w-5 h-5 ${viewMode === 'landing' ? 'stroke-[2.5]' : ''}`} />
+          <span className="text-[10px]">Beranda</span>
+        </button>
+
+        <button
+          onClick={() => setViewMode('library')}
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${
+            viewMode === 'library' ? 'text-[#3B4B34] font-bold' : 'text-[#78716C] hover:text-[#1C1917]'
+          }`}
+        >
+          <BookOpen className={`w-5 h-5 ${viewMode === 'library' ? 'stroke-[2.5]' : ''}`} />
+          <span className="text-[10px]">Katalog</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setKidungInitialTab('kidung');
+            setKidungInitialSongId(null);
+            setViewMode('kidung');
+          }}
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${
+            viewMode === 'kidung' ? 'text-[#3B4B34] font-bold' : 'text-[#78716C] hover:text-[#1C1917]'
+          }`}
+        >
+          <Music className={`w-5 h-5 text-amber-600 ${viewMode === 'kidung' ? 'stroke-[2.5]' : ''}`} />
+          <span className="text-[10px]">Kidung</span>
+        </button>
+
+        <button
+          onClick={() => {
+            if (!isLoggedIn) {
+              setIsAuthModalOpen(true);
+              showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
+            } else {
+              setViewMode('bible');
+            }
+          }}
+          className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${
+            viewMode === 'bible' ? 'text-[#3B4B34] font-bold' : 'text-[#78716C] hover:text-[#1C1917]'
+          }`}
+        >
+          <BookMarked className={`w-5 h-5 text-[#3B4B34] ${viewMode === 'bible' ? 'stroke-[2.5]' : ''}`} />
+          <span className="text-[10px]">Alkitab</span>
+        </button>
+
+        {isLoggedIn ? (
+          userRole === 'admin' ? (
+            <button
+              onClick={() => setViewMode('admin-dashboard')}
+              className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${
+                viewMode === 'admin-dashboard' ? 'text-stone-950 font-bold' : 'text-[#78716C] hover:text-[#1C1917]'
+              }`}
+            >
+              <ShieldCheck className={`w-5 h-5 text-emerald-600 ${viewMode === 'admin-dashboard' ? 'stroke-[2.5]' : ''}`} />
+              <span className="text-[10px]">Admin</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => setViewMode('user-dashboard')}
+              className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${
+                viewMode === 'user-dashboard' ? 'text-[#3B4B34] font-bold' : 'text-[#78716C] hover:text-[#1C1917]'
+              }`}
+            >
+              <User className={`w-5 h-5 text-amber-600 ${viewMode === 'user-dashboard' ? 'stroke-[2.5]' : ''}`} />
+              <span className="text-[10px]">Dashboard</span>
+            </button>
+          )
+        ) : (
+          <button
+            onClick={() => setIsAuthModalOpen(true)}
+            className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+          >
+            <LogIn className="w-5 h-5 text-[#3B4B34]" />
+            <span className="text-[10px]">Masuk</span>
+          </button>
+        )}
+      </nav>
     </div>
   );
 }

@@ -4,7 +4,8 @@ import {
   ChevronRight, Heart, Flame, Sun, Sunrise, Compass,
   CheckCircle2, Utensils, MessageSquare, Quote, Layers,
   ChevronDown, BookMarked, Play, Star, Smartphone, RefreshCw,
-  Send, User, Volume2, ChevronLeft, LogIn, Settings, Users, Search, Music
+  Send, User, Volume2, ChevronLeft, LogIn, Settings, Users, Search, Music,
+  Menu, X, Home
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -104,6 +105,7 @@ export default function LandingPage({
 }) {
   const [activeFaq, setActiveFaq] = useState(null);
   const [activeTab, setActiveTab] = useState('fkkp');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Rotating short enjoyments state
   const [currentEnjoymentIndex, setCurrentEnjoymentIndex] = useState(0);
@@ -193,7 +195,7 @@ export default function LandingPage({
   const activeEnjoyment = enjoyments[currentEnjoymentIndex] || enjoyments[0];
 
   return (
-    <div className="min-h-screen bg-[#F4EFE6] text-[#1C1917] flex flex-col font-sans selection:bg-[#B96A4A]/25 selection:text-[#3B4B34] transition-colors duration-300 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#F4EFE6] text-[#1C1917] flex flex-col font-sans selection:bg-[#B96A4A]/25 selection:text-[#3B4B34] transition-colors duration-300 relative overflow-x-hidden pb-20 md:pb-0">
       
       {/* Floating Ambient Glow Atmospheric Orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -204,23 +206,23 @@ export default function LandingPage({
 
       {/* ===================== HEADER ===================== */}
       <header className="sticky top-0 z-50 border-b border-[#1C1917]/8 bg-[#F4EFE6]/90 backdrop-blur-md">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-18 flex items-center justify-between gap-4">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* Logo & Brand */}
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift">
-              <Utensils className="w-5 h-5 text-amber-200" />
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift">
+              <Utensils className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-200" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-2xl tracking-tight text-[#1C1917] font-serif">
+                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#1C1917] font-serif">
                   Baca.
                 </span>
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap">
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden sm:inline-flex">
                   Mari Makan Tuhan
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden sm:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
+              <p className="text-[11px] text-[#78716C] hidden md:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
             </div>
           </div>
 
@@ -241,18 +243,18 @@ export default function LandingPage({
           </nav>
 
           {/* Action Buttons: Clean & Never Overflowing */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            {/* Quick Scripture Search Button (Only shown when logged in) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Quick Scripture Search Button (Desktop/Tablet) */}
             {isLoggedIn && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={onOpenQuickScripture}
-                className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
                 title="Cari Cepat Ayat Alkitab & Catatan Kaki"
               >
                 <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
-                <span className="hidden sm:inline">Cari Ayat</span>
+                <span>Cari Ayat</span>
               </Button>
             )}
 
@@ -261,11 +263,11 @@ export default function LandingPage({
               variant="outline"
               size="sm"
               onClick={onOpenBible}
-              className="rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              className="hidden sm:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
               <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
-              <span className="hidden sm:inline">Alkitab</span>
+              <span>Alkitab</span>
             </Button>
 
             {/* Kidung & Suplemen Button */}
@@ -273,21 +275,21 @@ export default function LandingPage({
               variant="outline"
               size="sm"
               onClick={() => onOpenKidung && onOpenKidung('kidung')}
-              className="rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Kidung Rohani & Suplemen"
             >
               <Music className="w-3.5 h-3.5 mr-1 text-amber-700" />
-              <span className="hidden sm:inline">Kidung</span>
+              <span>Kidung</span>
             </Button>
 
             {/* Katalog Buku Button */}
             <Button
               size="sm"
               onClick={onEnterLibrary}
-              className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] h-9 px-3.5 shadow-md btn-lift whitespace-nowrap"
+              className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] h-8 sm:h-9 px-3 sm:px-3.5 shadow-md btn-lift whitespace-nowrap"
             >
               <span>Katalog</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1" />
+              <ArrowRight className="w-3.5 h-3.5 ml-1 hidden xs:inline" />
             </Button>
 
             {/* Unified Portal & Account Dropdown */}
@@ -459,8 +461,156 @@ export default function LandingPage({
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Mobile Hamburger Menu Toggle Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white border border-[#1C1917]/15 text-[#1C1917] transition active:scale-95 shadow-xs"
+              aria-label="Toggle menu navigasi mobile"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-4.5 h-4.5 text-[#3B4B34]" />
+              ) : (
+                <Menu className="w-4.5 h-4.5 text-[#1C1917]" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Slide-down Drawer */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden border-t border-[#1C1917]/10 bg-[#FAF7F2]/95 backdrop-blur-xl px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200 shadow-xl">
+            {/* Quick Action Tiles */}
+            <div className="grid grid-cols-2 gap-2 text-xs font-bold">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onEnterLibrary();
+                }}
+                className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#3B4B34] text-white shadow-xs active:scale-95 transition"
+              >
+                <BookOpen className="w-4 h-4 text-amber-300" />
+                <span>Katalog Buku</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenBible();
+                }}
+                className="flex items-center gap-2.5 p-3 rounded-2xl bg-white border border-[#1C1917]/10 text-[#3B4B34] shadow-xs active:scale-95 transition"
+              >
+                <BookMarked className="w-4 h-4 text-[#3B4B34]" />
+                <span>Alkitab Pemulihan</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (onOpenKidung) onOpenKidung('kidung');
+                }}
+                className="flex items-center gap-2.5 p-3 rounded-2xl bg-amber-50 border border-amber-600/20 text-amber-900 shadow-xs active:scale-95 transition"
+              >
+                <Music className="w-4 h-4 text-amber-700" />
+                <span>Kidung &amp; Suplemen</span>
+              </button>
+
+              {isLoggedIn ? (
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    if (onOpenQuickScripture) onOpenQuickScripture();
+                  }}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-stone-100 border border-stone-300 text-stone-800 shadow-xs active:scale-95 transition"
+                >
+                  <Search className="w-4 h-4 text-stone-700" />
+                  <span>Cari Cepat Ayat</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenLogin();
+                  }}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-emerald-50 border border-emerald-600/20 text-emerald-900 shadow-xs active:scale-95 transition"
+                >
+                  <LogIn className="w-4 h-4 text-emerald-700" />
+                  <span>Masuk Akun</span>
+                </button>
+              )}
+            </div>
+
+            {/* In-Page Anchor Links */}
+            <div className="pt-2 border-t border-[#1C1917]/10">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] mb-2 px-1">
+                Jelajahi Bagian Halaman
+              </p>
+              <div className="grid grid-cols-2 gap-1.5 text-xs font-semibold text-[#1C1917]">
+                <a
+                  href="#santapan"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl bg-white/70 border border-[#1C1917]/8 hover:bg-white flex items-center justify-between"
+                >
+                  <span>Meja Perjamuan</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-[#78716C]" />
+                </a>
+                <a
+                  href="#testimoni"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl bg-white/70 border border-[#1C1917]/8 hover:bg-white flex items-center justify-between"
+                >
+                  <span>Testimoni Nikmat</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-[#78716C]" />
+                </a>
+                <a
+                  href="#pilar"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl bg-white/70 border border-[#1C1917]/8 hover:bg-white flex items-center justify-between"
+                >
+                  <span>4 Pilar Hayat</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-[#78716C]" />
+                </a>
+                <a
+                  href="#faq"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl bg-white/70 border border-[#1C1917]/8 hover:bg-white flex items-center justify-between"
+                >
+                  <span>Tanya Jawab</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-[#78716C]" />
+                </a>
+              </div>
+            </div>
+
+            {/* User Dashboard / Admin Shortcut if logged in */}
+            {isLoggedIn && (
+              <div className="pt-2 border-t border-[#1C1917]/10 flex flex-col gap-1.5">
+                {userRole === 'admin' ? (
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      if (onOpenAdminDashboard) onOpenAdminDashboard();
+                    }}
+                    className="w-full p-2.5 rounded-xl bg-stone-900 text-white text-xs font-bold flex items-center gap-2 justify-center shadow-xs"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    <span>Buka Dashboard Admin</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      if (onOpenUserDashboard) onOpenUserDashboard();
+                    }}
+                    className="w-full p-2.5 rounded-xl bg-[#3B4B34] text-white text-xs font-bold flex items-center gap-2 justify-center shadow-xs"
+                  >
+                    <User className="w-4 h-4 text-amber-300" />
+                    <span>Buka Dashboard Saya</span>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </header>
 
       {/* ===================== HERO SECTION ===================== */}
@@ -1389,6 +1539,71 @@ export default function LandingPage({
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Floating Mobile Bottom Navigation Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-xl border-t border-[#1C1917]/10 px-3 py-1.5 flex items-center justify-around shadow-lg">
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#3B4B34] font-bold transition"
+        >
+          <Home className="w-5 h-5 stroke-[2.5]" />
+          <span className="text-[10px]">Beranda</span>
+        </button>
+
+        <button
+          onClick={onEnterLibrary}
+          className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+        >
+          <BookOpen className="w-5 h-5" />
+          <span className="text-[10px]">Katalog</span>
+        </button>
+
+        <button
+          onClick={() => onOpenKidung && onOpenKidung('kidung')}
+          className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+        >
+          <Music className="w-5 h-5 text-amber-600" />
+          <span className="text-[10px]">Kidung</span>
+        </button>
+
+        <button
+          onClick={onOpenBible}
+          className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+        >
+          <BookMarked className="w-5 h-5 text-[#3B4B34]" />
+          <span className="text-[10px]">Alkitab</span>
+        </button>
+
+        {isLoggedIn ? (
+          userRole === 'admin' ? (
+            <button
+              onClick={() => onOpenAdminDashboard && onOpenAdminDashboard()}
+              className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+            >
+              <ShieldCheck className="w-5 h-5 text-emerald-600" />
+              <span className="text-[10px]">Admin</span>
+            </button>
+          ) : (
+            <button
+              onClick={() => onOpenUserDashboard && onOpenUserDashboard()}
+              className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+            >
+              <User className="w-5 h-5 text-amber-600" />
+              <span className="text-[10px]">Dashboard</span>
+            </button>
+          )
+        ) : (
+          <button
+            onClick={() => onOpenLogin()}
+            className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl text-[#78716C] hover:text-[#1C1917] transition"
+          >
+            <LogIn className="w-5 h-5 text-[#3B4B34]" />
+            <span className="text-[10px]">Masuk</span>
+          </button>
+        )}
+      </nav>
 
     </div>
   );
