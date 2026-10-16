@@ -406,8 +406,30 @@ export default function App() {
     setTimeout(() => setToastMessage(''), 3500);
   }, []);
 
-  const handleUpdateProfile = useCallback((updatedProfile) => {
+  const handleUpdateProfile = useCallback(async (updatedProfile) => {
     setUser(updatedProfile);
+    try {
+      localStorage.setItem('baca_user_profile', JSON.stringify(updatedProfile));
+    } catch (e) {
+      console.warn('Gagal menyimpan profil ke localStorage:', e);
+    }
+
+    // Jika Supabase aktif, simpan juga ke user_metadata Supabase Auth agar permanen
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase.auth.updateUser({
+          data: {
+            full_name: updatedProfile.full_name,
+            photo_url: updatedProfile.photo_url,
+            whatsapp: updatedProfile.whatsapp,
+            distrik_lokal: updatedProfile.distrik_lokal
+          }
+        });
+      } catch (err) {
+        console.warn('Supabase auth metadata update error:', err);
+      }
+    }
+
     syncUserProfileToSupabase(updatedProfile);
     showToast('Pengaturan profil berhasil disimpan & disinkronkan.');
   }, [showToast]);
@@ -688,25 +710,39 @@ export default function App() {
 
     // Cek sesi autentikasi Supabase jika aktif
     if (isSupabaseConfigured()) {
+      const applyAuthUser = (authUser) => {
+        let saved = {};
+        try {
+          const raw = localStorage.getItem('baca_user_profile');
+          if (raw) saved = JSON.parse(raw);
+        } catch (e) {}
+
+        const finalProfile = {
+          ...saved,
+          id: authUser.id,
+          email: authUser.email,
+          full_name: saved.full_name || authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Pembaca Hayat',
+          photo_url: saved.photo_url || authUser.user_metadata?.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+          whatsapp: saved.whatsapp || authUser.user_metadata?.whatsapp || '',
+          distrik_lokal: saved.distrik_lokal || authUser.user_metadata?.distrik_lokal || ''
+        };
+
+        setUser(finalProfile);
+        try {
+          localStorage.setItem('baca_user_profile', JSON.stringify(finalProfile));
+        } catch (e) {}
+        setIsLoggedIn(true);
+      };
+
       supabase.auth.getUser().then(({ data: { user: authUser } }) => {
         if (authUser) {
-          setUser({
-            id: authUser.id,
-            email: authUser.email,
-            full_name: authUser.user_metadata?.full_name || authUser.email.split('@')[0]
-          });
-          setIsLoggedIn(true);
+          applyAuthUser(authUser);
         }
       });
 
       const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
         if (session?.user) {
-          setUser({
-            id: session.user.id,
-            email: session.user.email,
-            full_name: session.user.user_metadata?.full_name || session.user.email.split('@')[0]
-          });
-          setIsLoggedIn(true);
+          applyAuthUser(session.user);
         } else {
           setIsLoggedIn(false);
           setUser({

@@ -142,6 +142,15 @@ export default function UserDashboard({
     window.addEventListener('fkkp_settings_updated', handleUpdate);
     return () => window.removeEventListener('fkkp_settings_updated', handleUpdate);
   }, []);
+
+  React.useEffect(() => {
+    if (user?.full_name) setFullName(user.full_name);
+    if (user?.whatsapp) setWhatsapp(user.whatsapp);
+    if (user?.email) setEmail(user.email);
+    if (user?.distrik_lokal) setDistrikLokal(user.distrik_lokal);
+    if (user?.photo_url) setPhotoUrl(user.photo_url);
+  }, [user]);
+
   const [noteColorFilter, setNoteColorFilter] = useState('all');
   const [isAddNoteModalOpen, setIsAddNoteModalOpen] = useState(false);
   const [newNoteBook, setNewNoteBook] = useState('Alkitab Versi Pemulihan');
