@@ -125,7 +125,7 @@ export default function BibleScofieldClassicView({
   // Extract middle column notes from footnotes
   const middleRefs = [];
   footnotes.forEach((fn, idx) => {
-    const letter = String.fromCharCode(97 + (idx % 26)); // a, b, c...
+    const letter = fn.letter || String.fromCharCode(97 + (idx % 26)); // a, b, c...
     middleRefs.push({
       letter: letter,
       verse: fn.verse,
@@ -149,14 +149,17 @@ export default function BibleScofieldClassicView({
       const match = part.match(/<fn n="(\d+)"\/>/);
       if (match) {
         const noteIdx = Number(match[1]);
+        const fnObj = footnotes.find(f => f.note_idx === noteIdx);
         const isSelected = selectedNoteIdx === noteIdx;
+        const isLetter = !!fnObj?.letter;
+        const displayLabel = isLetter ? fnObj.letter : noteIdx;
+
         return (
           <sup
             key={pIdx}
             onClick={(e) => {
               e.stopPropagation();
               setSelectedNoteIdx(noteIdx);
-              const fnObj = footnotes.find(f => f.note_idx === noteIdx);
               if (onOpenFootnote && fnObj) {
                 onOpenFootnote(vItem.verse, noteIdx, fnObj);
               }
@@ -165,10 +168,13 @@ export default function BibleScofieldClassicView({
                 noteEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
               }
             }}
-            className={`sco-sup-fn ${isSelected ? 'sco-sup-selected' : ''}`}
-            title={`Scofield Note ${noteIdx}`}
+            className={isLetter 
+              ? `sco-sup-letter ${isSelected ? 'sco-sup-selected' : ''}`
+              : `sco-sup-fn ${isSelected ? 'sco-sup-selected' : ''}`
+            }
+            title={fnObj?.keyword ? `Scofield: ${fnObj.keyword}` : `Scofield Note ${noteIdx}`}
           >
-            {noteIdx}
+            {displayLabel}
           </sup>
         );
       }
@@ -388,6 +394,23 @@ export default function BibleScofieldClassicView({
           color: #b30000;
           text-decoration: underline;
         }
+        .sco-sup-letter {
+          font-size: 0.72em;
+          vertical-align: baseline;
+          position: relative;
+          top: -0.35em;
+          line-height: 0;
+          cursor: pointer;
+          font-style: italic;
+          font-weight: bold;
+          color: #00008B;
+          padding: 0 1.5px;
+          transition: transform 0.15s, color 0.15s;
+        }
+        .sco-sup-letter:hover {
+          color: #0000cd;
+          text-decoration: underline;
+        }
         .sco-sup-selected {
           color: #ffffff !important;
           background-color: #8B0000;
@@ -591,7 +614,9 @@ export default function BibleScofieldClassicView({
                     </span>
                     <i>{mr.letter}</i>{' '}
                     <span className="text-[11.5px]">
-                      {mr.keyword || mr.refs.slice(0, 2).join('; ') || `v.${mr.verse}`}
+                      {mr.text && mr.text.length < 50
+                        ? mr.text
+                        : (mr.keyword ? `${mr.keyword}${mr.refs.length ? ', ' + mr.refs.slice(0, 2).join('; ') : ''}` : `v.${mr.verse}`)}
                     </span>
 
                     {/* Tooltip Kaca Pembesar (Magnifier Tooltip) seperti di scofieldbible.org */}
