@@ -19,8 +19,8 @@
         {
           "verse": 1,
           "text": "The beginning of the gospel of Jesus Christ, the Son of God;",
-          "marked_text": "The beginning of the gospel of Jesus Christ, the Son of God;<fn n=\"1\"/>",
-          "outlines": "The best preparation of heart for the study of Mark is the prayerful reading of Isa. 42. 1-21; 50. 4-11; 52. 13-53. 12; Zech. 3. 8; Phil. 2. 5-8.",
+          "marked_text": "The beginning of the gospel of Jesus Christ, the Son of God;",
+          "outlines": "The ministry of John the Baptist (Mt. 3. 1-12; Lk. 3. 1-18; John 1. 6-8, 19-28).",
           "footnotes": [
             {
               "verse": 1,
@@ -35,14 +35,14 @@
         {
           "verse": 2,
           "text": "As it is written in the prophets, Behold, I send my messenger before thy face, which shall prepare thy way before thee.",
-          "marked_text": "As it is written in the prophets, Behold, I send my messenger before thy face, which shall prepare thy way before thee.",
+          "marked_text": "As it is written in the prophets, Behold, I send my <fn n=\"a\"/>messenger before thy face, which shall prepare thy <fn n=\"b\"/>way before thee.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 3,
           "text": "The voice of one crying in the wilderness, Prepare ye the way of the Lord, make his paths straight.",
-          "marked_text": "The voice of one crying in the wilderness, Prepare ye the way of the Lord<fn n=\"2\"/>, make his paths straight.",
+          "marked_text": "The voice of one <fn n=\"c\"/>crying in the <fn n=\"d\"/>wilderness, Prepare ye the way of the <fn n=\"e\"/>Lord, make his paths straight.",
           "outlines": null,
           "footnotes": [
             {
@@ -60,7 +60,7 @@
         {
           "verse": 4,
           "text": "John did baptize in the wilderness, and preach the baptism of repentance for the remission of sins.",
-          "marked_text": "John did baptize in the wilderness, and preach the baptism of repentance for the remission of sins.",
+          "marked_text": "John did baptize in the wilderness, and preach the baptism of <fn n=\"f\"/>repentance for the remission of <fn n=\"g\"/>sins.",
           "outlines": null,
           "footnotes": null
         },
@@ -85,35 +85,35 @@
         {
           "verse": 6,
           "text": "And John was clothed with camel’s hair, and with a girdle of a skin about his loins; and he did eat locusts and wild honey;",
-          "marked_text": "And John was clothed with camel’s hair, and with a girdle of a skin about his loins; and he did eat locusts and wild honey;",
+          "marked_text": "And John was clothed with <fn n=\"h\"/>camel’s hair, and with a girdle of a skin about his loins; and he did eat locusts and wild honey;",
           "outlines": "Mark is in five principal divisions: I. The manifestation of the Servant-Son, 1. 1-11. at work, 1. 14-13. 37.",
           "footnotes": null
         },
         {
           "verse": 7,
           "text": "And preached, saying, There cometh one mightier than I after me, the latchet of whose shoes I am not worthy to stoop down and unloose.",
-          "marked_text": "And preached, saying, There cometh one mightier than I after me, the latchet of whose shoes I am not worthy to stoop down and unloose.",
+          "marked_text": "And preached, saying, There cometh one <fn n=\"i\"/>mightier than I after me, the latchet of whose shoes I am not worthy to stoop down and unloose.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 8,
           "text": "I indeed have baptized you with water: but he shall baptize you with the Holy Ghost.",
-          "marked_text": "I indeed have baptized you with water: but he shall baptize you with the Holy Ghost.",
+          "marked_text": "I indeed have baptized you with water: but he shall baptize you with the <fn n=\"j\"/>Holy Ghost.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 9,
           "text": "And it came to pass in those days, that Jesus came from Nazareth of Galilee, and was baptized of John in Jordan.",
-          "marked_text": "And it came to pass in those days, that Jesus came from Nazareth of Galilee, and was baptized of John in Jordan.",
-          "outlines": null,
+          "marked_text": "And it <fn n=\"k\"/>came to pass in those days, that Jesus came from Nazareth of Galilee, and was baptized of John in Jordan.",
+          "outlines": "The baptism of Jesus (Mt. 3. 13-17; Lk. 3. 21, 22).",
           "footnotes": null
         },
         {
           "verse": 10,
           "text": "And straightway coming up out of the water, he saw the heavens opened, and the Spirit like a dove descending upon him:",
-          "marked_text": "And straightway coming up out of the water, he saw the heavens opened, and the Spirit like a dove descending upon him:",
+          "marked_text": "And straightway coming up out of the water, he saw the <fn n=\"l\"/>heavens opened, and the Spirit like a dove descending upon him:",
           "outlines": null,
           "footnotes": null
         },
@@ -127,22 +127,22 @@
         {
           "verse": 12,
           "text": "And immediately the Spirit driveth him into the wilderness.",
-          "marked_text": "And immediately the Spirit driveth him into the wilderness.",
-          "outlines": null,
+          "marked_text": "And <fn n=\"m\"/>immediately the spirit <fn n=\"n\"/>driveth him into the wilderness.",
+          "outlines": "The temptation of Jesus (Mt. 4. 1-11; Lk. 4. 1-13).",
           "footnotes": null
         },
         {
           "verse": 13,
           "text": "And he was there in the wilderness forty days, tempted of Satan; and was with the wild beasts; and the angels ministered unto him.",
-          "marked_text": "And he was there in the wilderness forty days, tempted of Satan; and was with the wild beasts; and the angels ministered unto him.",
+          "marked_text": "And he was there in the wilderness forty days, tempted of <fn n=\"o\"/>Satan; and was with the wild beasts; and the angels ministered unto him.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 14,
           "text": "Now after that John was put in prison, Jesus came into Galilee, preaching the gospel of the kingdom of God,",
-          "marked_text": "Now after that John was put in prison, Jesus came into Galilee, preaching the gospel of the kingdom<fn n=\"4\"/> of God,",
-          "outlines": null,
+          "marked_text": "Now after that John was put in prison, Jesus came into Galilee, preaching the gospel of the <fn n=\"a\"/>kingdom of God,",
+          "outlines": "The first Galilean ministry (Mt. 4. 12-17; Lk. 4. 14).",
           "footnotes": [
             {
               "verse": 14,
@@ -167,13 +167,13 @@
           "verse": 16,
           "text": "Now as he walked by the sea of Galilee, he saw Simon and Andrew his brother casting a net into the sea: for they were fishers.",
           "marked_text": "Now as he walked by the sea of Galilee, he saw Simon and Andrew his brother casting a net into the sea: for they were fishers.",
-          "outlines": "IV. The Servant-Son ‘‘obedient unto death,”’ 14. 1-15. 47.",
+          "outlines": "The call of Peter and Andrew (Mt. 4. 18-22; Lk. 5. 10, 11. Cf. John 1. 35-42).",
           "footnotes": null
         },
         {
           "verse": 17,
           "text": "And Jesus said unto them, Come ye after me, and I will make you to become fishers of men.",
-          "marked_text": "And Jesus said unto them, Come ye after me, and I will make you to become fishers of men.",
+          "marked_text": "And Jesus said unto them, Come ye after me, and I will make you to become <fn n=\"b\"/>fishers of men.",
           "outlines": null,
           "footnotes": null
         },
@@ -187,7 +187,7 @@
         {
           "verse": 19,
           "text": "And when he had gone a little further thence, he saw James the son of Zebedee, and John his brother, who also were in the ship mending their nets.",
-          "marked_text": "And when he had gone a little further thence, he saw James the son of Zebedee, and John his brother, who also were in the ship mending their nets.",
+          "marked_text": "And when he had gone a little farther thence, he saw <fn n=\"c\"/>James the *son* of Zebedee, and John his brother, who also were in the <fn n=\"d\"/>ship mending their nets.",
           "outlines": null,
           "footnotes": null
         },
@@ -201,28 +201,28 @@
         {
           "verse": 21,
           "text": "And they went into Capernaum; and straightway on the sabbath day he entered into the synagogue, and taught.",
-          "marked_text": "And they went into Capernaum; and straightway on the sabbath day he entered into the synagogue, and taught.",
-          "outlines": "The ministry of the risen Servant-Son, now exalted to all authority, 16. 1-20.",
+          "marked_text": "And they went into Capernaum; and straightway on the sabbath day he entered into the <fn n=\"e\"/>synagogue, and taught.",
+          "outlines": "Jesus casts out demons in Capernaum (Lk. 4. 31-37).",
           "footnotes": null
         },
         {
           "verse": 22,
           "text": "And they were astonished at his doctrine: for he taught them as one that had authority, and not as the scribes.",
-          "marked_text": "And they were astonished at his doctrine: for he taught them as one that had authority, and not as the scribes.",
+          "marked_text": "And they were <fn n=\"f\"/>astonished at his doctrine: for he taught them as one that had authority, and not as the scribes.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 23,
           "text": "And there was in their synagogue a man with an unclean spirit; and he cried out,",
-          "marked_text": "And there was in their synagogue a man with an unclean spirit; and he cried out,",
+          "marked_text": "And there was in their synagogue a man with an <fn n=\"g\"/>unclean spirit; and he cried out,",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 24,
           "text": "Saying, Let us alone; what have we to do with thee, thou Jesus of Nazareth? art thou come to destroy us? I know thee who thou art, the Holy One of God.",
-          "marked_text": "Saying, Let us alone; what have we to do with thee, thou Jesus of Nazareth? art thou come to destroy us? I know thee who thou art, the Holy One of God.",
+          "marked_text": "Saying, Let *us* alone; what have we to do with thee, <fn n=\"h\"/>thou Jesus of Nazareth? art thou come to destroy us? I <fn n=\"i\"/>know thee who thou art, the Holy One of God.",
           "outlines": null,
           "footnotes": null
         },
@@ -236,7 +236,7 @@
         {
           "verse": 26,
           "text": "And when the unclean spirit had torn him, and cried with a loud voice, he came out of him.",
-          "marked_text": "And when the unclean spirit had torn him, and cried with a loud voice, he came out of him.",
+          "marked_text": "And when the unclean spirit had torn him, and cried with a loud voice, <fn n=\"j\"/>he came out of him.",
           "outlines": "The events recorded in this book cover a period of 7 years.",
           "footnotes": null
         },
@@ -250,7 +250,7 @@
         {
           "verse": 28,
           "text": "And immediately his fame spread abroad throughout all the region round about Galilee.",
-          "marked_text": "And immediately his fame spread abroad throughout all the region round about Galilee.",
+          "marked_text": "And <fn n=\"k\"/>immediately his fame spread abroad throughout all the region round about Galilee.",
           "outlines": null,
           "footnotes": null
         },
@@ -258,7 +258,7 @@
           "verse": 29,
           "text": "And forthwith, when they were come out of the synagogue, they entered into the house of Simon and Andrew, with James and John.",
           "marked_text": "And forthwith, when they were come out of the synagogue, they entered into the house of Simon and Andrew, with James and John.",
-          "outlines": null,
+          "outlines": "Simon's wife's mother healed of a fever (Mt. 8. 14, 15; Lk. 4. 38, 39).",
           "footnotes": null
         },
         {
@@ -271,14 +271,14 @@
         {
           "verse": 31,
           "text": "And he came and took her by the hand, and lifted her up; and immediately the fever left her, and she ministered unto them.",
-          "marked_text": "And he came and took her by the hand, and lifted her up; and immediately the fever left her, and she ministered unto them.",
+          "marked_text": "And he came and took her by the hand, and lifted her up; and immediately the fever left her, and she <fn n=\"l\"/>ministered unto them.",
           "outlines": "me, the latchet of whose shoes I am not worthy to stoop down and un- loose.",
           "footnotes": null
         },
         {
           "verse": 32,
           "text": "And at even, when the sun did set, they brought unto him all that were diseased, and them that were possessed with devils.",
-          "marked_text": "And at even, when the sun did set, they brought unto him all that were diseased, and them that were possessed with devils<fn n=\"5\"/>.",
+          "marked_text": "And at even, when the sun <fn n=\"m\"/>did set, they brought unto him all that were diseased, and them that were possessed with devils.",
           "outlines": null,
           "footnotes": [
             {
@@ -303,7 +303,7 @@
         {
           "verse": 34,
           "text": "And he healed many that were sick of divers diseases, and cast out many devils; and suffered not the devils to speak, because they knew him.",
-          "marked_text": "And he healed many that were sick of divers diseases, and cast out many devils<fn n=\"6\"/>; and suffered not the devils to speak, because they knew him.",
+          "marked_text": "And he healed many that were sick of divers diseases, and cast out many devils; and suffered not the <fn n=\"n\"/>devils to speak, because they knew him.",
           "outlines": null,
           "footnotes": [
             {
@@ -322,7 +322,7 @@
           "verse": 35,
           "text": "And in the morning, rising up a great while before day, he went out, and departed into a solitary place, and there prayed.",
           "marked_text": "And in the morning, rising up a great while before day, he went out, and departed into a solitary place, and there prayed.",
-          "outlines": null,
+          "outlines": "The first preaching tour in Galilee (Lk. 4. 42-44).",
           "footnotes": null
         },
         {
@@ -342,7 +342,7 @@
         {
           "verse": 38,
           "text": "And he said unto them, Let us go into the next towns, that I may preach there also: for therefore came I forth.",
-          "marked_text": "And he said unto them, Let us go into the next towns, that I may preach there also: for therefore came I forth.",
+          "marked_text": "And he said unto them, Let us go into the next towns, that I may preach there also: for <fn n=\"o\"/>therefore came I forth.",
           "outlines": null,
           "footnotes": null
         },
@@ -367,21 +367,21 @@
         {
           "verse": 40,
           "text": "And there came a leper to him, beseeching him, and kneeling down to him, and saying unto him, If thou wilt, thou canst make me clean.",
-          "marked_text": "And there came a leper to him, beseeching him, and kneeling down to him, and saying unto him, If thou wilt, thou canst make me clean.",
-          "outlines": null,
+          "marked_text": "And there came a <fn n=\"p\"/>leper to him, beseeching him, and kneeling down to him, and saying unto him, If thou wilt, thou canst make me clean.",
+          "outlines": "A leper healed (Mt. 8. 2-4; Lk. 5. 12-14).",
           "footnotes": null
         },
         {
           "verse": 41,
           "text": "And Jesus, moved with compassion, put forth his hand, and touched him, and saith unto him, I will; be thou clean.",
-          "marked_text": "And Jesus, moved with compassion, put forth his hand, and touched him, and saith unto him, I will; be thou clean.",
+          "marked_text": "And Jesus, moved with compassion, put forth *his* hand, and touched him, and saith unto him, <fn n=\"q\"/>I will; be thou clean.",
           "outlines": "The maégnificat. (Cf. 1 Sam. Ze A-10:)",
           "footnotes": null
         },
         {
           "verse": 42,
           "text": "And as soon as he had spoken, immediately the leprosy departed from him, and he was cleansed.",
-          "marked_text": "And as soon as he had spoken, immediately the leprosy departed from him, and he was cleansed.",
+          "marked_text": "And as soon as he had spoken, <fn n=\"r\"/>immediately the leprosy departed from him, and he was cleansed.",
           "outlines": null,
           "footnotes": null
         },
@@ -395,85 +395,442 @@
         {
           "verse": 44,
           "text": "And saith unto him, See thou say nothing to any man: but go thy way, shew thyself to the priest, and offer for thy cleansing those things which Moses commanded, for a testimony unto them.",
-          "marked_text": "And saith unto him, See thou say nothing to any man: but go thy way, shew thyself to the priest, and offer for thy cleansing those things which Moses commanded, for a testimony unto them.",
+          "marked_text": "And saith unto him, <fn n=\"a\"/>See thou say nothing to any man: but go thy way, shew thyself to the priest, and offer for thy cleansing those things which <fn n=\"b\"/>Moses commanded, for a testimony unto them.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 45,
           "text": "But he went out, and began to publish it much, and to blaze abroad the matter, insomuch that Jesus could no more openly enter into the city, but was without in desert places: and they came to him from every quarter.",
-          "marked_text": "But he went out, and began to publish it much, and to blaze abroad the matter, insomuch that Jesus could no more openly enter into the city, but was without in desert places: and they came to him from every quarter.",
+          "marked_text": "But he went out, and began to publish *it* much, and to blaze abroad the matter, insomuch that Jesus could no more openly enter into the city, but was without in <fn n=\"c\"/>desert places: and they came to him from every quarter.",
           "outlines": null,
           "footnotes": null
         }
       ],
       "footnotes": [
         {
-          "verse": 1,
+          "verse": 2,
           "note_idx": 1,
-          "keyword": "end of the world",
-          "text": "consummation of the age.",
-          "html": "<p><b>end of the world</b> </p><p>consummation of the age.</p>",
-          "references": []
+          "letter": "a",
+          "keyword": "messenger",
+          "text": "Mal. 3. 1.",
+          "html": "<p><b>messenger</b>: Mal. 3. 1.</p>",
+          "references": [
+            "Mal 3:1"
+          ]
         },
         {
-          "verse": 3,
+          "verse": 2,
           "note_idx": 2,
-          "keyword": "Lord",
-          "text": "Jehovah. Isa 40:3.",
-          "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>Isa 40:3</ref>. </p>",
+          "letter": "b",
+          "keyword": "way",
+          "text": "Isa. 40. 3.",
+          "html": "<p><b>way</b>: Isa. 40. 3.</p>",
           "references": [
             "Isa 40:3"
           ]
         },
         {
-          "verse": 5,
+          "verse": 3,
           "note_idx": 3,
+          "letter": "c",
+          "keyword": "crying",
+          "text": "Mt. 3. 1; Lk. 3. 2, 3; John 1. 6, 15, 26.",
+          "html": "<p><b>crying</b>: Mt. 3. 1; Lk. 3. 2, 3; John 1. 6, 15, 26.</p>",
+          "references": [
+            "Mat 3:1",
+            "Luk 3:2-3",
+            "Joh 1:6",
+            "Joh 1:15",
+            "Joh 1:26"
+          ]
+        },
+        {
+          "verse": 3,
+          "note_idx": 4,
+          "letter": "d",
+          "keyword": "wilderness",
+          "text": "Mt. 3. 3; Lk. 3. 4; John 1. 23.",
+          "html": "<p><b>wilderness</b>: Mt. 3. 3; Lk. 3. 4; John 1. 23.</p>",
+          "references": [
+            "Mat 3:3",
+            "Luk 3:4",
+            "Joh 1:23"
+          ]
+        },
+        {
+          "verse": 3,
+          "note_idx": 5,
+          "letter": "e",
+          "keyword": "Lord",
+          "text": "Jehovah. Isa. 40. 3.",
+          "html": "<p><b>Lord</b>: Jehovah. Isa. 40. 3.</p>",
+          "references": [
+            "Isa 40:3"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 6,
+          "letter": "f",
+          "keyword": "repentance",
+          "text": "Repentance. Mk. 2. 17. (Mt. 3. 2; Acts 17. 30.)",
+          "html": "<p><b>repentance</b>: Repentance. Mk. 2. 17. (Mt. 3. 2; Acts 17. 30.)</p>",
+          "references": [
+            "Mar 2:17",
+            "Mat 3:2",
+            "Act 17:30"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 7,
+          "letter": "g",
           "keyword": "sins",
-          "text": "(See Scofield \" Rom 3:23 \")",
-          "html": "<p><b>sins</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
+          "text": "Sins. Rom. 3. 23, note.",
+          "html": "<p><b>sins</b>: Sins. Rom. 3. 23, note.</p>",
           "references": [
             "Rom 3:23"
           ]
         },
         {
-          "verse": 14,
-          "note_idx": 4,
-          "keyword": "kingdom",
-          "text": "(See Scofield \" Mat 6:33 \")",
-          "html": "<p><b>kingdom</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 6:33</ref></i><i>&quot;)</i> </p>",
+          "verse": 6,
+          "note_idx": 8,
+          "letter": "h",
+          "keyword": "camel's hair",
+          "text": "Mt. 3. 4; 11. 8, 9.",
+          "html": "<p><b>camel's hair</b>: Mt. 3. 4; 11. 8, 9.</p>",
           "references": [
-            "Mat 6:33"
+            "Mat 3:4",
+            "Mat 11:8-9"
+          ]
+        },
+        {
+          "verse": 7,
+          "note_idx": 9,
+          "letter": "i",
+          "keyword": "mightier than I",
+          "text": "Mt. 3. 11; Lk. 3. 16; John 1. 15, 26, 33.",
+          "html": "<p><b>mightier than I</b>: Mt. 3. 11; Lk. 3. 16; John 1. 15, 26, 33.</p>",
+          "references": [
+            "Mat 3:11",
+            "Luk 3:16",
+            "Joh 1:15",
+            "Joh 1:26",
+            "Joh 1:33"
+          ]
+        },
+        {
+          "verse": 8,
+          "note_idx": 10,
+          "letter": "j",
+          "keyword": "Holy Ghost",
+          "text": "Holy Spirit. vs. 8, 10, 12; Mk. 3. 29. (Mt. 1. 18; Acts 2. 4.)",
+          "html": "<p><b>Holy Ghost</b>: Holy Spirit. vs. 8, 10, 12; Mk. 3. 29. (Mt. 1. 18; Acts 2. 4.)</p>",
+          "references": [
+            "Mar 3:29",
+            "Mat 1:18",
+            "Act 2:4"
+          ]
+        },
+        {
+          "verse": 9,
+          "note_idx": 11,
+          "letter": "k",
+          "keyword": "came to pass",
+          "text": "Mt. 3. 13.",
+          "html": "<p><b>came to pass</b>: Mt. 3. 13.</p>",
+          "references": [
+            "Mat 3:13"
+          ]
+        },
+        {
+          "verse": 10,
+          "note_idx": 12,
+          "letter": "l",
+          "keyword": "heavens opened",
+          "text": "Lev. 8. 12; Psa. 89. 20; Mt. 3. 16, 17; Lk. 3. 21, 22; Acts 10. 38.",
+          "html": "<p><b>heavens opened</b>: Lev. 8. 12; Psa. 89. 20; Mt. 3. 16, 17; Lk. 3. 21, 22; Acts 10. 38.</p>",
+          "references": [
+            "Lev 8:12",
+            "Psa 89:20",
+            "Mat 3:16-17",
+            "Luk 3:21-22",
+            "Act 10:38"
+          ]
+        },
+        {
+          "verse": 12,
+          "note_idx": 13,
+          "letter": "m",
+          "keyword": "immediately",
+          "text": "straightway.",
+          "html": "<p><b>immediately</b>: straightway.</p>",
+          "references": []
+        },
+        {
+          "verse": 12,
+          "note_idx": 14,
+          "letter": "n",
+          "keyword": "driveth",
+          "text": "Mt. 4. 1; Lk. 4. 1.",
+          "html": "<p><b>driveth</b>: Mt. 4. 1; Lk. 4. 1.</p>",
+          "references": [
+            "Mat 4:1",
+            "Luk 4:1"
+          ]
+        },
+        {
+          "verse": 13,
+          "note_idx": 15,
+          "letter": "o",
+          "keyword": "Satan",
+          "text": "Satan. Mk. 3. 23, 26. (Gen. 3. 1; Rev. 20. 10.)",
+          "html": "<p><b>Satan</b>: Satan. Mk. 3. 23, 26. (Gen. 3. 1; Rev. 20. 10.)</p>",
+          "references": [
+            "Mar 3:23",
+            "Mar 3:26",
+            "Gen 3:1",
+            "Rev 20:10"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 16,
+          "letter": "a",
+          "keyword": "kingdom of God",
+          "text": "Mt. 4. 23; Lk. 4. 43; 8. 1.",
+          "html": "<p><b>kingdom of God</b>: Mt. 4. 23; Lk. 4. 43; 8. 1.</p>",
+          "references": [
+            "Mat 4:23",
+            "Luk 4:43",
+            "Luk 8:1"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 17,
+          "letter": "b",
+          "keyword": "fishers of men",
+          "text": "Mt. 4. 19; Lk. 5. 10.",
+          "html": "<p><b>fishers of men</b>: Mt. 4. 19; Lk. 5. 10.</p>",
+          "references": [
+            "Mat 4:19",
+            "Luk 5:10"
+          ]
+        },
+        {
+          "verse": 19,
+          "note_idx": 18,
+          "letter": "c",
+          "keyword": "James",
+          "text": "Mt. 4. 21; Lk. 5. 10.",
+          "html": "<p><b>James</b>: Mt. 4. 21; Lk. 5. 10.</p>",
+          "references": [
+            "Mat 4:21",
+            "Luk 5:10"
+          ]
+        },
+        {
+          "verse": 19,
+          "note_idx": 19,
+          "letter": "d",
+          "keyword": "ship",
+          "text": "boat.",
+          "html": "<p><b>ship</b>: boat.</p>",
+          "references": []
+        },
+        {
+          "verse": 21,
+          "note_idx": 20,
+          "letter": "e",
+          "keyword": "synagogue",
+          "text": "Mt. 4. 23; Lk. 4. 31.",
+          "html": "<p><b>synagogue</b>: Mt. 4. 23; Lk. 4. 31.</p>",
+          "references": [
+            "Mat 4:23",
+            "Luk 4:31"
+          ]
+        },
+        {
+          "verse": 22,
+          "note_idx": 21,
+          "letter": "f",
+          "keyword": "astonished",
+          "text": "Mt. 7. 28, 29; Lk. 4. 32.",
+          "html": "<p><b>astonished</b>: Mt. 7. 28, 29; Lk. 4. 32.</p>",
+          "references": [
+            "Mat 7:28-29",
+            "Luk 4:32"
+          ]
+        },
+        {
+          "verse": 23,
+          "note_idx": 22,
+          "letter": "g",
+          "keyword": "unclean spirit",
+          "text": "Lk. 4. 33.",
+          "html": "<p><b>unclean spirit</b>: Lk. 4. 33.</p>",
+          "references": [
+            "Luk 4:33"
+          ]
+        },
+        {
+          "verse": 24,
+          "note_idx": 23,
+          "letter": "h",
+          "keyword": "thou Jesus",
+          "text": "Mt. 8. 29; Lk. 4. 34.",
+          "html": "<p><b>thou Jesus</b>: Mt. 8. 29; Lk. 4. 34.</p>",
+          "references": [
+            "Mat 8:29",
+            "Luk 4:34"
+          ]
+        },
+        {
+          "verse": 24,
+          "note_idx": 24,
+          "letter": "i",
+          "keyword": "know thee",
+          "text": "vs. 24, 25; Mk. 3. 12; Acts 16. 17, 18.",
+          "html": "<p><b>know thee</b>: vs. 24, 25; Mk. 3. 12; Acts 16. 17, 18.</p>",
+          "references": [
+            "Mar 3:12",
+            "Act 16:17-18"
+          ]
+        },
+        {
+          "verse": 26,
+          "note_idx": 25,
+          "letter": "j",
+          "keyword": "came out of him",
+          "text": "Lk. 4. 35.",
+          "html": "<p><b>came out of him</b>: Lk. 4. 35.</p>",
+          "references": [
+            "Luk 4:35"
+          ]
+        },
+        {
+          "verse": 28,
+          "note_idx": 26,
+          "letter": "k",
+          "keyword": "immediately",
+          "text": "straightway.",
+          "html": "<p><b>immediately</b>: straightway.</p>",
+          "references": []
+        },
+        {
+          "verse": 31,
+          "note_idx": 27,
+          "letter": "l",
+          "keyword": "ministered",
+          "text": "Mt. 8. 14, 15; Lk. 4. 38, 39.",
+          "html": "<p><b>ministered</b>: Mt. 8. 14, 15; Lk. 4. 38, 39.</p>",
+          "references": [
+            "Mat 8:14-15",
+            "Luk 4:38-39"
           ]
         },
         {
           "verse": 32,
-          "note_idx": 5,
-          "keyword": "devils",
-          "text": "demons. (See Scofield \" Mat 7:22 \")",
-          "html": "<p><b>devils</b> </p><p>demons. <i>(See Scofield &quot;</i><i><ref>Mat 7:22</ref></i><i>&quot;)</i> </p>",
+          "note_idx": 28,
+          "letter": "m",
+          "keyword": "did set",
+          "text": "Mt. 8. 16; Lk. 4. 40.",
+          "html": "<p><b>did set</b>: Mt. 8. 16; Lk. 4. 40.</p>",
           "references": [
-            "Mat 7:22"
+            "Mat 8:16",
+            "Luk 4:40"
           ]
         },
         {
           "verse": 34,
-          "note_idx": 6,
+          "note_idx": 29,
+          "letter": "n",
           "keyword": "devils",
-          "text": "demons. (See Scofield \" Mat 7:22 \")",
-          "html": "<p><b>devils</b> </p><p>demons. <i>(See Scofield &quot;</i><i><ref>Mat 7:22</ref></i><i>&quot;)</i> </p>",
+          "text": "demons.",
+          "html": "<p><b>devils</b>: demons.</p>",
+          "references": []
+        },
+        {
+          "verse": 38,
+          "note_idx": 30,
+          "letter": "o",
+          "keyword": "therefore came I forth",
+          "text": "Isa. 61. 1, 2; Lk. 4. 43.",
+          "html": "<p><b>therefore came I forth</b>: Isa. 61. 1, 2; Lk. 4. 43.</p>",
           "references": [
-            "Mat 7:22"
+            "Isa 61:1-2",
+            "Luk 4:43"
           ]
         },
         {
-          "verse": 39,
-          "note_idx": 7,
-          "keyword": "devils",
-          "text": "demons. (See Scofield \" Mat 7:22 \")",
-          "html": "<p><b>devils</b> demons. </p><p><i>(See Scofield &quot;</i><i><ref>Mat 7:22</ref></i><i>&quot;)</i> </p>",
+          "verse": 40,
+          "note_idx": 31,
+          "letter": "p",
+          "keyword": "leper",
+          "text": "Lev. 13. 44-46; Isa. 1. 5, 6; Mt. 8. 2-4; Lk. 5. 12-14.",
+          "html": "<p><b>leper</b>: Lev. 13. 44-46; Isa. 1. 5, 6; Mt. 8. 2-4; Lk. 5. 12-14.</p>",
           "references": [
-            "Mat 7:22"
+            "Lev 13:44-46",
+            "Isa 1:5-6",
+            "Mat 8:2-4",
+            "Luk 5:12-14"
+          ]
+        },
+        {
+          "verse": 41,
+          "note_idx": 32,
+          "letter": "q",
+          "keyword": "I will",
+          "text": "Mt. 8. 3; Lk. 5. 13.",
+          "html": "<p><b>I will</b>: Mt. 8. 3; Lk. 5. 13.</p>",
+          "references": [
+            "Mat 8:3",
+            "Luk 5:13"
+          ]
+        },
+        {
+          "verse": 42,
+          "note_idx": 33,
+          "letter": "r",
+          "keyword": "immediately",
+          "text": "straightway.",
+          "html": "<p><b>immediately</b>: straightway.</p>",
+          "references": []
+        },
+        {
+          "verse": 44,
+          "note_idx": 34,
+          "letter": "a",
+          "keyword": "See thou say nothing",
+          "text": "Mk. 5. 43.",
+          "html": "<p><b>See thou say nothing</b>: Mk. 5. 43.</p>",
+          "references": [
+            "Mar 5:43"
+          ]
+        },
+        {
+          "verse": 44,
+          "note_idx": 35,
+          "letter": "b",
+          "keyword": "Moses commanded",
+          "text": "Lev. 14. 2-20.",
+          "html": "<p><b>Moses commanded</b>: Lev. 14. 2-20.</p>",
+          "references": [
+            "Lev 14:2-20"
+          ]
+        },
+        {
+          "verse": 45,
+          "note_idx": 36,
+          "letter": "c",
+          "keyword": "desert places",
+          "text": "Isa. 35. 1; Mk. 6. 31, 32.",
+          "html": "<p><b>desert places</b>: Isa. 35. 1; Mk. 6. 31, 32.</p>",
+          "references": [
+            "Isa 35:1",
+            "Mar 6:31-32"
           ]
         }
       ]
