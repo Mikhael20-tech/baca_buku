@@ -485,35 +485,35 @@
         {
           "verse": 1,
           "text": "And again he entered into Capernaum after some days; and it was noised that he was in the house.",
-          "marked_text": "And again he entered into Capernaum after some days; and it was noised that he was in the house.",
-          "outlines": "Mark Chapter 2.",
+          "marked_text": "And again he entered into Capernaum after *some* days; and it was noised that he was in the house.",
+          "outlines": "The palsied man healed (Mt. 9. 1-8; Lk. 5. 18-26).",
           "footnotes": null
         },
         {
           "verse": 2,
           "text": "And straightway many were gathered together, insomuch that there was no room to receive them, no, not so much as about the door: and he preached the word unto them.",
-          "marked_text": "And straightway many were gathered together, insomuch that there was no room to receive them, no, not so much as about the door: and he preached the word unto them.",
+          "marked_text": "And straightway many were gathered together, insomuch that there was no room to receive *them*, no, not so much as about the door: and he preached the word unto them.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 3,
           "text": "And they come unto him, bringing one sick of the palsy, which was borne of four.",
-          "marked_text": "And they come unto him, bringing one sick of the palsy, which was borne of four.",
+          "marked_text": "And they come unto him, bringing one sick of the <fn n=\"e\"/>palsy, which was borne of four.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 4,
           "text": "And when they could not come nigh unto him for the press, they uncovered the roof where he was: and when they had broken it up, they let down the bed wherein the sick of the palsy lay.",
-          "marked_text": "And when they could not come nigh unto him for the press, they uncovered the roof where he was: and when they had broken it up, they let down the bed wherein the sick of the palsy lay.",
+          "marked_text": "And when they could not come nigh unto him for the press, they uncovered the roof where he was: and when they had <fn n=\"f\"/>broken *it* up, they let down the bed wherein the sick of the palsy lay.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 5,
           "text": "When Jesus saw their faith, he said unto the sick of the palsy, Son, thy sins be forgiven thee.",
-          "marked_text": "When Jesus saw their faith, he said unto the sick of the palsy, Son, thy sins<fn n=\"1\"/> be forgiven thee.",
+          "marked_text": "When Jesus saw their faith, he said unto the sick of the palsy, Son, thy <fn n=\"g\"/>sins be <fn n=\"h\"/>forgiven thee.",
           "outlines": null,
           "footnotes": [
             {
@@ -538,21 +538,21 @@
         {
           "verse": 7,
           "text": "Why doth this man thus speak blasphemies? who can forgive sins but God only?",
-          "marked_text": "Why doth this man thus speak blasphemies? who can forgive sins but God only?",
+          "marked_text": "Why doth this *man* thus speak blasphemies? who can forgive sins but <fn n=\"i\"/>God only?",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 8,
           "text": "And immediately when Jesus perceived in his spirit that they so reasoned within themselves, he said unto them, Why reason ye these things in your hearts?",
-          "marked_text": "And immediately when Jesus perceived in his spirit that they so reasoned within themselves, he said unto them, Why reason ye these things in your hearts?",
+          "marked_text": "And <fn n=\"j\"/>immediately when Jesus <fn n=\"k\"/>perceived in his spirit that they so reasoned within themselves, he said unto them, Why reason ye these things in your hearts?",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 9,
           "text": "Whether is it easier to say to the sick of the palsy, Thy sins be forgiven thee; or to say, Arise, and take up thy bed, and walk?",
-          "marked_text": "Whether is it easier to say to the sick of the palsy, Thy sins<fn n=\"2\"/> be forgiven thee; or to say, Arise, and take up thy bed, and walk?",
+          "marked_text": "Whether is it easier <fn n=\"l\"/>to say to the sick of the palsy, Thy <fn n=\"g\"/>sins be forgiven thee; or to say, Arise, and take up thy bed, and walk?",
           "outlines": null,
           "footnotes": [
             {
@@ -570,7 +570,7 @@
         {
           "verse": 10,
           "text": "But that ye may know that the Son of man hath power on earth to forgive sins, (he saith to the sick of the palsy,)",
-          "marked_text": "But that ye may know that the Son of man<fn n=\"3\"/> hath power on earth to forgive sins, (he saith to the sick of the palsy,)",
+          "marked_text": "But that ye may know that the <fn n=\"m\"/>Son of man hath power on earth to forgive sins, (he saith to the sick of the palsy,)",
           "outlines": null,
           "footnotes": [
             {
@@ -595,7 +595,7 @@
         {
           "verse": 12,
           "text": "And immediately he arose, took up the bed, and went forth before them all; insomuch that they were all amazed, and glorified God, saying, We never saw it on this fashion.",
-          "marked_text": "And immediately he arose, took up the bed, and went forth before them all; insomuch that they were all amazed, and glorified God, saying, We never saw it on this fashion.",
+          "marked_text": "<fn n=\"n\"/>And <fn n=\"j\"/>immediately he arose, took up the bed, and went forth before them all; insomuch that they <fn n=\"o\"/>were all amazed, and glorified God, saying, We never saw it on this fashion.",
           "outlines": null,
           "footnotes": null
         },
@@ -603,20 +603,20 @@
           "verse": 13,
           "text": "And he went forth again by the sea side; and all the multitude resorted unto him, and he taught them.",
           "marked_text": "And he went forth again by the sea side; and all the multitude resorted unto him, and he taught them.",
-          "outlines": null,
+          "outlines": "The call of Levi (Matthew) (Mt. 9. 9-13; Lk. 5. 27-32).",
           "footnotes": null
         },
         {
           "verse": 14,
           "text": "And as he passed by, he saw Levi the son of Alpheus sitting at the receipt of custom, and said unto him, Follow me. And he arose and followed him.",
-          "marked_text": "And as he passed by, he saw Levi the son of Alpheus sitting at the receipt of custom, and said unto him, Follow me. And he arose and followed him.",
+          "marked_text": "And as he <fn n=\"p\"/>passed by, he saw Levi the *son* of Alphæus sitting at the receipt of custom, and said unto him, Follow me. And he arose and followed him.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 15,
           "text": "And it came to pass, that, as Jesus sat at meat in his house, many publicans and sinners sat also together with Jesus and his disciples: for there were many, and they followed him.",
-          "marked_text": "And it came to pass, that, as Jesus sat at meat in his house, many publicans and sinners<fn n=\"4\"/> sat also together with Jesus and his disciples: for there were many, and they followed him.",
+          "marked_text": "And it came to pass, that, as Jesus sat at meat in his house, many publicans and <fn n=\"g\"/>sinners sat also together with Jesus and his disciples: for there were many, and they followed him.",
           "outlines": null,
           "footnotes": [
             {
@@ -634,7 +634,7 @@
         {
           "verse": 16,
           "text": "And when the scribes and Pharisees saw him eat with publicans and sinners, they said unto his disciples, How is it that he eateth and drinketh with publicans and sinners?",
-          "marked_text": "And when the scribes and Pharisees saw him eat with publicans and sinners<fn n=\"5\"/>, they said unto his disciples, How is it that he eateth and drinketh with publicans and sinners?",
+          "marked_text": "And when the scribes and Pharisees saw him eat with publicans and <fn n=\"g\"/>sinners, they said unto his disciples, How is it that he eateth and drinketh with publicans and sinners?",
           "outlines": null,
           "footnotes": [
             {
@@ -652,42 +652,42 @@
         {
           "verse": 17,
           "text": "When Jesus heard it, he saith unto them, They that are whole have no need of the physician, but they that are sick: I came not to call the righteous, but sinners to repentance.",
-          "marked_text": "When Jesus heard it, he saith unto them, They that are whole have no need of the physician, but they that are sick: I came not to call the righteous, but sinners to repentance.",
+          "marked_text": "When Jesus heard *it*, he saith unto them, They that are <fn n=\"q\"/>whole have no need of the physician, but they that are sick: I came not to call the righteous, but sinners to <fn n=\"r\"/>repentance.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 18,
           "text": "And the disciples of John and of the Pharisees used to fast: and they come and say unto him, Why do the disciples of John and of the Pharisees fast, but thy disciples fast not?",
-          "marked_text": "And the disciples of John and of the Pharisees used to fast: and they come and say unto him, Why do the disciples of John and of the Pharisees fast, but thy disciples fast not?",
+          "marked_text": "And the disciples of John and of the Pharisees <fn n=\"s\"/>used to fast: and they come and say unto him, Why do the disciples of John and of the Pharisees fast, but thy disciples fast not?",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 19,
           "text": "And Jesus said unto them, Can the children of the bridechamber fast, while the bridegroom is with them? as long as they have the bridegroom with them, they cannot fast.",
-          "marked_text": "And Jesus said unto them, Can the children of the bridechamber fast, while the bridegroom is with them? as long as they have the bridegroom with them, they cannot fast.",
+          "marked_text": "And Jesus said unto them, Can the children of the bridechamber fast, while the <fn n=\"t\"/>bridegroom is with them? as long as they have the bridegroom with them, they cannot fast.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 20,
           "text": "But the days will come, when the bridegroom shall be taken away from them, and then shall they fast in those days.",
-          "marked_text": "But the days will come, when the bridegroom shall be taken away from them, and then shall they fast in those days.",
+          "marked_text": "But the days will come, when the bridegroom shall be <fn n=\"u\"/>taken away from them, and then shall they fast in those days.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 21,
           "text": "No man also seweth a piece of new cloth on an old garment: else the new piece that filled it up taketh away from the old, and the rent is made worse.",
-          "marked_text": "No man also seweth a piece of new cloth on an old garment: else the new piece that filled it up taketh away from the old, and the rent is made worse.",
-          "outlines": null,
+          "marked_text": "No man also <fn n=\"v\"/>seweth a piece of new cloth on an old garment: else the new piece that filled it up taketh away from the old, and the rent is made worse.",
+          "outlines": "Parables of the cloth and the bottles. (Cf. Mt. 9. 16, 17; Lk. 5. 36-39).",
           "footnotes": null
         },
         {
           "verse": 22,
           "text": "And no man putteth new wine into old bottles: else the new wine doth burst the bottles, and the wine is spilled, and the bottles will be marred: but new wine must be put into new bottles.",
-          "marked_text": "And no man putteth new wine into old bottles: else the new wine doth burst the bottles, and the wine is spilled, and the bottles will be marred<fn n=\"6\"/>: but new wine must be put into new bottles.",
+          "marked_text": "And <fn n=\"w\"/>no man putteth new wine into old <fn n=\"x\"/>bottles: else the new wine doth burst the bottles, and the wine is spilled, and the bottles will be <fn n=\"y\"/>marred: but new wine must be put into new bottles.",
           "outlines": null,
           "footnotes": [
             {
@@ -705,8 +705,8 @@
         {
           "verse": 23,
           "text": "And it came to pass, that he went through the corn fields on the sabbath day; and his disciples began, as they went, to pluck the ears of corn.",
-          "marked_text": "And it came to pass, that he went through the corn fields on the sabbath day; and his disciples began, as they went, to pluck the ears of corn.",
-          "outlines": null,
+          "marked_text": "And it came to pass, that he <fn n=\"a\"/>went through the corn fields on the sabbath day; and his disciples began, as they went, to pluck the ears of corn.",
+          "outlines": "Jesus Lord of the sabbath (Mt. 12. 1-8; Lk. 6. 1-5).",
           "footnotes": null
         },
         {
@@ -719,14 +719,14 @@
         {
           "verse": 25,
           "text": "And he said unto them, Have ye never read what David did, when he had need, and was an hungred, he, and they that were with him?",
-          "marked_text": "And he said unto them, Have ye never read what David did, when he had need, and was an hungred, he, and they that were with him?",
+          "marked_text": "And he said unto them, Have ye never read what <fn n=\"b\"/>David did, when he had need, and was an hungred, he, and they that were with him?",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 26,
           "text": "How he went into the house of God in the days of Abiathar the high priest, and did eat the shewbread, which is not lawful to eat but for the priests, and gave also to them which were with him?",
-          "marked_text": "How he went into the house of God in the days of Abiathar the high priest, and did eat the shewbread<fn n=\"7\"/>, which is not lawful to eat but for the priests, and gave also to them which were with him?",
+          "marked_text": "How he went into the house of God in the days of Abiathar the high priest, and did eat the <fn n=\"c\"/>shewbread, which is not lawful to eat but for the <fn n=\"d\"/>priests, and gave also to them which were with him?",
           "outlines": null,
           "footnotes": [
             {
@@ -744,87 +744,341 @@
         {
           "verse": 27,
           "text": "And he said unto them, The sabbath was made for man, and not man for the sabbath:",
-          "marked_text": "And he said unto them, The sabbath was made for man, and not man for the sabbath:",
+          "marked_text": "And he said unto them, The <fn n=\"e\"/>sabbath was made for man, and not man for the sabbath:",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 28,
           "text": "Therefore the Son of man is Lord also of the sabbath.",
-          "marked_text": "Therefore the Son of man is Lord also of the sabbath.",
+          "marked_text": "Therefore the Son of man is <fn n=\"f\"/>Lord also of the sabbath.",
           "outlines": null,
           "footnotes": null
         }
       ],
       "footnotes": [
         {
-          "verse": 5,
+          "verse": 3,
           "note_idx": 1,
+          "letter": "e",
+          "keyword": "palsy",
+          "text": "Isa. 40. 29; Mt. 9. 2-8; Lk. 5. 18-26.",
+          "html": "<p><b>palsy</b>: Isa. 40. 29; Mt. 9. 2-8; Lk. 5. 18-26.</p>",
+          "references": [
+            "Isa 40:29",
+            "Mat 9:2-8",
+            "Luk 5:18-26"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 2,
+          "letter": "f",
+          "keyword": "broken it up",
+          "text": "Mt. 15. 23-28; Lk. 18. 39.",
+          "html": "<p><b>broken it up</b>: Mt. 15. 23-28; Lk. 18. 39.</p>",
+          "references": [
+            "Mat 15:23-28",
+            "Luk 18:39"
+          ]
+        },
+        {
+          "verse": 5,
+          "note_idx": 3,
+          "letter": "g",
           "keyword": "sins",
-          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
-          "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "text": "Sin. Rom. 3. 23, note.",
+          "html": "<p><b>sins</b>: Sin. Rom. 3. 23, note.</p>",
           "references": [
             "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 5,
+          "note_idx": 4,
+          "letter": "h",
+          "keyword": "forgiven",
+          "text": "Forgiveness. Lk. 7. 47-49. (Lev. 4. 20; Mt. 26. 28.)",
+          "html": "<p><b>forgiven</b>: Forgiveness. Lk. 7. 47-49. (Lev. 4. 20; Mt. 26. 28.)</p>",
+          "references": [
+            "Luk 7:47-49",
+            "Lev 4:20",
+            "Mat 26:28"
+          ]
+        },
+        {
+          "verse": 7,
+          "note_idx": 5,
+          "letter": "i",
+          "keyword": "God only",
+          "text": "Isa. 43. 25; John 1. 1, 14 with John 8. 11.",
+          "html": "<p><b>God only</b>: Isa. 43. 25; John 1. 1, 14 with John 8. 11.</p>",
+          "references": [
+            "Isa 43:25",
+            "Joh 1:1",
+            "Joh 1:14",
+            "Joh 8:11"
+          ]
+        },
+        {
+          "verse": 8,
+          "note_idx": 6,
+          "letter": "j",
+          "keyword": "immediately",
+          "text": "straightway.",
+          "html": "<p><b>immediately</b>: straightway.</p>",
+          "references": []
+        },
+        {
+          "verse": 8,
+          "note_idx": 7,
+          "letter": "k",
+          "keyword": "perceived",
+          "text": "Mt. 9. 4; John 2. 25.",
+          "html": "<p><b>perceived</b>: Mt. 9. 4; John 2. 25.</p>",
+          "references": [
+            "Mat 9:4",
+            "Joh 2:25"
           ]
         },
         {
           "verse": 9,
-          "note_idx": 2,
-          "keyword": "sins",
-          "text": "Sin. (See Scofield \" Rom 3:23 \")",
-          "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
+          "note_idx": 8,
+          "letter": "l",
+          "keyword": "to say",
+          "text": "Psa. 33. 6, 9; Mk. 1. 27; Lk. 4. 32.",
+          "html": "<p><b>to say</b>: Psa. 33. 6, 9; Mk. 1. 27; Lk. 4. 32.</p>",
           "references": [
-            "Rom 3:23"
+            "Psa 33:6",
+            "Psa 33:9",
+            "Mar 1:27",
+            "Luk 4:32"
           ]
         },
         {
           "verse": 10,
-          "note_idx": 3,
+          "note_idx": 9,
+          "letter": "m",
           "keyword": "Son of man",
-          "text": "(See Scofield \" Mat 8:20 \")",
-          "html": "<p><b>Son of man</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 8:20</ref></i><i>&quot;)</i> </p>",
+          "text": "Mt. 8. 20, note.",
+          "html": "<p><b>Son of man</b>: Mt. 8. 20, note.</p>",
           "references": [
             "Mat 8:20"
           ]
         },
         {
-          "verse": 15,
-          "note_idx": 4,
-          "keyword": "sinners",
-          "text": "Sin. (See Scofield \" Rom 3:23 \")",
-          "html": "<p><b>sinners</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
+          "verse": 12,
+          "note_idx": 10,
+          "letter": "n",
+          "keyword": "And immediately",
+          "text": "Miracles (N.T.). vs. 3, 12; Mk. 3. 1-5. (Mt. 8. 2, 3; Acts 28. 8, 9.)",
+          "html": "<p><b>And immediately</b>: Miracles (N.T.). vs. 3, 12; Mk. 3. 1-5. (Mt. 8. 2, 3; Acts 28. 8, 9.)</p>",
           "references": [
-            "Rom 3:23"
+            "Mar 3:1-5",
+            "Mat 8:2-3",
+            "Act 28:8-9"
           ]
         },
         {
-          "verse": 16,
-          "note_idx": 5,
-          "keyword": "sinners",
-          "text": "Sin ( See Scofield Rom 3:23).",
-          "html": "<p><b>sinners</b> </p><p><b>Sin</b> </p><p>(<i>See Scofield</i> <ref>Rom 3:23</ref>). </p>",
+          "verse": 12,
+          "note_idx": 11,
+          "letter": "o",
+          "keyword": "were all amazed",
+          "text": "Mt. 15. 31; Phil. 2. 11.",
+          "html": "<p><b>were all amazed</b>: Mt. 15. 31; Phil. 2. 11.</p>",
           "references": [
-            "Rom 3:23"
+            "Mat 15:31",
+            "Phi 2:11"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 12,
+          "letter": "p",
+          "keyword": "passed by",
+          "text": "Mt. 9. 9-13; Lk. 5. 27-32.",
+          "html": "<p><b>passed by</b>: Mt. 9. 9-13; Lk. 5. 27-32.</p>",
+          "references": [
+            "Mat 9:9-13",
+            "Luk 5:27-32"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 13,
+          "letter": "q",
+          "keyword": "whole",
+          "text": "Mt. 18. 11; Lk. 19. 7, 10; 1 Tim. 1. 15.",
+          "html": "<p><b>whole</b>: Mt. 18. 11; Lk. 19. 7, 10; 1 Tim. 1. 15.</p>",
+          "references": [
+            "Mat 18:11",
+            "Luk 19:7",
+            "Luk 19:10",
+            "1Ti 1:15"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 14,
+          "letter": "r",
+          "keyword": "repentance",
+          "text": "Repentance. Mk. 6. 12. (Mt. 3. 2; Acts 17. 30.)",
+          "html": "<p><b>repentance</b>: Repentance. Mk. 6. 12. (Mt. 3. 2; Acts 17. 30.)</p>",
+          "references": [
+            "Mar 6:12",
+            "Mat 3:2",
+            "Act 17:30"
+          ]
+        },
+        {
+          "verse": 18,
+          "note_idx": 15,
+          "letter": "s",
+          "keyword": "used to fast",
+          "text": "Mt. 6. 16-18; 9. 14-17; Lk. 5. 33-39.",
+          "html": "<p><b>used to fast</b>: Mt. 6. 16-18; 9. 14-17; Lk. 5. 33-39.</p>",
+          "references": [
+            "Mat 6:16-18",
+            "Mat 9:14-17",
+            "Luk 5:33-39"
+          ]
+        },
+        {
+          "verse": 19,
+          "note_idx": 16,
+          "letter": "t",
+          "keyword": "bridegroom",
+          "text": "John 3. 29.",
+          "html": "<p><b>bridegroom</b>: John 3. 29.</p>",
+          "references": [
+            "Joh 3:29"
+          ]
+        },
+        {
+          "verse": 20,
+          "note_idx": 17,
+          "letter": "u",
+          "keyword": "taken away",
+          "text": "John 16. 6, 20, 22.",
+          "html": "<p><b>taken away</b>: John 16. 6, 20, 22.</p>",
+          "references": [
+            "Joh 16:6",
+            "Joh 16:20",
+            "Joh 16:22"
+          ]
+        },
+        {
+          "verse": 21,
+          "note_idx": 18,
+          "letter": "v",
+          "keyword": "seweth",
+          "text": "Parables (N.T.). vs. 21, 22; Mk. 4. 3-20. (Mt. 5. 13-16; Lk. 21. 29-31.)",
+          "html": "<p><b>seweth</b>: Parables (N.T.). vs. 21, 22; Mk. 4. 3-20. (Mt. 5. 13-16; Lk. 21. 29-31.)</p>",
+          "references": [
+            "Mar 4:3-20",
+            "Mat 5:13-16",
+            "Luk 21:29-31"
           ]
         },
         {
           "verse": 22,
-          "note_idx": 6,
+          "note_idx": 19,
+          "letter": "w",
+          "keyword": "no man",
+          "text": "Gal. 3. 1-3.",
+          "html": "<p><b>no man</b>: Gal. 3. 1-3.</p>",
+          "references": [
+            "Gal 3:1-3"
+          ]
+        },
+        {
+          "verse": 22,
+          "note_idx": 20,
+          "letter": "x",
+          "keyword": "bottles",
+          "text": "wine-skins.",
+          "html": "<p><b>bottles</b>: wine-skins.</p>",
+          "references": []
+        },
+        {
+          "verse": 22,
+          "note_idx": 21,
+          "letter": "y",
           "keyword": "marred",
-          "text": "(Greek - ἀπόλλυμι ).\" (See Scofield \" Joh 3:16 \")",
-          "html": "<p><b>marred</b> (Greek - <grk><blu>&#x1F00;&pi;&#x03CC;&lambda;&lambda;&upsilon;&mu;&iota;</blu></grk>).&quot; </p><p><i>(See Scofield &quot;</i><i><ref>Joh 3:16</ref></i><i>&quot;)</i> </p>",
+          "text": "Gr. apollumi. John 3. 16, note.",
+          "html": "<p><b>marred</b>: Gr. apollumi. John 3. 16, note.</p>",
           "references": [
             "Joh 3:16"
           ]
         },
         {
+          "verse": 23,
+          "note_idx": 22,
+          "letter": "a",
+          "keyword": "went",
+          "text": "Mt. 12. 1-8; Lk. 6. 1-5.",
+          "html": "<p><b>went</b>: Mt. 12. 1-8; Lk. 6. 1-5.</p>",
+          "references": [
+            "Mat 12:1-8",
+            "Luk 6:1-5"
+          ]
+        },
+        {
+          "verse": 25,
+          "note_idx": 23,
+          "letter": "b",
+          "keyword": "David",
+          "text": "1 Sam. 21. 1-6; Mt. 12. 9-13; Lk. 6. 6-10.",
+          "html": "<p><b>David</b>: 1 Sam. 21. 1-6; Mt. 12. 9-13; Lk. 6. 6-10.</p>",
+          "references": [
+            "1Sa 21:1-6",
+            "Mat 12:9-13",
+            "Luk 6:6-10"
+          ]
+        },
+        {
           "verse": 26,
-          "note_idx": 7,
+          "note_idx": 24,
+          "letter": "c",
           "keyword": "shewbread",
-          "text": "(See Scofield \" Exo 25:30 \")",
-          "html": "<p><b>shewbread</b> </p><p><i>(See Scofield &quot;</i><i><ref>Exo 25:30</ref></i><i>&quot;)</i> </p>",
+          "text": "Ex. 25. 30, note.",
+          "html": "<p><b>shewbread</b>: Ex. 25. 30, note.</p>",
           "references": [
             "Exo 25:30"
+          ]
+        },
+        {
+          "verse": 26,
+          "note_idx": 25,
+          "letter": "d",
+          "keyword": "priests",
+          "text": "Lev. 24. 5-9.",
+          "html": "<p><b>priests</b>: Lev. 24. 5-9.</p>",
+          "references": [
+            "Lev 24:5-9"
+          ]
+        },
+        {
+          "verse": 27,
+          "note_idx": 26,
+          "letter": "e",
+          "keyword": "sabbath",
+          "text": "Lk. 14. 5.",
+          "html": "<p><b>sabbath</b>: Lk. 14. 5.</p>",
+          "references": [
+            "Luk 14:5"
+          ]
+        },
+        {
+          "verse": 28,
+          "note_idx": 27,
+          "letter": "f",
+          "keyword": "Lord also of the sabbath",
+          "text": "Mt. 12. 8; John 5. 16-18.",
+          "html": "<p><b>Lord also of the sabbath</b>: Mt. 12. 8; John 5. 16-18.</p>",
+          "references": [
+            "Mat 12:8",
+            "Joh 5:16-18"
           ]
         }
       ]
