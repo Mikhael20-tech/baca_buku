@@ -770,7 +770,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 title={bibleLang === 'en' ? 'Back to Home' : 'Kembali ke Beranda'}
               >
                 <ArrowLeft className="w-3.5 h-3.5 mr-1" />
-                <span>{bibleLang === 'en' ? 'Home' : 'Beranda'}</span>
+                <span className="hidden xl:inline">{bibleLang === 'en' ? 'Home' : 'Beranda'}</span>
               </Button>
 
               <Button
@@ -798,7 +798,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   }}
                   className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition h-8 px-2.5 min-w-0`}
                 >
-                  <span className="truncate max-w-[130px] lg:max-w-[180px]">📖 {currentBookInfo.name}</span>
+                  <span className="truncate max-w-[105px] lg:max-w-[150px] xl:max-w-[200px]">📖 {currentBookInfo.name}</span>
                   <Compass className="w-3.5 h-3.5 ml-1 opacity-70 shrink-0" />
                 </Button>
 
@@ -820,7 +820,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   title={bibleLang === 'en' ? 'Jump to Verse Number' : 'Loncat ke Nomor Ayat'}
                 >
                   <Hash className="w-3.5 h-3.5 mr-0.5 text-amber-600 dark:text-amber-400" />
-                  <span>{bibleLang === 'en' ? 'Verse' : 'Ayat'}</span>
+                  <span className="hidden lg:inline">{bibleLang === 'en' ? 'Verse' : 'Ayat'}</span>
                 </Button>
 
                 {bookData?.intro && (
@@ -968,7 +968,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   title={bibleLang === 'en' ? 'Parallel View (ID & EN)' : 'Mode Berdampingan (ID & EN Paralel)'}
                 >
                   <Columns className="w-3 h-3" />
-                  <span className="hidden lg:inline">{bibleLang === 'en' ? 'Parallel' : 'Paralel'}</span>
+                  <span className="hidden xl:inline">{bibleLang === 'en' ? 'Parallel' : 'Paralel'}</span>
                 </button>
               </div>
 
@@ -977,7 +977,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 variant="outline"
                 size="icon"
                 onClick={() => setIsDistractionFree(true)}
-                className={`shrink-0 h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
+                className={`shrink-0 h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs hidden xl:flex`}
                 title={bibleLang === 'en' ? 'Fullscreen (Focus Mode)' : 'Layar Penuh (Fokus Membaca)'}
               >
                 <Maximize2 className="w-4 h-4" />
@@ -1077,8 +1077,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               </div>
             </div>
 
-            {/* Baris 2: Versi Alkitab (ID/EN/Scofield) & Toolbar Cepat (Scrollable Halus) */}
-            <div className="flex items-center justify-between gap-1.5 w-full overflow-x-auto no-scrollbar py-0.5">
+            {/* Baris 2: Versi Alkitab (ID/EN/Scofield) & Toolbar Cepat (Scrollable Halus Tanpa Wrap) */}
+            <div className="flex items-center justify-between gap-1.5 w-full overflow-x-auto no-scrollbar py-0.5 flex-nowrap">
               {/* Language Switcher */}
               <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0`}>
                 <button

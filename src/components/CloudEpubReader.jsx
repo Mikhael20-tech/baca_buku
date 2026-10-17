@@ -1668,16 +1668,16 @@ export default function CloudEpubReader({
               setIsTocOpen(prev => !prev);
               setIsSidebarOpen(false);
             }}
-            className={`h-8 px-2.5 sm:px-3 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 ${
+            className={`h-8 px-2 sm:px-3 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 shrink-0 ${
               isTocOpen ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm' : 'bg-black/5 hover:bg-black/10'
             }`}
             title="Daftar Isi Bab & Navigasi"
           >
             <List className="w-3.5 h-3.5" />
-            <span>Daftar Isi</span>
+            <span className="hidden sm:inline">Daftar Isi</span>
           </Button>
 
-          <div className="max-w-[130px] sm:max-w-xs md:max-w-md">
+          <div className="max-w-[95px] xs:max-w-[140px] sm:max-w-xs md:max-w-md min-w-0">
             <div className="flex items-center gap-1.5 min-w-0">
               <h2 className="font-bold text-xs sm:text-sm leading-tight truncate">{book.title}</h2>
               {isFKKP && (

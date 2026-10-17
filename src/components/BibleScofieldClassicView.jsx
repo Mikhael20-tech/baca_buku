@@ -183,29 +183,54 @@ export default function BibleScofieldClassicView({
       {/* Kontainer Kertas Buku Cetak 1917 */}
       <div className="w-full max-w-5xl bg-[#fdfaf3] text-[#1a1612] shadow-2xl border-2 border-stone-400 rounded-2xl flex flex-col overflow-hidden min-h-[85vh]">
         
-        {/* 1. HEADER ATAS HALAMAN (Buku Klasik 1917) */}
-        <header className="border-b-2 border-stone-900 mx-4 sm:mx-8 pt-4 pb-3 flex justify-between items-center text-xs tracking-widest uppercase select-none">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="font-extrabold text-stone-900 bg-amber-200/80 border border-amber-400 px-2.5 py-0.5 rounded-md font-mono text-xs">
-              {chronology}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onOpenIndex}
-              className="h-7 px-2.5 text-xs text-amber-950 bg-amber-100 hover:bg-amber-200 border-amber-400 rounded-lg font-sans font-bold flex items-center gap-1 shadow-2xs"
-            >
-              <Compass className="w-3.5 h-3.5 text-amber-800" />
-              <span>Indeks Topikal</span>
-            </Button>
+        {/* 1. HEADER ATAS HALAMAN (Buku Klasik 1917) - 100% Responsif */}
+        <header className="border-b-2 border-stone-900 mx-3 sm:mx-8 pt-3 sm:pt-4 pb-2.5 sm:pb-3 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs tracking-widest uppercase select-none">
+          <div className="flex items-center justify-between w-full sm:w-auto gap-2">
+            <div className="flex items-center gap-2">
+              <span className="font-extrabold text-stone-900 bg-amber-200/80 border border-amber-400 px-2 py-0.5 rounded-md font-mono text-[11px] sm:text-xs shrink-0">
+                {chronology}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onOpenIndex}
+                className="h-7 px-2 sm:px-2.5 text-[11px] sm:text-xs text-amber-950 bg-amber-100 hover:bg-amber-200 border-amber-400 rounded-lg font-sans font-bold flex items-center gap-1 shadow-2xs shrink-0"
+              >
+                <Compass className="w-3.5 h-3.5 text-amber-800" />
+                <span>Indeks Topikal</span>
+              </Button>
+            </div>
+
+            {/* Tombol Prev/Next Muncul di Samping Baris Atas Pada Mobile */}
+            <div className="flex sm:hidden items-center gap-1 border border-stone-400 rounded-lg bg-stone-100 p-0.5 shrink-0">
+              <button 
+                onClick={onPrevChapter}
+                disabled={!canPrev}
+                className="p-1 rounded hover:bg-stone-200 disabled:opacity-30 cursor-pointer text-stone-900"
+                title="Previous Chapter"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <span className="text-stone-800 font-mono text-[11px] font-bold px-1">
+                {selectedChapter}
+              </span>
+              <button 
+                onClick={onNextChapter}
+                disabled={!canNext}
+                className="p-1 rounded hover:bg-stone-200 disabled:opacity-30 cursor-pointer text-stone-900"
+                title="Next Chapter"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <h2 className="font-extrabold text-sm sm:text-base md:text-lg tracking-[0.25em] text-center text-stone-950 font-serif">
+          <h2 className="font-extrabold text-xs sm:text-base md:text-lg tracking-wider sm:tracking-[0.25em] text-center text-stone-950 font-serif truncate max-w-full">
             {bookName.toUpperCase()} — CHAPTER {selectedChapter}
           </h2>
 
-          <div className="flex items-center gap-2">
-            <span className="text-stone-800 font-mono text-xs font-bold hidden sm:inline">Ch. {selectedChapter}</span>
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <span className="text-stone-800 font-mono text-xs font-bold">Ch. {selectedChapter}</span>
             <div className="flex items-center gap-1 border border-stone-400 rounded-lg bg-stone-100 p-0.5">
               <button 
                 onClick={onPrevChapter}
