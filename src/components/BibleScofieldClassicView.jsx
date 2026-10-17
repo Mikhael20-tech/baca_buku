@@ -688,7 +688,7 @@ export default function BibleScofieldClassicView({
                   }}
                   className={`sco-fn-entry ${isSelected ? 'selected-fn' : ''}`}
                 >
-                  <span className="sco-fn-num">{fn.note_idx}</span>
+                  <span className="sco-fn-num">{fn.footnote_number || (fn.letter ? `[${fn.letter}]` : fn.note_idx)}</span>
                   <span className="font-bold">({selectedChapter}:{fn.verse}) </span>
                   {fn.keyword && <span className="font-bold">{fn.keyword}: </span>}
                   <span>

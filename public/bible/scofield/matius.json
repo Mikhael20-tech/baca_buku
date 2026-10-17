@@ -20,7 +20,7 @@
           "verse": 1,
           "text": "The book of the generation of Jesus Christ, the son of David, the son of Abraham.",
           "marked_text": "The book of the generation of Jesus Christ, the son of David, the son of Abraham.",
-          "outlines": "Visit of the Magi.",
+          "outlines": "The genealogy of Jesus Christ: the Son of David, the Son of Abraham.",
           "footnotes": null
         },
         {
@@ -33,7 +33,7 @@
         {
           "verse": 3,
           "text": "And Judas begat Phares and Zara of Thamar; and Phares begat Esrom; and Esrom begat Aram;",
-          "marked_text": "And Judas begat Phares<fn n=\"2\"/> and Zara of Thamar; and Phares<fn n=\"2\"/> begat Esrom; and Esrom begat Aram;",
+          "marked_text": "And Judas begat Phares<fn n=\"2\"/> and Zara of Thamar; and Phares begat Esrom; and Esrom begat Aram;",
           "outlines": null,
           "footnotes": null
         },
@@ -47,7 +47,7 @@
         {
           "verse": 5,
           "text": "And Salmon begat Booz of Rachab; and Booz begat Obed of Ruth; and Obed begat Jesse;",
-          "marked_text": "And Salmon begat Booz<fn n=\"3\"/> of Rachab; and Booz<fn n=\"3\"/> begat Obed of Ruth; and Obed begat Jesse;",
+          "marked_text": "And Salmon begat Booz<fn n=\"3\"/> of Rachab; and Booz begat Obed of Ruth; and Obed begat Jesse;",
           "outlines": null,
           "footnotes": null
         },
@@ -61,21 +61,21 @@
         {
           "verse": 7,
           "text": "And Solomon begat Roboam; and Roboam begat Abia; and Abia begat Asa;",
-          "marked_text": "And Solomon begat Roboam<fn n=\"5\"/>; and Roboam<fn n=\"5\"/> begat Abia<fn n=\"6\"/>; and Abia<fn n=\"6\"/> begat Asa;",
+          "marked_text": "And Solomon begat Roboam<fn n=\"5\"/>; and Roboam begat Abia<fn n=\"6\"/>; and Abia begat Asa;",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 8,
           "text": "And Asa begat Josaphat; and Josaphat begat Joram; and Joram begat Ozias;",
-          "marked_text": "And Asa begat Josaphat<fn n=\"7\"/>; and Josaphat<fn n=\"7\"/> begat Joram; and Joram begat Ozias<fn n=\"8\"/>;",
+          "marked_text": "And Asa begat Josaphat<fn n=\"7\"/>; and Josaphat begat Joram; and Joram begat Ozias<fn n=\"8\"/>;",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 9,
           "text": "And Ozias begat Joatham; and Joatham begat Achaz; and Achaz begat Ezekias;",
-          "marked_text": "And Ozias begat Joatham; and Joatham begat Achaz<fn n=\"9\"/>; and Achaz<fn n=\"9\"/> begat Ezekias;",
+          "marked_text": "And Ozias begat Joatham; and Joatham begat Achaz<fn n=\"9\"/>; and Achaz begat Ezekias;",
           "outlines": null,
           "footnotes": null
         },
@@ -107,7 +107,7 @@
         {
           "verse": 12,
           "text": "And after they were brought to Babylon, Jechonias begat Salathiel; and Salathiel begat Zorobabel;",
-          "marked_text": "And after they were brought to Babylon, Jechonias begat Salathiel; and Salathiel begat Zorobabel;",
+          "marked_text": "And after they were brought to Babylon, Jechonias begat Salathiel; and Salathiel begat Zorobabel<fn n=\"11\"/>;",
           "outlines": null,
           "footnotes": null
         },
@@ -135,7 +135,7 @@
         {
           "verse": 16,
           "text": "And Jacob begat Joseph the husband of Mary, of whom was born Jesus, who is called Christ.",
-          "marked_text": "And Jacob begat Joseph the husband of Mary, of whom was born Jesus, who is called Christ.<fn n=\"2\"/>",
+          "marked_text": "And Jacob begat Joseph the husband of Mary<fn n=\"22\"/>, of whom was born<fn n=\"23\"/> Jesus, who is called Christ<fn n=\"24\"/>.",
           "outlines": null,
           "footnotes": [
             {
@@ -200,8 +200,8 @@
         {
           "verse": 18,
           "text": "Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost.",
-          "marked_text": "Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost.",
-          "outlines": null,
+          "marked_text": "Now the birth of Jesus Christ<fn n=\"12\"/> was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost<fn n=\"13\"/>.",
+          "outlines": "Conception and birth of Jesus (Lk. 1. 26-35).",
           "footnotes": null
         },
         {
@@ -214,14 +214,14 @@
         {
           "verse": 20,
           "text": "But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost.",
-          "marked_text": "But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost.",
+          "marked_text": "But while he thought on these things, behold, the angel of the Lord<fn n=\"14\"/> appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 21,
           "text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins.",
-          "marked_text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save<fn n=\"3\"/> his people from their sins.",
+          "marked_text": "And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save<fn n=\"15\"/> his people from their sins<fn n=\"16\"/>.",
           "outlines": null,
           "footnotes": [
             {
@@ -242,7 +242,7 @@
         {
           "verse": 22,
           "text": "Now all this was done, that it might be fulfilled which was spoken of the Lord by the prophet, saying,",
-          "marked_text": "Now all this was done, that it might be fulfilled which was spoken of the Lord<fn n=\"4\"/> by the prophet, saying,",
+          "marked_text": "Now all this was done, that it might be fulfilled which was spoken of the Lord<fn n=\"17\"/> by the prophet, saying,",
           "outlines": null,
           "footnotes": [
             {
@@ -260,14 +260,14 @@
         {
           "verse": 23,
           "text": "Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us.",
-          "marked_text": "Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us.",
+          "marked_text": "Behold, a virgin<fn n=\"18\"/> shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 24,
           "text": "Then Joseph being raised from sleep did as the angel of the Lord had bidden him, and took unto him his wife:",
-          "marked_text": "Then Joseph being raised from sleep did as the angel<fn n=\"5\"/> of the Lord had bidden him, and took unto him his wife:",
+          "marked_text": "Then Joseph being raised from sleep did as the angel of the Lord<fn n=\"19\"/> had bidden him, and took unto him his wife:",
           "outlines": null,
           "footnotes": [
             {
@@ -285,7 +285,7 @@
         {
           "verse": 25,
           "text": "And knew her not till she had brought forth her firstborn son: and he called his name JESUS.",
-          "marked_text": "And knew her not till she had brought forth her firstborn son: and he called his name JESUS<fn n=\"6\"/>.",
+          "marked_text": "And knew her not till she had brought forth<fn n=\"21\"/> her firstborn son: and he called his name JESUS<fn n=\"20\"/>.",
           "outlines": null,
           "footnotes": [
             {
@@ -306,7 +306,7 @@
           "letter": "a",
           "keyword": "Judas",
           "text": "Judah, Gen. 29.35.",
-          "html": "<p><b>Judas</b>: Judah, <ref>Gen 29:35</ref></p>",
+          "html": "<p><b>Judas</b>: Judah, Gen. 29.35.</p>",
           "references": [
             "Gen 29:35"
           ]
@@ -317,7 +317,7 @@
           "letter": "b",
           "keyword": "Phares",
           "text": "Pharez, Gen. 38.27.",
-          "html": "<p><b>Phares</b>: Pharez, <ref>Gen 38:27</ref></p>",
+          "html": "<p><b>Phares</b>: Pharez, Gen. 38.27.</p>",
           "references": [
             "Gen 38:27"
           ]
@@ -328,7 +328,7 @@
           "letter": "c",
           "keyword": "Booz",
           "text": "Boaz, 1 Chr. 2.11.",
-          "html": "<p><b>Booz</b>: Boaz, <ref>1Ch 2:11</ref></p>",
+          "html": "<p><b>Booz</b>: Boaz, 1 Chr. 2.11.</p>",
           "references": [
             "1Ch 2:11"
           ]
@@ -339,7 +339,7 @@
           "letter": "d",
           "keyword": "Urias",
           "text": "Uriah, 2 Sam. 11.3.",
-          "html": "<p><b>Urias</b>: Uriah, <ref>2Sa 11:3</ref></p>",
+          "html": "<p><b>Urias</b>: Uriah, 2 Sam. 11.3.</p>",
           "references": [
             "2Sa 11:3"
           ]
@@ -350,7 +350,7 @@
           "letter": "e",
           "keyword": "Roboam",
           "text": "Rehoboam, 1 Ki. 11.43.",
-          "html": "<p><b>Roboam</b>: Rehoboam, <ref>1Ki 11:43</ref></p>",
+          "html": "<p><b>Roboam</b>: Rehoboam, 1 Ki. 11.43.</p>",
           "references": [
             "1Ki 11:43"
           ]
@@ -361,7 +361,7 @@
           "letter": "f",
           "keyword": "Abia",
           "text": "Abijah, 2 Chr. 11.20.",
-          "html": "<p><b>Abia</b>: Abijah, <ref>2Ch 11:20</ref></p>",
+          "html": "<p><b>Abia</b>: Abijah, 2 Chr. 11.20.</p>",
           "references": [
             "2Ch 11:20"
           ]
@@ -372,7 +372,7 @@
           "letter": "g",
           "keyword": "Josaphat",
           "text": "Jehoshaphat, 1 Chr. 3.10.",
-          "html": "<p><b>Josaphat</b>: Jehoshaphat, <ref>1Ch 3:10</ref></p>",
+          "html": "<p><b>Josaphat</b>: Jehoshaphat, 1 Chr. 3.10.</p>",
           "references": [
             "1Ch 3:10"
           ]
@@ -383,7 +383,7 @@
           "letter": "h",
           "keyword": "Ozias",
           "text": "Uzziah, 2 Ki. 15.13. Called also Azariah, 2 Chr. 22.6.",
-          "html": "<p><b>Ozias</b>: Uzziah, <ref>2Ki 15:13</ref>. Called also Azariah, <ref>2Ch 22:6</ref></p>",
+          "html": "<p><b>Ozias</b>: Uzziah, 2 Ki. 15.13. Called also Azariah, 2 Chr. 22.6.</p>",
           "references": [
             "2Ki 15:13",
             "2Ch 22:6"
@@ -395,7 +395,7 @@
           "letter": "i",
           "keyword": "Achaz",
           "text": "Ahaz, 2 Ki. 15.38.",
-          "html": "<p><b>Achaz</b>: Ahaz, <ref>2Ki 15:38</ref></p>",
+          "html": "<p><b>Achaz</b>: Ahaz, 2 Ki. 15.38.</p>",
           "references": [
             "2Ki 15:38"
           ]
@@ -406,43 +406,173 @@
           "letter": "j",
           "keyword": "Josias",
           "text": "Josiah, 1 Ki. 13.2.",
-          "html": "<p><b>Josias</b>: Josiah, <ref>1Ki 13:2</ref></p>",
+          "html": "<p><b>Josias</b>: Josiah, 1 Ki. 13.2.</p>",
           "references": [
             "1Ki 13:2"
           ]
         },
         {
-          "verse": 16,
+          "verse": 12,
           "note_idx": 11,
-          "keyword": "",
-          "text": "1 Six Marys 2 of whom was born 3 Christ 1 Six Marys 1 Six Marys are to be distinguished in the N.T.: (1) the mother of Jesus; always clearly identified by the context. (2) Mary Magdalene, a woman of Magdala, \" out of whom went seven demons\" Luk 8:2 She is never mentioned apart from the identifying word \"Magdalene.\" (3) The mother of James (called \"the less,\" Mar 15:40) and Joses, the apostles. A comparison of; Joh 19:25; Mat 27:56; Mar 15:40 establishes the inference that this Mary, the mother of James the less, and of Joses was the wife of Alphaeus (called also Cleophas), Joh 19:25 and a sister of Mary the mother of Jesus. Except in; Mat 27:61; Mat 28:1 where she is called \"the other Mary (i.e. \"other\" than her sister, Mary the Virgin); and Joh 19:25 where she is called \"of Cleophas,\" she is mentioned only in connection with one or both of her sons. (4) Mary of Bethany, sister of Martha and Lazarus, mentioned by name only in Luk 10:39-42; Joh 11:1; Joh 11:2; Joh 11:19; Joh 11:20; Joh 11:28; Joh 11:31; Joh 11:32; Joh 11:45; Joh 12:3 but referred to in; Mat 26:7; Mar 14:3-9. (5) The mother of John Mark and sister of Barnabas Act 12:12. (6) A helper of Paul in Rome Rom 16:6. 2 of whom was born 2 The changed expression here is important. It is no longer, \"who begat,\" but, \"Mary, of whom was born Jesus.\" Jesus was not begotten of natural generation. 3 Christ 3 Christ (Christos=anointed), the Greek form of the Hebrew \"Messiah\" Dan 9:25; Dan 9:26 is the official name of our Lord, as Jesus is his human name; Luk 1:31; Luk 2:21. The name, or title, \"Christ\" connects Him with the entire O.T. foreview (See Scofield \" Zec 12:8 \") of a coming prophet Deu 18:15-19, Priest Psa 110:4 and king 2Sa 7:7-10. As these were typically anointed with oil; 1Ki 19:16; Exo 29:7; 1Sa 16:13 so Jesus was anointed with the Holy Spirit; Mat 3:16; Mar 1:10; Mar 1:11; Luk 3:21; Luk 3:22; Joh 1:32; Joh 1:33 thus becoming officially \"the Christ.\"",
-          "html": "<p>1 Six Marys 2 of whom was born 3 Christ </p><p>1 Six Marys </p><p>1 Six Marys are to be distinguished in the N.T.: </p><p>(1) the mother of Jesus; always clearly identified by the context. </p><p>(2) Mary Magdalene, a woman of Magdala, &quot; out of whom went seven demons&quot; <ref>Luk 8:2</ref> She is never mentioned apart from the identifying word &quot;Magdalene.&quot; </p><p>(3) The mother of James (called &quot;the less,&quot; <ref>Mar 15:40</ref>) and Joses, the apostles. A comparison of; <ref>Joh 19:25</ref>; <ref>Mat 27:56</ref>; <ref>Mar 15:40</ref> establishes the inference that this Mary, the mother of James the less, and of Joses was the wife of Alphaeus (called also Cleophas), <ref>Joh 19:25</ref> and a sister of Mary the mother of Jesus. Except in; <ref>Mat 27:61</ref>; <ref>Mat 28:1</ref> where she is called &quot;the other Mary (i.e. &quot;other&quot; than her sister, Mary the Virgin); and <ref>Joh 19:25</ref> where she is called &quot;of Cleophas,&quot; she is mentioned only in connection with one or both of her sons. </p><p>(4) Mary of Bethany, sister of Martha and Lazarus, mentioned by name only in <ref>Luk 10:39-42</ref>; <ref>Joh 11:1</ref>; <ref>Joh 11:2</ref>; <ref>Joh 11:19</ref>; <ref>Joh 11:20</ref>; <ref>Joh 11:28</ref>; <ref>Joh 11:31</ref>; <ref>Joh 11:32</ref>; <ref>Joh 11:45</ref>; <ref>Joh 12:3</ref> but referred to in; <ref>Mat 26:7</ref>; <ref>Mar 14:3-9</ref>. </p><p>(5) The mother of John Mark and sister of Barnabas <ref>Act 12:12</ref>. </p><p>(6) A helper of Paul in Rome <ref>Rom 16:6</ref>. </p><p>2 of whom was born </p><p>2 The changed expression here is important. It is no longer, &quot;who begat,&quot; but, &quot;Mary, of whom was born Jesus.&quot; Jesus was not begotten of natural generation. </p><p>3 Christ </p><p>3 Christ (Christos=anointed), the Greek form of the Hebrew &quot;Messiah&quot; <ref>Dan 9:25</ref>; <ref>Dan 9:26</ref> is the official name of our Lord, as Jesus is his human name; <ref>Luk 1:31</ref>; <ref>Luk 2:21</ref>. The name, or title, &quot;Christ&quot; connects Him with the entire O.T. foreview <i>(See Scofield &quot;</i><i><ref>Zec 12:8</ref></i><i>&quot;)</i> of a coming prophet <ref>Deu 18:15-19</ref>, Priest <ref>Psa 110:4</ref> and king <ref>2Sa 7:7-10</ref>. As these were typically anointed with oil; <ref>1Ki 19:16</ref>; <ref>Exo 29:7</ref>; <ref>1Sa 16:13</ref> so Jesus was anointed with the Holy Spirit; <ref>Mat 3:16</ref>; <ref>Mar 1:10</ref>; <ref>Mar 1:11</ref>; <ref>Luk 3:21</ref>; <ref>Luk 3:22</ref>; <ref>Joh 1:32</ref>; <ref>Joh 1:33</ref> thus becoming officially &quot;the Christ.&quot; </p>",
+          "letter": "a",
+          "keyword": "Zorobabel",
+          "text": "Zerubbabel, 1 Chr. 3.19.",
+          "html": "<p><b>Zorobabel</b>: Zerubbabel, 1 Chr. 3.19.</p>",
+          "references": [
+            "1Ch 3:19"
+          ]
+        },
+        {
+          "verse": 18,
+          "note_idx": 12,
+          "letter": "b",
+          "keyword": "birth of Jesus Christ",
+          "text": "Christ (First Advent). Mt. 2. 1-6. (Gen. 3. 15; Acts 1. 9.)",
+          "html": "<p><b>birth of Jesus Christ</b>: Christ (First Advent). Mt. 2. 1-6. (Gen. 3. 15; Acts 1. 9.)</p>",
+          "references": [
+            "Mt 2:1-6",
+            "Gen 3:15",
+            "Act 1:9"
+          ]
+        },
+        {
+          "verse": 18,
+          "note_idx": 13,
+          "letter": "c",
+          "keyword": "Holy Ghost",
+          "text": "Holy Spirit (N.T.). vs. 18-20; Mt. 3. 11-16. (Mt. 1. 18; Acts 2. 4.)",
+          "html": "<p><b>Holy Ghost</b>: Holy Spirit (N.T.). vs. 18-20; Mt. 3. 11-16. (Mt. 1. 18; Acts 2. 4.)</p>",
+          "references": [
+            "Mt 3:11-16",
+            "Mt 1:18",
+            "Act 2:4"
+          ]
+        },
+        {
+          "verse": 20,
+          "note_idx": 14,
+          "letter": "d",
+          "keyword": "angel",
+          "text": "Gr. an angel.",
+          "html": "<p><b>angel</b>: Gr. an angel.</p>",
+          "references": []
+        },
+        {
+          "verse": 21,
+          "note_idx": 15,
+          "letter": "e",
+          "keyword": "save",
+          "text": "Rom. 1. 16, note.",
+          "html": "<p><b>save</b>: Rom. 1. 16, note.</p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 21,
+          "note_idx": 16,
+          "letter": "f",
+          "keyword": "sins",
+          "text": "Rom. 3. 23, note.",
+          "html": "<p><b>sins</b>: Rom. 3. 23, note.</p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 22,
+          "note_idx": 17,
+          "letter": "g",
+          "keyword": "of the Lord",
+          "text": "Isa. 7. 14. Lit. by the Lord through the prophet.",
+          "html": "<p><b>of the Lord</b>: Isa. 7. 14. Lit. by the Lord through the prophet.</p>",
+          "references": [
+            "Isa 7:14"
+          ]
+        },
+        {
+          "verse": 23,
+          "note_idx": 18,
+          "letter": "h",
+          "keyword": "a virgin",
+          "text": "Lit. the virgin.",
+          "html": "<p><b>a virgin</b>: Lit. the virgin.</p>",
+          "references": []
+        },
+        {
+          "verse": 24,
+          "note_idx": 19,
+          "letter": "i",
+          "keyword": "angel of the Lord",
+          "text": "Heb. 1. 4, note.",
+          "html": "<p><b>angel of the Lord</b>: Heb. 1. 4, note.</p>",
+          "references": [
+            "Heb 1:4"
+          ]
+        },
+        {
+          "verse": 25,
+          "note_idx": 20,
+          "letter": "j",
+          "keyword": "JESUS",
+          "text": "The Gr. form of the Heb. Jehoshua, meaning Saviour.",
+          "html": "<p><b>JESUS</b>: The Gr. form of the Heb. Jehoshua, meaning Saviour.</p>",
+          "references": []
+        },
+        {
+          "verse": 25,
+          "note_idx": 21,
+          "letter": "k",
+          "keyword": "brought forth",
+          "text": "Lk. 2. 4-7.",
+          "html": "<p><b>brought forth</b>: Lk. 2. 4-7.</p>",
+          "references": [
+            "Luk 2:4-7"
+          ]
+        },
+        {
+          "verse": 16,
+          "note_idx": 22,
+          "footnote_number": 1,
+          "keyword": "Six Marys",
+          "text": "Six Marys are to be distinguished in the N.T.: (1) Mary the mother of Jesus; always clearly identified by the context. (2) Mary Magdalene, a woman of Magdala, \"out of whom went seven demons\" (Lk. 8. 2). She is never mentioned apart from the identifying word \"Magdalene.\" (3) The mother of James (called \"the less,\" Mk. 15. 40) and Joses, the apostles. A comparison of John 19. 25, Mt. 27. 56, and Mk. 15. 40 establishes the inference that this Mary, the mother of James the less, and of Joses, was the wife of Alpheus (called also Cleophas, John 19. 25), and a sister of Mary the mother of Jesus. Except in Mt. 27. 61, and 28. 1, where she is called \"the other Mary\" (i.e. \"other\" than her sister, Mary the Virgin); and John 19. 25, where she is called \"of Cleophas,\" she is mentioned only in connection with one or both of her sons. (4) Mary of Bethany, sister of Martha and Lazarus, mentioned by name only in Lk. 10. 39, 42; John 11. 1, 2, 19, 20, 28, 31, 32, 45; 12. 3, but referred to in Mt. 26. 7; Mk. 14. 3-9. (5) The mother of John Mark and sister of Barnabas (Acts 12. 12). (6) A helper of Paul in Rome (Rom. 16. 6).",
+          "html": "<p><b>Six Marys</b> </p><p>Six Marys are to be distinguished in the N.T.: (1) Mary the mother of Jesus; always clearly identified by the context. (2) Mary Magdalene, a woman of Magdala, \"out of whom went seven demons\" (Lk. 8. 2). She is never mentioned apart from the identifying word \"Magdalene.\" (3) The mother of James (called \"the less,\" Mk. 15. 40) and Joses, the apostles. A comparison of John 19. 25, Mt. 27. 56, and Mk. 15. 40 establishes the inference that this Mary, the mother of James the less, and of Joses, was the wife of Alpheus (called also Cleophas, John 19. 25), and a sister of Mary the mother of Jesus. Except in Mt. 27. 61, and 28. 1, where she is called \"the other Mary\" (i.e. \"other\" than her sister, Mary the Virgin); and John 19. 25, where she is called \"of Cleophas,\" she is mentioned only in connection with one or both of her sons. (4) Mary of Bethany, sister of Martha and Lazarus, mentioned by name only in Lk. 10. 39, 42; John 11. 1, 2, 19, 20, 28, 31, 32, 45; 12. 3, but referred to in Mt. 26. 7; Mk. 14. 3-9. (5) The mother of John Mark and sister of Barnabas (Acts 12. 12). (6) A helper of Paul in Rome (Rom. 16. 6).</p>",
           "references": [
             "Luk 8:2",
             "Mar 15:40",
             "Joh 19:25",
             "Mat 27:56",
-            "Mar 15:40",
-            "Joh 19:25",
             "Mat 27:61",
             "Mat 28:1",
-            "Joh 19:25",
             "Luk 10:39-42",
-            "Joh 11:1",
-            "Joh 11:2",
-            "Joh 11:19",
-            "Joh 11:20",
-            "Joh 11:28",
-            "Joh 11:31",
-            "Joh 11:32",
-            "Joh 11:45",
+            "Joh 11:1-45",
             "Joh 12:3",
             "Mat 26:7",
             "Mar 14:3-9",
             "Act 12:12",
-            "Rom 16:6",
-            "Dan 9:25",
-            "Dan 9:26",
+            "Rom 16:6"
+          ]
+        },
+        {
+          "verse": 16,
+          "note_idx": 23,
+          "footnote_number": 2,
+          "keyword": "of whom was born",
+          "text": "The changed expression here is important. It is no longer, \"who begat,\" but Mary, of whom was born Jesus. Jesus was not \"begotten\" of natural generation.",
+          "html": "<p><b>of whom was born</b> </p><p>The changed expression here is important. It is no longer, \"who begat,\" but Mary, of whom was born Jesus. Jesus was not \"begotten\" of natural generation.</p>",
+          "references": [
+            "Mat 1:16"
+          ]
+        },
+        {
+          "verse": 16,
+          "note_idx": 24,
+          "footnote_number": 3,
+          "keyword": "Christ",
+          "text": "Christ (Christos = anointed), the Greek form of the Hebrew \"Messiah\" (Dan. 9. 25, 26), is the official name of our Lord, as Jesus is His human name (Lk. 1. 31; 2. 21). The name, or title, \"Christ,\" connects Him with the entire O.T. foreview (Zech. 12. 8, note) of a coming Prophet (Deut. 18. 15-19), Priest (Psa. 110. 4), and King (2 Sam. 7. 7-10). As these were typically anointed with oil (1 Ki. 19. 16; Ex. 29. 7; 1 Sam. 16. 13), so Jesus was anointed with the Holy Spirit (Mt. 3. 16; Mk. 1. 10, 11; Lk. 3. 21, 22; John 1. 32, 33), thus becoming officially \"the Christ.\"",
+          "html": "<p><b>Christ</b> </p><p>Christ (Christos = anointed), the Greek form of the Hebrew \"Messiah\" (Dan. 9. 25, 26), is the official name of our Lord, as Jesus is His human name (Lk. 1. 31; 2. 21). The name, or title, \"Christ,\" connects Him with the entire O.T. foreview (Zech. 12. 8, note) of a coming Prophet (Deut. 18. 15-19), Priest (Psa. 110. 4), and King (2 Sam. 7. 7-10). As these were typically anointed with oil (1 Ki. 19. 16; Ex. 29. 7; 1 Sam. 16. 13), so Jesus was anointed with the Holy Spirit (Mt. 3. 16; Mk. 1. 10, 11; Lk. 3. 21, 22; John 1. 32, 33), thus becoming officially \"the Christ.\"</p>",
+          "references": [
+            "Dan 9:25-26",
             "Luk 1:31",
             "Luk 2:21",
             "Zec 12:8",
@@ -453,54 +583,10 @@
             "Exo 29:7",
             "1Sa 16:13",
             "Mat 3:16",
-            "Mar 1:10",
-            "Mar 1:11",
-            "Luk 3:21",
-            "Luk 3:22",
-            "Joh 1:32",
-            "Joh 1:33"
+            "Mar 1:10-11",
+            "Luk 3:21-22",
+            "Joh 1:32-33"
           ]
-        },
-        {
-          "verse": 21,
-          "note_idx": 12,
-          "keyword": "save",
-          "text": "See note, Rom 1:16 (See Scofield \" Rom 1:16 \") sins See note, Rom 3:23 (See Scofield \" Rom 3:23 \")",
-          "html": "<p><b>save</b> See note, <ref>Rom 1:16</ref> <i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i> </p><p><b>sins</b> See note, <ref>Rom 3:23</ref> <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
-          "references": [
-            "Rom 1:16",
-            "Rom 1:16",
-            "Rom 3:23",
-            "Rom 3:23"
-          ]
-        },
-        {
-          "verse": 22,
-          "note_idx": 13,
-          "keyword": "of the Lord",
-          "text": "See Isa 7:14 Lit. by the Lord through the prophet.",
-          "html": "<p><b>of the Lord</b> </p><p>See <ref>Isa 7:14</ref> Lit. by the Lord through the prophet. </p>",
-          "references": [
-            "Isa 7:14"
-          ]
-        },
-        {
-          "verse": 24,
-          "note_idx": 14,
-          "keyword": "angel",
-          "text": "(See Scofield \" Heb 1:4 \")",
-          "html": "<p><b>angel</b> </p><p><i>(See Scofield &quot;</i><i><ref>Heb 1:4</ref></i><i>&quot;)</i> </p>",
-          "references": [
-            "Heb 1:4"
-          ]
-        },
-        {
-          "verse": 25,
-          "note_idx": 15,
-          "keyword": "JESUS",
-          "text": "The Greek form of the Hebrew Jehoshua meaning saviour.",
-          "html": "<p><b>JESUS</b> </p><p>The Greek form of the Hebrew Jehoshua meaning saviour. </p>",
-          "references": []
         }
       ]
     },
