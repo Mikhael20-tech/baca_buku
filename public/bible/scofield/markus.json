@@ -1730,7 +1730,8 @@
           "html": "<p><b>James</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 4:21</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 4:21"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 28,
@@ -1740,7 +1741,8 @@
           "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Rom 3:23"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 29,
@@ -1748,7 +1750,8 @@
           "keyword": "in danger",
           "text": "is bound by an eternal sin.",
           "html": "<p><b>in danger</b> </p><p>is bound by an eternal sin. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 3
         }
       ]
     },
@@ -2100,7 +2103,8 @@
           "html": "<p><b>mystery</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 13:11</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 13:11"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 12,
@@ -2110,7 +2114,8 @@
           "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Rom 3:23"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 22,
@@ -2123,7 +2128,8 @@
             "Rom 4:6",
             "Heb 10:16",
             "Heb 10:17"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 26,
@@ -2133,7 +2139,8 @@
           "html": "<p><b>kingdom</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 6:33</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 6:33"
-          ]
+          ],
+          "footnote_number": 4
         }
       ]
     },
@@ -2501,7 +2508,8 @@
             "Mar 16:9",
             "Mat 7:22",
             "Mat 7:22"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 30,
@@ -2512,7 +2520,8 @@
           "references": [
             "Luk 6:19",
             "Luk 8:46"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 36,
@@ -2522,7 +2531,8 @@
           "html": "<p><b>As soon as</b> </p><p>But Jesus, overhearing that word, said to the synagogue-ruler, Fear not, simply have faith. Cf. <ref>Luk 7:50</ref> </p>",
           "references": [
             "Luk 7:50"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 37,
@@ -2532,7 +2542,8 @@
           "html": "<p><b>James</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 4:21</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 4:21"
-          ]
+          ],
+          "footnote_number": 4
         }
       ]
     },
@@ -2976,7 +2987,8 @@
           "html": "<p><b>take nothing</b> <i>(See Scofield &quot;</i><i><ref>Mat 10:9</ref></i><i>&quot;)</i> </p><p><b>scrip</b> provision-bag. </p><p><b>purse</b> belt. </p>",
           "references": [
             "Mat 10:9"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 14,
@@ -2989,7 +3001,8 @@
             "Mar 1:20-22",
             "Mat 14:1",
             "Mat 14:1"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 20,
@@ -2997,7 +3010,8 @@
           "keyword": "and observed",
           "text": "kept him safely, and, hearing him, did many things, hearing him gladly.",
           "html": "<p><b>and observed</b> </p><p>kept him safely, and, hearing him, did many things, hearing him gladly. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 3
         }
       ]
     },
@@ -3348,7 +3362,8 @@
           "html": "<p><b>tradition</b> </p><p>i.e. the so-called &quot;oral law&quot; alleged to have been handed down from Moses; really a traditional interpretation of the written law. </p><p>See margin ref., <i>(See Scofield &quot;</i><i><ref>Mar 7:7</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mar 7:7"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 7,
@@ -3365,7 +3380,8 @@
             "Col 2:18",
             "Col 2:20",
             "Col 2:23"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 11,
@@ -3377,7 +3393,8 @@
             "Mar 7:12",
             "Mat 15:5",
             "Mat 15:6"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 19,
@@ -3385,7 +3402,8 @@
           "keyword": "Because it entereth",
           "text": "Because it does not enter into the heart of him, but into the bowels is passed -- purifying all the food.",
           "html": "<p><b>Because it entereth</b> </p><p>Because it does not enter into the heart of him, but into the bowels is passed -- purifying all the food. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 4
         },
         {
           "verse": 26,
@@ -3395,7 +3413,8 @@
           "html": "<p><b>Greek</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 15:21</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 15:21"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 28,
@@ -3406,7 +3425,8 @@
           "references": [
             "Rom 11:24",
             "Eph 2:11-22"
-          ]
+          ],
+          "footnote_number": 6
         }
       ]
     },
@@ -3754,7 +3774,8 @@
           "references": [
             "Mat 13:33",
             "Mat 14:1"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 23,
@@ -3766,7 +3787,8 @@
             "Mat 11:12-24",
             "Mar 8:26",
             "Rev 3:20"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 31,
@@ -3780,7 +3802,8 @@
             "Mar 9:31",
             "Luk 9:22-27",
             "Luk 24:6"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 33,
@@ -3790,7 +3813,8 @@
           "html": "<p><b>thou savourest</b> </p><p>i.e. thou art thinking man&rsquo;s thoughts, not the thoughts of God. Contra, <ref>Mat 16:17</ref> </p>",
           "references": [
             "Mat 16:17"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 38,
@@ -3801,7 +3825,8 @@
           "references": [
             "Rom 3:23",
             "Heb 1:4"
-          ]
+          ],
+          "footnote_number": 5
         }
       ]
     },
@@ -4298,7 +4323,8 @@
             "Mat 17:2",
             "2Pe 1:16-18",
             "Mat 6:33"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 2,
@@ -4308,7 +4334,8 @@
           "html": "<p><b>James</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 4:21</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 4:21"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 11,
@@ -4320,7 +4347,8 @@
             "Mal 4:5",
             "Mal 4:6",
             "Mat 17:10"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 13,
@@ -4331,7 +4359,8 @@
           "references": [
             "Mat 11:14",
             "Luk 1:17"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 27,
@@ -4341,7 +4370,8 @@
           "html": "<p>Marg </p><p><b>But</b> But Jesus, grasping his hand, raised him, and he stood erect. Cf. <ref>Act 3:7</ref> </p>",
           "references": [
             "Act 3:7"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 29,
@@ -4353,7 +4383,8 @@
             "1Ki 18:42-45",
             "Act 13:2",
             "Mat 17:21"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 31,
@@ -4364,7 +4395,8 @@
           "references": [
             "Mar 8:31",
             "Mat 8:20"
-          ]
+          ],
+          "footnote_number": 7
         },
         {
           "verse": 39,
@@ -4372,7 +4404,8 @@
           "keyword": "miracle",
           "text": "work of power upon my name, who will find it possible soon after to revile me.",
           "html": "<p><b>miracle</b> </p><p>work of power upon my name, who will find it possible soon after to revile me. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 8
         },
         {
           "verse": 43,
@@ -4382,7 +4415,8 @@
           "html": "<p><b>hell</b> gehenna. </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 5:22"
-          ]
+          ],
+          "footnote_number": 9
         },
         {
           "verse": 45,
@@ -4392,7 +4426,8 @@
           "html": "<p><b>hell</b> gehenna. </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 5:22"
-          ]
+          ],
+          "footnote_number": 10
         },
         {
           "verse": 47,
@@ -4402,7 +4437,8 @@
           "html": "<p><b>hell</b> </p><p>&quot;gehenna.&quot; <i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 5:22"
-          ]
+          ],
+          "footnote_number": 11
         }
       ]
     },
@@ -4892,7 +4928,8 @@
           "html": "<p><b>young</b> </p><p>little. Cf. <ref>Mat 5:16</ref> </p>",
           "references": [
             "Mat 5:16"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 16,
@@ -4902,7 +4939,8 @@
           "html": "<p><b>blessed them</b> </p><p>In Hebrew custom, a father&rsquo;s act. (Cf) <ref>Gen 27:38</ref> </p><p>&quot;He had no children that He might adopt all children.&quot;--Bengel. </p>",
           "references": [
             "Gen 27:38"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 18,
@@ -4910,7 +4948,8 @@
           "keyword": "Why callest",
           "text": "Par., Believing Me to be but a human teacher, why callest thou Me \"good,\" etc.",
           "html": "<p><b>Why callest</b> </p><p>Par., Believing Me to be but a human teacher, why callest thou Me &quot;good,&quot; etc. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 3
         },
         {
           "verse": 24,
@@ -4920,7 +4959,8 @@
           "html": "<p><b>astonished</b> </p><p>Or, amazed, i.e. as Jews: knowing that temporal prosperity was, to the Jew as such, a token of divine favour. e.g. <ref>Deu 28:1-12</ref>. </p>",
           "references": [
             "Deu 28:1-12"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 25,
@@ -4928,7 +4968,8 @@
           "keyword": "eye of",
           "text": "It has been thought the reference here was to a postern door set in a gate of Jerusalem.",
           "html": "<p><b>eye of</b> </p><p>It has been thought the reference here was to a postern door set in a gate of Jerusalem. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 5
         },
         {
           "verse": 28,
@@ -4939,7 +4980,8 @@
           "references": [
             "Mat 19:27-30",
             "Mat 19:28"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 33,
@@ -4949,7 +4991,8 @@
           "html": "<p><b>Son of man</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 8:20</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 8:20"
-          ]
+          ],
+          "footnote_number": 7
         },
         {
           "verse": 45,
@@ -4960,7 +5003,8 @@
           "references": [
             "Isa 53:10",
             "Isa 53:12"
-          ]
+          ],
+          "footnote_number": 8
         },
         {
           "verse": 46,
@@ -4970,7 +5014,8 @@
           "html": "<p><b>And they</b> </p><p>Cf. <i>(See Scofield &quot;</i><i><ref>Mat 20:30</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 20:30"
-          ]
+          ],
+          "footnote_number": 9
         },
         {
           "verse": 51,
@@ -4980,7 +5025,8 @@
           "html": "<p><b>Lord</b> </p><p>Gr. &quot;Rabboni,&quot; my Master, a term of reverent love. Cf. <ref>Joh 20:16</ref>. </p>",
           "references": [
             "Joh 20:16"
-          ]
+          ],
+          "footnote_number": 10
         }
       ]
     },
@@ -5311,7 +5357,8 @@
           "references": [
             "Mar 11:12",
             "Mar 11:20"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 10,
@@ -5321,7 +5368,8 @@
           "html": "<p><b>kingdom</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 3:2</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 3:2"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 13,
@@ -5329,7 +5377,8 @@
           "keyword": "leaves",
           "text": "Fig trees which have retained their leaves through the winter usually have figs also. It was still too early for new leaves or fruit.",
           "html": "<p><b>leaves</b> </p><p>Fig trees which have retained their leaves through the winter usually have figs also. It was still too early for new leaves or fruit. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 3
         },
         {
           "verse": 19,
@@ -5337,7 +5386,8 @@
           "keyword": "when even",
           "text": "whenever, i.e. every day when evening came.",
           "html": "<p><b>when even</b> </p><p>whenever, i.e. every day when evening came. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 4
         },
         {
           "verse": 22,
@@ -5348,7 +5398,8 @@
           "references": [
             "1Co 12:9",
             "Eph 2:8"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 23,
@@ -5363,7 +5414,8 @@
             "Luk 17:6",
             "Joh 14:13",
             "Joh 14:14"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 26,
@@ -5374,7 +5426,8 @@
           "references": [
             "Mat 6:12",
             "Mar 12:26"
-          ]
+          ],
+          "footnote_number": 7
         }
       ]
     },
@@ -5862,7 +5915,8 @@
             "Joh 3:6",
             "Hos 10:1",
             "Hos 14:8"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 2,
@@ -5872,7 +5926,8 @@
           "html": "<p><b>sent to</b> </p><p><ref>Mar 12:2-5</ref>. the prophets and John the Baptist. </p>",
           "references": [
             "Mar 12:2-5"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 6,
@@ -5882,7 +5937,8 @@
           "html": "<p><b>son</b> </p><p>Jesus Himself. Cf. <ref>Heb 1:1-3</ref> </p>",
           "references": [
             "Heb 1:1-3"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 9,
@@ -5892,7 +5948,8 @@
           "html": "<p><b>destroy</b> </p><p>Fulfilled in the destruction of Jerusalem, A.D. 70. Cf. <ref>Luk 21:20-24</ref>. </p>",
           "references": [
             "Luk 21:20-24"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 10,
@@ -5904,7 +5961,8 @@
             "Psa 118:22",
             "Psa 118:23",
             "1Pe 2:8"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 11,
@@ -5917,7 +5975,8 @@
             "Mar 10:11",
             "Psa 118:22",
             "Psa 118:23"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 18,
@@ -5927,7 +5986,8 @@
           "html": "<p><b>Sadducees</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 3:7</ref></i><i>&quot;)</i>. Also, Mr12: 22,23 </p>",
           "references": [
             "Mat 3:7"
-          ]
+          ],
+          "footnote_number": 7
         },
         {
           "verse": 24,
@@ -5937,7 +5997,8 @@
           "html": "<p><b>said unto them</b> </p><p>See margin ref., <i>(See Scofield &quot;</i><i><ref>Mat 22:29</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 22:29"
-          ]
+          ],
+          "footnote_number": 8
         },
         {
           "verse": 25,
@@ -5949,7 +6010,8 @@
             "Php 3:11",
             "1Co 15:52",
             "Heb 1:4"
-          ]
+          ],
+          "footnote_number": 9
         },
         {
           "verse": 26,
@@ -5957,7 +6019,8 @@
           "keyword": "read in the book",
           "text": "Jesus affirms the historic truth and inspiration of Exodus 3.",
           "html": "<p><b>read in the book</b> </p><p>Jesus affirms the historic truth and inspiration of Exodus 3. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 10
         },
         {
           "verse": 34,
@@ -5970,7 +6033,8 @@
             "Rom 10:3-5",
             "Gal 3:10",
             "Gal 3:22-24"
-          ]
+          ],
+          "footnote_number": 11
         },
         {
           "verse": 35,
@@ -5981,7 +6045,8 @@
           "references": [
             "Rom 1:3",
             "Rom 1:4"
-          ]
+          ],
+          "footnote_number": 12
         },
         {
           "verse": 36,
@@ -5995,7 +6060,8 @@
             "Exo 4:15",
             "Rev 22:19",
             "Psa 110:1"
-          ]
+          ],
+          "footnote_number": 13
         }
       ]
     },
@@ -6376,7 +6442,8 @@
           "references": [
             "Mat 24:3",
             "Mat 24:3"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 8,
@@ -6386,7 +6453,8 @@
           "html": "<p><b>sorrows</b> </p><p>birthpangs. Answering to the &quot;seals.&quot; (Revelation 6.) <ref>Rev 6:1-17</ref>. </p><p>The death-agony of this age is the birth-agony of the next. </p>",
           "references": [
             "Rev 6:1-17"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 10,
@@ -6398,7 +6466,8 @@
             "Mat 24:14",
             "Rev 14:6",
             "Rev 14:6"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 13,
@@ -6409,7 +6478,8 @@
           "references": [
             "Rev 13:8",
             "Rev 20:4"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 14,
@@ -6425,7 +6495,8 @@
             "Rev 7:14",
             "Psa 2:5",
             "Rev 7:14"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 19,
@@ -6437,7 +6508,8 @@
             "Mat 24:21",
             "Psa 2:5",
             "Rev 7:14"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 26,
@@ -6450,7 +6522,8 @@
             "Deu 30:3",
             "Act 1:9-11",
             "Mat 8:20"
-          ]
+          ],
+          "footnote_number": 7
         },
         {
           "verse": 27,
@@ -6460,7 +6533,8 @@
           "html": "<p><b>angel</b> </p><p><i>(See Scofield &quot;</i><i><ref>Heb 1:4</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Heb 1:4"
-          ]
+          ],
+          "footnote_number": 8
         }
       ]
     },
@@ -7079,7 +7153,8 @@
           "html": "<p><b>woman</b> Mary of Bethany. </p><p><b>head</b> <i>(See Scofield &quot;</i><i><ref>Mat 26:7</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 26:7"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 17,
@@ -7089,7 +7164,8 @@
           "html": "<p><b>And in</b> </p><p>For the order of events on the night of the last passover, <i>(See Scofield &quot;</i><i><ref>Mat 26:20</ref></i><i>&quot;)</i>. </p>",
           "references": [
             "Mat 26:20"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 36,
@@ -7099,7 +7175,8 @@
           "html": "<p><b>cup</b> </p><p>See note on the meaning of the cup. <i>(See Scofield &quot;</i><i><ref>Mat 26:39</ref></i><i>&quot;)</i>. </p>",
           "references": [
             "Mat 26:39"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 38,
@@ -7112,7 +7189,8 @@
             "Rom 7:21-24",
             "Jud 1:23",
             "Jud 1:23"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 41,
@@ -7122,7 +7200,8 @@
           "html": "<p><b>sinners</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Rom 3:23"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 45,
@@ -7135,7 +7214,8 @@
             "Mat 7:21",
             "Mat 25:11",
             "Mat 25:12"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 53,
@@ -7145,7 +7225,8 @@
           "html": "<p><b>And they led</b> </p><p>See note on order of events on the day of the crucifixion, <i>(See Scofield &quot;</i><i><ref>Mat 26:57</ref></i><i>&quot;)</i>. </p>",
           "references": [
             "Mat 26:57"
-          ]
+          ],
+          "footnote_number": 7
         },
         {
           "verse": 65,
@@ -7158,7 +7239,8 @@
             "Isa 52:14",
             "Isa 52:14",
             "Rev 20:11"
-          ]
+          ],
+          "footnote_number": 8
         }
       ]
     },
@@ -7609,7 +7691,8 @@
           "keyword": "the hall",
           "text": "Or, the court which is the judgment-hall.",
           "html": "<p><b>the hall</b> </p><p>Or, the court which is the judgment-hall. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 1
         },
         {
           "verse": 17,
@@ -7617,7 +7700,8 @@
           "keyword": "platted",
           "text": "plaited.",
           "html": "<p><b>platted</b> </p><p>plaited. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 2
         },
         {
           "verse": 21,
@@ -7627,7 +7711,8 @@
           "html": "<p><b>Rufus</b> </p><p>It is possible that this may be the same Rufus mentioned in <ref>Rom 16:13</ref>. </p>",
           "references": [
             "Rom 16:13"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 23,
@@ -7635,7 +7720,8 @@
           "keyword": "drink",
           "text": "The stupefying drink usually given to those crucified.",
           "html": "<p><b>drink</b> </p><p>The stupefying drink usually given to those crucified. </p>",
-          "references": []
+          "references": [],
+          "footnote_number": 4
         },
         {
           "verse": 24,
@@ -7645,7 +7731,8 @@
           "html": "<p><b>And when</b> </p><p>See note for order of events at the crucifixion, <i>(See Scofield &quot;</i><i><ref>Mat 27:33</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 27:33"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 25,
@@ -7655,7 +7742,8 @@
           "html": "<p><b>third hour</b> </p><p>Cf. <ref>Joh 19:14</ref>. John used the Roman, Mark the Hebrew, computation of time. </p>",
           "references": [
             "Joh 19:14"
-          ]
+          ],
+          "footnote_number": 6
         },
         {
           "verse": 26,
@@ -7665,7 +7753,8 @@
           "html": "<p><b>superscription</b> </p><p>See note, <i>(See Scofield &quot;</i><i><ref>Mat 27:37</ref></i><i>&quot;)</i>. </p>",
           "references": [
             "Mat 27:37"
-          ]
+          ],
+          "footnote_number": 7
         },
         {
           "verse": 37,
@@ -7675,7 +7764,8 @@
           "html": "<p><b>gave up</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 27:50</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 27:50"
-          ]
+          ],
+          "footnote_number": 8
         },
         {
           "verse": 38,
@@ -7687,7 +7777,8 @@
             "Heb 9:8",
             "Heb 9:24",
             "Heb 10:19-22"
-          ]
+          ],
+          "footnote_number": 9
         },
         {
           "verse": 47,
@@ -7697,7 +7788,8 @@
           "html": "<p><b>Mary</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 1:16</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 1:16"
-          ]
+          ],
+          "footnote_number": 10
         }
       ]
     },
@@ -7925,7 +8017,8 @@
           "html": "<p><b>Mary</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 1:16</ref></i><i>&quot;)</i> </p>",
           "references": [
             "Mat 1:16"
-          ]
+          ],
+          "footnote_number": 1
         },
         {
           "verse": 2,
@@ -7936,7 +8029,8 @@
           "references": [
             "Mat 28:1",
             "Mat 28:9"
-          ]
+          ],
+          "footnote_number": 2
         },
         {
           "verse": 6,
@@ -7946,7 +8040,8 @@
           "html": "<p><b>Ye seek</b> </p><p>Jesus ye seek -- the Nazarene, the crucified; He arose! He is not here! The tone is of triumph. Cf. <ref>Psa 2:4</ref>. </p>",
           "references": [
             "Psa 2:4"
-          ]
+          ],
+          "footnote_number": 3
         },
         {
           "verse": 9,
@@ -7957,7 +8052,8 @@
           "references": [
             "Mar 16:9",
             "Mat 28:9"
-          ]
+          ],
+          "footnote_number": 4
         },
         {
           "verse": 14,
@@ -7969,7 +8065,8 @@
             "Luk 24:33",
             "1Co 15:5",
             "Mat 28:16"
-          ]
+          ],
+          "footnote_number": 5
         },
         {
           "verse": 16,
@@ -7979,7 +8076,8 @@
           "html": "<p><b>saved</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i></p>",
           "references": [
             "Rom 1:16"
-          ]
+          ],
+          "footnote_number": 6
         }
       ]
     }
