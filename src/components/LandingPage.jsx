@@ -226,8 +226,8 @@ export default function LandingPage({
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold text-[#78716C] shrink-0">
+          {/* Navigation Links (Visible on desktop xl: 1280px+) */}
+          <nav className="hidden xl:flex items-center gap-6 text-xs font-semibold text-[#78716C] shrink-0">
             <a href="#santapan" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">
               Meja Perjamuan
             </a>
@@ -242,15 +242,15 @@ export default function LandingPage({
             </a>
           </nav>
 
-          {/* Action Buttons: Clean & Never Overflowing */}
+          {/* Action Buttons: Clean & Perfectly Distributed across Viewports */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            {/* Quick Scripture Search Button (Desktop/Tablet) */}
+            {/* Quick Scripture Search Button (Desktop xl: 1280px+) */}
             {isLoggedIn && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={onOpenQuickScripture}
-                className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                className="hidden xl:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
                 title="Cari Cepat Ayat Alkitab & Catatan Kaki"
               >
                 <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
@@ -258,44 +258,44 @@ export default function LandingPage({
               </Button>
             )}
 
-            {/* Read Bible Button */}
+            {/* Read Bible Button (Tablet & Desktop: sm+) */}
             <Button
               variant="outline"
               size="sm"
               onClick={onOpenBible}
-              className="hidden sm:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              className="hidden sm:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-8 sm:h-9 px-3 sm:px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
               <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
               <span>Alkitab</span>
             </Button>
 
-            {/* Kidung & Suplemen Button */}
+            {/* Kidung & Suplemen Button (lg+) */}
             <Button
               variant="outline"
               size="sm"
               onClick={() => onOpenKidung && onOpenKidung('kidung')}
-              className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              className="hidden lg:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-8 sm:h-9 px-3 sm:px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Kidung Rohani & Suplemen"
             >
               <Music className="w-3.5 h-3.5 mr-1 text-amber-700" />
               <span>Kidung</span>
             </Button>
 
-            {/* Katalog Buku Button */}
+            {/* Katalog Buku Button (sm+: on mobile < sm, available in bottom nav & hamburger) */}
             <Button
               size="sm"
               onClick={onEnterLibrary}
-              className="rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] h-8 sm:h-9 px-3 sm:px-3.5 shadow-md btn-lift whitespace-nowrap"
+              className="hidden sm:inline-flex rounded-full text-xs font-bold bg-[#1C1917] hover:bg-[#3B4B34] text-[#F4EFE6] h-8 sm:h-9 px-3 sm:px-3.5 shadow-md btn-lift whitespace-nowrap items-center"
             >
               <span>Katalog</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1 hidden xs:inline" />
+              <ArrowRight className="w-3.5 h-3.5 ml-1 hidden md:inline" />
             </Button>
 
             {/* Unified Portal & Account Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
+                <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-2.5 sm:px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
                   {isLoggedIn ? (
                     <>
                       {userRole === 'admin' ? (
@@ -320,7 +320,7 @@ export default function LandingPage({
                   ) : (
                     <>
                       <User className="w-3.5 h-3.5 text-[#3B4B34]" />
-                      <span className="text-[11px]">Masuk / Akun</span>
+                      <span className="text-[11px] font-bold">Masuk</span>
                     </>
                   )}
                   <ChevronDown className="w-3 h-3 text-[#78716C]" />
@@ -462,10 +462,10 @@ export default function LandingPage({
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Mobile Hamburger Menu Toggle Button */}
+            {/* Mobile Hamburger Menu Toggle Button (Visible on screens < xl) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white border border-[#1C1917]/15 text-[#1C1917] transition active:scale-95 shadow-xs"
+              className="xl:hidden flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white border border-[#1C1917]/15 text-[#1C1917] transition active:scale-95 shadow-xs"
               aria-label="Toggle menu navigasi mobile"
             >
               {isMobileMenuOpen ? (
@@ -477,9 +477,9 @@ export default function LandingPage({
           </div>
         </div>
 
-        {/* Mobile Slide-down Drawer */}
+        {/* Mobile Slide-down Drawer (Scrollable and responsive) */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#1C1917]/10 bg-[#FAF7F2]/95 backdrop-blur-xl px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200 shadow-xl">
+          <div className="xl:hidden border-t border-[#1C1917]/10 bg-[#FAF7F2]/95 backdrop-blur-xl px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200 shadow-xl max-h-[calc(100vh-4.5rem)] overflow-y-auto">
             {/* Quick Action Tiles */}
             <div className="grid grid-cols-2 gap-2 text-xs font-bold">
               <button
