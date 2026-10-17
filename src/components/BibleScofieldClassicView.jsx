@@ -225,12 +225,23 @@ export default function BibleScofieldClassicView({
             </div>
           </div>
 
-          <h2 className="font-extrabold text-xs sm:text-base md:text-lg tracking-wider sm:tracking-[0.25em] text-center text-stone-950 font-serif truncate max-w-full">
-            {bookName.toUpperCase()} — CHAPTER {selectedChapter}
-          </h2>
+          {/* Running Page Header Sesuai Format Cetak Scofield 1917 PDF: [Ch:V1] BOOK [Ch:V2] */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 font-serif text-stone-950 font-bold">
+            <span className="text-[11px] sm:text-xs font-mono text-stone-600 bg-stone-200/60 px-1.5 py-0.5 rounded hidden xs:inline">
+              {selectedChapter}:{verses[0]?.verse || 1}
+            </span>
+            <h2 className="font-extrabold text-xs sm:text-base md:text-lg tracking-wider sm:tracking-[0.25em] text-center text-stone-950 uppercase truncate max-w-[200px] sm:max-w-none">
+              {bookName.toUpperCase()} — CHAPTER {selectedChapter}
+            </h2>
+            <span className="text-[11px] sm:text-xs font-mono text-stone-600 bg-stone-200/60 px-1.5 py-0.5 rounded hidden xs:inline">
+              {selectedChapter}:{verses[verses.length - 1]?.verse || 1}
+            </span>
+          </div>
 
           <div className="hidden sm:flex items-center gap-2 shrink-0">
-            <span className="text-stone-800 font-mono text-xs font-bold">Ch. {selectedChapter}</span>
+            <span className="text-stone-800 font-mono text-xs font-bold bg-amber-200/60 px-2 py-0.5 rounded border border-amber-300">
+              {chronology}
+            </span>
             <div className="flex items-center gap-1 border border-stone-400 rounded-lg bg-stone-100 p-0.5">
               <button 
                 onClick={onPrevChapter}
@@ -410,7 +421,7 @@ export default function BibleScofieldClassicView({
                       ({selectedChapter}:{fn.verse}) {fn.keyword ? `${fn.keyword}: ` : ''}
                     </span>
                     <span className="text-[#1a1612] font-serif">
-                      {fn.text.slice(0, 220)}{fn.text.length > 220 ? '...' : ''}
+                      {isSelected ? fn.text : (fn.text.slice(0, 240) + (fn.text.length > 240 ? '... (Klik selengkapnya)' : ''))}
                     </span>
                   </div>
                 );
