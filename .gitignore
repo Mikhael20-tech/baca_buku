@@ -32,3 +32,4 @@ scratch/
 __pycache__/
 *.pyc
 Alkitab/*.pdf
+Alkitab/*.epub

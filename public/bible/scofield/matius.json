@@ -597,8 +597,8 @@
         {
           "verse": 1,
           "text": "Now when Jesus was born in Bethlehem of Judea in the days of Herod the king, behold, there came wise men from the east to Jerusalem,",
-          "marked_text": "Now when Jesus was born in Bethlehem of Judea in the days of Herod the king, behold, there came wise men from the east to Jerusalem,<fn n=\"1\"/>",
-          "outlines": "tude, and to his disciples, 2 Saying, The scribes and the Pharisees ‘sit in Moses’ seat:",
+          "marked_text": "Now when Jesus was born in Bethlehem of Judæa in the days of Herod<fn n=\"1\"/> the king, behold, there came wise men from the east to Jerusalem,",
+          "outlines": "Visit of the Magi.",
           "footnotes": [
             {
               "verse": 1,
@@ -616,7 +616,7 @@
         {
           "verse": 2,
           "text": "Saying, Where is he that is born King of the Jews? for we have seen his star in the east, and are come to worship him.",
-          "marked_text": "Saying, Where is he that is born King<fn n=\"2\"/> of the Jews? for we have seen his star in the east, and are come to worship him.",
+          "marked_text": "Saying, Where is he that is born <fn n=\"a\"/>King<fn n=\"2\"/> of the Jews? for we have seen his star in the east, and are come to worship him.",
           "outlines": null,
           "footnotes": [
             {
@@ -649,7 +649,7 @@
         {
           "verse": 4,
           "text": "And when he had gathered all the chief priests and scribes of the people together, he demanded of them where Christ should be born.",
-          "marked_text": "And when he had gathered all the chief priests and scribes<fn n=\"3\"/> of the people together, he demanded of them where Christ should be born.",
+          "marked_text": "And when he had gathered all the chief priests and scribes<fn n=\"3\"/> of the people together, he demanded of them where <fn n=\"b\"/>Christ<fn n=\"c\"/> should be born.",
           "outlines": null,
           "footnotes": [
             {
@@ -674,14 +674,14 @@
         {
           "verse": 5,
           "text": "And they said unto him, In Bethlehem of Judea: for thus it is written by the prophet,",
-          "marked_text": "And they said unto him, In Bethlehem of Judea: for thus it is written by the prophet,",
+          "marked_text": "And they said unto him, In Bethlehem of Judæa: for <fn n=\"d\"/>thus it is written by the prophet,",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 6,
           "text": "And thou Bethlehem, in the land of Juda, art not the least among the princes of Juda: for out of thee shall come a Governor, that shall rule my people Israel.",
-          "marked_text": "And thou Bethlehem, in the land of Juda, art not the least among the princes of Juda: for out of thee shall come a Governor, that shall rule my people Israel.",
+          "marked_text": "And thou Bethlehem, in the land of Juda, art not the least among the princes of Juda: for out of thee shall come a Governor, that shall <fn n=\"e\"/>rule my people Israel.",
           "outlines": null,
           "footnotes": null
         },
@@ -730,8 +730,8 @@
         {
           "verse": 13,
           "text": "And when they were departed, behold, the angel of the Lord appeareth to Joseph in a dream, saying, Arise, and take the young child and his mother, and flee into Egypt, and be thou there until I bring thee word: for Herod will seek the young child to destroy him.",
-          "marked_text": "And when they were departed, behold, the angel of the Lord appeareth to Joseph in a dream, saying, Arise, and take the young child and his mother, and flee into Egypt, and be thou there until I bring thee word: for Herod will seek the young child to destroy him.",
-          "outlines": null,
+          "marked_text": "And when they were departed, behold, <fn n=\"f\"/>the angel of the Lord appeareth to Joseph in a dream, saying, Arise, and take the young child and his mother, and flee into Egypt, and be thou there until I bring thee word: for Herod will seek the young child to destroy him.",
+          "outlines": "The flight into Egypt.",
           "footnotes": null
         },
         {
@@ -744,7 +744,7 @@
         {
           "verse": 15,
           "text": "And was there until the death of Herod: that it might be fulfilled which was spoken of the Lord by the prophet, saying, Out of Egypt have I called my son.",
-          "marked_text": "And was there until the death of Herod: that it might be fulfilled which was spoken of the Lord by the prophet, saying, Out of Egypt<fn n=\"4\"/> have I called my son.",
+          "marked_text": "And was there until the death of Herod: that it might be fulfilled which was spoken of the Lord by the prophet, saying, <fn n=\"g\"/>Out of Egypt have I called <fn n=\"4\"/>my son.",
           "outlines": null,
           "footnotes": [
             {
@@ -785,15 +785,15 @@
         {
           "verse": 18,
           "text": "In Rama was there a voice heard, lamentation, and weeping, and great mourning, Rachel weeping for her children, and would not be comforted, because they are not.",
-          "marked_text": "In Rama was there a voice heard, lamentation, and weeping, and great mourning, Rachel weeping for her children, and would not be comforted, because they are not.",
+          "marked_text": "<fn n=\"h\"/>In Rama was there a voice heard, lamentation, and weeping, and great mourning, Rachel weeping for her children, and would not be comforted, because they are not.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 19,
           "text": "But when Herod was dead, behold, an angel of the Lord appeareth in a dream to Joseph in Egypt,",
-          "marked_text": "But when Herod was dead, behold, an angel<fn n=\"5\"/> of the Lord appeareth in a dream to Joseph in Egypt,",
-          "outlines": null,
+          "marked_text": "But when Herod was dead, behold, an angel of the Lord appeareth in a dream to Joseph in Egypt,",
+          "outlines": "The return from Egypt to Nazareth. (Cf. Lk. 2. 39, 40.)",
           "footnotes": [
             {
               "verse": 19,
@@ -824,7 +824,7 @@
         {
           "verse": 22,
           "text": "But when he heard that Archelaus did reign in Judea in the room of his father Herod, he was afraid to go thither: notwithstanding, being warned of God in a dream, he turned aside into the parts of Galilee:",
-          "marked_text": "But when he heard that Archelaus<fn n=\"6\"/> did reign in Judea in the room of his father Herod, he was afraid to go thither: notwithstanding, being warned of God in a dream, he turned aside into the parts of Galilee:",
+          "marked_text": "But when he heard that <fn n=\"i\"/>Archelaus did reign in Judæa in the room of his father Herod, he was afraid to go thither: notwithstanding, being warned of God in a dream, he turned aside into the parts of Galilee:",
           "outlines": null,
           "footnotes": [
             {
@@ -842,7 +842,7 @@
         {
           "verse": 23,
           "text": "And he came and dwelt in a city called Nazareth: that it might be fulfilled which was spoken by the prophets, He shall be called a Nazarene.",
-          "marked_text": "And he came and dwelt in a city called Nazareth: that it might be fulfilled which was spoken by the prophets, He shall be called<fn n=\"7\"/> a Nazarene.",
+          "marked_text": "And he came and dwelt in a city called Nazareth: that it might be fulfilled which was spoken by the prophets, <fn n=\"j\"/>He shall be called a Nazarene.",
           "outlines": null,
           "footnotes": [
             {
@@ -860,40 +860,149 @@
       ],
       "footnotes": [
         {
-          "verse": 1,
+          "verse": 2,
           "note_idx": 1,
-          "keyword": "",
-          "text": "Herod the king Called Herod the Great, son of Antipater, an Idumean Gen 36:1 (See Scofield \" Gen 36:1 \") and Cypros, an Arabian woman. Antipater was appointed procurator of Judea by Julius Caesar, B.C. 47. At the age of fifteen Herod was appointed to the government of Galilee. B.C. 40 the Roman senate made him king of Judea. An able, strong, and cruel man, he increased greatly the splendour of Jerusalem, erecting the temple which was the centre of Jewish worship in the time of our Lord.",
-          "html": "<p style=\"font-weight:bold;\">Herod the king </p><p>Called Herod the Great, son of Antipater, an Idumean <ref>Gen 36:1</ref> <i>(See Scofield &quot;</i><i><ref>Gen 36:1</ref></i><i>&quot;)</i> and Cypros, an Arabian woman. Antipater was appointed procurator of Judea by Julius Caesar, B.C. 47. At the age of fifteen Herod was appointed to the government of Galilee. B.C. 40 the Roman senate made him king of Judea. An able, strong, and cruel man, he increased greatly the splendour of Jerusalem, erecting the temple which was the centre of Jewish worship in the time of our Lord. </p>",
+          "letter": "a",
+          "keyword": "King",
+          "text": "B.C. 4.",
+          "html": "<p><b>King</b>: B.C. 4.</p>",
+          "references": []
+        },
+        {
+          "verse": 4,
+          "note_idx": 2,
+          "letter": "b",
+          "keyword": "where Christ",
+          "text": "Mic. 5. 2. (Lk. 1. 31-33; 1 Cor. 15. 24).",
+          "html": "<p><b>where Christ</b>: Mic. 5. 2. (Lk. 1. 31-33; 1 Cor. 15. 24).</p>",
           "references": [
-            "Gen 36:1",
+            "Mic 5:2",
+            "Luk 1:31-33",
+            "1Co 15:24"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 3,
+          "letter": "c",
+          "keyword": "Christ",
+          "text": "Lit. the Christ.",
+          "html": "<p><b>Christ</b>: Lit. the Christ.</p>",
+          "references": []
+        },
+        {
+          "verse": 5,
+          "note_idx": 4,
+          "letter": "d",
+          "keyword": "thus it is written",
+          "text": "Christ (First Advent). Mt. 4. 15, 16. (Gen. 3. 15; Acts 1. 9).",
+          "html": "<p><b>thus it is written</b>: Christ (First Advent). Mt. 4. 15, 16. (Gen. 3. 15; Acts 1. 9).</p>",
+          "references": [
+            "Mat 4:15-16",
+            "Gen 3:15",
+            "Act 1:9"
+          ]
+        },
+        {
+          "verse": 6,
+          "note_idx": 5,
+          "letter": "e",
+          "keyword": "rule my people",
+          "text": "Kingdom (N.T.). vs. 1-6; Mt. 3. 2. (Lk. 1. 31-33; 1 Cor. 15. 28).",
+          "html": "<p><b>rule my people</b>: Kingdom (N.T.). vs. 1-6; Mt. 3. 2. (Lk. 1. 31-33; 1 Cor. 15. 28).</p>",
+          "references": [
+            "Mat 3:2",
+            "Luk 1:31-33",
+            "1Co 15:28"
+          ]
+        },
+        {
+          "verse": 13,
+          "note_idx": 6,
+          "letter": "f",
+          "keyword": "the angel",
+          "text": "Lit. an angel.",
+          "html": "<p><b>the angel</b>: Lit. an angel.</p>",
+          "references": []
+        },
+        {
+          "verse": 15,
+          "note_idx": 7,
+          "letter": "g",
+          "keyword": "Out of Egypt",
+          "text": "Hos. 11. 1.",
+          "html": "<p><b>Out of Egypt</b>: Hos. 11. 1.</p>",
+          "references": [
+            "Hos 11:1"
+          ]
+        },
+        {
+          "verse": 18,
+          "note_idx": 8,
+          "letter": "h",
+          "keyword": "In Rama",
+          "text": "Jer. 31. 15.",
+          "html": "<p><b>In Rama</b>: Jer. 31. 15.</p>",
+          "references": [
+            "Jer 31:15"
+          ]
+        },
+        {
+          "verse": 22,
+          "note_idx": 9,
+          "letter": "i",
+          "keyword": "Archelaus",
+          "text": "Son of Herod the Great (Mt. 2. 1) and Malthace, a Samaritan woman. Deposed A.D. 6.",
+          "html": "<p><b>Archelaus</b>: Son of Herod the Great (Mt. 2. 1) and Malthace, a Samaritan woman. Deposed A.D. 6.</p>",
+          "references": [
+            "Mat 2:1"
+          ]
+        },
+        {
+          "verse": 23,
+          "note_idx": 10,
+          "letter": "j",
+          "keyword": "He shall be called a Nazarene",
+          "text": "Probably referring to Isa. 11. 1, where Christ is spoken of as \"a netzer (branch) out of the roots of Jesse.\"",
+          "html": "<p><b>He shall be called a Nazarene</b>: Probably referring to Isa. 11. 1, where Christ is spoken of as \"a netzer (branch) out of the roots of Jesse.\"</p>",
+          "references": [
+            "Isa 11:1"
+          ]
+        },
+        {
+          "verse": 1,
+          "note_idx": 11,
+          "footnote_number": 1,
+          "keyword": "Herod the king",
+          "text": "Called Herod the Great, son of Antipater, an Idumean (see Gen. 36. 1, note) and Cypros, an Arabian woman. Antipater was appointed Procurator of Judea by Julius Caesar, B.C. 47. At the age of fifteen Herod was appointed to the government of Galilee. B.C. 40 the Roman senate made him king of Judea. An able, strong, and cruel man, he increased greatly the splendour of Jerusalem, erecting the temple which was the centre of Jewish worship in the time of our Lord.",
+          "html": "<p><b>Herod the king</b> </p><p>Called Herod the Great, son of Antipater, an Idumean (see Gen. 36. 1, note) and Cypros, an Arabian woman. Antipater was appointed Procurator of Judea by Julius Caesar, B.C. 47. At the age of fifteen Herod was appointed to the government of Galilee. B.C. 40 the Roman senate made him king of Judea. An able, strong, and cruel man, he increased greatly the splendour of Jerusalem, erecting the temple which was the centre of Jewish worship in the time of our Lord.</p>",
+          "references": [
             "Gen 36:1"
           ]
         },
         {
           "verse": 2,
-          "note_idx": 2,
-          "keyword": "King",
-          "text": "\"The King\" is one of the divine titles Psa 10:16 and so used in the worship of the Church 1Ti 1:17 but Christ is never called \"King of the Church.\" He is \"King of the Jews\" Mat 2:2 and Lord and \"Head of the Church\" Eph 1:22; Eph 1:23 (See Scofield \" Mat 16:18 \") See Scofield \"Heb 12:23\"; Mat 16:18; Heb 12:23",
-          "html": "<p><b>King</b> </p><p>&quot;The King&quot; is one of the divine titles <ref>Psa 10:16</ref> and so used in the worship of the Church <ref>1Ti 1:17</ref> but Christ is never called &quot;King of the Church.&quot; He is &quot;King of the Jews&quot; <ref>Mat 2:2</ref> and Lord and &quot;Head of the Church&quot; <ref>Eph 1:22</ref>; <ref>Eph 1:23</ref> <i>(See Scofield &quot;</i><i><ref>Mat 16:18</ref></i><i>&quot;)</i> See Scofield &quot;<ref>Heb 12:23</ref>&quot;; <ref>Mat 16:18</ref>; <ref>Heb 12:23</ref> </p>",
+          "note_idx": 12,
+          "footnote_number": 2,
+          "keyword": "The King",
+          "text": "\"The King\" is one of the divine titles (Psa. 10. 16), and so used in the worship of the Church (1 Tim. 1. 17), but Christ is never called \"King of the Church.\" He is \"King of the Jews\" (Mt. 2. 2) and Lord and \"Head of the Church\" (Eph. 1. 22, 23). See \"Church\" (Mt. 16. 18; Heb. 12. 23).",
+          "html": "<p><b>The King</b> </p><p>\"The King\" is one of the divine titles (Psa. 10. 16), and so used in the worship of the Church (1 Tim. 1. 17), but Christ is never called \"King of the Church.\" He is \"King of the Jews\" (Mt. 2. 2) and Lord and \"Head of the Church\" (Eph. 1. 22, 23). See \"Church\" (Mt. 16. 18; Heb. 12. 23).</p>",
           "references": [
             "Psa 10:16",
             "1Ti 1:17",
             "Mat 2:2",
-            "Eph 1:22",
-            "Eph 1:23",
-            "Mat 16:18",
-            "Heb 12:23",
+            "Eph 1:22-23",
             "Mat 16:18",
             "Heb 12:23"
           ]
         },
         {
           "verse": 4,
-          "note_idx": 3,
-          "keyword": "Scribes",
-          "text": "(Greek - \" ἀπόλλυμι \" = \"writer\") Heb. \"spherim,\" \"to write,\" \"set in order,\" \"count.\" The scribes were so called because it was their office to make copies of the Scriptures; to classify and teach the precepts of oral law (See Scofield \" Mat 3:7 \") and to keep careful count of every letter in the O.T. writings. Such an office was necessary in a religion of law and precept, and was an O.T. function 2Sa 8:17; 2Sa 20:25; 1Ki 4:3; Jer 8:8; Jer 36:10; Jer 36:12; Jer 36:26. To this legitimate work the scribes added a record of rabbinical decisions on questions of ritual (Halachoth); the new code resulting from those decisions (Mishna); the Hebrew sacred legends (Gemara, forming with the Mishna the Talmud); commentaries on the O.T. (Midrashim); reasonings upon these (Hagada); and finally, mystical interpretations which found in Scripture meanings other than the grammatical, lexical, and obvious ones (the Kabbala); not unlike the allegorical method of Origen, or the modern Protestant \"spiritualizing\" interpretation. In our Lord’s time, to receive this mass of writing superposed upon the Scriptures was to be orthodox; to return to the Scriptures themselves was heterodoxy--our Lord’s most serious offence.",
-          "html": "<p><b>Scribes</b> </p><p>(Greek - &quot;<grk><blu>&#x1F00;&pi;&#x03CC;&lambda;&lambda;&upsilon;&mu;&iota;</blu></grk>&quot; = &quot;writer&quot;) Heb. &quot;spherim,&quot; &quot;to write,&quot; &quot;set in order,&quot; &quot;count.&quot; The scribes were so called because it was their office to make copies of the Scriptures; to classify and teach the precepts of oral law <i>(See Scofield &quot;</i><i><ref>Mat 3:7</ref></i><i>&quot;)</i> and to keep careful count of every letter in the O.T. writings. Such an office was necessary in a religion of law and precept, and was an O.T. function <ref>2Sa 8:17</ref>; <ref>2Sa 20:25</ref>; <ref>1Ki 4:3</ref>; <ref>Jer 8:8</ref>; <ref>Jer 36:10</ref>; <ref>Jer 36:12</ref>; <ref>Jer 36:26</ref>. To this legitimate work the scribes added a record of rabbinical decisions on questions of ritual (Halachoth); the new code resulting from those decisions (Mishna); the Hebrew sacred legends (Gemara, forming with the Mishna the Talmud); commentaries on the O.T. (Midrashim); reasonings upon these (Hagada); and finally, mystical interpretations which found in Scripture meanings other than the grammatical, lexical, and obvious ones (the Kabbala); not unlike the allegorical method of Origen, or the modern Protestant &quot;spiritualizing&quot; interpretation. In our Lord&rsquo;s time, to receive this mass of writing superposed upon the Scriptures was to be orthodox; to return to the Scriptures themselves was heterodoxy--our Lord&rsquo;s most serious offence. </p>",
+          "note_idx": 13,
+          "footnote_number": 3,
+          "keyword": "scribes",
+          "text": "Gr. grammateis, \"writer.\" Heb. sopherim, \"to write,\" \"set in order,\" \"count.\" The scribes were so called because it was their office to make copies of the Scriptures; to classify and teach the precepts of the oral law (see \"Pharisees,\" Mt. 3. 7, note), and to keep careful count of every letter in the O.T. writings. Such an office was necessary in a religion of law and precept, and was an O.T. function (2 Sam. 8. 17; 20. 25; 1 Ki. 4. 3; Jer. 8. 8; 36. 10, 12, 26). To this legitimate work the scribes added a record of rabbinical decisions on questions of ritual (Halachoth); the new code resulting from those decisions (Mishna); the Hebrew sacred legends (Gemara, forming with the Mishna the Talmud); commentaries on the O.T. (Midrashim); reasonings upon these (Hagada); and, finally, mystical interpretations which found in Scripture meanings other than the grammatical, lexical, and obvious ones (the Kabbala); not unlike the allegorical method of Origen, or the modern Protestant \"spiritualizing\" interpretation. In our Lord's time, to receive this mass of writing superposed upon the Scriptures was to be orthodox; to return to the Scriptures themselves was heterodoxy--our Lord's most serious offence.",
+          "html": "<p><b>scribes</b> </p><p>Gr. grammateis, \"writer.\" Heb. sopherim, \"to write,\" \"set in order,\" \"count.\" The scribes were so called because it was their office to make copies of the Scriptures; to classify and teach the precepts of the oral law (see \"Pharisees,\" Mt. 3. 7, note), and to keep careful count of every letter in the O.T. writings. Such an office was necessary in a religion of law and precept, and was an O.T. function (2 Sam. 8. 17; 20. 25; 1 Ki. 4. 3; Jer. 8. 8; 36. 10, 12, 26). To this legitimate work the scribes added a record of rabbinical decisions on questions of ritual (Halachoth); the new code resulting from those decisions (Mishna); the Hebrew sacred legends (Gemara, forming with the Mishna the Talmud); commentaries on the O.T. (Midrashim); reasonings upon these (Hagada); and, finally, mystical interpretations which found in Scripture meanings other than the grammatical, lexical, and obvious ones (the Kabbala); not unlike the allegorical method of Origen, or the modern Protestant \"spiritualizing\" interpretation. In our Lord's time, to receive this mass of writing superposed upon the Scriptures was to be orthodox; to return to the Scriptures themselves was heterodoxy--our Lord's most serious offence.</p>",
           "references": [
             "Mat 3:7",
             "2Sa 8:17",
@@ -907,51 +1016,18 @@
         },
         {
           "verse": 15,
-          "note_idx": 4,
-          "keyword": "Out of Egypt",
-          "text": "The words quoted are in Hos 11:1 and the passage illustrates the truth that prophetic utterances often have a latent and deeper meaning than at first appears. Israel, nationally, was a \"Son 1:1\" Exo 4:22 but Christ was the greater \"Son 1:1\"; Rom 9:4; Rom 9:5; Isa 41:8; Isa 42:1-4; Isa 52:13; Isa 52:14 where the servant-nation and the Servant-Son are both in view.",
-          "html": "<p><b>Out of Egypt</b> </p><p>The words quoted are in <ref>Hos 11:1</ref> and the passage illustrates the truth that prophetic utterances often have a latent and deeper meaning than at first appears. Israel, nationally, was a &quot;<ref>Son 1:1</ref>&quot; <ref>Exo 4:22</ref> but Christ was the greater &quot;<ref>Son 1:1</ref>&quot;; <ref>Rom 9:4</ref>; <ref>Rom 9:5</ref>; <ref>Isa 41:8</ref>; <ref>Isa 42:1-4</ref>; <ref>Isa 52:13</ref>; <ref>Isa 52:14</ref> where the servant-nation and the Servant-Son are both in view. </p>",
+          "note_idx": 14,
+          "footnote_number": 4,
+          "keyword": "my son",
+          "text": "The words quoted are in Hos. 11. 1, and the passage illustrates the truth that prophetic utterances often have a latent and deeper meaning than at first appears. Israel, nationally, was a \"son\" (Ex. 4. 22), but Christ was the greater \"Son.\" See Rom. 9. 4, 5; Isa. 41. 8, with Isa. 42. 1-4; 52. 13, 14, where the servant-nation and the Servant-Son are both in view.",
+          "html": "<p><b>my son</b> </p><p>The words quoted are in Hos. 11. 1, and the passage illustrates the truth that prophetic utterances often have a latent and deeper meaning than at first appears. Israel, nationally, was a \"son\" (Ex. 4. 22), but Christ was the greater \"Son.\" See Rom. 9. 4, 5; Isa. 41. 8, with Isa. 42. 1-4; 52. 13, 14, where the servant-nation and the Servant-Son are both in view.</p>",
           "references": [
             "Hos 11:1",
-            "Son 1:1",
             "Exo 4:22",
-            "Son 1:1",
-            "Rom 9:4",
-            "Rom 9:5",
+            "Rom 9:4-5",
             "Isa 41:8",
             "Isa 42:1-4",
-            "Isa 52:13",
-            "Isa 52:14"
-          ]
-        },
-        {
-          "verse": 19,
-          "note_idx": 5,
-          "keyword": "angel",
-          "text": "(See Scofield \" Heb 1:4 \")",
-          "html": "<p><b>angel</b> </p><p><i>(See Scofield &quot;</i><i><ref>Heb 1:4</ref></i><i>&quot;)</i> </p>",
-          "references": [
-            "Heb 1:4"
-          ]
-        },
-        {
-          "verse": 22,
-          "note_idx": 6,
-          "keyword": "Archelaus",
-          "text": "Son of Herod the Great, Mat 2:1 and Malthace, a Samaritan woman. Deposed A.D. 6.",
-          "html": "<p><b>Archelaus</b> </p><p>Son of Herod the Great, <ref>Mat 2:1</ref> and Malthace, a Samaritan woman. Deposed A.D. 6. </p>",
-          "references": [
-            "Mat 2:1"
-          ]
-        },
-        {
-          "verse": 23,
-          "note_idx": 7,
-          "keyword": "He shall be called",
-          "text": "Probably referring to Isa 11:1 where Christ is spoken of as \"a netzer (or, ’rod’) out of the stem of Jesse.\"",
-          "html": "<p><b>He shall be called</b> </p><p>Probably referring to <ref>Isa 11:1</ref> where Christ is spoken of as &quot;a netzer (or, &rsquo;rod&rsquo;) out of the stem of Jesse.&quot; </p>",
-          "references": [
-            "Isa 11:1"
+            "Isa 52:13-14"
           ]
         }
       ]
@@ -963,8 +1039,8 @@
         {
           "verse": 1,
           "text": "In those days came John the Baptist, preaching in the wilderness of Judea,",
-          "marked_text": "In those days came John the Baptist, preaching in the wilderness of Judea,<fn n=\"1\"/>",
-          "outlines": "Matthew Chapter 3.",
+          "marked_text": "In those days came John the Baptist, preaching in the wilderness of Judæa,",
+          "outlines": "Ministry of John the Baptist (Mt. 3. 1-12; Mk. 1. 1-8; Lk. 3. 1-18; John 1. 6-8, 19-28).",
           "footnotes": [
             {
               "verse": 1,
@@ -981,7 +1057,7 @@
         {
           "verse": 2,
           "text": "And saying, Repent ye: for the kingdom of heaven is at hand.",
-          "marked_text": "And saying<fn n=\"2\"/>, Repent ye: for the kingdom of heaven is at hand.",
+          "marked_text": "And saying, <fn n=\"a\"/>Repent ye: for the <fn n=\"b\"/>kingdom of heaven<fn n=\"1\"/> is <fn n=\"c\"/>at hand.",
           "outlines": null,
           "footnotes": [
             {
@@ -1017,7 +1093,7 @@
         {
           "verse": 3,
           "text": "For this is he that was spoken of by the prophet Esaias, saying, The voice of one crying in the wilderness, Prepare ye the way of the Lord, make his paths straight.",
-          "marked_text": "For this is he that was spoken of by the prophet Esaias, saying, The voice of one crying in the wilderness, Prepare ye the way of the Lord, make his paths straight.",
+          "marked_text": "For this is he that was spoken of by the prophet <fn n=\"d\"/>Esaias, saying, The voice of one crying in the wilderness, Prepare ye the way of the Lord, make his paths straight.",
           "outlines": null,
           "footnotes": null
         },
@@ -1038,7 +1114,7 @@
         {
           "verse": 6,
           "text": "And were baptized of him in Jordan, confessing their sins.",
-          "marked_text": "And were baptized of him in Jordan, confessing their sins<fn n=\"3\"/>.",
+          "marked_text": "And were baptized of him in Jordan, confessing their <fn n=\"e\"/>sins.",
           "outlines": null,
           "footnotes": [
             {
@@ -1056,7 +1132,7 @@
         {
           "verse": 7,
           "text": "But when he saw many of the Pharisees and Sadducees come to his baptism, he said unto them, O generation of vipers, who hath warned you to flee from the wrath to come?",
-          "marked_text": "But when he saw many of the Pharisees<fn n=\"4\"/> and Sadducees come to his baptism, he said unto them, O generation of vipers, who hath warned you to flee from the wrath to come?",
+          "marked_text": "But when he saw many of the Pharisees<fn n=\"2\"/> and Sadducees<fn n=\"3\"/> come to his baptism, he said unto them, O <fn n=\"f\"/>generation of vipers, who hath warned you to flee from the wrath to come?",
           "outlines": null,
           "footnotes": [
             {
@@ -1088,7 +1164,7 @@
         {
           "verse": 8,
           "text": "Bring forth therefore fruits meet for repentance:",
-          "marked_text": "Bring forth therefore fruits meet for repentance:",
+          "marked_text": "Bring forth therefore fruits meet for <fn n=\"g\"/>repentance:",
           "outlines": null,
           "footnotes": null
         },
@@ -1109,7 +1185,7 @@
         {
           "verse": 11,
           "text": "I indeed baptize you with water unto repentance: but he that cometh after me is mightier than I, whose shoes I am not worthy to bear: he shall baptize you with the Holy Ghost, and with fire:",
-          "marked_text": "I indeed baptize you with water unto repentance: but he that cometh after me is mightier than I, whose shoes I am not worthy to bear: he shall baptize you with the Holy Ghost, and with fire:",
+          "marked_text": "I indeed baptize you with water unto repentance: but he that cometh after me is mightier than I, whose shoes I am not worthy to bear: he shall baptize you with the <fn n=\"h\"/>Holy Ghost, and with fire:",
           "outlines": null,
           "footnotes": null
         },
@@ -1124,20 +1200,20 @@
           "verse": 13,
           "text": "Then cometh Jesus from Galilee to Jordan unto John, to be baptized of him.",
           "marked_text": "Then cometh Jesus from Galilee to Jordan unto John, to be baptized of him.",
-          "outlines": null,
+          "outlines": "The baptism of Jesus (Mt. 3. 13-17; Mk. 1. 9-11; Lk. 3. 21, 22).",
           "footnotes": null
         },
         {
           "verse": 14,
           "text": "But John forbad him, saying, I have need to be baptized of thee, and comest thou to me?",
-          "marked_text": "But John forbad him, saying, I have need to be baptized of thee, and comest thou to me?",
+          "marked_text": "But John <fn n=\"i\"/>forbad him, saying, I have need to be baptized of thee, and comest thou to me?",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 15,
           "text": "And Jesus answering said unto him, Suffer it to be so now: for thus it becometh us to fulfil all righteousness. Then he suffered him.",
-          "marked_text": "And Jesus answering said unto him, Suffer it to be so<fn n=\"5\"/> now: for thus it becometh us to fulfil all righteousness. Then he suffered him.",
+          "marked_text": "And Jesus answering said unto him, <fn n=\"4\"/>Suffer it to be so now: for thus it becometh us to fulfil all <fn n=\"j\"/>righteousness. Then he suffered him.",
           "outlines": null,
           "footnotes": [
             {
@@ -1162,7 +1238,7 @@
         {
           "verse": 16,
           "text": "And Jesus, when he was baptized, went up straightway out of the water: and, lo, the heavens were opened unto him, and he saw the Spirit of God descending like a dove, and lighting upon him:",
-          "marked_text": "And Jesus<fn n=\"6\"/>, when he was baptized, went up straightway out of the water: and, lo, the heavens were opened unto him, and he saw the Spirit of God descending like a dove, and lighting upon him:",
+          "marked_text": "And <fn n=\"5\"/>Jesus, when he was baptized, went up straightway out of the water: and, lo, the heavens were opened unto him, and he saw the Spirit of God descending like a dove, and lighting upon him:",
           "outlines": null,
           "footnotes": [
             {
@@ -1178,107 +1254,214 @@
         {
           "verse": 17,
           "text": "And lo a voice from heaven, saying, This is my beloved Son, in whom I am well pleased.",
-          "marked_text": "And lo a voice from heaven, saying, This is my beloved Son, in whom I am well pleased.",
+          "marked_text": "And lo a voice from heaven, saying, <fn n=\"k\"/>This is my beloved Son, in whom I am well pleased.",
           "outlines": null,
           "footnotes": null
         }
       ],
       "footnotes": [
         {
-          "verse": 1,
+          "verse": 2,
           "note_idx": 1,
-          "keyword": "He shall be called",
-          "text": "Probably referring to Isa 11:1 where Christ is spoken of as \"a netzer (or, ’rod’) out of the stem of Jesse.\"",
-          "html": "<p><b>He shall be called</b> </p><p>Probably referring to <ref>Isa 11:1</ref> where Christ is spoken of as &quot;a netzer (or, &rsquo;rod&rsquo;) out of the stem of Jesse.&quot; </p>",
+          "letter": "a",
+          "keyword": "Repent",
+          "text": "Repentance. vs. 2, 8, 11; Mt. 4. 17. (Mt. 3. 2; Acts 17. 30).",
+          "html": "<p><b>Repent</b>: Repentance. vs. 2, 8, 11; Mt. 4. 17. (Mt. 3. 2; Acts 17. 30).</p>",
           "references": [
-            "Isa 11:1"
+            "Mat 4:17",
+            "Mat 3:2",
+            "Act 17:30"
           ]
         },
         {
           "verse": 2,
           "note_idx": 2,
-          "keyword": "saying",
-          "text": "(1) The phrase, kingdom of heaven (lit. of the heavens), is peculiar to Matthew and signifies the Messianic earth rule of Jesus Christ, the Son of David. It is called the kingdom of the heavens because it is the rule of the heavens over the earth Mat 6:10 The phrase is derived from Daniel, where it is defined; Dan 2:34-36; Dan 2:44; Dan 7:23-27 as the kingdom which the God of heaven will set up after the destruction by \"the stone cut out without hands,\" of the Gentile world-system. It is the kingdom covenanted to David’s seed 2Sa 7:7-10 described in the prophets; (See Scofield \" Zec 12:8 \") and confirmed to Jesus the Christ, the Son of Mary, through the angel Gabriel Luk 1:32; Luk 1:33. (2) The kingdom of heaven has three aspects in Matthew: (a) \"at hand\" from the beginning of the ministry of John the Baptist Mat 3:2 to the virtual rejection of the King, and the announcement of the new brotherhood Mat 12:46-50 (b) in seven \"mysteries of the kingdom of heaven,\" to be fulfilled during the present age Mat 13:1-52 to which are to be added the parables of the kingdom of heaven which were spoken after those of Matthew 13, and which have to do with the sphere of Christian profession during this age; (c) the prophetic aspect--the kingdom to be set up after the return of the King in glory. Mat 24:29 to Mat 25:46; Luk 19:12-19; Act 15:14-17 See \"Kingdom (N.T.)\"; Luk 1:33; 1Co 15:28 Cf. \"Kingdom of God,\" (See Scofield \" Mat 6:33 \") . saying (See Scofield \" Act 17:30 \") .",
-          "html": "<p>(1) The phrase, kingdom of heaven (lit. of the heavens), is peculiar to Matthew and signifies the Messianic earth rule of Jesus Christ, the Son of David. It is called the kingdom of the heavens because it is the rule of the heavens over the earth <ref>Mat 6:10</ref> The phrase is derived from Daniel, where it is defined; <ref>Dan 2:34-36</ref>; <ref>Dan 2:44</ref>; <ref>Dan 7:23-27</ref> as the kingdom which the God of heaven will set up after the destruction by &quot;the stone cut out without hands,&quot; of the Gentile world-system. It is the kingdom covenanted to David&rsquo;s seed <ref>2Sa 7:7-10</ref> described in the prophets; <i>(See Scofield &quot;</i><i><ref>Zec 12:8</ref></i><i>&quot;)</i> and confirmed to Jesus the Christ, the Son of Mary, through the angel Gabriel <ref>Luk 1:32</ref>; <ref>Luk 1:33</ref>. </p><p>(2) The kingdom of heaven has three aspects in Matthew: </p><p>(a) &quot;at hand&quot; from the beginning of the ministry of John the Baptist <ref>Mat 3:2</ref> to the virtual rejection of the King, and the announcement of the new brotherhood <ref>Mat 12:46-50</ref> </p><p>(b) in seven &quot;mysteries of the kingdom of heaven,&quot; to be fulfilled during the present age <ref>Mat 13:1-52</ref> to which are to be added the parables of the kingdom of heaven which were spoken after those of Matthew 13, and which have to do with the sphere of Christian profession during this age; </p><p>(c) the prophetic aspect--the kingdom to be set up after the return of the King in glory. <ref>Mat 24:29</ref> to <ref>Mat 25:46</ref>; <ref>Luk 19:12-19</ref>; <ref>Act 15:14-17</ref> See &quot;Kingdom (N.T.)&quot;; <ref>Luk 1:33</ref>; <ref>1Co 15:28</ref> Cf. &quot;Kingdom of God,&quot; <i>(See Scofield &quot;</i><i><ref>Mat 6:33</ref></i><i>&quot;)</i>. </p><p><b>saying</b> <i>(See Scofield &quot;</i><i><ref>Act 17:30</ref></i><i>&quot;)</i>. </p>",
+          "letter": "b",
+          "keyword": "kingdom of heaven",
+          "text": "Kingdom (N.T.). vs. 2, 3; Mt. 4. 17. (Lk. 1. 31-33; 1 Cor. 15. 28).",
+          "html": "<p><b>kingdom of heaven</b>: Kingdom (N.T.). vs. 2, 3; Mt. 4. 17. (Lk. 1. 31-33; 1 Cor. 15. 28).</p>",
           "references": [
-            "Mat 6:10",
-            "Dan 2:34-36",
-            "Dan 2:44",
-            "Dan 7:23-27",
-            "2Sa 7:7-10",
-            "Zec 12:8",
-            "Luk 1:32",
-            "Luk 1:33",
-            "Mat 3:2",
-            "Mat 12:46-50",
-            "Mat 13:1-52",
-            "Mat 24:29",
-            "Mat 25:46",
-            "Luk 19:12-19",
-            "Act 15:14-17",
-            "Luk 1:33",
-            "1Co 15:28",
-            "Mat 6:33",
-            "Act 17:30"
+            "Mat 4:17",
+            "Luk 1:31-33",
+            "1Co 15:28"
+          ]
+        },
+        {
+          "verse": 2,
+          "note_idx": 3,
+          "letter": "c",
+          "keyword": "at hand",
+          "text": "Mt. 4. 17.",
+          "html": "<p><b>at hand</b>: Mt. 4. 17.</p>",
+          "references": [
+            "Mat 4:17"
+          ]
+        },
+        {
+          "verse": 3,
+          "note_idx": 4,
+          "letter": "d",
+          "keyword": "Esaias",
+          "text": "Isa. 40. 3.",
+          "html": "<p><b>Esaias</b>: Isa. 40. 3.</p>",
+          "references": [
+            "Isa 40:3"
           ]
         },
         {
           "verse": 6,
-          "note_idx": 3,
+          "note_idx": 5,
+          "letter": "e",
           "keyword": "sins",
-          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
-          "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "text": "Sin. Rom. 3. 23, note.",
+          "html": "<p><b>sins</b>: Sin. Rom. 3. 23, note.</p>",
           "references": [
             "Rom 3:23"
           ]
         },
         {
           "verse": 7,
-          "note_idx": 4,
-          "keyword": "Pharisees",
-          "text": "So called from a Heb. word meaning \"separate.\" After the ministry of the post-exilic prophets ceased, godly men called \"Chasidim\" (saints) arose who sought to keep alive reverence for the law amongst the descendants of the Jews who returned from the Babylonian captivity. This movement degenerated into the Pharisaism of our Lord’s day-- a letter-strictness which overlaid the law with traditional interpretations held to have been communicated by Jehovah to Moses as oral explanations of equal authority with the law itself. (cf. Mat 15:2; Mat 15:3; Mar 7:8-13; Gal 1:14). The Pharisees were strictly a sect. A member was \"chaber\" (i.e. \"knit together,\") Jdg 20:11 and took an obligation to remain true to the principles of Pharisaism. They were correct, moral, zealous, and self-denying, but self-righteous Luk 18:9 and destitute of the sense of sin and need Luk 7:39. They were the foremost prosecutors of Jesus Christ and the objects of His unsparing denunciation (e.g.); Mat 23:13-29; Luk 11:42; Luk 11:43 Sadducees Not strictly a sect, but rather those amongst the Jews who denied the existence of angels or other spirits, and all miracles, especially the resurrection. They were the religious rationalists of the time Mar 12:18-23; Act 5:15-17; Act 23:8 and strongly entrenched in the Sanhedrin and priesthood; Act 4:1; Act 5:17. They are identified with no affirmative doctrine, but were mere deniers of the supernatural.",
-          "html": "<p><b>Pharisees</b> </p><p>So called from a Heb. word meaning &quot;separate.&quot; After the ministry of the post-exilic prophets ceased, godly men called &quot;Chasidim&quot; (saints) arose who sought to keep alive reverence for the law amongst the descendants of the Jews who returned from the Babylonian captivity. This movement degenerated into the Pharisaism of our Lord&rsquo;s day-- a letter-strictness which overlaid the law with traditional interpretations held to have been communicated by Jehovah to Moses as oral explanations of equal authority with the law itself. (cf. <ref>Mat 15:2</ref>; <ref>Mat 15:3</ref>; <ref>Mar 7:8-13</ref>; <ref>Gal 1:14</ref>). </p><p>The Pharisees were strictly a sect. A member was &quot;chaber&quot; (i.e. &quot;knit together,&quot;) <ref>Jdg 20:11</ref> and took an obligation to remain true to the principles of Pharisaism. They were correct, moral, zealous, and self-denying, but self-righteous <ref>Luk 18:9</ref> and destitute of the sense of sin and need <ref>Luk 7:39</ref>. They were the foremost prosecutors of Jesus Christ and the objects of His unsparing denunciation (e.g.); <ref>Mat 23:13-29</ref>; <ref>Luk 11:42</ref>; <ref>Luk 11:43</ref> </p><p><b>Sadducees</b> </p><p>Not strictly a sect, but rather those amongst the Jews who denied the existence of angels or other spirits, and all miracles, especially the resurrection. They were the religious rationalists of the time <ref>Mar 12:18-23</ref>; <ref>Act 5:15-17</ref>; <ref>Act 23:8</ref> and strongly entrenched in the Sanhedrin and priesthood; <ref>Act 4:1</ref>; <ref>Act 5:17</ref>. They are identified with no affirmative doctrine, but were mere deniers of the supernatural. </p>",
+          "note_idx": 6,
+          "letter": "f",
+          "keyword": "generation",
+          "text": "Lit. progeny.",
+          "html": "<p><b>generation</b>: Lit. progeny.</p>",
+          "references": []
+        },
+        {
+          "verse": 8,
+          "note_idx": 7,
+          "letter": "g",
+          "keyword": "repentance",
+          "text": "Repentance. vs. 2, 8, 11; Mt. 4. 17. (Mt. 3. 2; Acts 17. 30).",
+          "html": "<p><b>repentance</b>: Repentance. vs. 2, 8, 11; Mt. 4. 17. (Mt. 3. 2; Acts 17. 30).</p>",
           "references": [
-            "Mat 15:2",
-            "Mat 15:3",
+            "Mat 4:17",
+            "Mat 3:2",
+            "Act 17:30"
+          ]
+        },
+        {
+          "verse": 11,
+          "note_idx": 8,
+          "letter": "h",
+          "keyword": "Holy Ghost",
+          "text": "Holy Spirit. Mt. 10. 20. (Mt. 1. 18; Acts 2. 4).",
+          "html": "<p><b>Holy Ghost</b>: Holy Spirit. Mt. 10. 20. (Mt. 1. 18; Acts 2. 4).</p>",
+          "references": [
+            "Mat 10:20",
+            "Mat 1:18",
+            "Act 2:4"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 9,
+          "letter": "i",
+          "keyword": "forbad",
+          "text": "Lit. would have hindered.",
+          "html": "<p><b>forbad</b>: Lit. would have hindered.</p>",
+          "references": []
+        },
+        {
+          "verse": 15,
+          "note_idx": 10,
+          "letter": "j",
+          "keyword": "righteousness",
+          "text": "Rom. 3. 21, note.",
+          "html": "<p><b>righteousness</b>: Rom. 3. 21, note.</p>",
+          "references": [
+            "Rom 3:21"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 11,
+          "letter": "k",
+          "keyword": "This is my beloved Son",
+          "text": "\"This is my Son\" \"beloved\": Mt. 17. 5; Mk. 9. 7; Lk. 9. 35. Cf. Isa. 42. 1.",
+          "html": "<p><b>This is my beloved Son</b>: \"This is my Son\" \"beloved\": Mt. 17. 5; Mk. 9. 7; Lk. 9. 35. Cf. Isa. 42. 1.</p>",
+          "references": [
+            "Mat 17:5",
+            "Mar 9:7",
+            "Luk 9:35",
+            "Isa 42:1"
+          ]
+        },
+        {
+          "verse": 2,
+          "note_idx": 12,
+          "footnote_number": 1,
+          "keyword": "kingdom of heaven",
+          "text": "(1) The phrase, kingdom of heaven (lit. of the heavens), is peculiar to Matthew and signifies the Messianic earth rule of Jesus Christ, the Son of David. It is called the kingdom of the heavens because it is the rule of the heavens over the earth (Mt. 6. 10). The phrase is derived from Daniel, where it is defined (Dan. 2. 34-36, 44; 7. 23-27) as the kingdom which \"the God of heaven\" will set up after the destruction by \"the stone cut out without hands\" of the Gentile world-system. It is the kingdom: covenanted to David's seed (2 Sam. 7. 7-10, refs.); described in the prophets (Zech. 12. 8, note); and confirmed to Jesus the Christ, the Son of Mary, through the angel Gabriel (Lk. 1. 32, 33).\n\n(2) The kingdom of heaven has three aspects in Matthew: (a) \"at hand\" from the beginning of the ministry of John the Baptist (Mt. 3. 2) to the virtual rejection of the King, and the announcement of the new brotherhood (Mt. 12. 46-50); (b) in seven \"mysteries of the kingdom of heaven,\" to be fulfilled during the present age (Mt. 13. 1-52), to which are to be added the parables of the kingdom of heaven which were spoken after those of Mt. 13., and which have to do with the sphere of Christian profession during this age; (c) the prophetic aspect--the kingdom to be set up after the return of the King in glory (Mt. 24. 29-25. 46; Lk. 19. 12-19; Acts 15. 14-17). See \"Kingdom (N.T.)\" (Lk. 1. 33; 1 Cor. 15. 28). Cf. \"Kingdom of God,\" Mt. 6. 33, note.",
+          "html": "<p><b>kingdom of heaven</b> </p><p>(1) The phrase, kingdom of heaven (lit. of the heavens), is peculiar to Matthew and signifies the Messianic earth rule of Jesus Christ, the Son of David. It is called the kingdom of the heavens because it is the rule of the heavens over the earth (Mt. 6. 10). The phrase is derived from Daniel, where it is defined (Dan. 2. 34-36, 44; 7. 23-27) as the kingdom which \"the God of heaven\" will set up after the destruction by \"the stone cut out without hands\" of the Gentile world-system. It is the kingdom: covenanted to David's seed (2 Sam. 7. 7-10, refs.); described in the prophets (Zech. 12. 8, note); and confirmed to Jesus the Christ, the Son of Mary, through the angel Gabriel (Lk. 1. 32, 33). </p><p>(2) The kingdom of heaven has three aspects in Matthew: (a) \"at hand\" from the beginning of the ministry of John the Baptist (Mt. 3. 2) to the virtual rejection of the King, and the announcement of the new brotherhood (Mt. 12. 46-50); (b) in seven \"mysteries of the kingdom of heaven,\" to be fulfilled during the present age (Mt. 13. 1-52), to which are to be added the parables of the kingdom of heaven which were spoken after those of Mt. 13., and which have to do with the sphere of Christian profession during this age; (c) the prophetic aspect--the kingdom to be set up after the return of the King in glory (Mt. 24. 29-25. 46; Lk. 19. 12-19; Acts 15. 14-17). See \"Kingdom (N.T.)\" (Lk. 1. 33; 1 Cor. 15. 28). Cf. \"Kingdom of God,\" Mt. 6. 33, note.</p>",
+          "references": [
+            "Dan 2:34-36",
+            "Dan 2:44",
+            "Dan 7:23-27",
+            "2Sa 7:7-10",
+            "Zec 12:8",
+            "Luk 1:32-33",
+            "Mat 3:2",
+            "Mat 12:46-50",
+            "Mat 13:1-52",
+            "Mat 24:29-25:46",
+            "Luk 19:12-19",
+            "Act 15:14-17",
+            "1Co 15:28",
+            "Mat 6:33"
+          ]
+        },
+        {
+          "verse": 7,
+          "note_idx": 13,
+          "footnote_number": 2,
+          "keyword": "Pharisees",
+          "text": "So called from a Heb. word meaning \"separate.\" After the ministry of the post-exilic prophets ceased, godly men called \"Chasidim\" (saints) arose who sought to keep alive reverence for the law amongst the descendants of the Jews who returned from the Babylonian captivity. This movement degenerated into the Pharisaism of our Lord's day--a letter-strictness which overlaid the law with traditional interpretations held to have been communicated by Jehovah to Moses as oral explanations of equal authority with the law itself (cf. Mt. 15. 2, 3; Mk. 7. 8-13; Gal. 1. 14). The Pharisees were strictly a sect. A member was \"chaber\" (i.e. \"knit together,\" Jud. 20. 11), and took an obligation to remain true to the principles of Pharisaism. They were correct, moral, zealous, and self-denying, but self-righteous (Lk. 18. 9), and destitute of the sense of sin and need (Lk. 7. 39). They were the foremost persecutors of Jesus Christ and the objects of His unsparing denunciation (e.g. Mt. 23. 13-29; Lk. 11. 42, 43).",
+          "html": "<p><b>Pharisees</b> </p><p>So called from a Heb. word meaning \"separate.\" After the ministry of the post-exilic prophets ceased, godly men called \"Chasidim\" (saints) arose who sought to keep alive reverence for the law amongst the descendants of the Jews who returned from the Babylonian captivity. This movement degenerated into the Pharisaism of our Lord's day--a letter-strictness which overlaid the law with traditional interpretations held to have been communicated by Jehovah to Moses as oral explanations of equal authority with the law itself (cf. Mt. 15. 2, 3; Mk. 7. 8-13; Gal. 1. 14). The Pharisees were strictly a sect. A member was \"chaber\" (i.e. \"knit together,\" Jud. 20. 11), and took an obligation to remain true to the principles of Pharisaism. They were correct, moral, zealous, and self-denying, but self-righteous (Lk. 18. 9), and destitute of the sense of sin and need (Lk. 7. 39). They were the foremost persecutors of Jesus Christ and the objects of His unsparing denunciation (e.g. Mt. 23. 13-29; Lk. 11. 42, 43).</p>",
+          "references": [
+            "Mat 15:2-3",
             "Mar 7:8-13",
             "Gal 1:14",
             "Jdg 20:11",
             "Luk 18:9",
             "Luk 7:39",
             "Mat 23:13-29",
-            "Luk 11:42",
-            "Luk 11:43",
+            "Luk 11:42-43"
+          ]
+        },
+        {
+          "verse": 7,
+          "note_idx": 14,
+          "footnote_number": 3,
+          "keyword": "Sadducees",
+          "text": "Not strictly a sect, but rather those amongst the Jews who denied the existence of angels or other spirits, and all miracles, especially the resurrection. They were the religious rationalists of the time (Mk. 12. 18-23; Acts 23. 8), and were bitter enemies of Christ and His truth.",
+          "html": "<p><b>Sadducees</b> </p><p>Not strictly a sect, but rather those amongst the Jews who denied the existence of angels or other spirits, and all miracles, especially the resurrection. They were the religious rationalists of the time (Mk. 12. 18-23; Acts 23. 8), and were bitter enemies of Christ and His truth.</p>",
+          "references": [
             "Mar 12:18-23",
-            "Act 5:15-17",
-            "Act 23:8",
-            "Act 4:1",
-            "Act 5:17"
+            "Act 23:8"
           ]
         },
         {
           "verse": 15,
-          "note_idx": 5,
-          "keyword": "Suffer it to be so",
-          "text": "Why one who needed no repentance should insist upon receiving a rite which signified confession (Mat 3:6) and repentance (Mat 3:11) is nowhere directly explained. It may be suggested: (1) That Jesus was now to receive His anointing with the Holy Spirit (Mat 3:16) unto His threefold office of Prophet, Priest, and King. In the Levitical order Exo 29:4-7 the high priest was first washed, then anointed. While Christ’s priestly work did not begin till He \"offered Himself without spot to God\" Heb 9:14 and His full manifestation as the King- Priest after the order of Melchizedek awaits the kingdom (See Scofield \" Gen 14:18 \") yet He was then anointed, once for all. (2) But John’s baptism was the voice of God to Israel, and the believing remnant responded (Mat 3:5). It was an act of righteousness on the part of Him who had become, as to the flesh, an Israelite, to take His place with this believing remnant. righteousness (See Scofield \" 1Jn 3:7 \") .",
-          "html": "<p><b>Suffer it to be so</b> </p><p>Why one who needed no repentance should insist upon receiving a rite which signified confession (<ref>Mat 3:6</ref>) and repentance (<ref>Mat 3:11</ref>) is nowhere directly explained. It may be suggested: </p><p>(1) That Jesus was now to receive His anointing with the Holy Spirit (<ref>Mat 3:16</ref>) unto His threefold office of Prophet, Priest, and King. In the Levitical order <ref>Exo 29:4-7</ref> the high priest was first washed, then anointed. While Christ&rsquo;s priestly work did not begin till He &quot;offered Himself without spot to God&quot; <ref>Heb 9:14</ref> and His full manifestation as the King- Priest after the order of Melchizedek awaits the kingdom <i>(See Scofield &quot;</i><i><ref>Gen 14:18</ref></i><i>&quot;)</i> yet He was then anointed, once for all. </p><p>(2) But John&rsquo;s baptism was the voice of God to Israel, and the believing remnant responded (<ref>Mat 3:5</ref>). It was an act of righteousness on the part of Him who had become, as to the flesh, an Israelite, to take His place with this believing remnant. </p><p><b>righteousness</b> <i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+          "note_idx": 15,
+          "footnote_number": 4,
+          "keyword": "baptism of repentance",
+          "text": "Why one who was \"holy, harmless, undefiled, and separate from sinners\" should submit to a baptism of repentance (v. 11) is nowhere directly explained. It may be suggested: (1) That Jesus was now to receive His anointing with the Holy Spirit (v. 16) unto His threefold office of Prophet, Priest, and King. In the Levitical order (Ex. 29. 4-7) the high priest was first washed, then anointed. While Christ's priestly work did not begin till He \"offered Himself without spot to God\" (Heb. 9. 14), and His full manifestation as the King-Priest after the order of Melchisedek awaits the kingdom (Gen. 14. 18, note), yet He was then anointed, once for all. (2) But John's baptism was the voice of God to Israel, and the believing remnant responded (v. 5). It was an act of righteousness on the part of Him who had become, as to the flesh, an Israelite, to take His place with this believing remnant.",
+          "html": "<p><b>baptism of repentance</b> </p><p>Why one who was \"holy, harmless, undefiled, and separate from sinners\" should submit to a baptism of repentance (v. 11) is nowhere directly explained. It may be suggested: (1) That Jesus was now to receive His anointing with the Holy Spirit (v. 16) unto His threefold office of Prophet, Priest, and King. In the Levitical order (Ex. 29. 4-7) the high priest was first washed, then anointed. While Christ's priestly work did not begin till He \"offered Himself without spot to God\" (Heb. 9. 14), and His full manifestation as the King-Priest after the order of Melchisedek awaits the kingdom (Gen. 14. 18, note), yet He was then anointed, once for all. (2) But John's baptism was the voice of God to Israel, and the believing remnant responded (v. 5). It was an act of righteousness on the part of Him who had become, as to the flesh, an Israelite, to take His place with this believing remnant.</p>",
           "references": [
-            "Mat 3:6",
-            "Mat 3:11",
-            "Mat 3:16",
             "Exo 29:4-7",
             "Heb 9:14",
-            "Gen 14:18",
-            "Mat 3:5",
-            "1Jn 3:7"
+            "Gen 14:18"
           ]
         },
         {
           "verse": 16,
-          "note_idx": 6,
-          "keyword": "Jesus",
-          "text": "For the first time the Trinity, foreshadowed in many ways in the O.T., is fully manifested. The Spirit descends upon the Son, and at the same moment the Father’s voice is heard from heaven.",
-          "html": "<p><b>Jesus</b> </p><p>For the first time the Trinity, foreshadowed in many ways in the O.T., is fully manifested. The Spirit descends upon the Son, and at the same moment the Father&rsquo;s voice is heard from heaven. </p>",
+          "note_idx": 16,
+          "footnote_number": 5,
+          "keyword": "The Trinity",
+          "text": "For the first time the Trinity, foreshadowed in many ways in the O.T., is fully manifested. The Spirit descends upon the Son, and at the same moment the Father's voice is heard from heaven.",
+          "html": "<p><b>The Trinity</b> </p><p>For the first time the Trinity, foreshadowed in many ways in the O.T., is fully manifested. The Spirit descends upon the Son, and at the same moment the Father's voice is heard from heaven.</p>",
           "references": []
         }
       ]
@@ -1290,8 +1473,8 @@
         {
           "verse": 1,
           "text": "Then was Jesus led up of the Spirit into the wilderness to be tempted of the devil.",
-          "marked_text": "Then was Jesus<fn n=\"1\"/> led up of the Spirit into the wilderness to be tempted of the devil.",
-          "outlines": "Matthew Chapter 4.",
+          "marked_text": "Then was Jesus led up of the spirit into the wilderness to be <fn n=\"a\"/>tempted<fn n=\"1\"/> of the <fn n=\"b\"/>devil.",
+          "outlines": "The temptation of Jesus (Mk. 1. 12, 13; Lk. 4. 1-13; cf. Gen. 3. 6).",
           "footnotes": [
             {
               "verse": 1,
@@ -1340,14 +1523,14 @@
         {
           "verse": 4,
           "text": "But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God.",
-          "marked_text": "But he answered and said, It is written, Man shall not live by bread alone, but by every word that proceedeth out of the mouth of God.",
+          "marked_text": "But he answered and said, It is written, <fn n=\"c\"/>Man shall not live by bread alone, but by every word that proceedeth out of the mouth of <fn n=\"d\"/>God.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 5,
           "text": "Then the devil taketh him up into the holy city, and setteth him on a pinnacle of the temple,",
-          "marked_text": "Then the devil taketh him up into the holy city<fn n=\"2\"/>, and setteth him on a pinnacle of the temple,",
+          "marked_text": "Then the devil taketh him up into the <fn n=\"e\"/>holy<fn n=\"2\"/> city, and setteth him on a pinnacle of the temple,",
           "outlines": null,
           "footnotes": [
             {
@@ -1366,7 +1549,7 @@
         {
           "verse": 6,
           "text": "And saith unto him, If thou be the Son of God, cast thyself down: for it is written, He shall give his angels charge concerning thee: and in their hands they shall bear thee up, lest at any time thou dash thy foot against a stone.",
-          "marked_text": "And saith unto him, If thou be the Son of God, cast thyself down: for it is written, He shall give his angels<fn n=\"3\"/> charge concerning thee: and in their hands they shall bear thee up, lest at any time thou dash thy foot against a stone.",
+          "marked_text": "And saith unto him, If thou be the Son of God, cast thyself down: for it is written, He shall give his <fn n=\"f\"/>angels charge concerning thee: and in <fn n=\"g\"/>their hands they shall bear thee up, lest at any time thou dash thy foot against a stone.",
           "outlines": null,
           "footnotes": [
             {
@@ -1384,14 +1567,14 @@
         {
           "verse": 7,
           "text": "Jesus said unto him, It is written again, Thou shalt not tempt the Lord thy God.",
-          "marked_text": "Jesus said unto him, It is written again, Thou shalt not tempt the Lord thy God.",
+          "marked_text": "Jesus said unto him, It is written again, Thou shalt not tempt the <fn n=\"h\"/>Lord thy God.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 8,
           "text": "Again, the devil taketh him up into an exceeding high mountain, and sheweth him all the kingdoms of the world, and the glory of them;",
-          "marked_text": "Again, the devil taketh him up into an exceeding high mountain, and sheweth him all the kingdoms of the world<fn n=\"4\"/>, and the glory of them;",
+          "marked_text": "Again, the devil taketh him up into an exceeding high mountain, and sheweth him all the kingdoms of the <fn n=\"i\"/>world<fn n=\"3\"/>, and the glory of them;",
           "outlines": null,
           "footnotes": [
             {
@@ -1418,14 +1601,14 @@
         {
           "verse": 10,
           "text": "Then saith Jesus unto him, Get thee hence, Satan: for it is written, Thou shalt worship the Lord thy God, and him only shalt thou serve.",
-          "marked_text": "Then saith Jesus unto him, Get thee hence, Satan: for it is written, Thou shalt worship the Lord thy God, and him only shalt thou serve.",
+          "marked_text": "Then saith Jesus unto him, Get thee hence, Satan: for it is written, Thou shalt worship the <fn n=\"j\"/>Lord thy God, and him only shalt thou serve.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 11,
           "text": "Then the devil leaveth him, and, behold, angels came and ministered unto him.",
-          "marked_text": "Then the devil leaveth him, and, behold, angels<fn n=\"5\"/> came and ministered unto him.",
+          "marked_text": "Then the devil leaveth him, and, behold, <fn n=\"k\"/>angels came and ministered unto him.",
           "outlines": null,
           "footnotes": [
             {
@@ -1444,7 +1627,7 @@
           "verse": 12,
           "text": "Now when Jesus had heard that John was cast into prison, he departed into Galilee;",
           "marked_text": "Now when Jesus had heard that John was cast into prison, he departed into Galilee;",
-          "outlines": null,
+          "outlines": "Jesus comes to Capernaum and begins His public ministry (Mk. 1. 14; Lk. 4. 14, 15).",
           "footnotes": null
         },
         {
@@ -1464,21 +1647,21 @@
         {
           "verse": 15,
           "text": "The land of Zabulon, and the land of Nephthalim, by the way of the sea, beyond Jordan, Galilee of the Gentiles;",
-          "marked_text": "The land of Zabulon, and the land of Nephthalim, by the way of the sea, beyond Jordan, Galilee of the Gentiles;",
+          "marked_text": "The land of Zabulon, and the land of Nephthalim, by the way of the sea, beyond Jordan, Galilee of the <fn n=\"l\"/>Gentiles;",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 16,
           "text": "The people which sat in darkness saw great light; and to them which sat in the region and shadow of death light is sprung up.",
-          "marked_text": "The people which sat in darkness saw great light; and to them which sat in the region and shadow of death light is sprung up.",
+          "marked_text": "The people which sat in darkness saw great <fn n=\"m\"/>light; and to them which sat in the region and shadow of death light is sprung up.",
           "outlines": null,
           "footnotes": null
         },
         {
           "verse": 17,
           "text": "From that time Jesus began to preach, and to say, Repent: for the kingdom of heaven is at hand.",
-          "marked_text": "From that time Jesus began to preach, and to say, Repent: for the kingdom of heaven is at hand<fn n=\"6\"/>.",
+          "marked_text": "From that time Jesus began to preach, and to say, <fn n=\"n\"/>Repent: for the <fn n=\"o\"/>kingdom of heaven is <fn n=\"p\"/>at hand<fn n=\"4\"/>.",
           "outlines": null,
           "footnotes": [
             {
@@ -1500,8 +1683,8 @@
         {
           "verse": 18,
           "text": "And Jesus, walking by the sea of Galilee, saw two brethren, Simon called Peter, and Andrew his brother, casting a net into the sea: for they were fishers.",
-          "marked_text": "And Jesus, walking by the sea of Galilee, saw two brethren<fn n=\"7\"/>, Simon called Peter, and Andrew his brother, casting a net into the sea: for they were fishers.",
-          "outlines": null,
+          "marked_text": "And Jesus, walking by the sea of Galilee, saw <fn n=\"q\"/>two brethren, Simon called Peter, and Andrew his brother, casting a net into the sea: for they were fishers.",
+          "outlines": "The call of Peter and Andrew to discipleship (Mk. 1. 16-20; cf. Lk. 5. 1-11).",
           "footnotes": [
             {
               "verse": 18,
@@ -1532,8 +1715,8 @@
         {
           "verse": 21,
           "text": "And going on from thence, he saw other two brethren, James the son of Zebedee, and John his brother, in a ship with Zebedee their father, mending their nets; and he called them.",
-          "marked_text": "And going on from thence, he saw other two brethren, James<fn n=\"8\"/> the son of Zebedee, and John his brother, in a ship with Zebedee their father, mending their nets; and he called them.",
-          "outlines": null,
+          "marked_text": "And going on from thence, he saw other two brethren, James the son of Zebedee, and John his brother, in a ship with Zebedee their father, mending their nets; and he called them.",
+          "outlines": "The call of James and John.",
           "footnotes": [
             {
               "verse": 21,
@@ -1583,8 +1766,8 @@
         {
           "verse": 23,
           "text": "And Jesus went about all Galilee, teaching in their synagogues, and preaching the gospel of the kingdom, and healing all manner of sickness and all manner of disease among the people.",
-          "marked_text": "And Jesus went about all Galilee, teaching in their synagogues, and preaching the gospel of the kingdom<fn n=\"9\"/>, and healing all manner of sickness and all manner of disease among the people.",
-          "outlines": null,
+          "marked_text": "And Jesus went about all Galilee, teaching in their synagogues, and preaching the gospel of the kingdom, and healing all manner of sickness and all manner of disease among the people.",
+          "outlines": "Jesus' early Galilean ministry (Mk. 1. 35-39; Lk. 4. 42-44).",
           "footnotes": [
             {
               "verse": 23,
@@ -1628,15 +1811,217 @@
         {
           "verse": 1,
           "note_idx": 1,
-          "keyword": "Then was Jesus",
-          "text": "The temptation of Christ, the \"last Adam\" 1Co 15:45 is best understood when contrasted with that of the \"first man Adam.\" Adam was tempted in his place of lord of creation, a lordship with but one reservation, the knowledge of good and evil; Gen 1:26; Gen 2:16; Gen 2:17. Through the woman he was tempted to add that also to his dominion. Falling, he lost all. But Christ had taken the place of a lowly Servant, acting only from and in obedience to the Father.; Php 2:5-8; Joh 5:19; Joh 6:57; Joh 8:28; Joh 8:54 (See Scofield \" Isa 41:8 \") that He might redeem a fallen race and a creation under the curse; Gen 3:17-19; Rom 8:19-23. Satan’s one object in the threefold temptation was to induce Christ to act from Himself, in independency of His Father. The first two temptations were a challenge to Christ from the god of this world to prove Himself indeed the Son of God (Mat 4:3; Mat 4:6). The third was the offer of the usurping prince of this world to divest himself of that which rightfully belonged to Christ as Son of man and Son of David, on the condition that He accept the sceptre on Satan’s world-principles (cf. Joh 18:36). See Scofield \"Rev 13:8\". Christ defeated Satan by a means open to His humblest follower, the intelligent use of the word of God (Mat 4:4; Mat 4:7). In his second temptation Satan also used Scripture, but a promise available only to one in the path of obedience. The scene give emphasis to the vital importance of \"rightly dividing the word of truth\" 2Ti 2:15.",
-          "html": "<p><b>Then was Jesus</b> </p><p>The temptation of Christ, the &quot;last Adam&quot; <ref>1Co 15:45</ref> is best understood when contrasted with that of the &quot;first man Adam.&quot; Adam was tempted in his place of lord of creation, a lordship with but one reservation, the knowledge of good and evil; <ref>Gen 1:26</ref>; <ref>Gen 2:16</ref>; <ref>Gen 2:17</ref>. Through the woman he was tempted to add that also to his dominion. Falling, he lost all. But Christ had taken the place of a lowly Servant, acting only from and in obedience to the Father.; <ref>Php 2:5-8</ref>; <ref>Joh 5:19</ref>; <ref>Joh 6:57</ref>; <ref>Joh 8:28</ref>; <ref>Joh 8:54</ref> <i>(See Scofield &quot;</i><i><ref>Isa 41:8</ref></i><i>&quot;)</i> that He might redeem a fallen race and a creation under the curse; <ref>Gen 3:17-19</ref>; <ref>Rom 8:19-23</ref>. Satan&rsquo;s one object in the threefold temptation was to induce Christ to act from Himself, in independency of His Father. The first two temptations were a challenge to Christ from the god of this world to prove Himself indeed the Son of God (<ref>Mat 4:3</ref>; <ref>Mat 4:6</ref>). The third was the offer of the usurping prince of this world to divest himself of that which rightfully belonged to Christ as Son of man and Son of David, on the condition that He accept the sceptre on Satan&rsquo;s world-principles (cf. <ref>Joh 18:36</ref>). See Scofield &quot;<ref>Rev 13:8</ref>&quot;. Christ defeated Satan by a means open to His humblest follower, the intelligent use of the word of God (<ref>Mat 4:4</ref>; <ref>Mat 4:7</ref>). In his second temptation Satan also used Scripture, but a promise available only to one in the path of obedience. The scene give emphasis to the vital importance of &quot;rightly dividing the word of truth&quot; <ref>2Ti 2:15</ref>. </p>",
+          "letter": "a",
+          "keyword": "tempted",
+          "text": "Temptation. vs. 1, 3, 7; Mt. 6. 13. (Gen. 3. 1; Jas. 1. 14).",
+          "html": "<p><b>tempted</b>: Temptation. vs. 1, 3, 7; Mt. 6. 13. (Gen. 3. 1; Jas. 1. 14).</p>",
+          "references": [
+            "Mat 6:13",
+            "Gen 3:1",
+            "Jas 1:14"
+          ]
+        },
+        {
+          "verse": 1,
+          "note_idx": 2,
+          "letter": "b",
+          "keyword": "devil",
+          "text": "Gr. diabolos, accuser, slanderer. (Gen. 3. 1; Rev. 20. 10).",
+          "html": "<p><b>devil</b>: Gr. diabolos, accuser, slanderer. (Gen. 3. 1; Rev. 20. 10).</p>",
+          "references": [
+            "Gen 3:1",
+            "Rev 20:10"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 3,
+          "letter": "c",
+          "keyword": "Man shall not live",
+          "text": "Inspiration. vs. 4, 7, 10; Mt. 5. 17, 18. (Ex. 4. 15; Rev. 22. 19).",
+          "html": "<p><b>Man shall not live</b>: Inspiration. vs. 4, 7, 10; Mt. 5. 17, 18. (Ex. 4. 15; Rev. 22. 19).</p>",
+          "references": [
+            "Mat 5:17-18",
+            "Exo 4:15",
+            "Rev 22:19"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 4,
+          "letter": "d",
+          "keyword": "God",
+          "text": "Jehovah. Deut. 8. 3.",
+          "html": "<p><b>God</b>: Jehovah. Deut. 8. 3.</p>",
+          "references": [
+            "Deu 8:3"
+          ]
+        },
+        {
+          "verse": 5,
+          "note_idx": 5,
+          "letter": "e",
+          "keyword": "holy",
+          "text": "Holy (things) (N.T.). Mt. 7. 6. (Lev. 10. 10).",
+          "html": "<p><b>holy</b>: Holy (things) (N.T.). Mt. 7. 6. (Lev. 10. 10).</p>",
+          "references": [
+            "Mat 7:6",
+            "Lev 10:10"
+          ]
+        },
+        {
+          "verse": 6,
+          "note_idx": 6,
+          "letter": "f",
+          "keyword": "angels",
+          "text": "angels. Heb. 1. 4, note.",
+          "html": "<p><b>angels</b>: angels. Heb. 1. 4, note.</p>",
+          "references": [
+            "Heb 1:4"
+          ]
+        },
+        {
+          "verse": 6,
+          "note_idx": 7,
+          "letter": "g",
+          "keyword": "their hands",
+          "text": "Psa. 91. 11, 12.",
+          "html": "<p><b>their hands</b>: Psa. 91. 11, 12.</p>",
+          "references": [
+            "Psa 91:11-12"
+          ]
+        },
+        {
+          "verse": 7,
+          "note_idx": 8,
+          "letter": "h",
+          "keyword": "Lord thy God",
+          "text": "Jehovah. Deut. 6. 16.",
+          "html": "<p><b>Lord thy God</b>: Jehovah. Deut. 6. 16.</p>",
+          "references": [
+            "Deu 6:16"
+          ]
+        },
+        {
+          "verse": 8,
+          "note_idx": 9,
+          "letter": "i",
+          "keyword": "world",
+          "text": "kosmos. Mt. 13. 38. (Mt. 4. 8; Rev. 11. 15).",
+          "html": "<p><b>world</b>: kosmos. Mt. 13. 38. (Mt. 4. 8; Rev. 11. 15).</p>",
+          "references": [
+            "Mat 13:38",
+            "Rev 11:15"
+          ]
+        },
+        {
+          "verse": 10,
+          "note_idx": 10,
+          "letter": "j",
+          "keyword": "Lord thy God",
+          "text": "Jehovah. Deut. 6. 13; 10. 20.",
+          "html": "<p><b>Lord thy God</b>: Jehovah. Deut. 6. 13; 10. 20.</p>",
+          "references": [
+            "Deu 6:13",
+            "Deu 10:20"
+          ]
+        },
+        {
+          "verse": 11,
+          "note_idx": 11,
+          "letter": "k",
+          "keyword": "angels",
+          "text": "Christ (First Advent). Mt. 8. 20. (Gen. 3. 15; Acts 1. 9).",
+          "html": "<p><b>angels</b>: Christ (First Advent). Mt. 8. 20. (Gen. 3. 15; Acts 1. 9).</p>",
+          "references": [
+            "Mat 8:20",
+            "Gen 3:15",
+            "Act 1:9"
+          ]
+        },
+        {
+          "verse": 15,
+          "note_idx": 12,
+          "letter": "l",
+          "keyword": "Gentiles",
+          "text": "Isa. 42. 6, 7.",
+          "html": "<p><b>Gentiles</b>: Isa. 42. 6, 7.</p>",
+          "references": [
+            "Isa 42:6-7"
+          ]
+        },
+        {
+          "verse": 16,
+          "note_idx": 13,
+          "letter": "m",
+          "keyword": "light",
+          "text": "Isa. 9. 1, 2.",
+          "html": "<p><b>light</b>: Isa. 9. 1, 2.</p>",
+          "references": [
+            "Isa 9:1-2"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 14,
+          "letter": "n",
+          "keyword": "Repent",
+          "text": "Repentance. Mt. 9. 13. (Mt. 3. 2; Acts 17. 30).",
+          "html": "<p><b>Repent</b>: Repentance. Mt. 9. 13. (Mt. 3. 2; Acts 17. 30).</p>",
+          "references": [
+            "Mat 9:13",
+            "Mat 3:2",
+            "Act 17:30"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 15,
+          "letter": "o",
+          "keyword": "kingdom of heaven",
+          "text": "Kingdom (N.T.). Mt. 5. 2, 35. (Lk. 1. 31-33; 1 Cor. 15. 28).",
+          "html": "<p><b>kingdom of heaven</b>: Kingdom (N.T.). Mt. 5. 2, 35. (Lk. 1. 31-33; 1 Cor. 15. 28).</p>",
+          "references": [
+            "Mat 5:2",
+            "Mat 5:35",
+            "Luk 1:31-33",
+            "1Co 15:28"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 16,
+          "letter": "p",
+          "keyword": "at hand",
+          "text": "Mt. 3. 2, note.",
+          "html": "<p><b>at hand</b>: Mt. 3. 2, note.</p>",
+          "references": [
+            "Mat 3:2"
+          ]
+        },
+        {
+          "verse": 18,
+          "note_idx": 17,
+          "letter": "q",
+          "keyword": "two brethren",
+          "text": "Peter and Andrew and John were already disciples (John 1. 35-42). This is a call to service.",
+          "html": "<p><b>two brethren</b>: Peter and Andrew and John were already disciples (John 1. 35-42). This is a call to service.</p>",
+          "references": [
+            "Joh 1:35-42"
+          ]
+        },
+        {
+          "verse": 1,
+          "note_idx": 18,
+          "footnote_number": 1,
+          "keyword": "tempted of the devil",
+          "text": "The temptation of Christ, the \"last Adam\" (1 Cor. 15. 45), is best understood when contrasted with that of \"the first man Adam.\" Adam was tempted in his place of lord of creation, a lordship with but one reservation, the knowledge of good and evil (Gen. 1. 26; 2. 16, 17). Through the woman he was tempted to add that also to his dominion. Falling, he lost all. But Christ had taken the place of a lowly Servant, acting only from and in obedience to the Father (Phil. 2. 5-8; John 5. 19; 6. 57; 8. 28, 54. Cf. Isa. 41. 8, note), that He might redeem a fallen race and a creation under the curse (Gen. 3. 17-19; Rom. 8. 19-23). Satan's one object in the threefold temptation was to induce Christ to act from Himself, in independency of His Father. The first two temptations were a challenge to Christ from the god of this world to prove Himself indeed the Son of God (vs. 3, 6). The third was the offer of the usurping prince of this world to divest himself of that which rightfully belonged to Christ as Son of man and Son of David, on the condition that He accept the sceptre on Satan's world-principles (cf. John 18. 36; Rev. 13. 8, note). Christ defeated Satan by a means open to His humblest follower, the intelligent use of the word of God (vs. 4, 7). In his second temptation Satan also used Scripture, but a promise available only to one in the path of obedience. The scene gives emphasis to the vital importance of \"rightly dividing the word of truth\" (2 Tim. 2. 15).",
+          "html": "<p><b>tempted of the devil</b> </p><p>The temptation of Christ, the \"last Adam\" (1 Cor. 15. 45), is best understood when contrasted with that of \"the first man Adam.\" Adam was tempted in his place of lord of creation, a lordship with but one reservation, the knowledge of good and evil (Gen. 1. 26; 2. 16, 17). Through the woman he was tempted to add that also to his dominion. Falling, he lost all. But Christ had taken the place of a lowly Servant, acting only from and in obedience to the Father (Phil. 2. 5-8; John 5. 19; 6. 57; 8. 28, 54. Cf. Isa. 41. 8, note), that He might redeem a fallen race and a creation under the curse (Gen. 3. 17-19; Rom. 8. 19-23). Satan's one object in the threefold temptation was to induce Christ to act from Himself, in independency of His Father. The first two temptations were a challenge to Christ from the god of this world to prove Himself indeed the Son of God (vs. 3, 6). The third was the offer of the usurping prince of this world to divest himself of that which rightfully belonged to Christ as Son of man and Son of David, on the condition that He accept the sceptre on Satan's world-principles (cf. John 18. 36; Rev. 13. 8, note). Christ defeated Satan by a means open to His humblest follower, the intelligent use of the word of God (vs. 4, 7). In his second temptation Satan also used Scripture, but a promise available only to one in the path of obedience. The scene gives emphasis to the vital importance of \"rightly dividing the word of truth\" (2 Tim. 2. 15).</p>",
           "references": [
             "1Co 15:45",
             "Gen 1:26",
-            "Gen 2:16",
-            "Gen 2:17",
-            "Php 2:5-8",
+            "Gen 2:16-17",
+            "Phi 2:5-8",
             "Joh 5:19",
             "Joh 6:57",
             "Joh 8:28",
@@ -1644,136 +2029,45 @@
             "Isa 41:8",
             "Gen 3:17-19",
             "Rom 8:19-23",
-            "Mat 4:3",
-            "Mat 4:6",
             "Joh 18:36",
             "Rev 13:8",
-            "Mat 4:4",
-            "Mat 4:7",
             "2Ti 2:15"
           ]
         },
         {
           "verse": 5,
-          "note_idx": 2,
-          "keyword": "holy city",
-          "text": "In the N.T. one Greek word, hagios, in its various forms, is rendered, \"holy,\" \"holiness,\" \"sanctify,\" \"sanctified,\" \"sanctification.\" Like the heb. qodesh, it signifies \"set apart for God.\" The important references follow Mat 4:5, marg. (See Scofield \" Mat 4:5 \")",
-          "html": "<p><b>holy city</b> </p><p>In the N.T. one Greek word, hagios, in its various forms, is rendered, &quot;holy,&quot; &quot;holiness,&quot; &quot;sanctify,&quot; &quot;sanctified,&quot; &quot;sanctification.&quot; Like the heb. qodesh, it signifies &quot;set apart for God.&quot; The important references follow <ref>Mat 4:5</ref>, marg. </p><p><i>(See Scofield &quot;</i><i><ref>Mat 4:5</ref></i><i>&quot;)</i> </p>",
+          "note_idx": 19,
+          "footnote_number": 2,
+          "keyword": "holy",
+          "text": "In the N.T. one Greek word, hagios, in its various forms, is rendered, \"holy,\" \"holiness,\" \"sanctify,\" \"sanctified,\" \"sanctification.\" Like the Heb. qodesh, it signifies \"set apart for God.\" The important references follow Mt. 4. 5, marg.",
+          "html": "<p><b>holy</b> </p><p>In the N.T. one Greek word, hagios, in its various forms, is rendered, \"holy,\" \"holiness,\" \"sanctify,\" \"sanctified,\" \"sanctification.\" Like the Heb. qodesh, it signifies \"set apart for God.\" The important references follow Mt. 4. 5, marg.</p>",
           "references": [
-            "Mat 4:5",
             "Mat 4:5"
           ]
         },
         {
-          "verse": 6,
-          "note_idx": 3,
-          "keyword": "angels",
-          "text": "(See Scofield \" Heb 1:4 \") .",
-          "html": "<p><b>angels</b> </p><p><i>(See Scofield &quot;</i><i><ref>Heb 1:4</ref></i><i>&quot;)</i>. </p>",
-          "references": [
-            "Heb 1:4"
-          ]
-        },
-        {
           "verse": 8,
-          "note_idx": 4,
+          "note_idx": 20,
+          "footnote_number": 3,
           "keyword": "world",
-          "text": "The Greek word kosmos means \"order,\" \"arrangement,\" and so, with the Greeks, \"beauty\"; for order and arrangement in the sense of system are at the bottom of the Greek conception of beauty. When used in the N.T. of humanity, the \"world\" of men, it is organized humanity-- humanity in families, tribes, nations--which is meant. The word for chaotic, unorganized humanity--the mere mass of man is thalassa, the \"sea\" of men (e.g.) Rev 13:1 (See Scofield \" Rev 13:8 \") . For \"world\" (kosmos) in the bad ethical sense, \"world system\" Joh 7:7.",
-          "html": "<p><b>world</b> </p><p>The Greek word kosmos means &quot;order,&quot; &quot;arrangement,&quot; and so, with the Greeks, &quot;beauty&quot;; for order and arrangement in the sense of system are at the bottom of the Greek conception of beauty. </p><p>When used in the N.T. of humanity, the &quot;world&quot; of men, it is organized humanity-- humanity in families, tribes, nations--which is meant. The word for chaotic, unorganized humanity--the mere mass of man is thalassa, the &quot;sea&quot; of men (e.g.) <ref>Rev 13:1</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i>. For &quot;world&quot; (kosmos) in the bad ethical sense, &quot;world system&quot; <ref>Joh 7:7</ref>. </p>",
+          "text": "The Greek word kosmos means \"order,\" \"arrangement,\" and so, with the Greeks, \"beauty\"; for order and arrangement in the sense of system are at the bottom of the Greek conception of beauty. When used in the N.T. of humanity, the \"world\" of men, it is organized humanity--humanity in families, tribes, nations--which is meant. The word for chaotic, unorganized humanity--the mere mass of men--is thalassa, the \"sea\" of men (e.g. Rev. 13. 1). For \"world\" (kosmos) in the bad ethical sense, see John 7. 7, refs.",
+          "html": "<p><b>world</b> </p><p>The Greek word kosmos means \"order,\" \"arrangement,\" and so, with the Greeks, \"beauty\"; for order and arrangement in the sense of system are at the bottom of the Greek conception of beauty. When used in the N.T. of humanity, the \"world\" of men, it is organized humanity--humanity in families, tribes, nations--which is meant. The word for chaotic, unorganized humanity--the mere mass of men--is thalassa, the \"sea\" of men (e.g. Rev. 13. 1). For \"world\" (kosmos) in the bad ethical sense, see John 7. 7, refs.</p>",
           "references": [
             "Rev 13:1",
-            "Rev 13:8",
             "Joh 7:7"
           ]
         },
         {
-          "verse": 11,
-          "note_idx": 5,
-          "keyword": "angels",
-          "text": "(See Scofield \" Heb 1:4 \")",
-          "html": "<p><b>angels</b> <i>(See Scofield &quot;</i><i><ref>Heb 1:4</ref></i><i>&quot;)</i> </p>",
-          "references": [
-            "Heb 1:4"
-          ]
-        },
-        {
           "verse": 17,
-          "note_idx": 6,
+          "note_idx": 21,
+          "footnote_number": 4,
           "keyword": "at hand",
-          "text": "\"At hand\" is never a positive affirmation that the person or thing said to be \"at hand\" will immediately appear, but only that no known or predicted event must intervene. When Christ appeared to the Jewish people, the next thing in the order of revelation as it then stood, should have been the setting up of the Davidic kingdom. In the knowledge of God, not yet disclosed, lay the rejection of the kingdom (and King), the long period of the mystery-form of the kingdom, the world-wide preaching of the cross, and the out-calling of the Church. But this was as yet locked up in the secret counsels of God. Mat 13:11; Mat 13:17; Eph 3:3-10. kingdom See note 2, (See Scofield \" Mat 5:2 \") . is at hand (See Scofield \" Mat 3:2 \") . For Another Point of View: See Topic 301207",
-          "html": "<p><b>at hand</b> </p><p>&quot;At hand&quot; is never a positive affirmation that the person or thing said to be &quot;at hand&quot; will immediately appear, but only that no known or predicted event must intervene. When Christ appeared to the Jewish people, the next thing in the order of revelation as it then stood, should have been the setting up of the Davidic kingdom. In the knowledge of God, not yet disclosed, lay the rejection of the kingdom (and King), the long period of the mystery-form of the kingdom, the world-wide preaching of the cross, and the out-calling of the Church. But this was as yet locked up in the secret counsels of God. <ref>Mat 13:11</ref>; <ref>Mat 13:17</ref>; <ref>Eph 3:3-10</ref>. </p><p><b>kingdom</b> See note 2, <i>(See Scofield &quot;</i><i><ref>Mat 5:2</ref></i><i>&quot;)</i>. </p><p><b>is at hand</b> <i>(See Scofield &quot;</i><i><ref>Mat 3:2</ref></i><i>&quot;)</i>. For Another Point of View: See Topic 301207 </p>",
+          "text": "\"At hand\" is never a positive affirmation that the person or thing said to be \"at hand\" will immediately appear, but only that no known or predicted event must intervene. When Christ appeared to the Jewish people, the next thing, in the order of revelation as it then stood, should have been the setting up of the Davidic kingdom. In the knowledge of God, not yet disclosed, lay the rejection of the kingdom (and King), the long period of the mystery-form of the kingdom, the world-wide preaching of the cross, and the out-calling of the Church. But this was as yet locked up in the secret counsels of God (Mt. 13. 11, 17; Eph. 3. 3-10).",
+          "html": "<p><b>at hand</b> </p><p>\"At hand\" is never a positive affirmation that the person or thing said to be \"at hand\" will immediately appear, but only that no known or predicted event must intervene. When Christ appeared to the Jewish people, the next thing, in the order of revelation as it then stood, should have been the setting up of the Davidic kingdom. In the knowledge of God, not yet disclosed, lay the rejection of the kingdom (and King), the long period of the mystery-form of the kingdom, the world-wide preaching of the cross, and the out-calling of the Church. But this was as yet locked up in the secret counsels of God (Mt. 13. 11, 17; Eph. 3. 3-10).</p>",
           "references": [
             "Mat 13:11",
             "Mat 13:17",
-            "Eph 3:3-10",
-            "Mat 5:2",
-            "Mat 3:2"
-          ]
-        },
-        {
-          "verse": 18,
-          "note_idx": 7,
-          "keyword": "two brethren",
-          "text": "Peter and John were already disciples, Joh 1:35-42. This is a call to service.",
-          "html": "<p><b>two brethren</b> </p><p>Peter and John were already disciples, <ref>Joh 1:35-42</ref>. This is a call to service. </p>",
-          "references": [
-            "Joh 1:35-42"
-          ]
-        },
-        {
-          "verse": 21,
-          "note_idx": 8,
-          "keyword": "James",
-          "text": "Two persons are called by this name in the N.T. (1) James the son of Zebedee, an apostle Mat 10:2 and the brother of the apostle John, apart from whom he is never mentioned, and with whom, together with Peter, he was admitted to the especial intimacy of our Lord.; Mat 17:1; Mar 5:37; Mar 9:2; Mar 14:33 He was martyred by Herod. Act 12:2 (2) A son of Alphaeus (or Cleopas) and Mary the sister of Mary the mother of Jesus. (See Scofield \" Mat 1:16 \") and brother of Joses. Mar 15:40. He was, therefore, a cousin of the Lord Jesus. He is called James \"the less\" Mar 15:40 lit. little, i.e. of shorter stature than James the son of Zebedee). He was an apostle. Mat 10:3 It has been conjectured that \"Lebbaeus, whose surname was Thaddaeus\" Mat 10:3 was identical with the Juda of Luk 6:16 who is there called \"of i.e. ’son’ or ’brother’ as is has been variously translated] James.\" A Juda is mentioned with a James and Joses and Simon in Mar 6:3 as \"brother\" of our Lord (See Scofield \"Mat 13:55, marg.). Mat 13:55. The Gospels mention no other James who could be called the brother of the Lord Jesus, but James the less was certainly the son of Alphaeus and Mary the sister of our Lord’s mother. The conclusion seems, therefore most probable that; Mat 10:3; Mat 13:55; Mar 3:18; Mar 6:3; Luk 6:15; Act 1:13; Act 12:17; Mar 15:13; Gal 1:19; Gal 2:9; Gal 2:12; Jas 1:1 refer to James the less, son of Alphaeus and Mary, and cousin, or, according to Jewish usage, \"brother\" of the Lord Jesus. He was the author of the Epistle of James.",
-          "html": "<p><b>James</b> </p><p>Two persons are called by this name in the N.T. </p><p>(1) James the son of Zebedee, an apostle <ref>Mat 10:2</ref> and the brother of the apostle John, apart from whom he is never mentioned, and with whom, together with Peter, he was admitted to the especial intimacy of our Lord.; <ref>Mat 17:1</ref>; <ref>Mar 5:37</ref>; <ref>Mar 9:2</ref>; <ref>Mar 14:33</ref> He was martyred by Herod. <ref>Act 12:2</ref> </p><p>(2) A son of Alphaeus (or Cleopas) and Mary the sister of Mary the mother of Jesus. <i>(See Scofield &quot;</i><i><ref>Mat 1:16</ref></i><i>&quot;)</i> and brother of Joses. <ref>Mar 15:40</ref>. He was, therefore, a cousin of the Lord Jesus. He is called James &quot;the less&quot; <ref>Mar 15:40</ref> lit. little, i.e. of shorter stature than James the son of Zebedee). He was an apostle. <ref>Mat 10:3</ref> It has been conjectured that &quot;Lebbaeus, whose surname was Thaddaeus&quot; <ref>Mat 10:3</ref> was identical with the Juda of <ref>Luk 6:16</ref> who is there called &quot;of i.e. &rsquo;son&rsquo; or &rsquo;brother&rsquo; as is has been variously translated] James.&quot; A Juda is mentioned with a James and Joses and Simon in <ref>Mar 6:3</ref> as &quot;brother&quot; of our Lord (See Scofield &quot;<ref>Mat 13:55</ref>, marg.). <ref>Mat 13:55</ref>. The Gospels mention no other James who could be called the brother of the Lord Jesus, but James the less was certainly the son of Alphaeus and Mary the sister of our Lord&rsquo;s mother. The conclusion seems, therefore most probable that; <ref>Mat 10:3</ref>; <ref>Mat 13:55</ref>; <ref>Mar 3:18</ref>; <ref>Mar 6:3</ref>; <ref>Luk 6:15</ref>; <ref>Act 1:13</ref>; <ref>Act 12:17</ref>; <ref>Mar 15:13</ref>; <ref>Gal 1:19</ref>; <ref>Gal 2:9</ref>; <ref>Gal 2:12</ref>; <ref>Jas 1:1</ref> refer to James the less, son of Alphaeus and Mary, and cousin, or, according to Jewish usage, &quot;brother&quot; of the Lord Jesus. He was the author of the Epistle of James. </p>",
-          "references": [
-            "Mat 10:2",
-            "Mat 17:1",
-            "Mar 5:37",
-            "Mar 9:2",
-            "Mar 14:33",
-            "Act 12:2",
-            "Mat 1:16",
-            "Mar 15:40",
-            "Mar 15:40",
-            "Mat 10:3",
-            "Mat 10:3",
-            "Luk 6:16",
-            "Mar 6:3",
-            "Mat 13:55",
-            "Mat 13:55",
-            "Mat 10:3",
-            "Mat 13:55",
-            "Mar 3:18",
-            "Mar 6:3",
-            "Luk 6:15",
-            "Act 1:13",
-            "Act 12:17",
-            "Mar 15:13",
-            "Gal 1:19",
-            "Gal 2:9",
-            "Gal 2:12",
-            "Jas 1:1"
-          ]
-        },
-        {
-          "verse": 23,
-          "note_idx": 9,
-          "keyword": "kingdom",
-          "text": "(See Scofield \" Mat 3:2 \") .",
-          "html": "<p><b>kingdom</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 3:2</ref></i><i>&quot;)</i>. </p>",
-          "references": [
-            "Mat 3:2"
-          ]
-        },
-        {
-          "verse": 24,
-          "note_idx": 10,
-          "keyword": "possessed",
-          "text": "(Greek - δαιμονίζομαι ,\" demonized; (See Scofield \" Mat 7:22 \") .",
-          "html": "<p><b>possessed</b> </p><p>(Greek - <grk><blu>&delta;&alpha;&iota;&mu;&omicron;&nu;&#x03AF;&zeta;&omicron;&mu;&alpha;&iota;</blu></grk>,&quot; demonized; <i>(See Scofield &quot;</i><i><ref>Mat 7:22</ref></i><i>&quot;)</i>. </p>",
-          "references": [
-            "Mat 7:22"
+            "Eph 3:3-10"
           ]
         }
       ]
