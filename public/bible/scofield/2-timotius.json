@@ -1,1 +1,1026 @@
-{"id": "2-timotius", "name": "II Timothy", "name_id": "2 Timotius", "translation": "Scofield Reference Bible (1917)", "translation_short": "Scofield 1917", "testament": "PB", "chapters_count": 4, "intro": {"title": "Book Introduction - II Timothy", "html": "<p style=\"font-weight:bold;\">Book Introduction - 2 Timothy</p><p><b>WRITER</b>: The Apostle Paul (<ref>2Ti 1:1</ref>) </p><p><b>DATE</b>: The touching letter was written by Paul to his &quot;dearly beloved son&quot; shortly before his martyrdom (<ref>2Ti 4:6-8</ref>), and contains the last words of the great apostle which inspiration has preserved. </p><p><b>THEME</b>: Second Timothy (in common with Second Peter, Jude, and Second and Third John) has to do with the personal walk and testimony of a true servant of Christ in a day of apostasy and declension. The key-phrases are, &quot;All they which are in Asia be turned away from me&quot; (<ref>2Ti 1:15</ref>); and, &quot;A good soldier of Jesus Christ&quot; (<ref>2Ti 2:3</ref>). The Asian churches had not disbanded, nor ceased to call themselves Christian, but they had turned away from the doctrines of grace distinctively revealed through the Apostle Paul (see Introduction, p. 1189). This was the proof that already the apostasy had set in its first form, legalism. </p><p>The natural divisions are four: </p><p>1. The Apostle&rsquo;s greeting, <ref>2Ti 1:1-18</ref> </p><p>2. The pathway of an approved servant in a day of apostasy <ref>2Ti 2:1-26</ref></p><p>3. Apostasy and the Word, <ref>2Ti 3:1-17</ref> </p><p>4. A faithful servant and his faithful Lord, <ref>2Ti 4:1-22</ref> </p>", "text": "Book Introduction - 2 Timothy WRITER : The Apostle Paul (2Ti 1:1) DATE : The touching letter was written by Paul to his \"dearly beloved son\" shortly before his martyrdom (2Ti 4:6-8), and contains the last words of the great apostle which inspiration has preserved. THEME : Second Timothy (in common with Second Peter, Jude, and Second and Third John) has to do with the personal walk and testimony of a true servant of Christ in a day of apostasy and declension. The key-phrases are, \"All they which are in Asia be turned away from me\" (2Ti 1:15); and, \"A good soldier of Jesus Christ\" (2Ti 2:3). The Asian churches had not disbanded, nor ceased to call themselves Christian, but they had turned away from the doctrines of grace distinctively revealed through the Apostle Paul (see Introduction, p. 1189). This was the proof that already the apostasy had set in its first form, legalism. The natural divisions are four: 1. The Apostle’s greeting, 2Ti 1:1-18 2. The pathway of an approved servant in a day of apostasy 2Ti 2:1-26 3. Apostasy and the Word, 2Ti 3:1-17 4. A faithful servant and his faithful Lord, 2Ti 4:1-22"}, "chapters": {"1": {"chapter": 1, "outlines": null, "verses": [{"verse": 1, "text": "Paul, an apostle of Jesus Christ by the will of God, according to the promise of life which is in Christ Jesus,", "marked_text": "Paul, an apostle of Jesus Christ by the will of God, according to the promise of life which is in Christ Jesus,", "outlines": null, "footnotes": null}, {"verse": 2, "text": "To Timothy, my dearly beloved son: Grace, mercy, and peace, from God the Father and Christ Jesus our Lord.", "marked_text": "To Timothy, my dearly beloved son: Grace, mercy, and peace, from God the Father and Christ Jesus our Lord.", "outlines": null, "footnotes": null}, {"verse": 3, "text": "I thank God, whom I serve from my forefathers with pure conscience, that without ceasing I have remembrance of thee in my prayers night and day;", "marked_text": "I thank God, whom I serve from my forefathers with pure conscience, that without ceasing I have remembrance of thee in my prayers night and day;", "outlines": null, "footnotes": null}, {"verse": 4, "text": "Greatly desiring to see thee, being mindful of thy tears, that I may be filled with joy;", "marked_text": "Greatly desiring to see thee, being mindful of thy tears, that I may be filled with joy;", "outlines": null, "footnotes": null}, {"verse": 5, "text": "When I call to remembrance the unfeigned faith that is in thee, which dwelt first in thy grandmother Lois, and thy mother Eunice; and I am persuaded that in thee also.", "marked_text": "When I call to remembrance the unfeigned faith that is in thee, which dwelt first in thy grandmother Lois, and thy mother Eunice; and I am persuaded that in thee also.", "outlines": null, "footnotes": null}, {"verse": 6, "text": "Wherefore I put thee in remembrance that thou stir up the gift of God, which is in thee by the putting on of my hands.", "marked_text": "Wherefore I put thee in remembrance that thou stir up the gift of God, which is in thee by the putting on of my hands.", "outlines": null, "footnotes": null}, {"verse": 7, "text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.", "marked_text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.", "outlines": null, "footnotes": null}, {"verse": 8, "text": "Be not thou therefore ashamed of the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of the gospel according to the power of God;", "marked_text": "Be not thou therefore ashamed of the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of the gospel according to the power of God;", "outlines": null, "footnotes": null}, {"verse": 9, "text": "Who hath saved us, and called us with an holy calling, not according to our works, but according to his own purpose and grace, which was given us in Christ Jesus before the world began,", "marked_text": "Who hath saved<fn n=\"1\"/> us, and called us with an holy calling, not according to our works, but according to his own purpose and grace, which was given us in Christ Jesus before the world began,", "outlines": null, "footnotes": [{"verse": 9, "note_idx": 1, "keyword": "saved", "text": "(See Scofield \" Rom 1:16 \") . grace Grace (in salvation). vs. Tit 2:11; Rom 3:24. (See Scofield \" Joh 1:17 \") .", "html": "<p><b>saved</b> <i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p><p><b>grace</b> Grace (in salvation). vs. <ref>Tit 2:11</ref>; <ref>Rom 3:24</ref>. <i>(See Scofield &quot;</i><i><ref>Joh 1:17</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16", "Tit 2:11", "Rom 3:24", "Joh 1:17"]}]}, {"verse": 10, "text": "But is now made manifest by the appearing of our Saviour Jesus Christ, who hath abolished death, and hath brought life and immortality to light through the gospel:", "marked_text": "But is now made manifest by the appearing of our Saviour<fn n=\"2\"/> Jesus Christ, who hath abolished death, and hath brought life and immortality to light through the gospel:", "outlines": null, "footnotes": [{"verse": 10, "note_idx": 2, "keyword": "Saviour", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>Saviour</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}]}, {"verse": 11, "text": "Whereunto I am appointed a preacher, and an apostle, and a teacher of the Gentiles.", "marked_text": "Whereunto I am appointed a preacher, and an apostle, and a teacher of the Gentiles.", "outlines": null, "footnotes": null}, {"verse": 12, "text": "For the which cause I also suffer these things: nevertheless I am not ashamed: for I know whom I have believed, and am persuaded that he is able to keep that which I have committed unto him against that day.", "marked_text": "For the which cause I also suffer<fn n=\"3\"/> these things: nevertheless I am not ashamed: for I know whom I have believed, and am persuaded that he is able to keep that which I have committed unto him against that day.", "outlines": null, "footnotes": [{"verse": 12, "note_idx": 3, "keyword": "suffer", "text": "The believer’s resources in a day of general declension and apostasy are: (1) Faith 2Ti 1:5. (2) the Spirit 2Ti 1:6; 2Ti 1:7. (3) the word of God 2Ti 1:13; 2Ti 3:1-17; 2Ti 4:3; 2Ti 4:4. (4) the grace of Christ 2Ti 2:1. (5) separation from vessels unto dishonour 2Ti 2:4; 2Ti 2:20; 2Ti 2:21. (6) the Lord’s sure reward 2Ti 4:7; 2Ti 4:8. (7) the Lord’s faithfulness and power 2Ti 2:13; 2Ti 2:19.", "html": "<p><b>suffer</b> </p><p>The believer&rsquo;s resources in a day of general declension and apostasy are: </p><p>(1) Faith <ref>2Ti 1:5</ref>. </p><p>(2) the Spirit <ref>2Ti 1:6</ref>; <ref>2Ti 1:7</ref>. </p><p>(3) the word of God <ref>2Ti 1:13</ref>; <ref>2Ti 3:1-17</ref>; <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. </p><p>(4) the grace of Christ <ref>2Ti 2:1</ref>. </p><p>(5) separation from vessels unto dishonour <ref>2Ti 2:4</ref>; <ref>2Ti 2:20</ref>; <ref>2Ti 2:21</ref>. </p><p>(6) the Lord&rsquo;s sure reward <ref>2Ti 4:7</ref>; <ref>2Ti 4:8</ref>. </p><p>(7) the Lord&rsquo;s faithfulness and power <ref>2Ti 2:13</ref>; <ref>2Ti 2:19</ref>. </p>", "references": ["2Ti 1:5", "2Ti 1:6", "2Ti 1:7", "2Ti 1:13", "2Ti 3:1-17", "2Ti 4:3", "2Ti 4:4", "2Ti 2:1", "2Ti 2:4", "2Ti 2:20", "2Ti 2:21", "2Ti 4:7", "2Ti 4:8", "2Ti 2:13", "2Ti 2:19"]}]}, {"verse": 13, "text": "Hold fast the form of sound words, which thou hast heard of me, in faith and love which is in Christ Jesus.", "marked_text": "Hold fast the form of sound words, which thou hast heard of me, in faith and love which is in Christ Jesus.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "That good thing which was committed unto thee keep by the Holy Ghost which dwelleth in us.", "marked_text": "That good thing which was committed unto thee keep by the Holy Ghost which dwelleth in us.", "outlines": null, "footnotes": null}, {"verse": 15, "text": "This thou knowest, that all they which are in Asia be turned away from me; of whom are Phygellus and Hermogenes.", "marked_text": "This thou knowest, that all they which are in Asia be turned away from me; of whom are Phygellus and Hermogenes.", "outlines": null, "footnotes": null}, {"verse": 16, "text": "The Lord give mercy unto the house of Onesiphorus; for he oft refreshed me, and was not ashamed of my chain:", "marked_text": "The Lord give mercy unto the house of Onesiphorus; for he oft refreshed me, and was not ashamed of my chain:", "outlines": null, "footnotes": null}, {"verse": 17, "text": "But, when he was in Rome, he sought me out very diligently, and found me.", "marked_text": "But, when he was in Rome, he sought me out very diligently, and found me.", "outlines": null, "footnotes": null}, {"verse": 18, "text": "The Lord grant unto him that he may find mercy of the Lord in that day: and in how many things he ministered unto me at Ephesus, thou knowest very well.", "marked_text": "The Lord grant unto him that he may find mercy of the Lord in that day: and in how many things he ministered unto me at Ephesus, thou knowest very well.", "outlines": null, "footnotes": null}], "footnotes": [{"verse": 9, "note_idx": 1, "keyword": "saved", "text": "(See Scofield \" Rom 1:16 \") . grace Grace (in salvation). vs. Tit 2:11; Rom 3:24. (See Scofield \" Joh 1:17 \") .", "html": "<p><b>saved</b> <i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p><p><b>grace</b> Grace (in salvation). vs. <ref>Tit 2:11</ref>; <ref>Rom 3:24</ref>. <i>(See Scofield &quot;</i><i><ref>Joh 1:17</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16", "Tit 2:11", "Rom 3:24", "Joh 1:17"]}, {"verse": 10, "note_idx": 2, "keyword": "Saviour", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>Saviour</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}, {"verse": 12, "note_idx": 3, "keyword": "suffer", "text": "The believer’s resources in a day of general declension and apostasy are: (1) Faith 2Ti 1:5. (2) the Spirit 2Ti 1:6; 2Ti 1:7. (3) the word of God 2Ti 1:13; 2Ti 3:1-17; 2Ti 4:3; 2Ti 4:4. (4) the grace of Christ 2Ti 2:1. (5) separation from vessels unto dishonour 2Ti 2:4; 2Ti 2:20; 2Ti 2:21. (6) the Lord’s sure reward 2Ti 4:7; 2Ti 4:8. (7) the Lord’s faithfulness and power 2Ti 2:13; 2Ti 2:19.", "html": "<p><b>suffer</b> </p><p>The believer&rsquo;s resources in a day of general declension and apostasy are: </p><p>(1) Faith <ref>2Ti 1:5</ref>. </p><p>(2) the Spirit <ref>2Ti 1:6</ref>; <ref>2Ti 1:7</ref>. </p><p>(3) the word of God <ref>2Ti 1:13</ref>; <ref>2Ti 3:1-17</ref>; <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. </p><p>(4) the grace of Christ <ref>2Ti 2:1</ref>. </p><p>(5) separation from vessels unto dishonour <ref>2Ti 2:4</ref>; <ref>2Ti 2:20</ref>; <ref>2Ti 2:21</ref>. </p><p>(6) the Lord&rsquo;s sure reward <ref>2Ti 4:7</ref>; <ref>2Ti 4:8</ref>. </p><p>(7) the Lord&rsquo;s faithfulness and power <ref>2Ti 2:13</ref>; <ref>2Ti 2:19</ref>. </p>", "references": ["2Ti 1:5", "2Ti 1:6", "2Ti 1:7", "2Ti 1:13", "2Ti 3:1-17", "2Ti 4:3", "2Ti 4:4", "2Ti 2:1", "2Ti 2:4", "2Ti 2:20", "2Ti 2:21", "2Ti 4:7", "2Ti 4:8", "2Ti 2:13", "2Ti 2:19"]}]}, "2": {"chapter": 2, "outlines": null, "verses": [{"verse": 1, "text": "Thou therefore, my son, be strong in the grace that is in Christ Jesus.", "marked_text": "Thou therefore, my son, be strong in the grace<fn n=\"1\"/> that is in Christ Jesus.", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "grace", "text": "Grace (imparted). vs. Heb 4:16; Rom 6:1; 2Pe 3:18.", "html": "<p><b>grace</b> </p><p>Grace (imparted). vs. <ref>Heb 4:16</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref>. </p>", "references": ["Heb 4:16", "Rom 6:1", "2Pe 3:18"]}]}, {"verse": 2, "text": "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also.", "marked_text": "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also.", "outlines": null, "footnotes": null}, {"verse": 3, "text": "Thou therefore endure hardness, as a good soldier of Jesus Christ.", "marked_text": "Thou therefore endure hardness, as a good soldier of Jesus Christ.", "outlines": null, "footnotes": null}, {"verse": 4, "text": "No man that warreth entangleth himself with the affairs of this life; that he may please him who hath chosen him to be a soldier.", "marked_text": "No man that warreth entangleth himself with the affairs of this life; that he may please him who hath chosen him to be a soldier.", "outlines": null, "footnotes": null}, {"verse": 5, "text": "And if a man also strive for masteries, yet is he not crowned, except he strive lawfully.", "marked_text": "And if a man also strive for masteries, yet is he not crowned, except he strive lawfully.", "outlines": null, "footnotes": null}, {"verse": 6, "text": "The husbandman that laboureth must be first partaker of the fruits.", "marked_text": "The husbandman that laboureth must be first partaker of the fruits.", "outlines": null, "footnotes": null}, {"verse": 7, "text": "Consider what I say; and the Lord give thee understanding in all things.", "marked_text": "Consider what I say; and the Lord give thee understanding in all things.", "outlines": null, "footnotes": null}, {"verse": 8, "text": "Remember that Jesus Christ of the seed of David was raised from the dead according to my gospel:", "marked_text": "Remember that Jesus Christ of the seed of David was raised from the dead according to my gospel:", "outlines": null, "footnotes": null}, {"verse": 9, "text": "Wherein I suffer trouble, as an evil doer, even unto bonds; but the word of God is not bound.", "marked_text": "Wherein I suffer trouble, as an evil doer, even unto bonds; but the word of God is not bound.", "outlines": null, "footnotes": null}, {"verse": 10, "text": "Therefore I endure all things for the elect’s sakes, that they may also obtain the salvation which is in Christ Jesus with eternal glory.", "marked_text": "Therefore I endure all things for the elect’s sakes, that they may also obtain the salvation<fn n=\"2\"/> which is in Christ Jesus with eternal glory.", "outlines": null, "footnotes": [{"verse": 10, "note_idx": 2, "keyword": "salvation", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}]}, {"verse": 11, "text": "It is a faithful saying: For if we be dead with him, we shall also live with him:", "marked_text": "It is a faithful saying: For if we be dead with him, we shall also live with him:", "outlines": null, "footnotes": null}, {"verse": 12, "text": "If we suffer, we shall also reign with him: if we deny him, he also will deny us:", "marked_text": "If we suffer, we shall also reign with him: if we deny him, he also will deny us:", "outlines": null, "footnotes": null}, {"verse": 13, "text": "If we believe not, yet he abideth faithful: he cannot deny himself.", "marked_text": "If we believe not, yet he abideth faithful: he cannot deny himself.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "Of these things put them in remembrance, charging them before the Lord that they strive not about words to no profit, but to the subverting of the hearers.", "marked_text": "Of these things put them in remembrance, charging them before the Lord that they strive not about words to no profit, but to the subverting of the hearers.", "outlines": null, "footnotes": null}, {"verse": 15, "text": "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth.", "marked_text": "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth.", "outlines": null, "footnotes": null}, {"verse": 16, "text": "But shun profane and vain babblings: for they will increase unto more ungodliness.", "marked_text": "But shun profane and vain babblings: for they will increase unto more ungodliness.", "outlines": null, "footnotes": null}, {"verse": 17, "text": "And their word will eat as doth a canker: of whom is Hymeneus and Philetus;", "marked_text": "And their word will eat as doth a canker: of whom is Hymeneus and Philetus;", "outlines": null, "footnotes": null}, {"verse": 18, "text": "Who concerning the truth have erred, saying that the resurrection is past already; and overthrow the faith of some.", "marked_text": "Who concerning the truth have erred, saying that the resurrection is past already; and overthrow the faith of some.", "outlines": null, "footnotes": null}, {"verse": 19, "text": "Nevertheless the foundation of God standeth sure, having this seal, The Lord knoweth them that are his. And, Let every one that nameth the name of Christ depart from iniquity.", "marked_text": "Nevertheless the foundation of God standeth sure, having this seal, The Lord<fn n=\"3\"/> knoweth them that are his. And, Let every one that nameth the name of Christ depart from iniquity.", "outlines": null, "footnotes": [{"verse": 19, "note_idx": 3, "keyword": "Lord", "text": "Jehovah. Num 16:5.", "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>Num 16:5</ref>. </p>", "references": ["Num 16:5"]}]}, {"verse": 20, "text": "But in a great house there are not only vessels of gold and of silver, but also of wood and of earth; and some to honour, and some to dishonour.", "marked_text": "But in a great house there are not only vessels of gold and of silver, but also of wood and of earth; and some to honour, and some to dishonour.", "outlines": null, "footnotes": null}, {"verse": 21, "text": "If a man therefore purge himself from these, he shall be a vessel unto honour, sanctified, and meet for the master’s use, and prepared unto every good work.", "marked_text": "If a man therefore purge himself from these, he shall be a vessel unto honour, sanctified, and meet for the master’s use, and prepared unto every good work.", "outlines": null, "footnotes": null}, {"verse": 22, "text": "Flee also youthful lusts: but follow righteousness, faith, charity, peace, with them that call on the Lord out of a pure heart.", "marked_text": "Flee also youthful lusts: but follow righteousness<fn n=\"4\"/>, faith, charity, peace, with them that call on the Lord out of a pure heart.", "outlines": null, "footnotes": [{"verse": 22, "note_idx": 4, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}, {"verse": 23, "text": "But foolish and unlearned questions avoid, knowing that they do gender strifes.", "marked_text": "But foolish and unlearned questions avoid, knowing that they do gender strifes.", "outlines": null, "footnotes": null}, {"verse": 24, "text": "And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient,", "marked_text": "And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient,", "outlines": null, "footnotes": null}, {"verse": 25, "text": "In meekness instructing those that oppose themselves; if God peradventure will give them repentance to the acknowledging of the truth;", "marked_text": "In meekness instructing those that oppose themselves; if God peradventure will give them repentance to the acknowledging of the truth;", "outlines": null, "footnotes": null}, {"verse": 26, "text": "And that they may recover themselves out of the snare of the devil, who are taken captive by him at his will.", "marked_text": "And that they may recover themselves out of the snare of the devil, who are taken captive by him at his will.", "outlines": null, "footnotes": null}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "grace", "text": "Grace (imparted). vs. Heb 4:16; Rom 6:1; 2Pe 3:18.", "html": "<p><b>grace</b> </p><p>Grace (imparted). vs. <ref>Heb 4:16</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref>. </p>", "references": ["Heb 4:16", "Rom 6:1", "2Pe 3:18"]}, {"verse": 10, "note_idx": 2, "keyword": "salvation", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}, {"verse": 19, "note_idx": 3, "keyword": "Lord", "text": "Jehovah. Num 16:5.", "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>Num 16:5</ref>. </p>", "references": ["Num 16:5"]}, {"verse": 22, "note_idx": 4, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}, "3": {"chapter": 3, "outlines": null, "verses": [{"verse": 1, "text": "This know also, that in the last days perilous times shall come.", "marked_text": "This know<fn n=\"1\"/> also, that in the last days perilous times shall come.", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "know", "text": "Apostasy, Summary: Apostasy, \"falling away,\" is the act of professed Christians who deliberately reject revealed truth (1) as to the deity of Jesus Christ, and (2) redemption through His atoning and redeeming sacrifice 1Jn 4:1-3; Php 3:18; 2Pe 2:1. Apostasy differs from error concerning truth, which may be the result of ignorance Act 19:1-6 or heresy, which may be due to the sphere of Satan 2Ti 2:25; 2Ti 2:26 both of which may consist with true faith. The apostate is perfectly described in 2Ti 4:3; 2Ti 4:4. Apostates depart from the faith, but not from the outward profession of Christianity 2Ti 3:5. Apostate teachers are described in; 2Ti 4:3; 2Pe 2:1-19; Jud 1:4; Jud 1:8; Jud 1:11-13; Jud 1:16. Apostasy in the church, as in Israel Isa 1:5; Isa 1:6; Isa 5:5-7 is irremediable, and awaits judgment; 2Th 2:10-12; 2Pe 2:17; 2Pe 2:21; Jud 1:11-15; Rev 3:14-16.", "html": "<p><b>know</b> </p><p>Apostasy, Summary: Apostasy, &quot;falling away,&quot; is the act of professed Christians who deliberately reject revealed truth </p><p>(1) as to the deity of Jesus Christ, and </p><p>(2) redemption through His atoning and redeeming sacrifice <ref>1Jn 4:1-3</ref>; <ref>Php 3:18</ref>; <ref>2Pe 2:1</ref>. Apostasy differs from error concerning truth, which may be the result of ignorance <ref>Act 19:1-6</ref> or heresy, which may be due to the sphere of Satan <ref>2Ti 2:25</ref>; <ref>2Ti 2:26</ref> both of which may consist with true faith. The apostate is perfectly described in <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. Apostates depart from the faith, but not from the outward profession of Christianity <ref>2Ti 3:5</ref>. Apostate teachers are described in; <ref>2Ti 4:3</ref>; <ref>2Pe 2:1-19</ref>; <ref>Jud 1:4</ref>; <ref>Jud 1:8</ref>; <ref>Jud 1:11-13</ref>; <ref>Jud 1:16</ref>. </p><p>Apostasy in the church, as in Israel <ref>Isa 1:5</ref>; <ref>Isa 1:6</ref>; <ref>Isa 5:5-7</ref> is irremediable, and awaits judgment; <ref>2Th 2:10-12</ref>; <ref>2Pe 2:17</ref>; <ref>2Pe 2:21</ref>; <ref>Jud 1:11-15</ref>; <ref>Rev 3:14-16</ref>. </p>", "references": ["1Jn 4:1-3", "Php 3:18", "2Pe 2:1", "Act 19:1-6", "2Ti 2:25", "2Ti 2:26", "2Ti 4:3", "2Ti 4:4", "2Ti 3:5", "2Ti 4:3", "2Pe 2:1-19", "Jud 1:4", "Jud 1:8", "Jud 1:11-13", "Jud 1:16", "Isa 1:5", "Isa 1:6", "Isa 5:5-7", "2Th 2:10-12", "2Pe 2:17", "2Pe 2:21", "Jud 1:11-15", "Rev 3:14-16"]}]}, {"verse": 2, "text": "For men shall be lovers of their own selves, covetous, boasters, proud, blasphemers, disobedient to parents, unthankful, unholy,", "marked_text": "For men shall be lovers of their own selves, covetous, boasters, proud, blasphemers, disobedient to parents, unthankful, unholy,", "outlines": null, "footnotes": null}, {"verse": 3, "text": "Without natural affection, trucebreakers, false accusers, incontinent, fierce, despisers of those that are good,", "marked_text": "Without natural affection, trucebreakers, false accusers, incontinent, fierce, despisers of those that are good,", "outlines": null, "footnotes": null}, {"verse": 4, "text": "Traitors, heady, highminded, lovers of pleasures more than lovers of God;", "marked_text": "Traitors, heady, highminded, lovers of pleasures more than lovers of God;", "outlines": null, "footnotes": null}, {"verse": 5, "text": "Having a form of godliness, but denying the power thereof: from such turn away.", "marked_text": "Having a form of godliness, but denying the power thereof: from such turn away.", "outlines": null, "footnotes": null}, {"verse": 6, "text": "For of this sort are they which creep into houses, and lead captive silly women laden with sins, led away with divers lusts,", "marked_text": "For of this sort are they which creep into houses, and lead captive silly women laden with sins<fn n=\"2\"/>, led away with divers lusts,", "outlines": null, "footnotes": [{"verse": 6, "note_idx": 2, "keyword": "sins", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, {"verse": 7, "text": "Ever learning, and never able to come to the knowledge of the truth.", "marked_text": "Ever learning, and never able to come to the knowledge of the truth.", "outlines": null, "footnotes": null}, {"verse": 8, "text": "Now as Jannes and Jambres withstood Moses, so do these also resist the truth: men of corrupt minds, reprobate concerning the faith.", "marked_text": "Now as Jannes and Jambres withstood Moses, so do these also resist the truth: men of corrupt minds, reprobate concerning the faith.", "outlines": null, "footnotes": null}, {"verse": 9, "text": "But they shall proceed no further: for their folly shall be manifest unto all men, as theirs also was.", "marked_text": "But they shall proceed no further: for their folly shall be manifest unto all men, as theirs also was.", "outlines": null, "footnotes": null}, {"verse": 10, "text": "But thou hast fully known my doctrine, manner of life, purpose, faith, longsuffering, charity, patience,", "marked_text": "But thou hast fully known my doctrine, manner of life, purpose, faith, longsuffering, charity, patience,", "outlines": null, "footnotes": null}, {"verse": 11, "text": "Persecutions, afflictions, which came unto me at Antioch, at Iconium, at Lystra; what persecutions I endured: but out of them all the Lord delivered me.", "marked_text": "Persecutions, afflictions, which came unto me at Antioch, at Iconium, at Lystra; what persecutions I endured: but out of them all the Lord delivered me.", "outlines": null, "footnotes": null}, {"verse": 12, "text": "Yea, and all that will live godly in Christ Jesus shall suffer persecution.", "marked_text": "Yea, and all that will live godly in Christ Jesus shall suffer persecution.", "outlines": null, "footnotes": null}, {"verse": 13, "text": "But evil men and seducers shall wax worse and worse, deceiving, and being deceived.", "marked_text": "But evil men and seducers shall wax worse and worse, deceiving, and being deceived.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "But continue thou in the things which thou hast learned and hast been assured of, knowing of whom thou hast learned them;", "marked_text": "But continue thou in the things which thou hast learned and hast been assured of, knowing of whom thou hast learned them;", "outlines": null, "footnotes": null}, {"verse": 15, "text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus.", "marked_text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation<fn n=\"3\"/> through faith which is in Christ Jesus.", "outlines": null, "footnotes": [{"verse": 15, "note_idx": 3, "keyword": "salvation", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}]}, {"verse": 16, "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:", "marked_text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness<fn n=\"4\"/>:", "outlines": null, "footnotes": [{"verse": 16, "note_idx": 4, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}, {"verse": 17, "text": "That the man of God may be perfect, throughly furnished unto all good works.", "marked_text": "That the man of God may be perfect<fn n=\"5\"/>, throughly furnished unto all good works.", "outlines": null, "footnotes": [{"verse": 17, "note_idx": 5, "keyword": "perfect", "text": "complete. (See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}]}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "know", "text": "Apostasy, Summary: Apostasy, \"falling away,\" is the act of professed Christians who deliberately reject revealed truth (1) as to the deity of Jesus Christ, and (2) redemption through His atoning and redeeming sacrifice 1Jn 4:1-3; Php 3:18; 2Pe 2:1. Apostasy differs from error concerning truth, which may be the result of ignorance Act 19:1-6 or heresy, which may be due to the sphere of Satan 2Ti 2:25; 2Ti 2:26 both of which may consist with true faith. The apostate is perfectly described in 2Ti 4:3; 2Ti 4:4. Apostates depart from the faith, but not from the outward profession of Christianity 2Ti 3:5. Apostate teachers are described in; 2Ti 4:3; 2Pe 2:1-19; Jud 1:4; Jud 1:8; Jud 1:11-13; Jud 1:16. Apostasy in the church, as in Israel Isa 1:5; Isa 1:6; Isa 5:5-7 is irremediable, and awaits judgment; 2Th 2:10-12; 2Pe 2:17; 2Pe 2:21; Jud 1:11-15; Rev 3:14-16.", "html": "<p><b>know</b> </p><p>Apostasy, Summary: Apostasy, &quot;falling away,&quot; is the act of professed Christians who deliberately reject revealed truth </p><p>(1) as to the deity of Jesus Christ, and </p><p>(2) redemption through His atoning and redeeming sacrifice <ref>1Jn 4:1-3</ref>; <ref>Php 3:18</ref>; <ref>2Pe 2:1</ref>. Apostasy differs from error concerning truth, which may be the result of ignorance <ref>Act 19:1-6</ref> or heresy, which may be due to the sphere of Satan <ref>2Ti 2:25</ref>; <ref>2Ti 2:26</ref> both of which may consist with true faith. The apostate is perfectly described in <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. Apostates depart from the faith, but not from the outward profession of Christianity <ref>2Ti 3:5</ref>. Apostate teachers are described in; <ref>2Ti 4:3</ref>; <ref>2Pe 2:1-19</ref>; <ref>Jud 1:4</ref>; <ref>Jud 1:8</ref>; <ref>Jud 1:11-13</ref>; <ref>Jud 1:16</ref>. </p><p>Apostasy in the church, as in Israel <ref>Isa 1:5</ref>; <ref>Isa 1:6</ref>; <ref>Isa 5:5-7</ref> is irremediable, and awaits judgment; <ref>2Th 2:10-12</ref>; <ref>2Pe 2:17</ref>; <ref>2Pe 2:21</ref>; <ref>Jud 1:11-15</ref>; <ref>Rev 3:14-16</ref>. </p>", "references": ["1Jn 4:1-3", "Php 3:18", "2Pe 2:1", "Act 19:1-6", "2Ti 2:25", "2Ti 2:26", "2Ti 4:3", "2Ti 4:4", "2Ti 3:5", "2Ti 4:3", "2Pe 2:1-19", "Jud 1:4", "Jud 1:8", "Jud 1:11-13", "Jud 1:16", "Isa 1:5", "Isa 1:6", "Isa 5:5-7", "2Th 2:10-12", "2Pe 2:17", "2Pe 2:21", "Jud 1:11-15", "Rev 3:14-16"]}, {"verse": 6, "note_idx": 2, "keyword": "sins", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}, {"verse": 15, "note_idx": 3, "keyword": "salvation", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}, {"verse": 16, "note_idx": 4, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}, {"verse": 17, "note_idx": 5, "keyword": "perfect", "text": "complete. (See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}]}, "4": {"chapter": 4, "outlines": null, "verses": [{"verse": 1, "text": "I charge thee therefore before God, and the Lord Jesus Christ, who shall judge the quick and the dead at his appearing and his kingdom;", "marked_text": "I charge thee therefore before God, and the Lord Jesus Christ, who shall judge the quick and the dead at his appearing and his kingdom;<fn n=\"1\"/>", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "perfect", "text": "complete. (See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}]}, {"verse": 2, "text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine.", "marked_text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine.", "outlines": null, "footnotes": null}, {"verse": 3, "text": "For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves teachers, having itching ears;", "marked_text": "For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves teachers, having itching ears;", "outlines": null, "footnotes": null}, {"verse": 4, "text": "And they shall turn away their ears from the truth, and shall be turned unto fables.", "marked_text": "And they shall turn away their ears from the truth, and shall be turned unto fables.", "outlines": null, "footnotes": null}, {"verse": 5, "text": "But watch thou in all things, endure afflictions, do the work of an evangelist, make full proof of thy ministry.", "marked_text": "But watch thou in all things, endure afflictions, do the work of an evangelist, make full proof of thy ministry.", "outlines": null, "footnotes": null}, {"verse": 6, "text": "For I am now ready to be offered, and the time of my departure is at hand.", "marked_text": "For I am now ready to be offered, and the time of my departure is at hand.", "outlines": null, "footnotes": null}, {"verse": 7, "text": "I have fought a good fight, I have finished my course, I have kept the faith:", "marked_text": "I have fought a good fight, I have finished my course, I have kept the faith:", "outlines": null, "footnotes": null}, {"verse": 8, "text": "Henceforth there is laid up for me a crown of righteousness, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing.", "marked_text": "Henceforth there is laid up for me a crown of righteousness<fn n=\"2\"/>, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing.", "outlines": null, "footnotes": [{"verse": 8, "note_idx": 2, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}, {"verse": 9, "text": "Do thy diligence to come shortly unto me:", "marked_text": "Do thy diligence to come shortly unto me:", "outlines": null, "footnotes": null}, {"verse": 10, "text": "For Demas hath forsaken me, having loved this present world, and is departed unto Thessalonica; Crescens to Galatia, Titus unto Dalmatia.", "marked_text": "For Demas hath forsaken me, having loved this present world, and is departed unto Thessalonica; Crescens to Galatia, Titus unto Dalmatia.", "outlines": null, "footnotes": null}, {"verse": 11, "text": "Only Luke is with me. Take Mark, and bring him with thee: for he is profitable to me for the ministry.", "marked_text": "Only Luke is with me. Take Mark, and bring him with thee: for he is profitable to me for the ministry.", "outlines": null, "footnotes": null}, {"verse": 12, "text": "And Tychicus have I sent to Ephesus.", "marked_text": "And Tychicus have I sent to Ephesus.", "outlines": null, "footnotes": null}, {"verse": 13, "text": "The cloke that I left at Troas with Carpus, when thou comest, bring with thee, and the books, but especially the parchments.", "marked_text": "The cloke that I left at Troas with Carpus, when thou comest, bring with thee, and the books, but especially the parchments.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "Alexander the coppersmith did me much evil: the Lord reward him according to his works:", "marked_text": "Alexander the coppersmith did me much evil: the Lord<fn n=\"3\"/> reward him according to his works:", "outlines": null, "footnotes": [{"verse": 14, "note_idx": 3, "keyword": "Lord", "text": "Jehovah. 2Sa 3:39.", "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>2Sa 3:39</ref>.</p>", "references": ["2Sa 3:39"]}]}, {"verse": 15, "text": "Of whom be thou ware also; for he hath greatly withstood our words.", "marked_text": "Of whom be thou ware also; for he hath greatly withstood our words.", "outlines": null, "footnotes": null}, {"verse": 16, "text": "At my first answer no man stood with me, but all men forsook me: I pray God that it may not be laid to their charge.", "marked_text": "At my first answer no man stood with me, but all men forsook me: I pray God that it may not be laid to their charge.", "outlines": null, "footnotes": null}, {"verse": 17, "text": "Notwithstanding the Lord stood with me, and strengthened me; that by me the preaching might be fully known, and that all the Gentiles might hear: and I was delivered out of the mouth of the lion.", "marked_text": "Notwithstanding the Lord stood with me, and strengthened me; that by me the preaching might be fully known, and that all the Gentiles might hear: and I was delivered out of the mouth of the lion.", "outlines": null, "footnotes": null}, {"verse": 18, "text": "And the Lord shall deliver me from every evil work, and will preserve me unto his heavenly kingdom: to whom be glory for ever and ever. Amen.", "marked_text": "And the Lord shall deliver me from every evil work, and will preserve me unto his heavenly kingdom: to whom be glory for ever and ever. Amen.", "outlines": null, "footnotes": null}, {"verse": 19, "text": "Salute Prisca and Aquila, and the household of Onesiphorus.", "marked_text": "Salute Prisca and Aquila, and the household of Onesiphorus.", "outlines": null, "footnotes": null}, {"verse": 20, "text": "Erastus abode at Corinth: but Trophimus have I left at Miletum sick.", "marked_text": "Erastus abode at Corinth: but Trophimus have I left at Miletum sick.", "outlines": null, "footnotes": null}, {"verse": 21, "text": "Do thy diligence to come before winter. Eubulus greeteth thee, and Pudens, and Linus, and Claudia, and all the brethren.", "marked_text": "Do thy diligence to come before winter. Eubulus greeteth thee, and Pudens, and Linus, and Claudia, and all the brethren.", "outlines": null, "footnotes": null}, {"verse": 22, "text": "The Lord Jesus Christ be with thy spirit. Grace be with you. Amen. The second epistle unto Timotheus, ordained the first bishop of the church of the Ephesians, was written from Rome, when Paul was brought before Nero the second time.", "marked_text": "The Lord Jesus Christ be with thy spirit. Grace be with you. Amen. The second epistle unto Timotheus, ordained the first bishop of the church of the Ephesians, was written from Rome, when Paul was brought before Nero the second time.", "outlines": null, "footnotes": null}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "perfect", "text": "complete. (See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}, {"verse": 8, "note_idx": 2, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}, {"verse": 14, "note_idx": 3, "keyword": "Lord", "text": "Jehovah. 2Sa 3:39.", "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>2Sa 3:39</ref>.</p>", "references": ["2Sa 3:39"]}]}}}
+{
+  "id": "2-timotius",
+  "name": "II Timothy",
+  "name_id": "2 Timotius",
+  "translation": "Scofield Reference Bible (1917)",
+  "translation_short": "Scofield 1917",
+  "testament": "PB",
+  "chapters_count": 4,
+  "intro": {
+    "title": "Book Introduction - II Timothy",
+    "html": "<p style=\"font-weight:bold;\">Book Introduction - 2 Timothy</p><p><b>WRITER</b>: The Apostle Paul (<ref>2Ti 1:1</ref>) </p><p><b>DATE</b>: The touching letter was written by Paul to his &quot;dearly beloved son&quot; shortly before his martyrdom (<ref>2Ti 4:6-8</ref>), and contains the last words of the great apostle which inspiration has preserved. </p><p><b>THEME</b>: Second Timothy (in common with Second Peter, Jude, and Second and Third John) has to do with the personal walk and testimony of a true servant of Christ in a day of apostasy and declension. The key-phrases are, &quot;All they which are in Asia be turned away from me&quot; (<ref>2Ti 1:15</ref>); and, &quot;A good soldier of Jesus Christ&quot; (<ref>2Ti 2:3</ref>). The Asian churches had not disbanded, nor ceased to call themselves Christian, but they had turned away from the doctrines of grace distinctively revealed through the Apostle Paul (see Introduction, p. 1189). This was the proof that already the apostasy had set in its first form, legalism. </p><p>The natural divisions are four: </p><p>1. The Apostle&rsquo;s greeting, <ref>2Ti 1:1-18</ref> </p><p>2. The pathway of an approved servant in a day of apostasy <ref>2Ti 2:1-26</ref></p><p>3. Apostasy and the Word, <ref>2Ti 3:1-17</ref> </p><p>4. A faithful servant and his faithful Lord, <ref>2Ti 4:1-22</ref> </p>",
+    "text": "Book Introduction - 2 Timothy WRITER : The Apostle Paul (2Ti 1:1) DATE : The touching letter was written by Paul to his \"dearly beloved son\" shortly before his martyrdom (2Ti 4:6-8), and contains the last words of the great apostle which inspiration has preserved. THEME : Second Timothy (in common with Second Peter, Jude, and Second and Third John) has to do with the personal walk and testimony of a true servant of Christ in a day of apostasy and declension. The key-phrases are, \"All they which are in Asia be turned away from me\" (2Ti 1:15); and, \"A good soldier of Jesus Christ\" (2Ti 2:3). The Asian churches had not disbanded, nor ceased to call themselves Christian, but they had turned away from the doctrines of grace distinctively revealed through the Apostle Paul (see Introduction, p. 1189). This was the proof that already the apostasy had set in its first form, legalism. The natural divisions are four: 1. The Apostle’s greeting, 2Ti 1:1-18 2. The pathway of an approved servant in a day of apostasy 2Ti 2:1-26 3. Apostasy and the Word, 2Ti 3:1-17 4. A faithful servant and his faithful Lord, 2Ti 4:1-22"
+  },
+  "chapters": {
+    "1": {
+      "chapter": 1,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "Paul, an apostle of Jesus Christ by the will of God, according to the promise of life which is in Christ Jesus,",
+          "marked_text": "Paul, an apostle of Jesus Christ by the will of God, according to the promise of life which is in Christ Jesus,",
+          "outlines": "dier” in the time of apostasy.",
+          "footnotes": null
+        },
+        {
+          "verse": 2,
+          "text": "To Timothy, my dearly beloved son: Grace, mercy, and peace, from God the Father and Christ Jesus our Lord.",
+          "marked_text": "To Timothy, my dearly beloved son: Grace, mercy, and peace, from God the Father and Christ Jesus our Lord.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "I thank God, whom I serve from my forefathers with pure conscience, that without ceasing I have remembrance of thee in my prayers night and day;",
+          "marked_text": "I thank God, whom I serve from my forefathers with pure conscience, that without ceasing I have remembrance of thee in my prayers night and day;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "Greatly desiring to see thee, being mindful of thy tears, that I may be filled with joy;",
+          "marked_text": "Greatly desiring to see thee, being mindful of thy tears, that I may be filled with joy;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 5,
+          "text": "When I call to remembrance the unfeigned faith that is in thee, which dwelt first in thy grandmother Lois, and thy mother Eunice; and I am persuaded that in thee also.",
+          "marked_text": "When I call to remembrance the unfeigned faith that is in thee, which dwelt first in thy grandmother Lois, and thy mother Eunice; and I am persuaded that in thee also.",
+          "outlines": "the fruits. 1 Prov.2.6. m Rom.1.3,4. n Gospel.",
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "Wherefore I put thee in remembrance that thou stir up the gift of God, which is in thee by the putting on of my hands.",
+          "marked_text": "Wherefore I put thee in remembrance that thou stir up the gift of God, which is in thee by the putting on of my hands.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 7,
+          "text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.",
+          "marked_text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "Be not thou therefore ashamed of the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of the gospel according to the power of God;",
+          "marked_text": "Be not thou therefore ashamed of the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of the gospel according to the power of God;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "Who hath saved us, and called us with an holy calling, not according to our works, but according to his own purpose and grace, which was given us in Christ Jesus before the world began,",
+          "marked_text": "Who hath saved<fn n=\"1\"/> us, and called us with an holy calling, not according to our works, but according to his own purpose and grace, which was given us in Christ Jesus before the world began,",
+          "outlines": "Num.16.5. e the Lord. f Rom.9.21. g Separation.",
+          "footnotes": [
+            {
+              "verse": 9,
+              "note_idx": 1,
+              "keyword": "saved",
+              "text": "(See Scofield \" Rom 1:16 \") . grace Grace (in salvation). vs. Tit 2:11; Rom 3:24. (See Scofield \" Joh 1:17 \") .",
+              "html": "<p><b>saved</b> <i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p><p><b>grace</b> Grace (in salvation). vs. <ref>Tit 2:11</ref>; <ref>Rom 3:24</ref>. <i>(See Scofield &quot;</i><i><ref>Joh 1:17</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 1:16",
+                "Tit 2:11",
+                "Rom 3:24",
+                "Joh 1:17"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 10,
+          "text": "But is now made manifest by the appearing of our Saviour Jesus Christ, who hath abolished death, and hath brought life and immortality to light through the gospel:",
+          "marked_text": "But is now made manifest by the appearing of our Saviour<fn n=\"2\"/> Jesus Christ, who hath abolished death, and hath brought life and immortality to light through the gospel:",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 10,
+              "note_idx": 2,
+              "keyword": "Saviour",
+              "text": "(See Scofield \" Rom 1:16 \") .",
+              "html": "<p><b>Saviour</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 1:16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 11,
+          "text": "Whereunto I am appointed a preacher, and an apostle, and a teacher of the Gentiles.",
+          "marked_text": "Whereunto I am appointed a preacher, and an apostle, and a teacher of the Gentiles.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "For the which cause I also suffer these things: nevertheless I am not ashamed: for I know whom I have believed, and am persuaded that he is able to keep that which I have committed unto him against that day.",
+          "marked_text": "For the which cause I also suffer<fn n=\"3\"/> these things: nevertheless I am not ashamed: for I know whom I have believed, and am persuaded that he is able to keep that which I have committed unto him against that day.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 12,
+              "note_idx": 3,
+              "keyword": "suffer",
+              "text": "The believer’s resources in a day of general declension and apostasy are: (1) Faith 2Ti 1:5. (2) the Spirit 2Ti 1:6; 2Ti 1:7. (3) the word of God 2Ti 1:13; 2Ti 3:1-17; 2Ti 4:3; 2Ti 4:4. (4) the grace of Christ 2Ti 2:1. (5) separation from vessels unto dishonour 2Ti 2:4; 2Ti 2:20; 2Ti 2:21. (6) the Lord’s sure reward 2Ti 4:7; 2Ti 4:8. (7) the Lord’s faithfulness and power 2Ti 2:13; 2Ti 2:19.",
+              "html": "<p><b>suffer</b> </p><p>The believer&rsquo;s resources in a day of general declension and apostasy are: </p><p>(1) Faith <ref>2Ti 1:5</ref>. </p><p>(2) the Spirit <ref>2Ti 1:6</ref>; <ref>2Ti 1:7</ref>. </p><p>(3) the word of God <ref>2Ti 1:13</ref>; <ref>2Ti 3:1-17</ref>; <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. </p><p>(4) the grace of Christ <ref>2Ti 2:1</ref>. </p><p>(5) separation from vessels unto dishonour <ref>2Ti 2:4</ref>; <ref>2Ti 2:20</ref>; <ref>2Ti 2:21</ref>. </p><p>(6) the Lord&rsquo;s sure reward <ref>2Ti 4:7</ref>; <ref>2Ti 4:8</ref>. </p><p>(7) the Lord&rsquo;s faithfulness and power <ref>2Ti 2:13</ref>; <ref>2Ti 2:19</ref>. </p>",
+              "references": [
+                "2Ti 1:5",
+                "2Ti 1:6",
+                "2Ti 1:7",
+                "2Ti 1:13",
+                "2Ti 3:1-17",
+                "2Ti 4:3",
+                "2Ti 4:4",
+                "2Ti 2:1",
+                "2Ti 2:4",
+                "2Ti 2:20",
+                "2Ti 2:21",
+                "2Ti 4:7",
+                "2Ti 4:8",
+                "2Ti 2:13",
+                "2Ti 2:19"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 13,
+          "text": "Hold fast the form of sound words, which thou hast heard of me, in faith and love which is in Christ Jesus.",
+          "marked_text": "Hold fast the form of sound words, which thou hast heard of me, in faith and love which is in Christ Jesus.",
+          "outlines": "about words to no profit, but to the tsubverting of the hearers.",
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "That good thing which was committed unto thee keep by the Holy Ghost which dwelleth in us.",
+          "marked_text": "That good thing which was committed unto thee keep by the Holy Ghost which dwelleth in us.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 15,
+          "text": "This thou knowest, that all they which are in Asia be turned away from me; of whom are Phygellus and Hermogenes.",
+          "marked_text": "This thou knowest, that all they which are in Asia be turned away from me; of whom are Phygellus and Hermogenes.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "The Lord give mercy unto the house of Onesiphorus; for he oft refreshed me, and was not ashamed of my chain:",
+          "marked_text": "The Lord give mercy unto the house of Onesiphorus; for he oft refreshed me, and was not ashamed of my chain:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "But, when he was in Rome, he sought me out very diligently, and found me.",
+          "marked_text": "But, when he was in Rome, he sought me out very diligently, and found me.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 18,
+          "text": "The Lord grant unto him that he may find mercy of the Lord in that day: and in how many things he ministered unto me at Ephesus, thou knowest very well.",
+          "marked_text": "The Lord grant unto him that he may find mercy of the Lord in that day: and in how many things he ministered unto me at Ephesus, thou knowest very well.",
+          "outlines": null,
+          "footnotes": null
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 9,
+          "note_idx": 1,
+          "keyword": "saved",
+          "text": "(See Scofield \" Rom 1:16 \") . grace Grace (in salvation). vs. Tit 2:11; Rom 3:24. (See Scofield \" Joh 1:17 \") .",
+          "html": "<p><b>saved</b> <i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p><p><b>grace</b> Grace (in salvation). vs. <ref>Tit 2:11</ref>; <ref>Rom 3:24</ref>. <i>(See Scofield &quot;</i><i><ref>Joh 1:17</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 1:16",
+            "Tit 2:11",
+            "Rom 3:24",
+            "Joh 1:17"
+          ]
+        },
+        {
+          "verse": 10,
+          "note_idx": 2,
+          "keyword": "Saviour",
+          "text": "(See Scofield \" Rom 1:16 \") .",
+          "html": "<p><b>Saviour</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 12,
+          "note_idx": 3,
+          "keyword": "suffer",
+          "text": "The believer’s resources in a day of general declension and apostasy are: (1) Faith 2Ti 1:5. (2) the Spirit 2Ti 1:6; 2Ti 1:7. (3) the word of God 2Ti 1:13; 2Ti 3:1-17; 2Ti 4:3; 2Ti 4:4. (4) the grace of Christ 2Ti 2:1. (5) separation from vessels unto dishonour 2Ti 2:4; 2Ti 2:20; 2Ti 2:21. (6) the Lord’s sure reward 2Ti 4:7; 2Ti 4:8. (7) the Lord’s faithfulness and power 2Ti 2:13; 2Ti 2:19.",
+          "html": "<p><b>suffer</b> </p><p>The believer&rsquo;s resources in a day of general declension and apostasy are: </p><p>(1) Faith <ref>2Ti 1:5</ref>. </p><p>(2) the Spirit <ref>2Ti 1:6</ref>; <ref>2Ti 1:7</ref>. </p><p>(3) the word of God <ref>2Ti 1:13</ref>; <ref>2Ti 3:1-17</ref>; <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. </p><p>(4) the grace of Christ <ref>2Ti 2:1</ref>. </p><p>(5) separation from vessels unto dishonour <ref>2Ti 2:4</ref>; <ref>2Ti 2:20</ref>; <ref>2Ti 2:21</ref>. </p><p>(6) the Lord&rsquo;s sure reward <ref>2Ti 4:7</ref>; <ref>2Ti 4:8</ref>. </p><p>(7) the Lord&rsquo;s faithfulness and power <ref>2Ti 2:13</ref>; <ref>2Ti 2:19</ref>. </p>",
+          "references": [
+            "2Ti 1:5",
+            "2Ti 1:6",
+            "2Ti 1:7",
+            "2Ti 1:13",
+            "2Ti 3:1-17",
+            "2Ti 4:3",
+            "2Ti 4:4",
+            "2Ti 2:1",
+            "2Ti 2:4",
+            "2Ti 2:20",
+            "2Ti 2:21",
+            "2Ti 4:7",
+            "2Ti 4:8",
+            "2Ti 2:13",
+            "2Ti 2:19"
+          ]
+        }
+      ]
+    },
+    "2": {
+      "chapter": 2,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "Thou therefore, my son, be strong in the grace that is in Christ Jesus.",
+          "marked_text": "Thou therefore, my son, be strong in the grace<fn n=\"1\"/> that is in Christ Jesus.",
+          "outlines": "II Timothy Chapter 2.",
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "grace",
+              "text": "Grace (imparted). vs. Heb 4:16; Rom 6:1; 2Pe 3:18.",
+              "html": "<p><b>grace</b> </p><p>Grace (imparted). vs. <ref>Heb 4:16</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref>. </p>",
+              "references": [
+                "Heb 4:16",
+                "Rom 6:1",
+                "2Pe 3:18"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also.",
+          "marked_text": "And the things that thou hast heard of me among many witnesses, the same commit thou to faithful men, who shall be able to teach others also.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "Thou therefore endure hardness, as a good soldier of Jesus Christ.",
+          "marked_text": "Thou therefore endure hardness, as a good soldier of Jesus Christ.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "No man that warreth entangleth himself with the affairs of this life; that he may please him who hath chosen him to be a soldier.",
+          "marked_text": "No man that warreth entangleth himself with the affairs of this life; that he may please him who hath chosen him to be a soldier.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 5,
+          "text": "And if a man also strive for masteries, yet is he not crowned, except he strive lawfully.",
+          "marked_text": "And if a man also strive for masteries, yet is he not crowned, except he strive lawfully.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "The husbandman that laboureth must be first partaker of the fruits.",
+          "marked_text": "The husbandman that laboureth must be first partaker of the fruits.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 7,
+          "text": "Consider what I say; and the Lord give thee understanding in all things.",
+          "marked_text": "Consider what I say; and the Lord give thee understanding in all things.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "Remember that Jesus Christ of the seed of David was raised from the dead according to my gospel:",
+          "marked_text": "Remember that Jesus Christ of the seed of David was raised from the dead according to my gospel:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "Wherein I suffer trouble, as an evil doer, even unto bonds; but the word of God is not bound.",
+          "marked_text": "Wherein I suffer trouble, as an evil doer, even unto bonds; but the word of God is not bound.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "Therefore I endure all things for the elect’s sakes, that they may also obtain the salvation which is in Christ Jesus with eternal glory.",
+          "marked_text": "Therefore I endure all things for the elect’s sakes, that they may also obtain the salvation<fn n=\"2\"/> which is in Christ Jesus with eternal glory.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 10,
+              "note_idx": 2,
+              "keyword": "salvation",
+              "text": "(See Scofield \" Rom 1:16 \") .",
+              "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 1:16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 11,
+          "text": "It is a faithful saying: For if we be dead with him, we shall also live with him:",
+          "marked_text": "It is a faithful saying: For if we be dead with him, we shall also live with him:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "If we suffer, we shall also reign with him: if we deny him, he also will deny us:",
+          "marked_text": "If we suffer, we shall also reign with him: if we deny him, he also will deny us:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "If we believe not, yet he abideth faithful: he cannot deny himself.",
+          "marked_text": "If we believe not, yet he abideth faithful: he cannot deny himself.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "Of these things put them in remembrance, charging them before the Lord that they strive not about words to no profit, but to the subverting of the hearers.",
+          "marked_text": "Of these things put them in remembrance, charging them before the Lord that they strive not about words to no profit, but to the subverting of the hearers.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 15,
+          "text": "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth.",
+          "marked_text": "Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "But shun profane and vain babblings: for they will increase unto more ungodliness.",
+          "marked_text": "But shun profane and vain babblings: for they will increase unto more ungodliness.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "And their word will eat as doth a canker: of whom is Hymeneus and Philetus;",
+          "marked_text": "And their word will eat as doth a canker: of whom is Hymeneus and Philetus;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 18,
+          "text": "Who concerning the truth have erred, saying that the resurrection is past already; and overthrow the faith of some.",
+          "marked_text": "Who concerning the truth have erred, saying that the resurrection is past already; and overthrow the faith of some.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 19,
+          "text": "Nevertheless the foundation of God standeth sure, having this seal, The Lord knoweth them that are his. And, Let every one that nameth the name of Christ depart from iniquity.",
+          "marked_text": "Nevertheless the foundation of God standeth sure, having this seal, The Lord<fn n=\"3\"/> knoweth them that are his. And, Let every one that nameth the name of Christ depart from iniquity.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 19,
+              "note_idx": 3,
+              "keyword": "Lord",
+              "text": "Jehovah. Num 16:5.",
+              "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>Num 16:5</ref>. </p>",
+              "references": [
+                "Num 16:5"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 20,
+          "text": "But in a great house there are not only vessels of gold and of silver, but also of wood and of earth; and some to honour, and some to dishonour.",
+          "marked_text": "But in a great house there are not only vessels of gold and of silver, but also of wood and of earth; and some to honour, and some to dishonour.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 21,
+          "text": "If a man therefore purge himself from these, he shall be a vessel unto honour, sanctified, and meet for the master’s use, and prepared unto every good work.",
+          "marked_text": "If a man therefore purge himself from these, he shall be a vessel unto honour, sanctified, and meet for the master’s use, and prepared unto every good work.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 22,
+          "text": "Flee also youthful lusts: but follow righteousness, faith, charity, peace, with them that call on the Lord out of a pure heart.",
+          "marked_text": "Flee also youthful lusts: but follow righteousness<fn n=\"4\"/>, faith, charity, peace, with them that call on the Lord out of a pure heart.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 22,
+              "note_idx": 4,
+              "keyword": "righteousness",
+              "text": "(See Scofield \" 1Jn 3:7 \") .",
+              "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "1Jn 3:7"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 23,
+          "text": "But foolish and unlearned questions avoid, knowing that they do gender strifes.",
+          "marked_text": "But foolish and unlearned questions avoid, knowing that they do gender strifes.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 24,
+          "text": "And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient,",
+          "marked_text": "And the servant of the Lord must not strive; but be gentle unto all men, apt to teach, patient,",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 25,
+          "text": "In meekness instructing those that oppose themselves; if God peradventure will give them repentance to the acknowledging of the truth;",
+          "marked_text": "In meekness instructing those that oppose themselves; if God peradventure will give them repentance to the acknowledging of the truth;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 26,
+          "text": "And that they may recover themselves out of the snare of the devil, who are taken captive by him at his will.",
+          "marked_text": "And that they may recover themselves out of the snare of the devil, who are taken captive by him at his will.",
+          "outlines": null,
+          "footnotes": null
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "grace",
+          "text": "Grace (imparted). vs. Heb 4:16; Rom 6:1; 2Pe 3:18.",
+          "html": "<p><b>grace</b> </p><p>Grace (imparted). vs. <ref>Heb 4:16</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref>. </p>",
+          "references": [
+            "Heb 4:16",
+            "Rom 6:1",
+            "2Pe 3:18"
+          ]
+        },
+        {
+          "verse": 10,
+          "note_idx": 2,
+          "keyword": "salvation",
+          "text": "(See Scofield \" Rom 1:16 \") .",
+          "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 19,
+          "note_idx": 3,
+          "keyword": "Lord",
+          "text": "Jehovah. Num 16:5.",
+          "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>Num 16:5</ref>. </p>",
+          "references": [
+            "Num 16:5"
+          ]
+        },
+        {
+          "verse": 22,
+          "note_idx": 4,
+          "keyword": "righteousness",
+          "text": "(See Scofield \" 1Jn 3:7 \") .",
+          "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "1Jn 3:7"
+          ]
+        }
+      ]
+    },
+    "3": {
+      "chapter": 3,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "This know also, that in the last days perilous times shall come.",
+          "marked_text": "This know<fn n=\"1\"/> also, that in the last days perilous times shall come.",
+          "outlines": "5 ‘Having a form of godliness, but denying the power thereof: from such turn away.",
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "know",
+              "text": "Apostasy, Summary: Apostasy, \"falling away,\" is the act of professed Christians who deliberately reject revealed truth (1) as to the deity of Jesus Christ, and (2) redemption through His atoning and redeeming sacrifice 1Jn 4:1-3; Php 3:18; 2Pe 2:1. Apostasy differs from error concerning truth, which may be the result of ignorance Act 19:1-6 or heresy, which may be due to the sphere of Satan 2Ti 2:25; 2Ti 2:26 both of which may consist with true faith. The apostate is perfectly described in 2Ti 4:3; 2Ti 4:4. Apostates depart from the faith, but not from the outward profession of Christianity 2Ti 3:5. Apostate teachers are described in; 2Ti 4:3; 2Pe 2:1-19; Jud 1:4; Jud 1:8; Jud 1:11-13; Jud 1:16. Apostasy in the church, as in Israel Isa 1:5; Isa 1:6; Isa 5:5-7 is irremediable, and awaits judgment; 2Th 2:10-12; 2Pe 2:17; 2Pe 2:21; Jud 1:11-15; Rev 3:14-16.",
+              "html": "<p><b>know</b> </p><p>Apostasy, Summary: Apostasy, &quot;falling away,&quot; is the act of professed Christians who deliberately reject revealed truth </p><p>(1) as to the deity of Jesus Christ, and </p><p>(2) redemption through His atoning and redeeming sacrifice <ref>1Jn 4:1-3</ref>; <ref>Php 3:18</ref>; <ref>2Pe 2:1</ref>. Apostasy differs from error concerning truth, which may be the result of ignorance <ref>Act 19:1-6</ref> or heresy, which may be due to the sphere of Satan <ref>2Ti 2:25</ref>; <ref>2Ti 2:26</ref> both of which may consist with true faith. The apostate is perfectly described in <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. Apostates depart from the faith, but not from the outward profession of Christianity <ref>2Ti 3:5</ref>. Apostate teachers are described in; <ref>2Ti 4:3</ref>; <ref>2Pe 2:1-19</ref>; <ref>Jud 1:4</ref>; <ref>Jud 1:8</ref>; <ref>Jud 1:11-13</ref>; <ref>Jud 1:16</ref>. </p><p>Apostasy in the church, as in Israel <ref>Isa 1:5</ref>; <ref>Isa 1:6</ref>; <ref>Isa 5:5-7</ref> is irremediable, and awaits judgment; <ref>2Th 2:10-12</ref>; <ref>2Pe 2:17</ref>; <ref>2Pe 2:21</ref>; <ref>Jud 1:11-15</ref>; <ref>Rev 3:14-16</ref>. </p>",
+              "references": [
+                "1Jn 4:1-3",
+                "Php 3:18",
+                "2Pe 2:1",
+                "Act 19:1-6",
+                "2Ti 2:25",
+                "2Ti 2:26",
+                "2Ti 4:3",
+                "2Ti 4:4",
+                "2Ti 3:5",
+                "2Ti 4:3",
+                "2Pe 2:1-19",
+                "Jud 1:4",
+                "Jud 1:8",
+                "Jud 1:11-13",
+                "Jud 1:16",
+                "Isa 1:5",
+                "Isa 1:6",
+                "Isa 5:5-7",
+                "2Th 2:10-12",
+                "2Pe 2:17",
+                "2Pe 2:21",
+                "Jud 1:11-15",
+                "Rev 3:14-16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "For men shall be lovers of their own selves, covetous, boasters, proud, blasphemers, disobedient to parents, unthankful, unholy,",
+          "marked_text": "For men shall be lovers of their own selves, covetous, boasters, proud, blasphemers, disobedient to parents, unthankful, unholy,",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "Without natural affection, trucebreakers, false accusers, incontinent, fierce, despisers of those that are good,",
+          "marked_text": "Without natural affection, trucebreakers, false accusers, incontinent, fierce, despisers of those that are good,",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "Traitors, heady, highminded, lovers of pleasures more than lovers of God;",
+          "marked_text": "Traitors, heady, highminded, lovers of pleasures more than lovers of God;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 5,
+          "text": "Having a form of godliness, but denying the power thereof: from such turn away.",
+          "marked_text": "Having a form of godliness, but denying the power thereof: from such turn away.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "For of this sort are they which creep into houses, and lead captive silly women laden with sins, led away with divers lusts,",
+          "marked_text": "For of this sort are they which creep into houses, and lead captive silly women laden with sins<fn n=\"2\"/>, led away with divers lusts,",
+          "outlines": "(the seven). Heb.9.27.",
+          "footnotes": [
+            {
+              "verse": 6,
+              "note_idx": 2,
+              "keyword": "sins",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 7,
+          "text": "Ever learning, and never able to come to the knowledge of the truth.",
+          "marked_text": "Ever learning, and never able to come to the knowledge of the truth.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "Now as Jannes and Jambres withstood Moses, so do these also resist the truth: men of corrupt minds, reprobate concerning the faith.",
+          "marked_text": "Now as Jannes and Jambres withstood Moses, so do these also resist the truth: men of corrupt minds, reprobate concerning the faith.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "But they shall proceed no further: for their folly shall be manifest unto all men, as theirs also was.",
+          "marked_text": "But they shall proceed no further: for their folly shall be manifest unto all men, as theirs also was.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "But thou hast fully known my doctrine, manner of life, purpose, faith, longsuffering, charity, patience,",
+          "marked_text": "But thou hast fully known my doctrine, manner of life, purpose, faith, longsuffering, charity, patience,",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "Persecutions, afflictions, which came unto me at Antioch, at Iconium, at Lystra; what persecutions I endured: but out of them all the Lord delivered me.",
+          "marked_text": "Persecutions, afflictions, which came unto me at Antioch, at Iconium, at Lystra; what persecutions I endured: but out of them all the Lord delivered me.",
+          "outlines": "an evangelist, make “full proof of thy ministry.",
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "Yea, and all that will live godly in Christ Jesus shall suffer persecution.",
+          "marked_text": "Yea, and all that will live godly in Christ Jesus shall suffer persecution.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "But evil men and seducers shall wax worse and worse, deceiving, and being deceived.",
+          "marked_text": "But evil men and seducers shall wax worse and worse, deceiving, and being deceived.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "But continue thou in the things which thou hast learned and hast been assured of, knowing of whom thou hast learned them;",
+          "marked_text": "But continue thou in the things which thou hast learned and hast been assured of, knowing of whom thou hast learned them;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 15,
+          "text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus.",
+          "marked_text": "And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation<fn n=\"3\"/> through faith which is in Christ Jesus.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 15,
+              "note_idx": 3,
+              "keyword": "salvation",
+              "text": "(See Scofield \" Rom 1:16 \") .",
+              "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 1:16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 16,
+          "text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:",
+          "marked_text": "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness<fn n=\"4\"/>:",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 16,
+              "note_idx": 4,
+              "keyword": "righteousness",
+              "text": "(See Scofield \" 1Jn 3:7 \") .",
+              "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "1Jn 3:7"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 17,
+          "text": "That the man of God may be perfect, throughly furnished unto all good works.",
+          "marked_text": "That the man of God may be perfect<fn n=\"5\"/>, throughly furnished unto all good works.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 17,
+              "note_idx": 5,
+              "keyword": "perfect",
+              "text": "complete. (See Scofield \" Mat 5:48 \") .",
+              "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 5:48"
+              ]
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "know",
+          "text": "Apostasy, Summary: Apostasy, \"falling away,\" is the act of professed Christians who deliberately reject revealed truth (1) as to the deity of Jesus Christ, and (2) redemption through His atoning and redeeming sacrifice 1Jn 4:1-3; Php 3:18; 2Pe 2:1. Apostasy differs from error concerning truth, which may be the result of ignorance Act 19:1-6 or heresy, which may be due to the sphere of Satan 2Ti 2:25; 2Ti 2:26 both of which may consist with true faith. The apostate is perfectly described in 2Ti 4:3; 2Ti 4:4. Apostates depart from the faith, but not from the outward profession of Christianity 2Ti 3:5. Apostate teachers are described in; 2Ti 4:3; 2Pe 2:1-19; Jud 1:4; Jud 1:8; Jud 1:11-13; Jud 1:16. Apostasy in the church, as in Israel Isa 1:5; Isa 1:6; Isa 5:5-7 is irremediable, and awaits judgment; 2Th 2:10-12; 2Pe 2:17; 2Pe 2:21; Jud 1:11-15; Rev 3:14-16.",
+          "html": "<p><b>know</b> </p><p>Apostasy, Summary: Apostasy, &quot;falling away,&quot; is the act of professed Christians who deliberately reject revealed truth </p><p>(1) as to the deity of Jesus Christ, and </p><p>(2) redemption through His atoning and redeeming sacrifice <ref>1Jn 4:1-3</ref>; <ref>Php 3:18</ref>; <ref>2Pe 2:1</ref>. Apostasy differs from error concerning truth, which may be the result of ignorance <ref>Act 19:1-6</ref> or heresy, which may be due to the sphere of Satan <ref>2Ti 2:25</ref>; <ref>2Ti 2:26</ref> both of which may consist with true faith. The apostate is perfectly described in <ref>2Ti 4:3</ref>; <ref>2Ti 4:4</ref>. Apostates depart from the faith, but not from the outward profession of Christianity <ref>2Ti 3:5</ref>. Apostate teachers are described in; <ref>2Ti 4:3</ref>; <ref>2Pe 2:1-19</ref>; <ref>Jud 1:4</ref>; <ref>Jud 1:8</ref>; <ref>Jud 1:11-13</ref>; <ref>Jud 1:16</ref>. </p><p>Apostasy in the church, as in Israel <ref>Isa 1:5</ref>; <ref>Isa 1:6</ref>; <ref>Isa 5:5-7</ref> is irremediable, and awaits judgment; <ref>2Th 2:10-12</ref>; <ref>2Pe 2:17</ref>; <ref>2Pe 2:21</ref>; <ref>Jud 1:11-15</ref>; <ref>Rev 3:14-16</ref>. </p>",
+          "references": [
+            "1Jn 4:1-3",
+            "Php 3:18",
+            "2Pe 2:1",
+            "Act 19:1-6",
+            "2Ti 2:25",
+            "2Ti 2:26",
+            "2Ti 4:3",
+            "2Ti 4:4",
+            "2Ti 3:5",
+            "2Ti 4:3",
+            "2Pe 2:1-19",
+            "Jud 1:4",
+            "Jud 1:8",
+            "Jud 1:11-13",
+            "Jud 1:16",
+            "Isa 1:5",
+            "Isa 1:6",
+            "Isa 5:5-7",
+            "2Th 2:10-12",
+            "2Pe 2:17",
+            "2Pe 2:21",
+            "Jud 1:11-15",
+            "Rev 3:14-16"
+          ]
+        },
+        {
+          "verse": 6,
+          "note_idx": 2,
+          "keyword": "sins",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 15,
+          "note_idx": 3,
+          "keyword": "salvation",
+          "text": "(See Scofield \" Rom 1:16 \") .",
+          "html": "<p><b>salvation</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 16,
+          "note_idx": 4,
+          "keyword": "righteousness",
+          "text": "(See Scofield \" 1Jn 3:7 \") .",
+          "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "1Jn 3:7"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 5,
+          "keyword": "perfect",
+          "text": "complete. (See Scofield \" Mat 5:48 \") .",
+          "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 5:48"
+          ]
+        }
+      ]
+    },
+    "4": {
+      "chapter": 4,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "I charge thee therefore before God, and the Lord Jesus Christ, who shall judge the quick and the dead at his appearing and his kingdom;",
+          "marked_text": "I charge thee therefore before God, and the Lord Jesus Christ, who shall judge the quick and the dead at his appearing and his kingdom;<fn n=\"1\"/>",
+          "outlines": "II Timothy Chapter 4.",
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "perfect",
+              "text": "complete. (See Scofield \" Mat 5:48 \") .",
+              "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 5:48"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine.",
+          "marked_text": "Preach the word; be instant in season, out of season; reprove, rebuke, exhort with all longsuffering and doctrine.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves teachers, having itching ears;",
+          "marked_text": "For the time will come when they will not endure sound doctrine; but after their own lusts shall they heap to themselves teachers, having itching ears;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "And they shall turn away their ears from the truth, and shall be turned unto fables.",
+          "marked_text": "And they shall turn away their ears from the truth, and shall be turned unto fables.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 5,
+          "text": "But watch thou in all things, endure afflictions, do the work of an evangelist, make full proof of thy ministry.",
+          "marked_text": "But watch thou in all things, endure afflictions, do the work of an evangelist, make full proof of thy ministry.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "For I am now ready to be offered, and the time of my departure is at hand.",
+          "marked_text": "For I am now ready to be offered, and the time of my departure is at hand.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 7,
+          "text": "I have fought a good fight, I have finished my course, I have kept the faith:",
+          "marked_text": "I have fought a good fight, I have finished my course, I have kept the faith:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "Henceforth there is laid up for me a crown of righteousness, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing.",
+          "marked_text": "Henceforth there is laid up for me a crown of righteousness<fn n=\"2\"/>, which the Lord, the righteous judge, shall give me at that day: and not to me only, but unto all them also that love his appearing.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 8,
+              "note_idx": 2,
+              "keyword": "righteousness",
+              "text": "(See Scofield \" 1Jn 3:7 \") .",
+              "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "1Jn 3:7"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 9,
+          "text": "Do thy diligence to come shortly unto me:",
+          "marked_text": "Do thy diligence to come shortly unto me:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "For Demas hath forsaken me, having loved this present world, and is departed unto Thessalonica; Crescens to Galatia, Titus unto Dalmatia.",
+          "marked_text": "For Demas hath forsaken me, having loved this present world, and is departed unto Thessalonica; Crescens to Galatia, Titus unto Dalmatia.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "Only Luke is with me. Take Mark, and bring him with thee: for he is profitable to me for the ministry.",
+          "marked_text": "Only Luke is with me. Take Mark, and bring him with thee: for he is profitable to me for the ministry.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "And Tychicus have I sent to Ephesus.",
+          "marked_text": "And Tychicus have I sent to Ephesus.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "The cloke that I left at Troas with Carpus, when thou comest, bring with thee, and the books, but especially the parchments.",
+          "marked_text": "The cloke that I left at Troas with Carpus, when thou comest, bring with thee, and the books, but especially the parchments.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "Alexander the coppersmith did me much evil: the Lord reward him according to his works:",
+          "marked_text": "Alexander the coppersmith did me much evil: the Lord<fn n=\"3\"/> reward him according to his works:",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 14,
+              "note_idx": 3,
+              "keyword": "Lord",
+              "text": "Jehovah. 2Sa 3:39.",
+              "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>2Sa 3:39</ref>.</p>",
+              "references": [
+                "2Sa 3:39"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 15,
+          "text": "Of whom be thou ware also; for he hath greatly withstood our words.",
+          "marked_text": "Of whom be thou ware also; for he hath greatly withstood our words.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "At my first answer no man stood with me, but all men forsook me: I pray God that it may not be laid to their charge.",
+          "marked_text": "At my first answer no man stood with me, but all men forsook me: I pray God that it may not be laid to their charge.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "Notwithstanding the Lord stood with me, and strengthened me; that by me the preaching might be fully known, and that all the Gentiles might hear: and I was delivered out of the mouth of the lion.",
+          "marked_text": "Notwithstanding the Lord stood with me, and strengthened me; that by me the preaching might be fully known, and that all the Gentiles might hear: and I was delivered out of the mouth of the lion.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 18,
+          "text": "And the Lord shall deliver me from every evil work, and will preserve me unto his heavenly kingdom: to whom be glory for ever and ever. Amen.",
+          "marked_text": "And the Lord shall deliver me from every evil work, and will preserve me unto his heavenly kingdom: to whom be glory for ever and ever. Amen.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 19,
+          "text": "Salute Prisca and Aquila, and the household of Onesiphorus.",
+          "marked_text": "Salute Prisca and Aquila, and the household of Onesiphorus.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 20,
+          "text": "Erastus abode at Corinth: but Trophimus have I left at Miletum sick.",
+          "marked_text": "Erastus abode at Corinth: but Trophimus have I left at Miletum sick.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 21,
+          "text": "Do thy diligence to come before winter. Eubulus greeteth thee, and Pudens, and Linus, and Claudia, and all the brethren.",
+          "marked_text": "Do thy diligence to come before winter. Eubulus greeteth thee, and Pudens, and Linus, and Claudia, and all the brethren.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 22,
+          "text": "The Lord Jesus Christ be with thy spirit. Grace be with you. Amen. The second epistle unto Timotheus, ordained the first bishop of the church of the Ephesians, was written from Rome, when Paul was brought before Nero the second time.",
+          "marked_text": "The Lord Jesus Christ be with thy spirit. Grace be with you. Amen. The second epistle unto Timotheus, ordained the first bishop of the church of the Ephesians, was written from Rome, when Paul was brought before Nero the second time.",
+          "outlines": null,
+          "footnotes": null
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "perfect",
+          "text": "complete. (See Scofield \" Mat 5:48 \") .",
+          "html": "<p><b>perfect</b> </p><p>complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 5:48"
+          ]
+        },
+        {
+          "verse": 8,
+          "note_idx": 2,
+          "keyword": "righteousness",
+          "text": "(See Scofield \" 1Jn 3:7 \") .",
+          "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "1Jn 3:7"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 3,
+          "keyword": "Lord",
+          "text": "Jehovah. 2Sa 3:39.",
+          "html": "<p><b>Lord</b> </p><p>Jehovah. <ref>2Sa 3:39</ref>.</p>",
+          "references": [
+            "2Sa 3:39"
+          ]
+        }
+      ]
+    }
+  }
+}
