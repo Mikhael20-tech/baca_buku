@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -85,6 +85,29 @@ export default function BibleScofieldClassicView({
 }) {
   const [selectedNoteIdx, setSelectedNoteIdx] = useState(null);
 
+  // Parse full book introduction into styled paragraphs (Called unconditionally at the top level)
+  const introParagraphs = useMemo(() => {
+    if (!bookData?.intro) return [];
+    const htmlStr = bookData.intro.html || '';
+    if (htmlStr) {
+      // Remove generic title paragraph like <p style="font-weight:bold;">Book Introduction - ...</p>
+      const cleaned = htmlStr.replace(/<p[^>]*>\s*Book Introduction[^<]*<\/p>/gi, '');
+      const rawParas = cleaned.split(/<\/p>/i);
+      const list = [];
+      for (let p of rawParas) {
+        p = p.replace(/<p[^>]*>/gi, '').trim();
+        if (!p) continue;
+        p = p.replace(/<ref>(.*?)<\/ref>/gi, '<span class="font-mono text-amber-900 font-bold">$1</span>');
+        list.push(p);
+      }
+      if (list.length > 0) return list;
+    }
+    if (bookData.intro.text) {
+      return [bookData.intro.text];
+    }
+    return [];
+  }, [bookData]);
+
   if (!bookData) return null;
 
   const currentChapterData = bookData.chapters?.[String(selectedChapter)] || { verses: [], footnotes: [] };
@@ -111,29 +134,6 @@ export default function BibleScofieldClassicView({
       });
     }
   });
-
-  // Parse full book introduction into styled paragraphs
-  const introParagraphs = React.useMemo(() => {
-    if (!bookData?.intro) return [];
-    const htmlStr = bookData.intro.html || '';
-    if (htmlStr) {
-      // Remove generic title paragraph like <p style="font-weight:bold;">Book Introduction - ...</p>
-      const cleaned = htmlStr.replace(/<p[^>]*>\s*Book Introduction[^<]*<\/p>/gi, '');
-      const rawParas = cleaned.split(/<\/p>/i);
-      const list = [];
-      for (let p of rawParas) {
-        p = p.replace(/<p[^>]*>/gi, '').trim();
-        if (!p) continue;
-        p = p.replace(/<ref>(.*?)<\/ref>/gi, '<span class="font-mono text-amber-900 font-bold">$1</span>');
-        list.push(p);
-      }
-      if (list.length > 0) return list;
-    }
-    if (bookData.intro.text) {
-      return [bookData.intro.text];
-    }
-    return [];
-  }, [bookData]);
 
   const renderClassicVerseText = (vItem) => {
     if (!vItem.marked_text || !vItem.marked_text.includes('<fn')) {
