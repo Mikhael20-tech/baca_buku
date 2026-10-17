@@ -19,7 +19,7 @@
         {
           "verse": 1,
           "text": "In the second year of Darius the king, in the sixth month, in the first day of the month, came the word of the Lord by Haggai the prophet unto Zerubbabel the son of Shealtiel, governor of Judah, and to Joshua the son of Josedech, the high priest, saying,",
-          "marked_text": "In the second year of Darius the king, in the sixth month<fn n=\"1\"/>, in the first day of the month, came the word of the Lord by Haggai<fn n=\"a\"/> the prophet unto Zerubbabel the son of Shealtiel, governor of Judah, and to Joshua the son of Josedech, the high priest, saying,",
+          "marked_text": "In the second year of Darius the king, in the sixth month<fn n=\"1\"/>, in the first day of the month, came the word of the Lord by Haggai the prophet unto Zerubbabel the son of Shealtiel, governor of Judah, and to Joshua the son of Josedech, the high priest, saying,",
           "outlines": "well in the midst of thee, saith the Lorn. FGen3.21, these that stand by.",
           "footnotes": [
             {
@@ -132,7 +132,7 @@
         {
           "verse": 14,
           "text": "And the Lord stirred up the spirit of Zerubbabel the son of Shealtiel, governor of Judah, and the spirit of Joshua the son of Josedech, the high priest, and the spirit of all the remnant of the people; and they came and did work in the house of the Lord of hosts, their God,",
-          "marked_text": "And the Lord stirred up the spirit of Zerubbabel the son of Shealtiel, governor of Judah, and the spirit of Joshua the son of Josedech, the high priest, and the spirit of all the remnant<fn n=\"b\"/><fn n=\"3\"/> of the people; and they came and did work in the house of the Lord of hosts, their God,",
+          "marked_text": "And the Lord stirred up the spirit of Zerubbabel the son of Shealtiel, governor of Judah, and the spirit of Joshua the son of Josedech, the high priest, and the spirit of all the remnant<fn n=\"3\"/> of the people; and they came and did work in the house of the Lord of hosts, their God,",
           "outlines": null,
           "footnotes": [
             {
@@ -159,70 +159,6 @@
         {
           "verse": 1,
           "note_idx": 1,
-          "letter": "a",
-          "keyword": "Haggai (Book of, Introduction)",
-          "text": "Haggai (Book of, Introduction): Book of, Introduction:  [ Hag 1:1 ]",
-          "html": "<p><b>Haggai (Book of, Introduction)</b>: Book of, Introduction:  [ Hag 1:1 ]</p>",
-          "references": [
-            "Hag 1:1"
-          ]
-        },
-        {
-          "verse": 14,
-          "note_idx": 2,
-          "letter": "b",
-          "keyword": "Remnant",
-          "text": "Remnant: [ Isa 1:9 ], [ Rom 11:5 ], [ Isa 10:20 ], [ Isa 10:11 ], [ Isa 10:11-13 ], [ Isa 10:16 ], [ Isa 10:24 ], [ Isa 10:13 ], [ Isa 10:15 ], [ Isa 10:37 ], [ Isa 10:32 ], [ Isa 10:46 ], [ Isa 10:3 ], [ Jer 15:11-21 ], [ Jer 15:23 ], [ Jer 15:3-8 ], [ Jer 15:31 ], [ Jer 15:7-14 ], [ Eze 6:8 ], [ Eze 6:8 ], [ Eze 6:11-14 ], [ Eze 6:9 ], [ Eze 6:4 ], [ Eze 6:11 ], [ Eze 6:16-21 ], [ Joe 2:32 ], [ Amo 5:15 ], [ Mic 2:12 ], [ Mic 2:13 ], [ Mic 2:4 ], [ Mic 2:1-7 ], [ Mic 2:5 ], [ Mic 2:3-9 ], [ Mic 2:7 ], [ Mic 2:18 ], [ Zep 2:1-3 ], [ Zep 2:7-9 ], [ Zep 2:3 ], [ Zep 2:13-20 ], [ Hag 1:14 ], [ Zec 8:6-8 ], [ Zec 8:11 ], [ Zec 8:12   Zec 8:11 ], [ Zec 8:7 ], [ Zec 8:11 ], [ Mal 3:16-18 ], [ Rom 9:25-29 ], [ Rom 9:11 ], [ Rom 9:1-5 ], [ Rev 6:9-11 ], [ Rev 6:7 ], [ Rev 6:4-8 ], [ Rev 6:12 ], [ Rev 6:17 ], [ Rev 6:12 ], [ Rev 6:17 ], [ Rev 6:14 ], [ Rev 6:1-5 ], [ Rev 6:20 ], [ Rev 6:4 ]",
-          "html": "<p><b>Remnant</b>: [ Isa 1:9 ], [ Rom 11:5 ], [ Isa 10:20 ], [ Isa 10:11 ], [ Isa 10:11-13 ], [ Isa 10:16 ], [ Isa 10:24 ], [ Isa 10:13 ], [ Isa 10:15 ], [ Isa 10:37 ], [ Isa 10:32 ], [ Isa 10:46 ], [ Isa 10:3 ], [ Jer 15:11-21 ], [ Jer 15:23 ], [ Jer 15:3-8 ], [ Jer 15:31 ], [ Jer 15:7-14 ], [ Eze 6:8 ], [ Eze 6:8 ], [ Eze 6:11-14 ], [ Eze 6:9 ], [ Eze 6:4 ], [ Eze 6:11 ], [ Eze 6:16-21 ], [ Joe 2:32 ], [ Amo 5:15 ], [ Mic 2:12 ], [ Mic 2:13 ], [ Mic 2:4 ], [ Mic 2:1-7 ], [ Mic 2:5 ], [ Mic 2:3-9 ], [ Mic 2:7 ], [ Mic 2:18 ], [ Zep 2:1-3 ], [ Zep 2:7-9 ], [ Zep 2:3 ], [ Zep 2:13-20 ], [ Hag 1:14 ], [ Zec 8:6-8 ], [ Zec 8:11 ], [ Zec 8:12   Zec 8:11 ], [ Zec 8:7 ], [ Zec 8:11 ], [ Mal 3:16-18 ], [ Rom 9:25-29 ], [ Rom 9:11 ], [ Rom 9:1-5 ], [ Rev 6:9-11 ], [ Rev 6:7 ], [ Rev 6:4-8 ], [ Rev 6:12 ], [ Rev 6:17 ], [ Rev 6:12 ], [ Rev 6:17 ], [ Rev 6:14 ], [ Rev 6:1-5 ], [ Rev 6:20 ], [ Rev 6:4 ]</p>",
-          "references": [
-            "Isa 1:9",
-            "Rom 11:5",
-            "Isa 10:20",
-            "Isa 10:11",
-            "Isa 10:16",
-            "Isa 10:24",
-            "Isa 10:13",
-            "Isa 10:15",
-            "Isa 10:37",
-            "Isa 10:32",
-            "Isa 10:46",
-            "Isa 10:3",
-            "Jer 15:23",
-            "Jer 15:31",
-            "Eze 6:8",
-            "Eze 6:8",
-            "Eze 6:9",
-            "Eze 6:4",
-            "Eze 6:11",
-            "Joe 2:32",
-            "Amo 5:15",
-            "Mic 2:12",
-            "Mic 2:13",
-            "Mic 2:4",
-            "Mic 2:5",
-            "Mic 2:7",
-            "Mic 2:18",
-            "Zep 2:3",
-            "Hag 1:14",
-            "Zec 8:11",
-            "Zec 8:12",
-            "Zec 8:11",
-            "Zec 8:7",
-            "Zec 8:11",
-            "Rom 9:11",
-            "Rev 6:7",
-            "Rev 6:12",
-            "Rev 6:17",
-            "Rev 6:12",
-            "Rev 6:17",
-            "Rev 6:14",
-            "Rev 6:20",
-            "Rev 6:4"
-          ]
-        },
-        {
-          "verse": 1,
-          "note_idx": 3,
           "keyword": "sixth month",
           "text": "i.e. September, also Hag 1:15.",
           "html": "<p><b>sixth month</b> </p><p>i.e. September, also <ref>Hag 1:15</ref>. </p>",
@@ -232,7 +168,7 @@
         },
         {
           "verse": 12,
-          "note_idx": 4,
+          "note_idx": 2,
           "keyword": "fear",
           "text": "(See Scofield \" Psa 19:9 \")",
           "html": "<p><b>fear</b> </p><p><i>(See Scofield &quot;</i><i><ref>Psa 19:9</ref></i><i>&quot;)</i> </p>",
@@ -242,7 +178,7 @@
         },
         {
           "verse": 14,
-          "note_idx": 5,
+          "note_idx": 3,
           "keyword": "remnant",
           "text": "(See Scofield \" Jer 15:21 \") .",
           "html": "<p><b>remnant</b> </p><p><i>(See Scofield &quot;</i><i><ref>Jer 15:21</ref></i><i>&quot;)</i>. </p>",
@@ -282,7 +218,7 @@
         {
           "verse": 3,
           "text": "Who is left among you that saw this house in her first glory? and how do ye see it now? is it not in your eyes in comparison of it as nothing?",
-          "marked_text": "Who is left among you that saw this house in her first glory<fn n=\"2\"/>? and how do ye see it now? is it not in your eyes in comparison of it as nothing?<fn n=\"a\"/>",
+          "marked_text": "Who is left among you that saw this house in her first glory<fn n=\"2\"/>? and how do ye see it now? is it not in your eyes in comparison of it as nothing?",
           "outlines": null,
           "footnotes": [
             {
@@ -330,7 +266,7 @@
         {
           "verse": 7,
           "text": "And I will shake all nations, and the desire of all nations shall come: and I will fill this house with glory, saith the Lord of hosts.",
-          "marked_text": "And I will shake all nations, and the desire of all nations shall come: and I will fill this house with glory, saith the Lord of hosts.<fn n=\"b\"/>",
+          "marked_text": "And I will shake all nations, and the desire of all nations shall come: and I will fill this house with glory, saith the Lord of hosts.",
           "outlines": null,
           "footnotes": null
         },
@@ -344,7 +280,7 @@
         {
           "verse": 9,
           "text": "The glory of this latter house shall be greater than of the former, saith the Lord of hosts: and in this place will I give peace, saith the Lord of hosts.",
-          "marked_text": "The glory of this latter house<fn n=\"3\"/> shall be greater than of the former, saith the Lord of hosts: and in this place will I give peace, saith the Lord of hosts.<fn n=\"c\"/>",
+          "marked_text": "The glory of this latter house<fn n=\"3\"/> shall be greater than of the former, saith the Lord of hosts: and in this place will I give peace, saith the Lord of hosts.",
           "outlines": null,
           "footnotes": [
             {
@@ -476,102 +412,8 @@
       ],
       "footnotes": [
         {
-          "verse": 3,
-          "note_idx": 1,
-          "letter": "a",
-          "keyword": "Temple (in the kingdom-age)",
-          "text": "Temple (in the kingdom-age): in the kingdom-age:  [ Hag 2:3 ]",
-          "html": "<p><b>Temple (in the kingdom-age)</b>: in the kingdom-age:  [ Hag 2:3 ]</p>",
-          "references": [
-            "Hag 2:3"
-          ]
-        },
-        {
-          "verse": 7,
-          "note_idx": 2,
-          "letter": "b",
-          "keyword": "Christ ((first advent))",
-          "text": "Christ ((first advent)): (first advent):  [ Gen 3:15 ], [ Act 1:9 ], [ Gen 12:3 ], [ Gen 12:17 ], [ Gen 12:19 ], [ Gen 12:24 ], [ Gen 12:60 ], [ Gen 12:28 ], [ Gen 12:14 ], [ Gen 12:49 ], [ Gen 12:10 ], [ 2Sa 7:16 ], [ Psa 2:2 ], [ Psa 2:16 ], [ Psa 2:10 ], [ Psa 2:22 ], [ Psa 2:1-18 ], [ Isa 7:13 ], [ Isa 7:14 ], [ Isa 7:9 ], [ Isa 7:6 ], [ Isa 7:28 ], [ Isa 7:16 ], [ Isa 7:42 ], [ Isa 7:1-7 ], [ Isa 7:49 ], [ Isa 7:1-6 ], [ Isa 7:50 ], [ Isa 7:4-7 ], [ Isa 7:52 ], [ Isa 7:13-15 ], [ Isa 7:53 ], [ Isa 7:1-12 ], [ Isa 7:61 ], [ Isa 7:1 ], [ Dan 9:25 ], [ Dan 9:26 ], [Hos2:23], [ Hos 2:23 ], [ Mic 5:2 ], [ Hag 2:7 ], [ Zec 9:9 ], [ Zec 9:11 ], [ Zec 9:11-13 ], [ Zec 9:13 ], [ Zec 9:7 ], [ Mal 3:1 ], [ Mal 3:2 ], [ Mat 1:1 ], [ Mat 1:23 ], [ Mat 1:2 ], [ Mat 1:1 ], [ Mat 1:6 ], [ Mat 1:4 ], [ Mat 1:15 ], [ Mat 1:16 ], [ Mat 1:12 ], [ Mat 1:18-21 ], [ Mat 21:1-5 ], [ Mat 21:42 ], [ Mat 21:26 ], [ Mat 21:31 ], [ Mat 21:27 ], [ Mat 21:9 ], [ Mat 21:10 ], [ Mat 21:34 ], [ Mat 21:35 ], [ Mat 21:50 ], [ Mat 21:28 ], [ Mat 21:5 ], [ Mat 21:6 ], [ 1Jn 5:20 ]",
-          "html": "<p><b>Christ ((first advent))</b>: (first advent):  [ Gen 3:15 ], [ Act 1:9 ], [ Gen 12:3 ], [ Gen 12:17 ], [ Gen 12:19 ], [ Gen 12:24 ], [ Gen 12:60 ], [ Gen 12:28 ], [ Gen 12:14 ], [ Gen 12:49 ], [ Gen 12:10 ], [ 2Sa 7:16 ], [ Psa 2:2 ], [ Psa 2:16 ], [ Psa 2:10 ], [ Psa 2:22 ], [ Psa 2:1-18 ], [ Isa 7:13 ], [ Isa 7:14 ], [ Isa 7:9 ], [ Isa 7:6 ], [ Isa 7:28 ], [ Isa 7:16 ], [ Isa 7:42 ], [ Isa 7:1-7 ], [ Isa 7:49 ], [ Isa 7:1-6 ], [ Isa 7:50 ], [ Isa 7:4-7 ], [ Isa 7:52 ], [ Isa 7:13-15 ], [ Isa 7:53 ], [ Isa 7:1-12 ], [ Isa 7:61 ], [ Isa 7:1 ], [ Dan 9:25 ], [ Dan 9:26 ], [Hos2:23], [ Hos 2:23 ], [ Mic 5:2 ], [ Hag 2:7 ], [ Zec 9:9 ], [ Zec 9:11 ], [ Zec 9:11-13 ], [ Zec 9:13 ], [ Zec 9:7 ], [ Mal 3:1 ], [ Mal 3:2 ], [ Mat 1:1 ], [ Mat 1:23 ], [ Mat 1:2 ], [ Mat 1:1 ], [ Mat 1:6 ], [ Mat 1:4 ], [ Mat 1:15 ], [ Mat 1:16 ], [ Mat 1:12 ], [ Mat 1:18-21 ], [ Mat 21:1-5 ], [ Mat 21:42 ], [ Mat 21:26 ], [ Mat 21:31 ], [ Mat 21:27 ], [ Mat 21:9 ], [ Mat 21:10 ], [ Mat 21:34 ], [ Mat 21:35 ], [ Mat 21:50 ], [ Mat 21:28 ], [ Mat 21:5 ], [ Mat 21:6 ], [ 1Jn 5:20 ]</p>",
-          "references": [
-            "Gen 3:15",
-            "Act 1:9",
-            "Gen 12:3",
-            "Gen 12:17",
-            "Gen 12:19",
-            "Gen 12:24",
-            "Gen 12:60",
-            "Gen 12:28",
-            "Gen 12:14",
-            "Gen 12:49",
-            "Gen 12:10",
-            "2Sa 7:16",
-            "Psa 2:2",
-            "Psa 2:16",
-            "Psa 2:10",
-            "Psa 2:22",
-            "Isa 7:13",
-            "Isa 7:14",
-            "Isa 7:9",
-            "Isa 7:6",
-            "Isa 7:28",
-            "Isa 7:16",
-            "Isa 7:42",
-            "Isa 7:49",
-            "Isa 7:50",
-            "Isa 7:52",
-            "Isa 7:53",
-            "Isa 7:61",
-            "Isa 7:1",
-            "Dan 9:25",
-            "Dan 9:26",
-            "Hos 2:23",
-            "Mic 5:2",
-            "Hag 2:7",
-            "Zec 9:9",
-            "Zec 9:11",
-            "Zec 9:13",
-            "Zec 9:7",
-            "Mal 3:1",
-            "Mal 3:2",
-            "Mat 1:1",
-            "Mat 1:23",
-            "Mat 1:2",
-            "Mat 1:1",
-            "Mat 1:6",
-            "Mat 1:4",
-            "Mat 1:15",
-            "Mat 1:16",
-            "Mat 1:12",
-            "Mat 21:42",
-            "Mat 21:26",
-            "Mat 21:31",
-            "Mat 21:27",
-            "Mat 21:9",
-            "Mat 21:10",
-            "Mat 21:34",
-            "Mat 21:35",
-            "Mat 21:50",
-            "Mat 21:28",
-            "Mat 21:5",
-            "Mat 21:6",
-            "1Jn 5:20"
-          ]
-        },
-        {
-          "verse": 9,
-          "note_idx": 3,
-          "letter": "c",
-          "keyword": "Temples (all Jehovah&rsquo;s)",
-          "text": "Temples (all Jehovah&rsquo;s): all Jehovah&rsquo;s:  [ Hag 2:9 ]",
-          "html": "<p><b>Temples (all Jehovah&rsquo;s)</b>: all Jehovah&rsquo;s:  [ Hag 2:9 ]</p>",
-          "references": [
-            "Hag 2:9"
-          ]
-        },
-        {
           "verse": 1,
-          "note_idx": 4,
+          "note_idx": 1,
           "keyword": "seventh month",
           "text": "i.e. October.",
           "html": "<p><b>seventh month</b> </p><p>i.e. October. </p>",
@@ -579,7 +421,7 @@
         },
         {
           "verse": 3,
-          "note_idx": 5,
+          "note_idx": 2,
           "keyword": "house in her first glory",
           "text": "The prophet calls upon the old men who remembered Solomon’s temple to witness to the new generation how greatly that structure exceeded the present in magnificence; and then utters a prophecy (Hag 1:7-9) which can only refer to the future kingdom temple described by Ezekiel. It is certain that the restoration temple and all subsequent structures, including Herod’s, were far inferior in costliness and splendour to Solomon’s. The present period is described in Hos 3:4; Hos 3:5. Hab 2:6 is quoted in Heb 12:26; Heb 12:27. Hab 2:7: \"I will shake all nations,\" refers to the great tribulation and is followed by the coming of Christ in glory, as in Mat 24:29; Mat 24:30. \"The desire of all nations\" is Christ. (See Scofield \" Mal 3:1 \") .",
           "html": "<p><b>house in her first glory</b> </p><p>The prophet calls upon the old men who remembered Solomon&rsquo;s temple to witness to the new generation how greatly that structure exceeded the present in magnificence; and then utters a prophecy (<ref>Hag 1:7-9</ref>) which can only refer to the future kingdom temple described by Ezekiel. It is certain that the restoration temple and all subsequent structures, including Herod&rsquo;s, were far inferior in costliness and splendour to Solomon&rsquo;s. The present period is described in <ref>Hos 3:4</ref>; <ref>Hos 3:5</ref>. <ref>Hab 2:6</ref> is quoted in <ref>Heb 12:26</ref>; <ref>Heb 12:27</ref>. <ref>Hab 2:7</ref>: &quot;I will shake all nations,&quot; refers to the great tribulation and is followed by the coming of Christ in glory, as in <ref>Mat 24:29</ref>; <ref>Mat 24:30</ref>. &quot;The desire of all nations&quot; is Christ. <i>(See Scofield &quot;</i><i><ref>Mal 3:1</ref></i><i>&quot;)</i>. </p>",
@@ -598,7 +440,7 @@
         },
         {
           "verse": 9,
-          "note_idx": 6,
+          "note_idx": 3,
           "keyword": "latter house",
           "text": "In a sense all the temples (i.e Solomon’s; Ezra’s; Herod’s; that which will be used by the unbelieving Jews under covenant with the Beast Dan 9:27; Mat 24:15; 2Th 2:3; 2Th 2:4 and Ezekiel’s future kingdom temple Ezekiel 40-47.), are treated as one \"house\"-- the \"house of the Lord,\" since they all profess to be that. For that reason Christ purified the temple of His day, erected though it was by an Idumean usurper to please the Jews. Mat 21:12; Mat 21:13. glory Or, the future glory of this house shall be greater than the former.",
           "html": "<p><b>latter house</b> </p><p>In a sense all the temples (i.e Solomon&rsquo;s; Ezra&rsquo;s; Herod&rsquo;s; that which will be used by the unbelieving Jews under covenant with the Beast <ref>Dan 9:27</ref>; <ref>Mat 24:15</ref>; <ref>2Th 2:3</ref>; <ref>2Th 2:4</ref> and Ezekiel&rsquo;s future kingdom temple Ezekiel 40-47.), are treated as one &quot;house&quot;-- the &quot;house of the Lord,&quot; since they all profess to be that. For that reason Christ purified the temple of His day, erected though it was by an Idumean usurper to please the Jews. <ref>Mat 21:12</ref>; <ref>Mat 21:13</ref>. </p><p><b>glory</b> Or, the future glory of this house shall be greater than the former. </p>",
@@ -613,7 +455,7 @@
         },
         {
           "verse": 12,
-          "note_idx": 7,
+          "note_idx": 4,
           "keyword": "holy flesh",
           "text": "(See Scofield \" Jer 11:15 \") .",
           "html": "<p><b>holy flesh</b> <i>(See Scofield &quot;</i><i><ref>Jer 11:15</ref></i><i>&quot;)</i> .</p>",

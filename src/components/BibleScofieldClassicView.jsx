@@ -122,9 +122,9 @@ export default function BibleScofieldClassicView({
   const leftVerses = verses.slice(0, half);
   const rightVerses = verses.slice(half);
 
-  // Extract middle column notes from footnotes (prioritize true margin notes with fn.letter)
-  const middleRefs = [];
+  // Extract middle column notes (true margin cross-references or concise keywords)
   const letteredNotes = footnotes.filter(fn => !!fn.letter);
+  const middleRefs = [];
   if (letteredNotes.length > 0) {
     letteredNotes.forEach(fn => {
       middleRefs.push({
@@ -137,18 +137,26 @@ export default function BibleScofieldClassicView({
       });
     });
   } else {
-    footnotes.forEach((fn, idx) => {
-      const letter = fn.letter || String.fromCharCode(97 + (idx % 26)); // a, b, c...
+    // For chapters with only standard doctrinal notes, display concise keywords in center column
+    footnotes.forEach((fn) => {
       middleRefs.push({
-        letter: letter,
+        letter: '',
         verse: fn.verse,
         note_idx: fn.note_idx,
         keyword: fn.keyword,
         refs: fn.references || [],
-        text: fn.text
+        text: fn.keyword || (fn.references && fn.references.length > 0 ? fn.references.slice(0, 2).join('; ') : `v.${fn.verse}`)
       });
     });
   }
+
+  // Extract bottom doctrinal footnotes (exclude margin-only short cross references)
+  const bottomFootnotes = footnotes.filter(fn => {
+    if (fn.footnote_number) return true;
+    if (!fn.letter) return true; // Standard doctrinal note from Scofield SQL
+    // If it has a letter, only show at bottom if it contains a full commentary note (>100 characters)
+    return fn.text && fn.text.length > 100;
+  });
 
   // Render KJV verse text with <i> translator additions and authentic Scofield superscripts
   const renderScofieldVerseText = (vItem) => {
@@ -630,7 +638,7 @@ export default function BibleScofieldClassicView({
                     <span className="font-bold text-stone-900 mr-1 not-italic text-[11px]">
                       {mr.verse}
                     </span>
-                    <i>{mr.letter}</i>{' '}
+                    {mr.letter ? <i>{mr.letter} </i> : null}
                     <span className="text-[11.5px]">
                       {mr.text && mr.text.length < 50
                         ? mr.text
@@ -687,15 +695,16 @@ export default function BibleScofieldClassicView({
         </div>
 
         {/* 5. FOOTNOTES PANEL DI BAWAH (Dark Crimson Red #8B0000, 1px Border) */}
-        {footnotes.length > 0 && (
+        {bottomFootnotes.length > 0 && (
           <div className="sco-footnotes">
             <div className="text-[11px] uppercase tracking-wider font-bold text-stone-700 mb-1 border-b border-stone-300 pb-1 flex justify-between items-center">
-              <span>Scofield Reference Notes ({footnotes.length})</span>
+              <span>Scofield Reference Notes ({bottomFootnotes.length})</span>
               <span className="text-[10px] text-stone-500 font-normal">Klik catatan untuk membaca</span>
             </div>
 
-            {footnotes.map((fn) => {
+            {bottomFootnotes.map((fn, fIdx) => {
               const isSelected = selectedNoteIdx === fn.note_idx;
+              const displayNum = fn.footnote_number || (fIdx + 1);
               return (
                 <div 
                   key={fn.note_idx}
@@ -706,7 +715,7 @@ export default function BibleScofieldClassicView({
                   }}
                   className={`sco-fn-entry ${isSelected ? 'selected-fn' : ''}`}
                 >
-                  <span className="sco-fn-num">{fn.footnote_number || (fn.letter ? `[${fn.letter}]` : fn.note_idx)}</span>
+                  <span className="sco-fn-num">{displayNum}</span>
                   <span className="font-bold">({selectedChapter}:{fn.verse}) </span>
                   {fn.keyword && <span className="font-bold">{fn.keyword}: </span>}
                   <span>

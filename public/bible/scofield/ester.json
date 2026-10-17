@@ -19,7 +19,7 @@
         {
           "verse": 1,
           "text": "Now it came to pass in the days of Ahasuerus, (this is Ahasuerus which reigned, from India even unto Ethiopia, over an hundred and seven and twenty provinces:)",
-          "marked_text": "Now it came to pass in the days of Ahasuerus, (this is Ahasuerus which reigned, from India even unto Ethiopia, over an hundred and seven and twenty provinces:)<fn n=\"a\"/>",
+          "marked_text": "Now it came to pass in the days of Ahasuerus, (this is Ahasuerus which reigned, from India even unto Ethiopia, over an hundred and seven and twenty provinces:)",
           "outlines": "The events recorded in Esther cover a period of 12 years (Ussher).",
           "footnotes": null
         },
@@ -182,19 +182,8 @@
       ],
       "footnotes": [
         {
-          "verse": 1,
-          "note_idx": 1,
-          "letter": "a",
-          "keyword": "Esther (Book of, Introduction)",
-          "text": "Esther (Book of, Introduction): Book of, Introduction:  [ Est 1:1 ]",
-          "html": "<p><b>Esther (Book of, Introduction)</b>: Book of, Introduction:  [ Est 1:1 ]</p>",
-          "references": [
-            "Est 1:1"
-          ]
-        },
-        {
           "verse": 10,
-          "note_idx": 2,
+          "note_idx": 1,
           "keyword": "chamberlains",
           "text": "Or, enunchs.",
           "html": "<p><b>chamberlains</b> </p><p>Or, enunchs. </p>",
