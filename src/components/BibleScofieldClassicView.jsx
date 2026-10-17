@@ -122,19 +122,33 @@ export default function BibleScofieldClassicView({
   const leftVerses = verses.slice(0, half);
   const rightVerses = verses.slice(half);
 
-  // Extract middle column notes from footnotes
+  // Extract middle column notes from footnotes (prioritize true margin notes with fn.letter)
   const middleRefs = [];
-  footnotes.forEach((fn, idx) => {
-    const letter = fn.letter || String.fromCharCode(97 + (idx % 26)); // a, b, c...
-    middleRefs.push({
-      letter: letter,
-      verse: fn.verse,
-      note_idx: fn.note_idx,
-      keyword: fn.keyword,
-      refs: fn.references || [],
-      text: fn.text
+  const letteredNotes = footnotes.filter(fn => !!fn.letter);
+  if (letteredNotes.length > 0) {
+    letteredNotes.forEach(fn => {
+      middleRefs.push({
+        letter: fn.letter,
+        verse: fn.verse,
+        note_idx: fn.note_idx,
+        keyword: fn.keyword,
+        refs: fn.references || [],
+        text: fn.text
+      });
     });
-  });
+  } else {
+    footnotes.forEach((fn, idx) => {
+      const letter = fn.letter || String.fromCharCode(97 + (idx % 26)); // a, b, c...
+      middleRefs.push({
+        letter: letter,
+        verse: fn.verse,
+        note_idx: fn.note_idx,
+        keyword: fn.keyword,
+        refs: fn.references || [],
+        text: fn.text
+      });
+    });
+  }
 
   // Render KJV verse text with <i> translator additions and authentic Scofield superscripts
   const renderScofieldVerseText = (vItem) => {
@@ -144,15 +158,19 @@ export default function BibleScofieldClassicView({
     // Convert *word* to <i>word</i> (KJV italics translator additions)
     raw = raw.replace(/\*([^*]+)\*/g, '<i class="sco-trans-word">$1</i>');
 
-    const parts = raw.split(/(<fn n="\d+"\/>)/g);
+    const parts = raw.split(/(<fn n="[^"]+"\/>)/g);
     return parts.map((part, pIdx) => {
-      const match = part.match(/<fn n="(\d+)"\/>/);
+      const match = part.match(/<fn n="([^"]+)"\/>/);
       if (match) {
-        const noteIdx = Number(match[1]);
-        const fnObj = footnotes.find(f => f.note_idx === noteIdx);
-        const isSelected = selectedNoteIdx === noteIdx;
-        const isLetter = !!fnObj?.letter;
-        const displayLabel = isLetter ? fnObj.letter : noteIdx;
+        const rawVal = match[1];
+        const isNumeric = /^\d+$/.test(rawVal);
+        const fnObj = isNumeric 
+          ? footnotes.find(f => f.note_idx === Number(rawVal) || f.footnote_number === Number(rawVal))
+          : footnotes.find(f => f.letter === rawVal || f.note_idx === Number(rawVal));
+        const isSelected = fnObj && selectedNoteIdx === fnObj.note_idx;
+        const isLetter = !!fnObj?.letter || !isNumeric;
+        const displayLabel = isLetter ? (fnObj?.letter || rawVal) : (fnObj?.footnote_number || rawVal);
+        const noteIdx = fnObj?.note_idx || (isNumeric ? Number(rawVal) : pIdx);
 
         return (
           <sup
@@ -172,7 +190,7 @@ export default function BibleScofieldClassicView({
               ? `sco-sup-letter ${isSelected ? 'sco-sup-selected' : ''}`
               : `sco-sup-fn ${isSelected ? 'sco-sup-selected' : ''}`
             }
-            title={fnObj?.keyword ? `Scofield: ${fnObj.keyword}` : `Scofield Note ${noteIdx}`}
+            title={fnObj?.keyword ? `Scofield: ${fnObj.keyword}` : `Scofield Note ${displayLabel}`}
           >
             {displayLabel}
           </sup>

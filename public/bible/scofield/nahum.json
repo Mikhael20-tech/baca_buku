@@ -19,7 +19,7 @@
         {
           "verse": 1,
           "text": "The burden of Nineveh. The book of the vision of Nahum the Elkoshite.",
-          "marked_text": "The burden of Nineveh<fn n=\"1\"/>. The book of the vision of Nahum the Elkoshite.",
+          "marked_text": "The burden of Nineveh<fn n=\"b\"/><fn n=\"1\"/>. The book of the vision of Nahum<fn n=\"a\"/> the Elkoshite.",
           "outlines": "Nahum: Book Introduction - Nahum.",
           "footnotes": [
             {
@@ -53,7 +53,7 @@
         {
           "verse": 2,
           "text": "God is jealous, and the Lord revengeth; the Lord revengeth, and is furious; the Lord will take vengeance on his adversaries, and he reserveth wrath for his enemies.",
-          "marked_text": "God is jealous<fn n=\"2\"/>, and the Lord revengeth; the Lord revengeth, and is furious; the Lord will take vengeance on his adversaries, and he reserveth wrath for his enemies.",
+          "marked_text": "God is jealous<fn n=\"2\"/>, and the Lord revengeth; the Lord revengeth, and is furious; the Lord will take vengeance on his adversaries, and he reserveth wrath for his enemies.<fn n=\"c\"/>",
           "outlines": null,
           "footnotes": [
             {
@@ -177,6 +177,40 @@
         {
           "verse": 1,
           "note_idx": 1,
+          "letter": "a",
+          "keyword": "Nahum (Book of, Introduction)",
+          "text": "Nahum (Book of, Introduction): Book of, Introduction:  [ Nah 1:1 ]",
+          "html": "<p><b>Nahum (Book of, Introduction)</b>: Book of, Introduction:  [ Nah 1:1 ]</p>",
+          "references": [
+            "Nah 1:1"
+          ]
+        },
+        {
+          "verse": 1,
+          "note_idx": 2,
+          "letter": "b",
+          "keyword": "Nineveh (symbolic meaning)",
+          "text": "Nineveh (symbolic meaning): symbolic meaning:  [ Isa 13:1 ], [ Nah 1:1 ]",
+          "html": "<p><b>Nineveh (symbolic meaning)</b>: symbolic meaning:  [ Isa 13:1 ], [ Nah 1:1 ]</p>",
+          "references": [
+            "Isa 13:1",
+            "Nah 1:1"
+          ]
+        },
+        {
+          "verse": 2,
+          "note_idx": 3,
+          "letter": "c",
+          "keyword": "God (character of, in Nahum)",
+          "text": "God (character of, in Nahum): character of, in Nahum:  [ Nah 1:2 ]",
+          "html": "<p><b>God (character of, in Nahum)</b>: character of, in Nahum:  [ Nah 1:2 ]</p>",
+          "references": [
+            "Nah 1:2"
+          ]
+        },
+        {
+          "verse": 1,
+          "note_idx": 4,
           "keyword": "Nineveh",
           "text": "Nineveh stands in Scripture as the representative of apostate religious Gentiledom, as Babylon represents the confusion into which the Gentile political world-system has fallen Dan 2:41-43, (See Scofield \" Isa 13:1 \") , Under the preaching of Jonah, B.C. 862, the city and king had turned to God (Elohim), Jon 3:3-10 But in the time of Nahum, more than a century later, the city had wholly apostatized from God. It is this which distinguishes Nineveh from all the other ancient Gentile cities, and which makes her the suited symbol of the present religious Gentile world-system in the last day. Morally, Nineveh is described in Rom 1:21-23. The chief deity of apostate Nineveh was the bull-god, with the face of a man and the wings of a bird: \"an image made like to corruptible man, and to birds, and four-footed beasts.\" The message of Nahum, uttered about one hundred years before the destruction of Nineveh, is, therefore, not a call to repentance, but an unrelieved warning of judgment: \"He will make an utter end: affliction shall not rise up the second time.\" Nah 1:9; see, also, Nah 3:10. For there is no remedy for apostasy but utter judgment, and a new beginning. Cf.; Isa 1:4; Isa 1:5; Isa 1:24-28; Heb 6:4-8; Pro 29:1. It is the way of God; apostasy is punished by catastrophic destruction. Of this the flood and the destruction of Nineveh are witnesses. The coming destruction of apostate Christendom is foreshadowed by these. (Cf) Dan 2:34; Dan 2:35; Luk 17:26; Luk 17:27; Rev 19:17-21. burden See note 1, (See Scofield \" Isa 13:1 \")",
           "html": "<p><b>Nineveh</b> </p><p>Nineveh stands in Scripture as the representative of apostate religious Gentiledom, as Babylon represents the confusion into which the Gentile political world-system has fallen <ref>Dan 2:41-43</ref>, <i>(See Scofield &quot;</i><i><ref>Isa 13:1</ref></i><i>&quot;)</i>, Under the preaching of Jonah, B.C. 862, the city and king had turned to God (Elohim), <ref>Jon 3:3-10</ref> But in the time of Nahum, more than a century later, the city had wholly apostatized from God. It is this which distinguishes Nineveh from all the other ancient Gentile cities, and which makes her the suited symbol of the present religious Gentile world-system in the last day. Morally, Nineveh is described in <ref>Rom 1:21-23</ref>. The chief deity of apostate Nineveh was the bull-god, with the face of a man and the wings of a bird: &quot;an image made like to corruptible man, and to birds, and four-footed beasts.&quot; </p><p>The message of Nahum, uttered about one hundred years before the destruction of Nineveh, is, therefore, not a call to repentance, but an unrelieved warning of judgment: &quot;He will make an utter end: affliction shall not rise up the second time.&quot; <ref>Nah 1:9</ref>; see, also, <ref>Nah 3:10</ref>. For there is no remedy for apostasy but utter judgment, and a new beginning. Cf.; <ref>Isa 1:4</ref>; <ref>Isa 1:5</ref>; <ref>Isa 1:24-28</ref>; <ref>Heb 6:4-8</ref>; <ref>Pro 29:1</ref>. </p><p>It is the way of God; apostasy is punished by catastrophic destruction. Of this the flood and the destruction of Nineveh are witnesses. The coming destruction of apostate Christendom is foreshadowed by these. (Cf) <ref>Dan 2:34</ref>; <ref>Dan 2:35</ref>; <ref>Luk 17:26</ref>; <ref>Luk 17:27</ref>; <ref>Rev 19:17-21</ref>. </p><p><b>burden</b> See note 1, <i>(See Scofield &quot;</i><i><ref>Isa 13:1</ref></i><i>&quot;)</i> </p>",
@@ -202,7 +236,7 @@
         },
         {
           "verse": 2,
-          "note_idx": 2,
+          "note_idx": 5,
           "keyword": "God is jealous",
           "text": "The great ethical lesson of Nahum is that the character of God makes Him not only \"slow to anger,\" and \"a stronghold to them that trust Him,\" but also one who \"will not at all acquit the wicked.\" He can be \"just, and the justifier of him which believeth in Jesus\" Rom 3:26 but only because His holy law has been vindicated in the cross.",
           "html": "<p><b>God is jealous</b> </p><p>The great ethical lesson of Nahum is that the character of God makes Him not only &quot;slow to anger,&quot; and &quot;a stronghold to them that trust Him,&quot; but also one who &quot;will not at all acquit the wicked.&quot; He can be &quot;just, and the justifier of him which believeth in Jesus&quot; <ref>Rom 3:26</ref> but only because His holy law has been vindicated in the cross. </p>",
@@ -212,7 +246,7 @@
         },
         {
           "verse": 7,
-          "note_idx": 3,
+          "note_idx": 6,
           "keyword": "he knoweth them that trust",
           "text": "Psa 1:6; 2Ti 2:19 (See Scofield \" Psa 2:12 \") .",
           "html": "<p><b>he knoweth them that trust</b> <ref>Psa 1:6</ref>; <ref>2Ti 2:19</ref> <i>(See Scofield &quot;</i><i><ref>Psa 2:12</ref></i><i>&quot;)</i>. </p>",

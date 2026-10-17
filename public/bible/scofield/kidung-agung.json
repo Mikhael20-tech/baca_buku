@@ -19,7 +19,7 @@
         {
           "verse": 1,
           "text": "The song of songs, which is Solomon’s.",
-          "marked_text": "The song of songs, which is Solomon’s.",
+          "marked_text": "The song<fn n=\"b\"/> of songs, which is Solomon’s.<fn n=\"a\"/>",
           "outlines": "fear in the night.",
           "footnotes": null
         },
@@ -136,7 +136,30 @@
           "footnotes": null
         }
       ],
-      "footnotes": []
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "letter": "a",
+          "keyword": "Christ (love of, for bride)",
+          "text": "Christ (love of, for bride): love of, for bride:  [ Son 1:1 ]",
+          "html": "<p><b>Christ (love of, for bride)</b>: love of, for bride:  [ Son 1:1 ]</p>",
+          "references": [
+            "Son 1:1"
+          ]
+        },
+        {
+          "verse": 1,
+          "note_idx": 2,
+          "letter": "b",
+          "keyword": "Song (of Solomon, Book of, Introduction)",
+          "text": "Song (of Solomon, Book of, Introduction): of Solomon, Book of, Introduction:  [ Son 1:1 ]",
+          "html": "<p><b>Song (of Solomon, Book of, Introduction)</b>: of Solomon, Book of, Introduction:  [ Son 1:1 ]</p>",
+          "references": [
+            "Son 1:1"
+          ]
+        }
+      ]
     },
     "2": {
       "chapter": 2,
@@ -152,7 +175,7 @@
         {
           "verse": 2,
           "text": "As the lily among thorns, so is my love among the daughters.",
-          "marked_text": "As the lily among thorns, so is<fn n=\"1\"/> my love among the daughters.",
+          "marked_text": "As the lily among thorns, so is<fn n=\"1\"/> my love among the daughters.<fn n=\"a\"/>",
           "outlines": null,
           "footnotes": [
             {
@@ -254,7 +277,7 @@
         {
           "verse": 14,
           "text": "O my dove, that art in the clefts of the rock, in the secret places of the stairs, let me see thy countenance, let me hear thy voice; for sweet is thy voice, and thy countenance is comely.",
-          "marked_text": "O my dove<fn n=\"3\"/>, that art in the clefts of the rock, in the secret places of the stairs, let me see thy countenance, let me hear thy voice; for sweet is thy voice, and thy countenance is comely.",
+          "marked_text": "O my dove<fn n=\"3\"/>, that art in the clefts of the rock, in the secret places of the stairs, let me see thy countenance, let me hear thy voice; for sweet is thy voice, and thy countenance is comely.<fn n=\"b\"/>",
           "outlines": null,
           "footnotes": [
             {
@@ -295,6 +318,30 @@
         }
       ],
       "footnotes": [
+        {
+          "verse": 2,
+          "note_idx": 4,
+          "letter": "a",
+          "keyword": "Christ (and the bride)",
+          "text": "Christ (and the bride): and the bride:  [ Son 2:2 ], [ Son 5:2 ], [ Eph 5:32 ]",
+          "html": "<p><b>Christ (and the bride)</b>: and the bride:  [ Son 2:2 ], [ Son 5:2 ], [ Eph 5:32 ]</p>",
+          "references": [
+            "Son 2:2",
+            "Son 5:2",
+            "Eph 5:32"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 5,
+          "letter": "b",
+          "keyword": "Communion (of Christ and bride)",
+          "text": "Communion (of Christ and bride): of Christ and bride:  [ Son 2:14 ]",
+          "html": "<p><b>Communion (of Christ and bride)</b>: of Christ and bride:  [ Son 2:14 ]</p>",
+          "references": [
+            "Son 2:14"
+          ]
+        },
         {
           "verse": 2,
           "note_idx": 1,
@@ -561,7 +608,7 @@
         {
           "verse": 2,
           "text": "I sleep, but my heart waketh: it is the voice of my beloved that knocketh, saying, Open to me, my sister, my love, my dove, my undefiled: for my head is filled with dew, and my locks with the drops of the night.",
-          "marked_text": "I sleep<fn n=\"1\"/>, but my heart waketh: it is the voice of my beloved that knocketh, saying, Open to me, my sister, my love, my dove, my undefiled: for my head is filled with dew, and my locks with the drops of the night.",
+          "marked_text": "I sleep<fn n=\"1\"/>, but my heart waketh: it is the voice of my beloved that knocketh, saying, Open to me, my sister, my love, my dove, my undefiled: for my head is filled with dew, and my locks with the drops of the night.<fn n=\"a\"/>",
           "outlines": null,
           "footnotes": [
             {
@@ -702,6 +749,19 @@
         }
       ],
       "footnotes": [
+        {
+          "verse": 2,
+          "note_idx": 4,
+          "letter": "a",
+          "keyword": "Christ (and the bride)",
+          "text": "Christ (and the bride): and the bride:  [ Son 2:2 ], [ Son 5:2 ], [ Eph 5:32 ]",
+          "html": "<p><b>Christ (and the bride)</b>: and the bride:  [ Son 2:2 ], [ Son 5:2 ], [ Eph 5:32 ]</p>",
+          "references": [
+            "Son 2:2",
+            "Son 5:2",
+            "Eph 5:32"
+          ]
+        },
         {
           "verse": 2,
           "note_idx": 1,
