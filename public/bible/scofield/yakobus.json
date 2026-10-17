@@ -1,1 +1,1466 @@
-{"id": "yakobus", "name": "James", "name_id": "Yakobus", "translation": "Scofield Reference Bible (1917)", "translation_short": "Scofield 1917", "testament": "PB", "chapters_count": 5, "intro": {"title": "Book Introduction - James", "html": "<p style=\"font-weight:bold;\">Book Introduction - James</p><p><b>WRITER</b>: James <i>(See Scofield &quot;</i><i><ref>Mat 4:21</ref></i><i>&quot;)</i>, called &quot;the Just&quot; mentioned by Paul with Cephas and John as &quot;pillars&quot; in the church at Jerusalem <ref>Gal 2:9</ref>. He seems to have been, as a religious man, austere, legal, ceremonial <ref>Act 21:18-24</ref>. </p><p><b>DATE</b>: Tradition fixes the martyrdom of James in the year 62, but his Epistle shows no trace of the larger revelations concerning the church and the distinctive doctrines of grace made through the Apostle Paul, nor even of the discussion concerning the relation of Gentile converts to the law of Moses, which culminated in the first council (Acts 15.), over which James presided. This presumes the very early date of James, which may confidently be set down as &quot;the first Epistle to Christians.&quot;--Weston. </p><p><b>THEME</b>: By &quot;the twelve tribes scattered abroad&quot; we are to understand, not Jews, but Christian Jews of the Dispersion. The church began with such <ref>Act 2:5-11</ref> and James, who seems not to have left Jerusalem, would feel a particular pastoral responsibility for these scattered sheep. They still resorted to the synagogues, or called their own assemblies by that name <ref>Jas 2:2</ref>, where &quot;assembly&quot; is &quot;synagogue&quot; in the Gr.). It appears from <ref>Jas 2:1-8</ref> that they still held the synagogue courts for the trial of causes arising amongst themselves. The Epistle, then, is elementary in the extreme. To suppose that <ref>Jas 2:14-26</ref> is a polemic against Paul&rsquo;s doctrine of justification is absurd. Neither Galatians nor Romans was yet written. </p><p>James&rsquo; theme, then, is &quot;religion&quot; (Gr., threskeia, &quot;outward religious service&quot;) as the expression and proof of faith. He does not exalt works as against faith, but faith as producing works. His style is that of the Wisdom-books of the O.T. </p><p>The divisions are five: </p><p>1. The testing of faith (<ref>Jas 1:1</ref> to <ref>Jas 2:26</ref>). </p><p>2. The reality of faith tested by the tongue (<ref>Jas 3:1-18</ref>). </p><p>3. The rebuke of worldliness (<ref>Jas 4:1-17</ref>). </p><p>4. The rich warned.</p><p>5. Hortatory.</p>", "text": "Book Introduction - James WRITER : James (See Scofield \" Mat 4:21 \") , called \"the Just\" mentioned by Paul with Cephas and John as \"pillars\" in the church at Jerusalem Gal 2:9. He seems to have been, as a religious man, austere, legal, ceremonial Act 21:18-24. DATE : Tradition fixes the martyrdom of James in the year 62, but his Epistle shows no trace of the larger revelations concerning the church and the distinctive doctrines of grace made through the Apostle Paul, nor even of the discussion concerning the relation of Gentile converts to the law of Moses, which culminated in the first council (Acts 15.), over which James presided. This presumes the very early date of James, which may confidently be set down as \"the first Epistle to Christians.\"--Weston. THEME : By \"the twelve tribes scattered abroad\" we are to understand, not Jews, but Christian Jews of the Dispersion. The church began with such Act 2:5-11 and James, who seems not to have left Jerusalem, would feel a particular pastoral responsibility for these scattered sheep. They still resorted to the synagogues, or called their own assemblies by that name Jas 2:2, where \"assembly\" is \"synagogue\" in the Gr.). It appears from Jas 2:1-8 that they still held the synagogue courts for the trial of causes arising amongst themselves. The Epistle, then, is elementary in the extreme. To suppose that Jas 2:14-26 is a polemic against Paul’s doctrine of justification is absurd. Neither Galatians nor Romans was yet written. James’ theme, then, is \"religion\" (Gr., threskeia, \"outward religious service\") as the expression and proof of faith. He does not exalt works as against faith, but faith as producing works. His style is that of the Wisdom-books of the O.T. The divisions are five: 1. The testing of faith (Jas 1:1 to Jas 2:26). 2. The reality of faith tested by the tongue (Jas 3:1-18). 3. The rebuke of worldliness (Jas 4:1-17). 4. The rich warned. 5. Hortatory."}, "chapters": {"1": {"chapter": 1, "outlines": null, "verses": [{"verse": 1, "text": "James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting.", "marked_text": "James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting.", "outlines": null, "footnotes": null}, {"verse": 2, "text": "My brethren, count it all joy when ye fall into divers temptations;", "marked_text": "My brethren, count it all joy when ye fall into divers temptations;", "outlines": null, "footnotes": null}, {"verse": 3, "text": "Knowing this, that the trying of your faith worketh patience.", "marked_text": "Knowing this, that the trying of your faith worketh patience.", "outlines": null, "footnotes": null}, {"verse": 4, "text": "But let patience have her perfect work, that ye may be perfect and entire, wanting nothing.", "marked_text": "But let patience have her perfect<fn n=\"1\"/> work, that ye may be perfect and entire, wanting nothing.", "outlines": null, "footnotes": [{"verse": 4, "note_idx": 1, "keyword": "perfect", "text": "mature and complete. (See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p>mature and complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}]}, {"verse": 5, "text": "If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.", "marked_text": "If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.", "outlines": null, "footnotes": null}, {"verse": 6, "text": "But let him ask in faith, nothing wavering. For he that wavereth is like a wave of the sea driven with the wind and tossed.", "marked_text": "But let him ask in faith, nothing wavering. For he that wavereth is like a wave of the sea driven with the wind and tossed.", "outlines": null, "footnotes": null}, {"verse": 7, "text": "For let not that man think that he shall receive any thing of the Lord.", "marked_text": "For let not that man think that he shall receive any thing of the Lord.", "outlines": null, "footnotes": null}, {"verse": 8, "text": "A double minded man is unstable in all his ways.", "marked_text": "A double minded man is unstable in all his ways.", "outlines": null, "footnotes": null}, {"verse": 9, "text": "Let the brother of low degree rejoice in that he is exalted:", "marked_text": "Let the brother of low degree rejoice in that he is exalted:", "outlines": null, "footnotes": null}, {"verse": 10, "text": "But the rich, in that he is made low: because as the flower of the grass he shall pass away.", "marked_text": "But the rich, in that he is made low: because as the flower of the grass he shall pass away.", "outlines": null, "footnotes": null}, {"verse": 11, "text": "For the sun is no sooner risen with a burning heat, but it withereth the grass, and the flower thereof falleth, and the grace of the fashion of it perisheth: so also shall the rich man fade away in his ways.", "marked_text": "For the sun is no sooner risen with a burning heat, but it withereth the grass, and the flower thereof falleth, and the grace of the fashion of it perisheth: so also shall the rich man fade away in his ways.", "outlines": null, "footnotes": null}, {"verse": 12, "text": "Blessed is the man that endureth temptation: for when he is tried, he shall receive the crown of life, which the Lord hath promised to them that love him.", "marked_text": "Blessed is the man that endureth temptation: for when he is tried, he shall receive the crown of life, which the Lord hath promised to them that love him.", "outlines": null, "footnotes": null}, {"verse": 13, "text": "Let no man say when he is tempted, I am tempted of God: for God cannot be tempted with evil, neither tempteth he any man:", "marked_text": "Let no man say when he is tempted, I am tempted of God: for God cannot be tempted with evil, neither tempteth he any man:", "outlines": null, "footnotes": null}, {"verse": 14, "text": "But every man is tempted, when he is drawn away of his own lust, and enticed.", "marked_text": "But every man is tempted<fn n=\"2\"/>, when he is drawn away of his own lust, and enticed.", "outlines": null, "footnotes": [{"verse": 14, "note_idx": 2, "keyword": "tempted", "text": "\"Temptation\" is used in two senses: (1) Solicitation to evil (e.g. Gen 3:1-6; Mat 4:1; 1Co 10:13; 2Co 11:3; 2Co 11:4; Jas 1:14). (2) Testing under trial (eg) Gen 22:1; Luk 22:28 Cf Luk 4:2, Cf Mat 6:13 (solicitation to evil) and 1Pe 1:6 (testing under trial).", "html": "<p><b>tempted</b> </p><p>&quot;Temptation&quot; is used in two senses: </p><p>(1) Solicitation to evil (e.g. <ref>Gen 3:1-6</ref>; <ref>Mat 4:1</ref>; <ref>1Co 10:13</ref>; <ref>2Co 11:3</ref>; <ref>2Co 11:4</ref>; <ref>Jas 1:14</ref>). </p><p>(2) Testing under trial (eg) <ref>Gen 22:1</ref>; <ref>Luk 22:28</ref> Cf <ref>Luk 4:2</ref>, Cf <ref>Mat 6:13</ref> (solicitation to evil) and <ref>1Pe 1:6</ref> (testing under trial). </p>", "references": ["Gen 3:1-6", "Mat 4:1", "1Co 10:13", "2Co 11:3", "2Co 11:4", "Jas 1:14", "Gen 22:1", "Luk 22:28", "Luk 4:2", "Mat 6:13", "1Pe 1:6"]}]}, {"verse": 15, "text": "Then when lust hath conceived, it bringeth forth sin: and sin, when it is finished, bringeth forth death.", "marked_text": "Then when lust hath conceived, it bringeth forth sin<fn n=\"3\"/>: and sin, when it is finished, bringeth forth death.", "outlines": null, "footnotes": [{"verse": 15, "note_idx": 3, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> Sin. </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, {"verse": 16, "text": "Do not err, my beloved brethren.", "marked_text": "Do not err, my beloved brethren.", "outlines": null, "footnotes": null}, {"verse": 17, "text": "Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning.", "marked_text": "Every good gift<fn n=\"4\"/> and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning.", "outlines": null, "footnotes": [{"verse": 17, "note_idx": 4, "keyword": "gift", "text": "Two words are used in the original for \"gift,\" the first meaning the act of giving; the second, the thing given.", "html": "<p><b>gift</b> </p><p>Two words are used in the original for &quot;gift,&quot; the first meaning the act of giving; the second, the thing given. </p>", "references": []}]}, {"verse": 18, "text": "Of his own will begat he us with the word of truth, that we should be a kind of firstfruits of his creatures.", "marked_text": "Of his own will begat he us with the word of truth, that we should be a kind of firstfruits of his creatures.", "outlines": null, "footnotes": null}, {"verse": 19, "text": "Wherefore, my beloved brethren, let every man be swift to hear, slow to speak, slow to wrath:", "marked_text": "Wherefore, my beloved brethren, let every man be swift to hear, slow to speak, slow to wrath:", "outlines": null, "footnotes": null}, {"verse": 20, "text": "For the wrath of man worketh not the righteousness of God.", "marked_text": "For the wrath of man worketh not the righteousness<fn n=\"5\"/> of God.", "outlines": null, "footnotes": [{"verse": 20, "note_idx": 5, "keyword": "righteousness", "text": "(See Scofield \" Rom 3:21 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:21"]}]}, {"verse": 21, "text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save your souls.", "marked_text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save<fn n=\"6\"/> your souls.", "outlines": null, "footnotes": [{"verse": 21, "note_idx": 6, "keyword": "save", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}]}, {"verse": 22, "text": "But be ye doers of the word, and not hearers only, deceiving your own selves.", "marked_text": "But be ye doers of the word, and not hearers only, deceiving your own selves.", "outlines": null, "footnotes": null}, {"verse": 23, "text": "For if any be a hearer of the word, and not a doer, he is like unto a man beholding his natural face in a glass:", "marked_text": "For if any be a hearer of the word, and not a doer, he is like unto a man beholding his natural face in a glass:", "outlines": null, "footnotes": null}, {"verse": 24, "text": "For he beholdeth himself, and goeth his way, and straightway forgetteth what manner of man he was.", "marked_text": "For he beholdeth himself, and goeth his way, and straightway forgetteth what manner of man he was.", "outlines": null, "footnotes": null}, {"verse": 25, "text": "But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed.", "marked_text": "But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed.", "outlines": null, "footnotes": null}, {"verse": 26, "text": "If any man among you seem to be religious, and bridleth not his tongue, but deceiveth his own heart, this man’s religion is vain.", "marked_text": "If any man among you seem to be religious<fn n=\"7\"/>, and bridleth not his tongue, but deceiveth his own heart, this man’s religion is vain.", "outlines": null, "footnotes": [{"verse": 26, "note_idx": 7, "keyword": "religious", "text": "(Greek - θρη̑σκος = outwardly religious).", "html": "<p><b>religious</b> </p><p>(Greek - <grk><blu>&theta;&rho;&eta;&#x0311;&sigma;&kappa;&omicron;&sigmaf;</blu></grk> = outwardly religious). </p>", "references": []}]}, {"verse": 27, "text": "Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world.", "marked_text": "Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world<fn n=\"8\"/>.", "outlines": null, "footnotes": [{"verse": 27, "note_idx": 8, "keyword": "world", "text": "\"kosmos\" = world-system. Jas 4:4; Joh 7:7 (See Scofield \" Rev 13:8 \")", "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>Jas 4:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>", "references": ["Jas 4:4", "Joh 7:7", "Rev 13:8"]}]}], "footnotes": [{"verse": 4, "note_idx": 1, "keyword": "perfect", "text": "mature and complete. (See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p>mature and complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}, {"verse": 14, "note_idx": 2, "keyword": "tempted", "text": "\"Temptation\" is used in two senses: (1) Solicitation to evil (e.g. Gen 3:1-6; Mat 4:1; 1Co 10:13; 2Co 11:3; 2Co 11:4; Jas 1:14). (2) Testing under trial (eg) Gen 22:1; Luk 22:28 Cf Luk 4:2, Cf Mat 6:13 (solicitation to evil) and 1Pe 1:6 (testing under trial).", "html": "<p><b>tempted</b> </p><p>&quot;Temptation&quot; is used in two senses: </p><p>(1) Solicitation to evil (e.g. <ref>Gen 3:1-6</ref>; <ref>Mat 4:1</ref>; <ref>1Co 10:13</ref>; <ref>2Co 11:3</ref>; <ref>2Co 11:4</ref>; <ref>Jas 1:14</ref>). </p><p>(2) Testing under trial (eg) <ref>Gen 22:1</ref>; <ref>Luk 22:28</ref> Cf <ref>Luk 4:2</ref>, Cf <ref>Mat 6:13</ref> (solicitation to evil) and <ref>1Pe 1:6</ref> (testing under trial). </p>", "references": ["Gen 3:1-6", "Mat 4:1", "1Co 10:13", "2Co 11:3", "2Co 11:4", "Jas 1:14", "Gen 22:1", "Luk 22:28", "Luk 4:2", "Mat 6:13", "1Pe 1:6"]}, {"verse": 15, "note_idx": 3, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> Sin. </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}, {"verse": 17, "note_idx": 4, "keyword": "gift", "text": "Two words are used in the original for \"gift,\" the first meaning the act of giving; the second, the thing given.", "html": "<p><b>gift</b> </p><p>Two words are used in the original for &quot;gift,&quot; the first meaning the act of giving; the second, the thing given. </p>", "references": []}, {"verse": 20, "note_idx": 5, "keyword": "righteousness", "text": "(See Scofield \" Rom 3:21 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:21"]}, {"verse": 21, "note_idx": 6, "keyword": "save", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}, {"verse": 26, "note_idx": 7, "keyword": "religious", "text": "(Greek - θρη̑σκος = outwardly religious).", "html": "<p><b>religious</b> </p><p>(Greek - <grk><blu>&theta;&rho;&eta;&#x0311;&sigma;&kappa;&omicron;&sigmaf;</blu></grk> = outwardly religious). </p>", "references": []}, {"verse": 27, "note_idx": 8, "keyword": "world", "text": "\"kosmos\" = world-system. Jas 4:4; Joh 7:7 (See Scofield \" Rev 13:8 \")", "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>Jas 4:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>", "references": ["Jas 4:4", "Joh 7:7", "Rev 13:8"]}]}, "2": {"chapter": 2, "outlines": null, "verses": [{"verse": 1, "text": "My brethren, have not the faith of our Lord Jesus Christ, the Lord of glory, with respect of persons.", "marked_text": "My brethren, have not the faith of our Lord Jesus Christ, the Lord of glory<fn n=\"1\"/>, with respect of persons.", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "the Lord of glory", "text": "the Glory, i.e. in the sense of Heb 1:3 as taking the place of the shekinah. with respect In the presence of Christ the Glory, earthly distinctions disappear.", "html": "<p><b>the Lord of glory</b> the Glory, i.e. in the sense of <ref>Heb 1:3</ref> as taking the place of the shekinah. </p><p><b>with respect</b> In the presence of Christ the Glory, earthly distinctions disappear. </p>", "references": ["Heb 1:3"]}]}, {"verse": 2, "text": "For if there come unto your assembly a man with a gold ring, in goodly apparel, and there come in also a poor man in vile raiment;", "marked_text": "For if there come unto your assembly a man with a gold ring, in goodly apparel, and there come in also a poor man in vile raiment;", "outlines": null, "footnotes": null}, {"verse": 3, "text": "And ye have respect to him that weareth the gay clothing, and say unto him, Sit thou here in a good place; and say to the poor, Stand thou there, or sit here under my footstool:", "marked_text": "And ye have respect to him that weareth the gay clothing, and say unto him, Sit thou here in a good place; and say to the poor, Stand thou there, or sit here under my footstool:", "outlines": null, "footnotes": null}, {"verse": 4, "text": "Are ye not then partial in yourselves, and are become judges of evil thoughts?", "marked_text": "Are ye not then partial in yourselves, and are become judges of evil thoughts?", "outlines": null, "footnotes": null}, {"verse": 5, "text": "Hearken, my beloved brethren, Hath not God chosen the poor of this world rich in faith, and heirs of the kingdom which he hath promised to them that love him?", "marked_text": "Hearken, my beloved brethren, Hath not God chosen the poor of this world<fn n=\"2\"/> rich in faith, and heirs of the kingdom which he hath promised to them that love him?", "outlines": null, "footnotes": [{"verse": 5, "note_idx": 2, "keyword": "world", "text": "kosmos = mankind. (See Scofield \" Mat 4:8 \") .", "html": "<p><b>world</b> </p><p>kosmos = mankind. <i>(See Scofield &quot;</i><i><ref>Mat 4:8</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 4:8"]}]}, {"verse": 6, "text": "But ye have despised the poor. Do not rich men oppress you, and draw you before the judgment seats?", "marked_text": "But ye have despised the poor. Do not rich men oppress you, and draw you before the judgment seats?", "outlines": null, "footnotes": null}, {"verse": 7, "text": "Do not they blaspheme that worthy name by the which ye are called?", "marked_text": "Do not they blaspheme that worthy name by the which ye are called?", "outlines": null, "footnotes": null}, {"verse": 8, "text": "If ye fulfil the royal law according to the scripture, Thou shalt love thy neighbour as thyself, ye do well:", "marked_text": "If ye fulfil the royal law according to the scripture, Thou shalt love thy neighbour as thyself, ye do well:", "outlines": null, "footnotes": null}, {"verse": 9, "text": "But if ye have respect to persons, ye commit sin, and are convinced of the law as transgressors.", "marked_text": "But if ye have respect to persons, ye commit sin<fn n=\"3\"/>, and are convinced of the law as transgressors.", "outlines": null, "footnotes": [{"verse": 9, "note_idx": 3, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, {"verse": 10, "text": "For whosoever shall keep the whole law, and yet offend in one point, he is guilty of all.", "marked_text": "For whosoever shall keep the whole law, and yet offend in one point, he is guilty of all.", "outlines": null, "footnotes": null}, {"verse": 11, "text": "For he that said, Do not commit adultery, said also, Do not kill. Now if thou commit no adultery, yet if thou kill, thou art become a transgressor of the law.", "marked_text": "For he that said, Do not commit adultery, said also, Do not kill. Now if thou commit no adultery, yet if thou kill, thou art become a transgressor<fn n=\"4\"/> of the law.", "outlines": null, "footnotes": [{"verse": 11, "note_idx": 4, "keyword": "transgressor", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>transgressor</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, {"verse": 12, "text": "So speak ye, and so do, as they that shall be judged by the law of liberty.", "marked_text": "So speak ye, and so do, as they that shall be judged by the law of liberty.", "outlines": null, "footnotes": null}, {"verse": 13, "text": "For he shall have judgment without mercy, that hath shewed no mercy; and mercy rejoiceth against judgment.", "marked_text": "For he shall have judgment without mercy, that hath shewed no mercy; and mercy rejoiceth against judgment.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "What doth it profit, my brethren, though a man say he hath faith, and have not works? can faith save him?", "marked_text": "What doth it profit, my brethren, though a man say he hath faith, and have not works? can faith save<fn n=\"5\"/> him?", "outlines": null, "footnotes": [{"verse": 14, "note_idx": 5, "keyword": "save", "text": "(See Scofield \" Rom 1:16 \")", "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i> </p>", "references": ["Rom 1:16"]}]}, {"verse": 15, "text": "If a brother or sister be naked, and destitute of daily food,", "marked_text": "If a brother or sister be naked, and destitute of daily food,", "outlines": null, "footnotes": null}, {"verse": 16, "text": "And one of you say unto them, Depart in peace, be ye warmed and filled; notwithstanding ye give them not those things which are needful to the body; what doth it profit?", "marked_text": "And one of you say unto them, Depart in peace, be ye warmed and filled; notwithstanding ye give them not those things which are needful to the body; what doth it profit?", "outlines": null, "footnotes": null}, {"verse": 17, "text": "Even so faith, if it hath not works, is dead, being alone.", "marked_text": "Even so faith, if it hath not works, is dead, being alone.", "outlines": null, "footnotes": null}, {"verse": 18, "text": "Yea, a man may say, Thou hast faith, and I have works: shew me thy faith without thy works, and I will shew thee my faith by my works.", "marked_text": "Yea, a man may say, Thou hast faith, and I have works: shew me thy faith without thy works, and I will shew thee my faith by my works.", "outlines": null, "footnotes": null}, {"verse": 19, "text": "Thou believest that there is one God; thou doest well: the devils also believe, and tremble.", "marked_text": "Thou believest that there is one God; thou doest well: the devils also believe, and tremble.", "outlines": null, "footnotes": null}, {"verse": 20, "text": "But wilt thou know, O vain man, that faith without works is dead?", "marked_text": "But wilt thou know, O vain man, that faith without works is dead?", "outlines": null, "footnotes": null}, {"verse": 21, "text": "Was not Abraham our father justified by works, when he had offered Isaac his son upon the altar?", "marked_text": "Was not Abraham our father justified<fn n=\"6\"/> by works, when he had offered Isaac his son upon the altar?", "outlines": null, "footnotes": [{"verse": 21, "note_idx": 6, "keyword": "justified", "text": "(See Scofield \" Rom 4:2 \") .", "html": "<p><b>justified</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 4:2</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 4:2"]}]}, {"verse": 22, "text": "Seest thou how faith wrought with his works, and by works was faith made perfect?", "marked_text": "Seest thou how faith wrought with his works, and by works was faith made perfect<fn n=\"7\"/>?", "outlines": null, "footnotes": [{"verse": 22, "note_idx": 7, "keyword": "perfect", "text": "(See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}]}, {"verse": 23, "text": "And the scripture was fulfilled which saith, Abraham believed God, and it was imputed unto him for righteousness: and he was called the Friend of God.", "marked_text": "And the scripture was fulfilled which saith, Abraham believed God, and it was imputed unto him for righteousness: and he was called the Friend of God.<fn n=\"8\"/>", "outlines": null, "footnotes": [{"verse": 23, "note_idx": 8, "keyword": "imputation", "text": "Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer’s sins in vindication of the law. (See Scofield \" Phm 1:18 \") . righteousness (See Scofield \" Rom 3:21 \") .", "html": "<p><b>imputation</b> </p><p>Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer&rsquo;s sins in vindication of the law. </p><p><i>(See Scofield &quot;</i><i><ref>Phm 1:18</ref></i><i>&quot;)</i>. </p><p><b>righteousness</b> <i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>", "references": ["Phm 1:18", "Rom 3:21"]}]}, {"verse": 24, "text": "Ye see then how that by works a man is justified, and not by faith only.", "marked_text": "Ye see then how that by works a man is justified, and not by faith only.", "outlines": null, "footnotes": null}, {"verse": 25, "text": "Likewise also was not Rahab the harlot justified by works, when she had received the messengers, and had sent them out another way?", "marked_text": "Likewise also was not Rahab the harlot justified by works, when she had received the messengers, and had sent them out another way?", "outlines": null, "footnotes": null}, {"verse": 26, "text": "For as the body without the spirit is dead, so faith without works is dead also.", "marked_text": "For as the body without the spirit is dead, so faith without works is dead also.", "outlines": null, "footnotes": null}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "the Lord of glory", "text": "the Glory, i.e. in the sense of Heb 1:3 as taking the place of the shekinah. with respect In the presence of Christ the Glory, earthly distinctions disappear.", "html": "<p><b>the Lord of glory</b> the Glory, i.e. in the sense of <ref>Heb 1:3</ref> as taking the place of the shekinah. </p><p><b>with respect</b> In the presence of Christ the Glory, earthly distinctions disappear. </p>", "references": ["Heb 1:3"]}, {"verse": 5, "note_idx": 2, "keyword": "world", "text": "kosmos = mankind. (See Scofield \" Mat 4:8 \") .", "html": "<p><b>world</b> </p><p>kosmos = mankind. <i>(See Scofield &quot;</i><i><ref>Mat 4:8</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 4:8"]}, {"verse": 9, "note_idx": 3, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}, {"verse": 11, "note_idx": 4, "keyword": "transgressor", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>transgressor</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}, {"verse": 14, "note_idx": 5, "keyword": "save", "text": "(See Scofield \" Rom 1:16 \")", "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i> </p>", "references": ["Rom 1:16"]}, {"verse": 21, "note_idx": 6, "keyword": "justified", "text": "(See Scofield \" Rom 4:2 \") .", "html": "<p><b>justified</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 4:2</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 4:2"]}, {"verse": 22, "note_idx": 7, "keyword": "perfect", "text": "(See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}, {"verse": 23, "note_idx": 8, "keyword": "imputation", "text": "Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer’s sins in vindication of the law. (See Scofield \" Phm 1:18 \") . righteousness (See Scofield \" Rom 3:21 \") .", "html": "<p><b>imputation</b> </p><p>Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer&rsquo;s sins in vindication of the law. </p><p><i>(See Scofield &quot;</i><i><ref>Phm 1:18</ref></i><i>&quot;)</i>. </p><p><b>righteousness</b> <i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>", "references": ["Phm 1:18", "Rom 3:21"]}]}, "3": {"chapter": 3, "outlines": null, "verses": [{"verse": 1, "text": "My brethren, be not many masters, knowing that we shall receive the greater condemnation.", "marked_text": "My brethren, be not many masters<fn n=\"1\"/>, knowing that we shall receive the greater condemnation.", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "masters", "text": "teachers, knowing that we shall have the more severe judgment. Cf. Mar 12:40.", "html": "<p><b>masters</b> </p><p>teachers, knowing that we shall have the more severe judgment. Cf. <ref>Mar 12:40</ref>. </p>", "references": ["Mar 12:40"]}]}, {"verse": 2, "text": "For in many things we offend all. If any man offend not in word, the same is a perfect man, and able also to bridle the whole body.", "marked_text": "For in many things we offend all. If any man offend not in word, the same is a perfect<fn n=\"2\"/> man, and able also to bridle the whole body.", "outlines": null, "footnotes": [{"verse": 2, "note_idx": 2, "keyword": "perfect", "text": "(See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}]}, {"verse": 3, "text": "Behold, we put bits in the horses’ mouths, that they may obey us; and we turn about their whole body.", "marked_text": "Behold, we put bits in the horses’ mouths, that they may obey us; and we turn about their whole body.", "outlines": null, "footnotes": null}, {"verse": 4, "text": "Behold also the ships, which though they be so great, and are driven of fierce winds, yet are they turned about with a very small helm, whithersoever the governor listeth.", "marked_text": "Behold also the ships, which though they be so great, and are driven of fierce winds, yet are they turned about with a very small helm, whithersoever the governor listeth.", "outlines": null, "footnotes": null}, {"verse": 5, "text": "Even so the tongue is a little member, and boasteth great things. Behold, how great a matter a little fire kindleth!", "marked_text": "Even so the tongue is a little member, and boasteth great things. Behold, how great a matter a little fire kindleth!", "outlines": null, "footnotes": null}, {"verse": 6, "text": "And the tongue is a fire, a world of iniquity: so is the tongue among our members, that it defileth the whole body, and setteth on fire the course of nature; and it is set on fire of hell.", "marked_text": "And the tongue is a fire, a world of iniquity: so is the tongue among our members, that it defileth the whole body, and setteth on fire the course of nature; and it is set on fire of hell<fn n=\"3\"/>.", "outlines": null, "footnotes": [{"verse": 6, "note_idx": 3, "keyword": "hell", "text": "(See Scofield \" Mat 5:22 \") .", "html": "<p><b>hell</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:22"]}]}, {"verse": 7, "text": "For every kind of beasts, and of birds, and of serpents, and of things in the sea, is tamed, and hath been tamed of mankind:", "marked_text": "For every kind of beasts, and of birds, and of serpents, and of things in the sea, is tamed, and hath been tamed of mankind:", "outlines": null, "footnotes": null}, {"verse": 8, "text": "But the tongue can no man tame; it is an unruly evil, full of deadly poison.", "marked_text": "But the tongue can no man tame; it is an unruly evil, full of deadly poison.", "outlines": null, "footnotes": null}, {"verse": 9, "text": "Therewith bless we God, even the Father; and therewith curse we men, which are made after the similitude of God.", "marked_text": "Therewith bless we God, even the Father; and therewith curse we men, which are made after the similitude of God.", "outlines": null, "footnotes": null}, {"verse": 10, "text": "Out of the same mouth proceedeth blessing and cursing. My brethren, these things ought not so to be.", "marked_text": "Out of the same mouth proceedeth blessing and cursing. My brethren, these things ought not so to be.", "outlines": null, "footnotes": null}, {"verse": 11, "text": "Doth a fountain send forth at the same place sweet water and bitter?", "marked_text": "Doth a fountain send forth at the same place sweet water and bitter?", "outlines": null, "footnotes": null}, {"verse": 12, "text": "Can the fig tree, my brethren, bear olive berries? either a vine, figs? so can no fountain both yield salt water and fresh.", "marked_text": "Can the fig tree, my brethren, bear olive berries? either a vine, figs? so can no fountain both yield salt water and fresh.", "outlines": null, "footnotes": null}, {"verse": 13, "text": "Who is a wise man and endued with knowledge among you? let him shew out of a good conversation his works with meekness of wisdom.", "marked_text": "Who is a wise man and endued with knowledge among you? let him shew out of a good conversation his works with meekness of wisdom.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "But if ye have bitter envying and strife in your hearts, glory not, and lie not against the truth.", "marked_text": "But if ye have bitter envying and strife in your hearts, glory not, and lie not against the truth.", "outlines": null, "footnotes": null}, {"verse": 15, "text": "This wisdom descendeth not from above, but is earthly, sensual, devilish.", "marked_text": "This wisdom descendeth not from above, but is earthly, sensual, devilish.", "outlines": null, "footnotes": null}, {"verse": 16, "text": "For where envying and strife is, there is confusion and every evil work.", "marked_text": "For where envying and strife is, there is confusion and every evil work.", "outlines": null, "footnotes": null}, {"verse": 17, "text": "But the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits, without partiality, and without hypocrisy.", "marked_text": "But the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits, without partiality, and without hypocrisy.", "outlines": null, "footnotes": null}, {"verse": 18, "text": "And the fruit of righteousness is sown in peace of them that make peace.", "marked_text": "And the fruit of righteousness<fn n=\"4\"/> is sown in peace of them that make peace.", "outlines": null, "footnotes": [{"verse": 18, "note_idx": 4, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "masters", "text": "teachers, knowing that we shall have the more severe judgment. Cf. Mar 12:40.", "html": "<p><b>masters</b> </p><p>teachers, knowing that we shall have the more severe judgment. Cf. <ref>Mar 12:40</ref>. </p>", "references": ["Mar 12:40"]}, {"verse": 2, "note_idx": 2, "keyword": "perfect", "text": "(See Scofield \" Mat 5:48 \") .", "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:48"]}, {"verse": 6, "note_idx": 3, "keyword": "hell", "text": "(See Scofield \" Mat 5:22 \") .", "html": "<p><b>hell</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i>. </p>", "references": ["Mat 5:22"]}, {"verse": 18, "note_idx": 4, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}, "4": {"chapter": 4, "outlines": null, "verses": [{"verse": 1, "text": "From whence come wars and fightings among you? come they not hence, even of your lusts that war in your members?", "marked_text": "From whence come wars and fightings among you? come they not hence, even of your lusts that war in your members?<fn n=\"1\"/>", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}]}, {"verse": 2, "text": "Ye lust, and have not: ye kill, and desire to have, and cannot obtain: ye fight and war, yet ye have not, because ye ask not.", "marked_text": "Ye lust, and have not: ye kill, and desire to have, and cannot obtain: ye fight and war, yet ye have not, because ye ask not.", "outlines": null, "footnotes": null}, {"verse": 3, "text": "Ye ask, and receive not, because ye ask amiss, that ye may consume it upon your lusts.", "marked_text": "Ye ask, and receive not, because ye ask amiss, that ye may consume it upon your lusts.", "outlines": null, "footnotes": null}, {"verse": 4, "text": "Ye adulterers and adulteresses, know ye not that the friendship of the world is enmity with God? whosoever therefore will be a friend of the world is the enemy of God.", "marked_text": "Ye adulterers and adulteresses, know ye not that the friendship of the world<fn n=\"2\"/> is enmity with God? whosoever therefore will be a friend of the world is the enemy of God.", "outlines": null, "footnotes": [{"verse": 4, "note_idx": 2, "keyword": "world", "text": "\"kosmos\" = world-system. 2Pe 1:4; Joh 7:7 (See Scofield \" Rev 13:8 \")", "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>2Pe 1:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>", "references": ["2Pe 1:4", "Joh 7:7", "Rev 13:8"]}]}, {"verse": 5, "text": "Do ye think that the scripture saith in vain, The spirit that dwelleth in us lusteth to envy?", "marked_text": "Do ye think that the scripture saith in vain, The spirit that dwelleth in us lusteth to envy?", "outlines": null, "footnotes": null}, {"verse": 6, "text": "But he giveth more grace. Wherefore he saith, God resisteth the proud, but giveth grace unto the humble.", "marked_text": "But he giveth more grace<fn n=\"3\"/>. Wherefore he saith, God resisteth the proud, but giveth grace unto the humble.", "outlines": null, "footnotes": [{"verse": 6, "note_idx": 3, "keyword": "grace", "text": "Grace (imparted). 1Pe 2:19; Rom 6:1; 2Pe 3:18", "html": "<p><b>grace</b> </p><p>Grace (imparted). <ref>1Pe 2:19</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref> </p>", "references": ["1Pe 2:19", "Rom 6:1", "2Pe 3:18"]}]}, {"verse": 7, "text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you.", "marked_text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you.", "outlines": null, "footnotes": null}, {"verse": 8, "text": "Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners; and purify your hearts, ye double minded.", "marked_text": "Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners<fn n=\"4\"/>; and purify your hearts, ye double minded.", "outlines": null, "footnotes": [{"verse": 8, "note_idx": 4, "keyword": "sinners", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sinners</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, {"verse": 9, "text": "Be afflicted, and mourn, and weep: let your laughter be turned to mourning, and your joy to heaviness.", "marked_text": "Be afflicted, and mourn, and weep: let your laughter be turned to mourning, and your joy to heaviness.", "outlines": null, "footnotes": null}, {"verse": 10, "text": "Humble yourselves in the sight of the Lord, and he shall lift you up.", "marked_text": "Humble yourselves in the sight of the Lord, and he shall lift you up.", "outlines": null, "footnotes": null}, {"verse": 11, "text": "Speak not evil one of another, brethren. He that speaketh evil of his brother, and judgeth his brother, speaketh evil of the law, and judgeth the law: but if thou judge the law, thou art not a doer of the law, but a judge.", "marked_text": "Speak not evil one of another, brethren. He that speaketh evil of his brother, and judgeth his brother, speaketh evil of the law, and judgeth the law: but if thou judge the law, thou art not a doer of the law, but a judge.", "outlines": null, "footnotes": null}, {"verse": 12, "text": "There is one lawgiver, who is able to save and to destroy: who art thou that judgest another?", "marked_text": "There is one lawgiver, who is able to save<fn n=\"5\"/> and to destroy: who art thou that judgest another?", "outlines": null, "footnotes": [{"verse": 12, "note_idx": 5, "keyword": "save", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}]}, {"verse": 13, "text": "Go to now, ye that say, To day or to morrow we will go into such a city, and continue there a year, and buy and sell, and get gain:", "marked_text": "Go to now, ye that say, To day or to morrow we will go into such a city, and continue there a year, and buy and sell, and get gain:", "outlines": null, "footnotes": null}, {"verse": 14, "text": "Whereas ye know not what shall be on the morrow. For what is your life? It is even a vapour, that appeareth for a little time, and then vanisheth away.", "marked_text": "Whereas ye know not what shall be on the morrow. For what is your life? It is even a vapour, that appeareth for a little time, and then vanisheth away.", "outlines": null, "footnotes": null}, {"verse": 15, "text": "For that ye ought to say, If the Lord will, we shall live, and do this, or that.", "marked_text": "For that ye ought to say, If the Lord will, we shall live, and do this, or that.", "outlines": null, "footnotes": null}, {"verse": 16, "text": "But now ye rejoice in your boastings: all such rejoicing is evil.", "marked_text": "But now ye rejoice in your boastings: all such rejoicing is evil.", "outlines": null, "footnotes": null}, {"verse": 17, "text": "Therefore to him that knoweth to do good, and doeth it not, to him it is sin.", "marked_text": "Therefore to him that knoweth to do good, and doeth it not, to him it is sin<fn n=\"6\"/>.", "outlines": null, "footnotes": [{"verse": 17, "note_idx": 6, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "righteousness", "text": "(See Scofield \" 1Jn 3:7 \") .", "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>", "references": ["1Jn 3:7"]}, {"verse": 4, "note_idx": 2, "keyword": "world", "text": "\"kosmos\" = world-system. 2Pe 1:4; Joh 7:7 (See Scofield \" Rev 13:8 \")", "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>2Pe 1:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>", "references": ["2Pe 1:4", "Joh 7:7", "Rev 13:8"]}, {"verse": 6, "note_idx": 3, "keyword": "grace", "text": "Grace (imparted). 1Pe 2:19; Rom 6:1; 2Pe 3:18", "html": "<p><b>grace</b> </p><p>Grace (imparted). <ref>1Pe 2:19</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref> </p>", "references": ["1Pe 2:19", "Rom 6:1", "2Pe 3:18"]}, {"verse": 8, "note_idx": 4, "keyword": "sinners", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sinners</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}, {"verse": 12, "note_idx": 5, "keyword": "save", "text": "(See Scofield \" Rom 1:16 \") .", "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 1:16"]}, {"verse": 17, "note_idx": 6, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, "5": {"chapter": 5, "outlines": null, "verses": [{"verse": 1, "text": "Go to now, ye rich men, weep and howl for your miseries that shall come upon you.", "marked_text": "Go to now, ye rich men, weep and howl for your miseries that shall come upon you.<fn n=\"1\"/>", "outlines": null, "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}]}, {"verse": 2, "text": "Your riches are corrupted, and your garments are motheaten.", "marked_text": "Your riches are corrupted, and your garments are motheaten.", "outlines": null, "footnotes": null}, {"verse": 3, "text": "Your gold and silver is cankered; and the rust of them shall be a witness against you, and shall eat your flesh as it were fire. Ye have heaped treasure together for the last days.", "marked_text": "Your gold and silver is cankered; and the rust of them shall be a witness against you, and shall eat your flesh as it were fire. Ye have heaped treasure together for the last days.", "outlines": null, "footnotes": null}, {"verse": 4, "text": "Behold, the hire of the labourers who have reaped down your fields, which is of you kept back by fraud, crieth: and the cries of them which have reaped are entered into the ears of the Lord of sabaoth.", "marked_text": "Behold, the hire of the labourers who have reaped down your fields, which is of you kept back by fraud, crieth: and the cries of them which have reaped are entered into the ears of the Lord of sabaoth<fn n=\"2\"/>.", "outlines": null, "footnotes": [{"verse": 4, "note_idx": 2, "keyword": "the Lord of sabaoth", "text": "i.e. Jehovah of hosts.", "html": "<p><b>the Lord of sabaoth</b> </p><p>i.e. Jehovah of hosts. </p>", "references": []}]}, {"verse": 5, "text": "Ye have lived in pleasure on the earth, and been wanton; ye have nourished your hearts, as in a day of slaughter.", "marked_text": "Ye have lived in pleasure on the earth, and been wanton; ye have nourished your hearts, as in a day of slaughter.", "outlines": null, "footnotes": null}, {"verse": 6, "text": "Ye have condemned and killed the just; and he doth not resist you.", "marked_text": "Ye have condemned and killed the just; and he doth not resist you.", "outlines": null, "footnotes": null}, {"verse": 7, "text": "Be patient therefore, brethren, unto the coming of the Lord. Behold, the husbandman waiteth for the precious fruit of the earth, and hath long patience for it, until he receive the early and latter rain.", "marked_text": "Be patient therefore, brethren, unto the coming of the Lord. Behold, the husbandman waiteth for the precious fruit of the earth, and hath long patience for it, until he receive the early and latter rain.", "outlines": null, "footnotes": null}, {"verse": 8, "text": "Be ye also patient; stablish your hearts: for the coming of the Lord draweth nigh.", "marked_text": "Be ye also patient; stablish your hearts: for the coming of the Lord draweth nigh.", "outlines": null, "footnotes": null}, {"verse": 9, "text": "Grudge not one against another, brethren, lest ye be condemned: behold, the judge standeth before the door.", "marked_text": "Grudge not one against another, brethren, lest ye be condemned: behold, the judge standeth before the door.", "outlines": null, "footnotes": null}, {"verse": 10, "text": "Take, my brethren, the prophets, who have spoken in the name of the Lord, for an example of suffering affliction, and of patience.", "marked_text": "Take, my brethren, the prophets, who have spoken in the name of the Lord, for an example of suffering affliction, and of patience.", "outlines": null, "footnotes": null}, {"verse": 11, "text": "Behold, we count them happy which endure. Ye have heard of the patience of Job, and have seen the end of the Lord; that the Lord is very pitiful, and of tender mercy.", "marked_text": "Behold, we count them happy which endure. Ye have heard of the patience of Job, and have seen the end of the Lord; that the Lord is very pitiful, and of tender mercy.", "outlines": null, "footnotes": null}, {"verse": 12, "text": "But above all things, my brethren, swear not, neither by heaven, neither by the earth, neither by any other oath: but let your yea be yea; and your nay, nay; lest ye fall into condemnation.", "marked_text": "But above all things, my brethren, swear not, neither by heaven, neither by the earth, neither by any other oath: but let your yea be yea; and your nay, nay; lest ye fall into condemnation.", "outlines": null, "footnotes": null}, {"verse": 13, "text": "Is any among you afflicted? let him pray. Is any merry? let him sing psalms.", "marked_text": "Is any among you afflicted? let him pray. Is any merry? let him sing psalms.", "outlines": null, "footnotes": null}, {"verse": 14, "text": "Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord:", "marked_text": "Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord:", "outlines": null, "footnotes": null}, {"verse": 15, "text": "And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him.", "marked_text": "And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him.", "outlines": null, "footnotes": null}, {"verse": 16, "text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.", "marked_text": "Confess your faults<fn n=\"3\"/> one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.", "outlines": null, "footnotes": [{"verse": 16, "note_idx": 3, "keyword": "faults", "text": "Sin. (See Scofield \" Rom 3:23 \") . righteous (See Scofield \" Rom 10:10 \") .", "html": "<p><b>faults</b> Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p><p><b>righteous</b> <i>(See Scofield &quot;</i><i><ref>Rom 10:10</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23", "Rom 10:10"]}]}, {"verse": 17, "text": "Elias was a man subject to like passions as we are, and he prayed earnestly that it might not rain: and it rained not on the earth by the space of three years and six months.", "marked_text": "Elias was a man subject to like passions as we are, and he prayed earnestly that it might not rain: and it rained not on the earth by the space of three years and six months.", "outlines": null, "footnotes": null}, {"verse": 18, "text": "And he prayed again, and the heaven gave rain, and the earth brought forth her fruit.", "marked_text": "And he prayed again, and the heaven gave rain, and the earth brought forth her fruit.", "outlines": null, "footnotes": null}, {"verse": 19, "text": "Brethren, if any of you do err from the truth, and one convert him;", "marked_text": "Brethren, if any of you do err from the truth, and one convert him;", "outlines": null, "footnotes": null}, {"verse": 20, "text": "Let him know, that he which converteth the sinner from the error of his way shall save a soul from death, and shall hide a multitude of sins.", "marked_text": "Let him know, that he which converteth the sinner from the error of his way shall save a soul from death, and shall hide a multitude of sins<fn n=\"4\"/>.", "outlines": null, "footnotes": [{"verse": 20, "note_idx": 4, "keyword": "sins", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> .</p>", "references": ["Rom 3:23"]}]}], "footnotes": [{"verse": 1, "note_idx": 1, "keyword": "sin", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23"]}, {"verse": 4, "note_idx": 2, "keyword": "the Lord of sabaoth", "text": "i.e. Jehovah of hosts.", "html": "<p><b>the Lord of sabaoth</b> </p><p>i.e. Jehovah of hosts. </p>", "references": []}, {"verse": 16, "note_idx": 3, "keyword": "faults", "text": "Sin. (See Scofield \" Rom 3:23 \") . righteous (See Scofield \" Rom 10:10 \") .", "html": "<p><b>faults</b> Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p><p><b>righteous</b> <i>(See Scofield &quot;</i><i><ref>Rom 10:10</ref></i><i>&quot;)</i>. </p>", "references": ["Rom 3:23", "Rom 10:10"]}, {"verse": 20, "note_idx": 4, "keyword": "sins", "text": "Sin. (See Scofield \" Rom 3:23 \") .", "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> .</p>", "references": ["Rom 3:23"]}]}}}
+{
+  "id": "yakobus",
+  "name": "James",
+  "name_id": "Yakobus",
+  "translation": "Scofield Reference Bible (1917)",
+  "translation_short": "Scofield 1917",
+  "testament": "PB",
+  "chapters_count": 5,
+  "intro": {
+    "title": "Book Introduction - James",
+    "html": "<p style=\"font-weight:bold;\">Book Introduction - James</p><p><b>WRITER</b>: James <i>(See Scofield &quot;</i><i><ref>Mat 4:21</ref></i><i>&quot;)</i>, called &quot;the Just&quot; mentioned by Paul with Cephas and John as &quot;pillars&quot; in the church at Jerusalem <ref>Gal 2:9</ref>. He seems to have been, as a religious man, austere, legal, ceremonial <ref>Act 21:18-24</ref>. </p><p><b>DATE</b>: Tradition fixes the martyrdom of James in the year 62, but his Epistle shows no trace of the larger revelations concerning the church and the distinctive doctrines of grace made through the Apostle Paul, nor even of the discussion concerning the relation of Gentile converts to the law of Moses, which culminated in the first council (Acts 15.), over which James presided. This presumes the very early date of James, which may confidently be set down as &quot;the first Epistle to Christians.&quot;--Weston. </p><p><b>THEME</b>: By &quot;the twelve tribes scattered abroad&quot; we are to understand, not Jews, but Christian Jews of the Dispersion. The church began with such <ref>Act 2:5-11</ref> and James, who seems not to have left Jerusalem, would feel a particular pastoral responsibility for these scattered sheep. They still resorted to the synagogues, or called their own assemblies by that name <ref>Jas 2:2</ref>, where &quot;assembly&quot; is &quot;synagogue&quot; in the Gr.). It appears from <ref>Jas 2:1-8</ref> that they still held the synagogue courts for the trial of causes arising amongst themselves. The Epistle, then, is elementary in the extreme. To suppose that <ref>Jas 2:14-26</ref> is a polemic against Paul&rsquo;s doctrine of justification is absurd. Neither Galatians nor Romans was yet written. </p><p>James&rsquo; theme, then, is &quot;religion&quot; (Gr., threskeia, &quot;outward religious service&quot;) as the expression and proof of faith. He does not exalt works as against faith, but faith as producing works. His style is that of the Wisdom-books of the O.T. </p><p>The divisions are five: </p><p>1. The testing of faith (<ref>Jas 1:1</ref> to <ref>Jas 2:26</ref>). </p><p>2. The reality of faith tested by the tongue (<ref>Jas 3:1-18</ref>). </p><p>3. The rebuke of worldliness (<ref>Jas 4:1-17</ref>). </p><p>4. The rich warned.</p><p>5. Hortatory.</p>",
+    "text": "Book Introduction - James WRITER : James (See Scofield \" Mat 4:21 \") , called \"the Just\" mentioned by Paul with Cephas and John as \"pillars\" in the church at Jerusalem Gal 2:9. He seems to have been, as a religious man, austere, legal, ceremonial Act 21:18-24. DATE : Tradition fixes the martyrdom of James in the year 62, but his Epistle shows no trace of the larger revelations concerning the church and the distinctive doctrines of grace made through the Apostle Paul, nor even of the discussion concerning the relation of Gentile converts to the law of Moses, which culminated in the first council (Acts 15.), over which James presided. This presumes the very early date of James, which may confidently be set down as \"the first Epistle to Christians.\"--Weston. THEME : By \"the twelve tribes scattered abroad\" we are to understand, not Jews, but Christian Jews of the Dispersion. The church began with such Act 2:5-11 and James, who seems not to have left Jerusalem, would feel a particular pastoral responsibility for these scattered sheep. They still resorted to the synagogues, or called their own assemblies by that name Jas 2:2, where \"assembly\" is \"synagogue\" in the Gr.). It appears from Jas 2:1-8 that they still held the synagogue courts for the trial of causes arising amongst themselves. The Epistle, then, is elementary in the extreme. To suppose that Jas 2:14-26 is a polemic against Paul’s doctrine of justification is absurd. Neither Galatians nor Romans was yet written. James’ theme, then, is \"religion\" (Gr., threskeia, \"outward religious service\") as the expression and proof of faith. He does not exalt works as against faith, but faith as producing works. His style is that of the Wisdom-books of the O.T. The divisions are five: 1. The testing of faith (Jas 1:1 to Jas 2:26). 2. The reality of faith tested by the tongue (Jas 3:1-18). 3. The rebuke of worldliness (Jas 4:1-17). 4. The rich warned. 5. Hortatory."
+  },
+  "chapters": {
+    "1": {
+      "chapter": 1,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting.",
+          "marked_text": "James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are scattered abroad, greeting.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 2,
+          "text": "My brethren, count it all joy when ye fall into divers temptations;",
+          "marked_text": "My brethren, count it all joy when ye fall into divers temptations;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "Knowing this, that the trying of your faith worketh patience.",
+          "marked_text": "Knowing this, that the trying of your faith worketh patience.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "But let patience have her perfect work, that ye may be perfect and entire, wanting nothing.",
+          "marked_text": "But let patience have her perfect<fn n=\"1\"/> work, that ye may be perfect and entire, wanting nothing.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 4,
+              "note_idx": 1,
+              "keyword": "perfect",
+              "text": "mature and complete. (See Scofield \" Mat 5:48 \") .",
+              "html": "<p><b>perfect</b> </p><p>mature and complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 5:48"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 5,
+          "text": "If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.",
+          "marked_text": "If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "But let him ask in faith, nothing wavering. For he that wavereth is like a wave of the sea driven with the wind and tossed.",
+          "marked_text": "But let him ask in faith, nothing wavering. For he that wavereth is like a wave of the sea driven with the wind and tossed.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 7,
+          "text": "For let not that man think that he shall receive any thing of the Lord.",
+          "marked_text": "For let not that man think that he shall receive any thing of the Lord.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "A double minded man is unstable in all his ways.",
+          "marked_text": "A double minded man is unstable in all his ways.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "Let the brother of low degree rejoice in that he is exalted:",
+          "marked_text": "Let the brother of low degree rejoice in that he is exalted:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "But the rich, in that he is made low: because as the flower of the grass he shall pass away.",
+          "marked_text": "But the rich, in that he is made low: because as the flower of the grass he shall pass away.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "For the sun is no sooner risen with a burning heat, but it withereth the grass, and the flower thereof falleth, and the grace of the fashion of it perisheth: so also shall the rich man fade away in his ways.",
+          "marked_text": "For the sun is no sooner risen with a burning heat, but it withereth the grass, and the flower thereof falleth, and the grace of the fashion of it perisheth: so also shall the rich man fade away in his ways.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "Blessed is the man that endureth temptation: for when he is tried, he shall receive the crown of life, which the Lord hath promised to them that love him.",
+          "marked_text": "Blessed is the man that endureth temptation: for when he is tried, he shall receive the crown of life, which the Lord hath promised to them that love him.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "Let no man say when he is tempted, I am tempted of God: for God cannot be tempted with evil, neither tempteth he any man:",
+          "marked_text": "Let no man say when he is tempted, I am tempted of God: for God cannot be tempted with evil, neither tempteth he any man:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "But every man is tempted, when he is drawn away of his own lust, and enticed.",
+          "marked_text": "But every man is tempted<fn n=\"2\"/>, when he is drawn away of his own lust, and enticed.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 14,
+              "note_idx": 2,
+              "keyword": "tempted",
+              "text": "\"Temptation\" is used in two senses: (1) Solicitation to evil (e.g. Gen 3:1-6; Mat 4:1; 1Co 10:13; 2Co 11:3; 2Co 11:4; Jas 1:14). (2) Testing under trial (eg) Gen 22:1; Luk 22:28 Cf Luk 4:2, Cf Mat 6:13 (solicitation to evil) and 1Pe 1:6 (testing under trial).",
+              "html": "<p><b>tempted</b> </p><p>&quot;Temptation&quot; is used in two senses: </p><p>(1) Solicitation to evil (e.g. <ref>Gen 3:1-6</ref>; <ref>Mat 4:1</ref>; <ref>1Co 10:13</ref>; <ref>2Co 11:3</ref>; <ref>2Co 11:4</ref>; <ref>Jas 1:14</ref>). </p><p>(2) Testing under trial (eg) <ref>Gen 22:1</ref>; <ref>Luk 22:28</ref> Cf <ref>Luk 4:2</ref>, Cf <ref>Mat 6:13</ref> (solicitation to evil) and <ref>1Pe 1:6</ref> (testing under trial). </p>",
+              "references": [
+                "Gen 3:1-6",
+                "Mat 4:1",
+                "1Co 10:13",
+                "2Co 11:3",
+                "2Co 11:4",
+                "Jas 1:14",
+                "Gen 22:1",
+                "Luk 22:28",
+                "Luk 4:2",
+                "Mat 6:13",
+                "1Pe 1:6"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 15,
+          "text": "Then when lust hath conceived, it bringeth forth sin: and sin, when it is finished, bringeth forth death.",
+          "marked_text": "Then when lust hath conceived, it bringeth forth sin<fn n=\"3\"/>: and sin, when it is finished, bringeth forth death.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 15,
+              "note_idx": 3,
+              "keyword": "sin",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sin</b> Sin. </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 16,
+          "text": "Do not err, my beloved brethren.",
+          "marked_text": "Do not err, my beloved brethren.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning.",
+          "marked_text": "Every good gift<fn n=\"4\"/> and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 17,
+              "note_idx": 4,
+              "keyword": "gift",
+              "text": "Two words are used in the original for \"gift,\" the first meaning the act of giving; the second, the thing given.",
+              "html": "<p><b>gift</b> </p><p>Two words are used in the original for &quot;gift,&quot; the first meaning the act of giving; the second, the thing given. </p>",
+              "references": []
+            }
+          ]
+        },
+        {
+          "verse": 18,
+          "text": "Of his own will begat he us with the word of truth, that we should be a kind of firstfruits of his creatures.",
+          "marked_text": "Of his own will begat he us with the word of truth, that we should be a kind of firstfruits of his creatures.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 19,
+          "text": "Wherefore, my beloved brethren, let every man be swift to hear, slow to speak, slow to wrath:",
+          "marked_text": "Wherefore, my beloved brethren, let every man be swift to hear, slow to speak, slow to wrath:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 20,
+          "text": "For the wrath of man worketh not the righteousness of God.",
+          "marked_text": "For the wrath of man worketh not the righteousness<fn n=\"5\"/> of God.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 20,
+              "note_idx": 5,
+              "keyword": "righteousness",
+              "text": "(See Scofield \" Rom 3:21 \") .",
+              "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:21"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 21,
+          "text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save your souls.",
+          "marked_text": "Wherefore lay apart all filthiness and superfluity of naughtiness, and receive with meekness the engrafted word, which is able to save<fn n=\"6\"/> your souls.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 21,
+              "note_idx": 6,
+              "keyword": "save",
+              "text": "(See Scofield \" Rom 1:16 \") .",
+              "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 1:16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 22,
+          "text": "But be ye doers of the word, and not hearers only, deceiving your own selves.",
+          "marked_text": "But be ye doers of the word, and not hearers only, deceiving your own selves.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 23,
+          "text": "For if any be a hearer of the word, and not a doer, he is like unto a man beholding his natural face in a glass:",
+          "marked_text": "For if any be a hearer of the word, and not a doer, he is like unto a man beholding his natural face in a glass:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 24,
+          "text": "For he beholdeth himself, and goeth his way, and straightway forgetteth what manner of man he was.",
+          "marked_text": "For he beholdeth himself, and goeth his way, and straightway forgetteth what manner of man he was.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 25,
+          "text": "But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed.",
+          "marked_text": "But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 26,
+          "text": "If any man among you seem to be religious, and bridleth not his tongue, but deceiveth his own heart, this man’s religion is vain.",
+          "marked_text": "If any man among you seem to be religious<fn n=\"7\"/>, and bridleth not his tongue, but deceiveth his own heart, this man’s religion is vain.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 26,
+              "note_idx": 7,
+              "keyword": "religious",
+              "text": "(Greek - θρη̑σκος = outwardly religious).",
+              "html": "<p><b>religious</b> </p><p>(Greek - <grk><blu>&theta;&rho;&eta;&#x0311;&sigma;&kappa;&omicron;&sigmaf;</blu></grk> = outwardly religious). </p>",
+              "references": []
+            }
+          ]
+        },
+        {
+          "verse": 27,
+          "text": "Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world.",
+          "marked_text": "Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world<fn n=\"8\"/>.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 27,
+              "note_idx": 8,
+              "keyword": "world",
+              "text": "\"kosmos\" = world-system. Jas 4:4; Joh 7:7 (See Scofield \" Rev 13:8 \")",
+              "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>Jas 4:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>",
+              "references": [
+                "Jas 4:4",
+                "Joh 7:7",
+                "Rev 13:8"
+              ]
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 4,
+          "note_idx": 1,
+          "keyword": "perfect",
+          "text": "mature and complete. (See Scofield \" Mat 5:48 \") .",
+          "html": "<p><b>perfect</b> </p><p>mature and complete. <i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 5:48"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 2,
+          "keyword": "tempted",
+          "text": "\"Temptation\" is used in two senses: (1) Solicitation to evil (e.g. Gen 3:1-6; Mat 4:1; 1Co 10:13; 2Co 11:3; 2Co 11:4; Jas 1:14). (2) Testing under trial (eg) Gen 22:1; Luk 22:28 Cf Luk 4:2, Cf Mat 6:13 (solicitation to evil) and 1Pe 1:6 (testing under trial).",
+          "html": "<p><b>tempted</b> </p><p>&quot;Temptation&quot; is used in two senses: </p><p>(1) Solicitation to evil (e.g. <ref>Gen 3:1-6</ref>; <ref>Mat 4:1</ref>; <ref>1Co 10:13</ref>; <ref>2Co 11:3</ref>; <ref>2Co 11:4</ref>; <ref>Jas 1:14</ref>). </p><p>(2) Testing under trial (eg) <ref>Gen 22:1</ref>; <ref>Luk 22:28</ref> Cf <ref>Luk 4:2</ref>, Cf <ref>Mat 6:13</ref> (solicitation to evil) and <ref>1Pe 1:6</ref> (testing under trial). </p>",
+          "references": [
+            "Gen 3:1-6",
+            "Mat 4:1",
+            "1Co 10:13",
+            "2Co 11:3",
+            "2Co 11:4",
+            "Jas 1:14",
+            "Gen 22:1",
+            "Luk 22:28",
+            "Luk 4:2",
+            "Mat 6:13",
+            "1Pe 1:6"
+          ]
+        },
+        {
+          "verse": 15,
+          "note_idx": 3,
+          "keyword": "sin",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sin</b> Sin. </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 4,
+          "keyword": "gift",
+          "text": "Two words are used in the original for \"gift,\" the first meaning the act of giving; the second, the thing given.",
+          "html": "<p><b>gift</b> </p><p>Two words are used in the original for &quot;gift,&quot; the first meaning the act of giving; the second, the thing given. </p>",
+          "references": []
+        },
+        {
+          "verse": 20,
+          "note_idx": 5,
+          "keyword": "righteousness",
+          "text": "(See Scofield \" Rom 3:21 \") .",
+          "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:21"
+          ]
+        },
+        {
+          "verse": 21,
+          "note_idx": 6,
+          "keyword": "save",
+          "text": "(See Scofield \" Rom 1:16 \") .",
+          "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 26,
+          "note_idx": 7,
+          "keyword": "religious",
+          "text": "(Greek - θρη̑σκος = outwardly religious).",
+          "html": "<p><b>religious</b> </p><p>(Greek - <grk><blu>&theta;&rho;&eta;&#x0311;&sigma;&kappa;&omicron;&sigmaf;</blu></grk> = outwardly religious). </p>",
+          "references": []
+        },
+        {
+          "verse": 27,
+          "note_idx": 8,
+          "keyword": "world",
+          "text": "\"kosmos\" = world-system. Jas 4:4; Joh 7:7 (See Scofield \" Rev 13:8 \")",
+          "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>Jas 4:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>",
+          "references": [
+            "Jas 4:4",
+            "Joh 7:7",
+            "Rev 13:8"
+          ]
+        }
+      ]
+    },
+    "2": {
+      "chapter": 2,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "My brethren, have not the faith of our Lord Jesus Christ, the Lord of glory, with respect of persons.",
+          "marked_text": "My brethren, have not the faith of our Lord Jesus Christ, the Lord of glory<fn n=\"1\"/>, with respect of persons.",
+          "outlines": "(3) The test of obedience.",
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "the Lord of glory",
+              "text": "the Glory, i.e. in the sense of Heb 1:3 as taking the place of the shekinah. with respect In the presence of Christ the Glory, earthly distinctions disappear.",
+              "html": "<p><b>the Lord of glory</b> the Glory, i.e. in the sense of <ref>Heb 1:3</ref> as taking the place of the shekinah. </p><p><b>with respect</b> In the presence of Christ the Glory, earthly distinctions disappear. </p>",
+              "references": [
+                "Heb 1:3"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "For if there come unto your assembly a man with a gold ring, in goodly apparel, and there come in also a poor man in vile raiment;",
+          "marked_text": "For if there come unto your assembly a man with a gold ring, in goodly apparel, and there come in also a poor man in vile raiment;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "And ye have respect to him that weareth the gay clothing, and say unto him, Sit thou here in a good place; and say to the poor, Stand thou there, or sit here under my footstool:",
+          "marked_text": "And ye have respect to him that weareth the gay clothing, and say unto him, Sit thou here in a good place; and say to the poor, Stand thou there, or sit here under my footstool:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "Are ye not then partial in yourselves, and are become judges of evil thoughts?",
+          "marked_text": "Are ye not then partial in yourselves, and are become judges of evil thoughts?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 5,
+          "text": "Hearken, my beloved brethren, Hath not God chosen the poor of this world rich in faith, and heirs of the kingdom which he hath promised to them that love him?",
+          "marked_text": "Hearken, my beloved brethren, Hath not God chosen the poor of this world<fn n=\"2\"/> rich in faith, and heirs of the kingdom which he hath promised to them that love him?",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 5,
+              "note_idx": 2,
+              "keyword": "world",
+              "text": "kosmos = mankind. (See Scofield \" Mat 4:8 \") .",
+              "html": "<p><b>world</b> </p><p>kosmos = mankind. <i>(See Scofield &quot;</i><i><ref>Mat 4:8</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 4:8"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 6,
+          "text": "But ye have despised the poor. Do not rich men oppress you, and draw you before the judgment seats?",
+          "marked_text": "But ye have despised the poor. Do not rich men oppress you, and draw you before the judgment seats?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 7,
+          "text": "Do not they blaspheme that worthy name by the which ye are called?",
+          "marked_text": "Do not they blaspheme that worthy name by the which ye are called?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "If ye fulfil the royal law according to the scripture, Thou shalt love thy neighbour as thyself, ye do well:",
+          "marked_text": "If ye fulfil the royal law according to the scripture, Thou shalt love thy neighbour as thyself, ye do well:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "But if ye have respect to persons, ye commit sin, and are convinced of the law as transgressors.",
+          "marked_text": "But if ye have respect to persons, ye commit sin<fn n=\"3\"/>, and are convinced of the law as transgressors.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 9,
+              "note_idx": 3,
+              "keyword": "sin",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 10,
+          "text": "For whosoever shall keep the whole law, and yet offend in one point, he is guilty of all.",
+          "marked_text": "For whosoever shall keep the whole law, and yet offend in one point, he is guilty of all.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "For he that said, Do not commit adultery, said also, Do not kill. Now if thou commit no adultery, yet if thou kill, thou art become a transgressor of the law.",
+          "marked_text": "For he that said, Do not commit adultery, said also, Do not kill. Now if thou commit no adultery, yet if thou kill, thou art become a transgressor<fn n=\"4\"/> of the law.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 11,
+              "note_idx": 4,
+              "keyword": "transgressor",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>transgressor</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 12,
+          "text": "So speak ye, and so do, as they that shall be judged by the law of liberty.",
+          "marked_text": "So speak ye, and so do, as they that shall be judged by the law of liberty.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "For he shall have judgment without mercy, that hath shewed no mercy; and mercy rejoiceth against judgment.",
+          "marked_text": "For he shall have judgment without mercy, that hath shewed no mercy; and mercy rejoiceth against judgment.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "What doth it profit, my brethren, though a man say he hath faith, and have not works? can faith save him?",
+          "marked_text": "What doth it profit, my brethren, though a man say he hath faith, and have not works? can faith save<fn n=\"5\"/> him?",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 14,
+              "note_idx": 5,
+              "keyword": "save",
+              "text": "(See Scofield \" Rom 1:16 \")",
+              "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i> </p>",
+              "references": [
+                "Rom 1:16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 15,
+          "text": "If a brother or sister be naked, and destitute of daily food,",
+          "marked_text": "If a brother or sister be naked, and destitute of daily food,",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "And one of you say unto them, Depart in peace, be ye warmed and filled; notwithstanding ye give them not those things which are needful to the body; what doth it profit?",
+          "marked_text": "And one of you say unto them, Depart in peace, be ye warmed and filled; notwithstanding ye give them not those things which are needful to the body; what doth it profit?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "Even so faith, if it hath not works, is dead, being alone.",
+          "marked_text": "Even so faith, if it hath not works, is dead, being alone.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 18,
+          "text": "Yea, a man may say, Thou hast faith, and I have works: shew me thy faith without thy works, and I will shew thee my faith by my works.",
+          "marked_text": "Yea, a man may say, Thou hast faith, and I have works: shew me thy faith without thy works, and I will shew thee my faith by my works.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 19,
+          "text": "Thou believest that there is one God; thou doest well: the devils also believe, and tremble.",
+          "marked_text": "Thou believest that there is one God; thou doest well: the devils also believe, and tremble.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 20,
+          "text": "But wilt thou know, O vain man, that faith without works is dead?",
+          "marked_text": "But wilt thou know, O vain man, that faith without works is dead?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 21,
+          "text": "Was not Abraham our father justified by works, when he had offered Isaac his son upon the altar?",
+          "marked_text": "Was not Abraham our father justified<fn n=\"6\"/> by works, when he had offered Isaac his son upon the altar?",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 21,
+              "note_idx": 6,
+              "keyword": "justified",
+              "text": "(See Scofield \" Rom 4:2 \") .",
+              "html": "<p><b>justified</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 4:2</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 4:2"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 22,
+          "text": "Seest thou how faith wrought with his works, and by works was faith made perfect?",
+          "marked_text": "Seest thou how faith wrought with his works, and by works was faith made perfect<fn n=\"7\"/>?",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 22,
+              "note_idx": 7,
+              "keyword": "perfect",
+              "text": "(See Scofield \" Mat 5:48 \") .",
+              "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 5:48"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 23,
+          "text": "And the scripture was fulfilled which saith, Abraham believed God, and it was imputed unto him for righteousness: and he was called the Friend of God.",
+          "marked_text": "And the scripture was fulfilled which saith, Abraham believed God, and it was imputed unto him for righteousness: and he was called the Friend of God.<fn n=\"8\"/>",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 23,
+              "note_idx": 8,
+              "keyword": "imputation",
+              "text": "Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer’s sins in vindication of the law. (See Scofield \" Phm 1:18 \") . righteousness (See Scofield \" Rom 3:21 \") .",
+              "html": "<p><b>imputation</b> </p><p>Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer&rsquo;s sins in vindication of the law. </p><p><i>(See Scofield &quot;</i><i><ref>Phm 1:18</ref></i><i>&quot;)</i>. </p><p><b>righteousness</b> <i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Phm 1:18",
+                "Rom 3:21"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 24,
+          "text": "Ye see then how that by works a man is justified, and not by faith only.",
+          "marked_text": "Ye see then how that by works a man is justified, and not by faith only.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 25,
+          "text": "Likewise also was not Rahab the harlot justified by works, when she had received the messengers, and had sent them out another way?",
+          "marked_text": "Likewise also was not Rahab the harlot justified by works, when she had received the messengers, and had sent them out another way?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 26,
+          "text": "For as the body without the spirit is dead, so faith without works is dead also.",
+          "marked_text": "For as the body without the spirit is dead, so faith without works is dead also.",
+          "outlines": null,
+          "footnotes": null
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "the Lord of glory",
+          "text": "the Glory, i.e. in the sense of Heb 1:3 as taking the place of the shekinah. with respect In the presence of Christ the Glory, earthly distinctions disappear.",
+          "html": "<p><b>the Lord of glory</b> the Glory, i.e. in the sense of <ref>Heb 1:3</ref> as taking the place of the shekinah. </p><p><b>with respect</b> In the presence of Christ the Glory, earthly distinctions disappear. </p>",
+          "references": [
+            "Heb 1:3"
+          ]
+        },
+        {
+          "verse": 5,
+          "note_idx": 2,
+          "keyword": "world",
+          "text": "kosmos = mankind. (See Scofield \" Mat 4:8 \") .",
+          "html": "<p><b>world</b> </p><p>kosmos = mankind. <i>(See Scofield &quot;</i><i><ref>Mat 4:8</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 4:8"
+          ]
+        },
+        {
+          "verse": 9,
+          "note_idx": 3,
+          "keyword": "sin",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 11,
+          "note_idx": 4,
+          "keyword": "transgressor",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>transgressor</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 14,
+          "note_idx": 5,
+          "keyword": "save",
+          "text": "(See Scofield \" Rom 1:16 \")",
+          "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i> </p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 21,
+          "note_idx": 6,
+          "keyword": "justified",
+          "text": "(See Scofield \" Rom 4:2 \") .",
+          "html": "<p><b>justified</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 4:2</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 4:2"
+          ]
+        },
+        {
+          "verse": 22,
+          "note_idx": 7,
+          "keyword": "perfect",
+          "text": "(See Scofield \" Mat 5:48 \") .",
+          "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 5:48"
+          ]
+        },
+        {
+          "verse": 23,
+          "note_idx": 8,
+          "keyword": "imputation",
+          "text": "Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer’s sins in vindication of the law. (See Scofield \" Phm 1:18 \") . righteousness (See Scofield \" Rom 3:21 \") .",
+          "html": "<p><b>imputation</b> </p><p>Imputation is the act of God whereby He accounts righteousness to the believer in Christ, who has borne the believer&rsquo;s sins in vindication of the law. </p><p><i>(See Scofield &quot;</i><i><ref>Phm 1:18</ref></i><i>&quot;)</i>. </p><p><b>righteousness</b> <i>(See Scofield &quot;</i><i><ref>Rom 3:21</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Phm 1:18",
+            "Rom 3:21"
+          ]
+        }
+      ]
+    },
+    "3": {
+      "chapter": 3,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "My brethren, be not many masters, knowing that we shall receive the greater condemnation.",
+          "marked_text": "My brethren, be not many masters<fn n=\"1\"/>, knowing that we shall receive the greater condemnation.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "masters",
+              "text": "teachers, knowing that we shall have the more severe judgment. Cf. Mar 12:40.",
+              "html": "<p><b>masters</b> </p><p>teachers, knowing that we shall have the more severe judgment. Cf. <ref>Mar 12:40</ref>. </p>",
+              "references": [
+                "Mar 12:40"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "For in many things we offend all. If any man offend not in word, the same is a perfect man, and able also to bridle the whole body.",
+          "marked_text": "For in many things we offend all. If any man offend not in word, the same is a perfect<fn n=\"2\"/> man, and able also to bridle the whole body.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 2,
+              "note_idx": 2,
+              "keyword": "perfect",
+              "text": "(See Scofield \" Mat 5:48 \") .",
+              "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 5:48"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 3,
+          "text": "Behold, we put bits in the horses’ mouths, that they may obey us; and we turn about their whole body.",
+          "marked_text": "Behold, we put bits in the horses’ mouths, that they may obey us; and we turn about their whole body.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "Behold also the ships, which though they be so great, and are driven of fierce winds, yet are they turned about with a very small helm, whithersoever the governor listeth.",
+          "marked_text": "Behold also the ships, which though they be so great, and are driven of fierce winds, yet are they turned about with a very small helm, whithersoever the governor listeth.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 5,
+          "text": "Even so the tongue is a little member, and boasteth great things. Behold, how great a matter a little fire kindleth!",
+          "marked_text": "Even so the tongue is a little member, and boasteth great things. Behold, how great a matter a little fire kindleth!",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "And the tongue is a fire, a world of iniquity: so is the tongue among our members, that it defileth the whole body, and setteth on fire the course of nature; and it is set on fire of hell.",
+          "marked_text": "And the tongue is a fire, a world of iniquity: so is the tongue among our members, that it defileth the whole body, and setteth on fire the course of nature; and it is set on fire of hell<fn n=\"3\"/>.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 6,
+              "note_idx": 3,
+              "keyword": "hell",
+              "text": "(See Scofield \" Mat 5:22 \") .",
+              "html": "<p><b>hell</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Mat 5:22"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 7,
+          "text": "For every kind of beasts, and of birds, and of serpents, and of things in the sea, is tamed, and hath been tamed of mankind:",
+          "marked_text": "For every kind of beasts, and of birds, and of serpents, and of things in the sea, is tamed, and hath been tamed of mankind:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "But the tongue can no man tame; it is an unruly evil, full of deadly poison.",
+          "marked_text": "But the tongue can no man tame; it is an unruly evil, full of deadly poison.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "Therewith bless we God, even the Father; and therewith curse we men, which are made after the similitude of God.",
+          "marked_text": "Therewith bless we God, even the Father; and therewith curse we men, which are made after the similitude of God.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "Out of the same mouth proceedeth blessing and cursing. My brethren, these things ought not so to be.",
+          "marked_text": "Out of the same mouth proceedeth blessing and cursing. My brethren, these things ought not so to be.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "Doth a fountain send forth at the same place sweet water and bitter?",
+          "marked_text": "Doth a fountain send forth at the same place sweet water and bitter?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "Can the fig tree, my brethren, bear olive berries? either a vine, figs? so can no fountain both yield salt water and fresh.",
+          "marked_text": "Can the fig tree, my brethren, bear olive berries? either a vine, figs? so can no fountain both yield salt water and fresh.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "Who is a wise man and endued with knowledge among you? let him shew out of a good conversation his works with meekness of wisdom.",
+          "marked_text": "Who is a wise man and endued with knowledge among you? let him shew out of a good conversation his works with meekness of wisdom.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "But if ye have bitter envying and strife in your hearts, glory not, and lie not against the truth.",
+          "marked_text": "But if ye have bitter envying and strife in your hearts, glory not, and lie not against the truth.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 15,
+          "text": "This wisdom descendeth not from above, but is earthly, sensual, devilish.",
+          "marked_text": "This wisdom descendeth not from above, but is earthly, sensual, devilish.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "For where envying and strife is, there is confusion and every evil work.",
+          "marked_text": "For where envying and strife is, there is confusion and every evil work.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "But the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits, without partiality, and without hypocrisy.",
+          "marked_text": "But the wisdom that is from above is first pure, then peaceable, gentle, and easy to be intreated, full of mercy and good fruits, without partiality, and without hypocrisy.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 18,
+          "text": "And the fruit of righteousness is sown in peace of them that make peace.",
+          "marked_text": "And the fruit of righteousness<fn n=\"4\"/> is sown in peace of them that make peace.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 18,
+              "note_idx": 4,
+              "keyword": "righteousness",
+              "text": "(See Scofield \" 1Jn 3:7 \") .",
+              "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "1Jn 3:7"
+              ]
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "masters",
+          "text": "teachers, knowing that we shall have the more severe judgment. Cf. Mar 12:40.",
+          "html": "<p><b>masters</b> </p><p>teachers, knowing that we shall have the more severe judgment. Cf. <ref>Mar 12:40</ref>. </p>",
+          "references": [
+            "Mar 12:40"
+          ]
+        },
+        {
+          "verse": 2,
+          "note_idx": 2,
+          "keyword": "perfect",
+          "text": "(See Scofield \" Mat 5:48 \") .",
+          "html": "<p><b>perfect</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:48</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 5:48"
+          ]
+        },
+        {
+          "verse": 6,
+          "note_idx": 3,
+          "keyword": "hell",
+          "text": "(See Scofield \" Mat 5:22 \") .",
+          "html": "<p><b>hell</b> </p><p><i>(See Scofield &quot;</i><i><ref>Mat 5:22</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Mat 5:22"
+          ]
+        },
+        {
+          "verse": 18,
+          "note_idx": 4,
+          "keyword": "righteousness",
+          "text": "(See Scofield \" 1Jn 3:7 \") .",
+          "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "1Jn 3:7"
+          ]
+        }
+      ]
+    },
+    "4": {
+      "chapter": 4,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "From whence come wars and fightings among you? come they not hence, even of your lusts that war in your members?",
+          "marked_text": "From whence come wars and fightings among you? come they not hence, even of your lusts that war in your members?<fn n=\"1\"/>",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "righteousness",
+              "text": "(See Scofield \" 1Jn 3:7 \") .",
+              "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "1Jn 3:7"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "Ye lust, and have not: ye kill, and desire to have, and cannot obtain: ye fight and war, yet ye have not, because ye ask not.",
+          "marked_text": "Ye lust, and have not: ye kill, and desire to have, and cannot obtain: ye fight and war, yet ye have not, because ye ask not.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "Ye ask, and receive not, because ye ask amiss, that ye may consume it upon your lusts.",
+          "marked_text": "Ye ask, and receive not, because ye ask amiss, that ye may consume it upon your lusts.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "Ye adulterers and adulteresses, know ye not that the friendship of the world is enmity with God? whosoever therefore will be a friend of the world is the enemy of God.",
+          "marked_text": "Ye adulterers and adulteresses, know ye not that the friendship of the world<fn n=\"2\"/> is enmity with God? whosoever therefore will be a friend of the world is the enemy of God.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 4,
+              "note_idx": 2,
+              "keyword": "world",
+              "text": "\"kosmos\" = world-system. 2Pe 1:4; Joh 7:7 (See Scofield \" Rev 13:8 \")",
+              "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>2Pe 1:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>",
+              "references": [
+                "2Pe 1:4",
+                "Joh 7:7",
+                "Rev 13:8"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 5,
+          "text": "Do ye think that the scripture saith in vain, The spirit that dwelleth in us lusteth to envy?",
+          "marked_text": "Do ye think that the scripture saith in vain, The spirit that dwelleth in us lusteth to envy?",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "But he giveth more grace. Wherefore he saith, God resisteth the proud, but giveth grace unto the humble.",
+          "marked_text": "But he giveth more grace<fn n=\"3\"/>. Wherefore he saith, God resisteth the proud, but giveth grace unto the humble.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 6,
+              "note_idx": 3,
+              "keyword": "grace",
+              "text": "Grace (imparted). 1Pe 2:19; Rom 6:1; 2Pe 3:18",
+              "html": "<p><b>grace</b> </p><p>Grace (imparted). <ref>1Pe 2:19</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref> </p>",
+              "references": [
+                "1Pe 2:19",
+                "Rom 6:1",
+                "2Pe 3:18"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 7,
+          "text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you.",
+          "marked_text": "Submit yourselves therefore to God. Resist the devil, and he will flee from you.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners; and purify your hearts, ye double minded.",
+          "marked_text": "Draw nigh to God, and he will draw nigh to you. Cleanse your hands, ye sinners<fn n=\"4\"/>; and purify your hearts, ye double minded.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 8,
+              "note_idx": 4,
+              "keyword": "sinners",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sinners</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 9,
+          "text": "Be afflicted, and mourn, and weep: let your laughter be turned to mourning, and your joy to heaviness.",
+          "marked_text": "Be afflicted, and mourn, and weep: let your laughter be turned to mourning, and your joy to heaviness.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "Humble yourselves in the sight of the Lord, and he shall lift you up.",
+          "marked_text": "Humble yourselves in the sight of the Lord, and he shall lift you up.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "Speak not evil one of another, brethren. He that speaketh evil of his brother, and judgeth his brother, speaketh evil of the law, and judgeth the law: but if thou judge the law, thou art not a doer of the law, but a judge.",
+          "marked_text": "Speak not evil one of another, brethren. He that speaketh evil of his brother, and judgeth his brother, speaketh evil of the law, and judgeth the law: but if thou judge the law, thou art not a doer of the law, but a judge.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "There is one lawgiver, who is able to save and to destroy: who art thou that judgest another?",
+          "marked_text": "There is one lawgiver, who is able to save<fn n=\"5\"/> and to destroy: who art thou that judgest another?",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 12,
+              "note_idx": 5,
+              "keyword": "save",
+              "text": "(See Scofield \" Rom 1:16 \") .",
+              "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 1:16"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 13,
+          "text": "Go to now, ye that say, To day or to morrow we will go into such a city, and continue there a year, and buy and sell, and get gain:",
+          "marked_text": "Go to now, ye that say, To day or to morrow we will go into such a city, and continue there a year, and buy and sell, and get gain:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "Whereas ye know not what shall be on the morrow. For what is your life? It is even a vapour, that appeareth for a little time, and then vanisheth away.",
+          "marked_text": "Whereas ye know not what shall be on the morrow. For what is your life? It is even a vapour, that appeareth for a little time, and then vanisheth away.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 15,
+          "text": "For that ye ought to say, If the Lord will, we shall live, and do this, or that.",
+          "marked_text": "For that ye ought to say, If the Lord will, we shall live, and do this, or that.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "But now ye rejoice in your boastings: all such rejoicing is evil.",
+          "marked_text": "But now ye rejoice in your boastings: all such rejoicing is evil.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 17,
+          "text": "Therefore to him that knoweth to do good, and doeth it not, to him it is sin.",
+          "marked_text": "Therefore to him that knoweth to do good, and doeth it not, to him it is sin<fn n=\"6\"/>.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 17,
+              "note_idx": 6,
+              "keyword": "sin",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "righteousness",
+          "text": "(See Scofield \" 1Jn 3:7 \") .",
+          "html": "<p><b>righteousness</b> </p><p><i>(See Scofield &quot;</i><i><ref>1Jn 3:7</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "1Jn 3:7"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 2,
+          "keyword": "world",
+          "text": "\"kosmos\" = world-system. 2Pe 1:4; Joh 7:7 (See Scofield \" Rev 13:8 \")",
+          "html": "<p><b>world</b> </p><p>&quot;kosmos&quot; = world-system. <ref>2Pe 1:4</ref>; <ref>Joh 7:7</ref> <i>(See Scofield &quot;</i><i><ref>Rev 13:8</ref></i><i>&quot;)</i> </p>",
+          "references": [
+            "2Pe 1:4",
+            "Joh 7:7",
+            "Rev 13:8"
+          ]
+        },
+        {
+          "verse": 6,
+          "note_idx": 3,
+          "keyword": "grace",
+          "text": "Grace (imparted). 1Pe 2:19; Rom 6:1; 2Pe 3:18",
+          "html": "<p><b>grace</b> </p><p>Grace (imparted). <ref>1Pe 2:19</ref>; <ref>Rom 6:1</ref>; <ref>2Pe 3:18</ref> </p>",
+          "references": [
+            "1Pe 2:19",
+            "Rom 6:1",
+            "2Pe 3:18"
+          ]
+        },
+        {
+          "verse": 8,
+          "note_idx": 4,
+          "keyword": "sinners",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sinners</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 12,
+          "note_idx": 5,
+          "keyword": "save",
+          "text": "(See Scofield \" Rom 1:16 \") .",
+          "html": "<p><b>save</b> </p><p><i>(See Scofield &quot;</i><i><ref>Rom 1:16</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 1:16"
+          ]
+        },
+        {
+          "verse": 17,
+          "note_idx": 6,
+          "keyword": "sin",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        }
+      ]
+    },
+    "5": {
+      "chapter": 5,
+      "outlines": null,
+      "verses": [
+        {
+          "verse": 1,
+          "text": "Go to now, ye rich men, weep and howl for your miseries that shall come upon you.",
+          "marked_text": "Go to now, ye rich men, weep and howl for your miseries that shall come upon you.<fn n=\"1\"/>",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 1,
+              "note_idx": 1,
+              "keyword": "sin",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 2,
+          "text": "Your riches are corrupted, and your garments are motheaten.",
+          "marked_text": "Your riches are corrupted, and your garments are motheaten.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 3,
+          "text": "Your gold and silver is cankered; and the rust of them shall be a witness against you, and shall eat your flesh as it were fire. Ye have heaped treasure together for the last days.",
+          "marked_text": "Your gold and silver is cankered; and the rust of them shall be a witness against you, and shall eat your flesh as it were fire. Ye have heaped treasure together for the last days.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 4,
+          "text": "Behold, the hire of the labourers who have reaped down your fields, which is of you kept back by fraud, crieth: and the cries of them which have reaped are entered into the ears of the Lord of sabaoth.",
+          "marked_text": "Behold, the hire of the labourers who have reaped down your fields, which is of you kept back by fraud, crieth: and the cries of them which have reaped are entered into the ears of the Lord of sabaoth<fn n=\"2\"/>.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 4,
+              "note_idx": 2,
+              "keyword": "the Lord of sabaoth",
+              "text": "i.e. Jehovah of hosts.",
+              "html": "<p><b>the Lord of sabaoth</b> </p><p>i.e. Jehovah of hosts. </p>",
+              "references": []
+            }
+          ]
+        },
+        {
+          "verse": 5,
+          "text": "Ye have lived in pleasure on the earth, and been wanton; ye have nourished your hearts, as in a day of slaughter.",
+          "marked_text": "Ye have lived in pleasure on the earth, and been wanton; ye have nourished your hearts, as in a day of slaughter.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 6,
+          "text": "Ye have condemned and killed the just; and he doth not resist you.",
+          "marked_text": "Ye have condemned and killed the just; and he doth not resist you.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 7,
+          "text": "Be patient therefore, brethren, unto the coming of the Lord. Behold, the husbandman waiteth for the precious fruit of the earth, and hath long patience for it, until he receive the early and latter rain.",
+          "marked_text": "Be patient therefore, brethren, unto the coming of the Lord. Behold, the husbandman waiteth for the precious fruit of the earth, and hath long patience for it, until he receive the early and latter rain.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 8,
+          "text": "Be ye also patient; stablish your hearts: for the coming of the Lord draweth nigh.",
+          "marked_text": "Be ye also patient; stablish your hearts: for the coming of the Lord draweth nigh.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 9,
+          "text": "Grudge not one against another, brethren, lest ye be condemned: behold, the judge standeth before the door.",
+          "marked_text": "Grudge not one against another, brethren, lest ye be condemned: behold, the judge standeth before the door.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 10,
+          "text": "Take, my brethren, the prophets, who have spoken in the name of the Lord, for an example of suffering affliction, and of patience.",
+          "marked_text": "Take, my brethren, the prophets, who have spoken in the name of the Lord, for an example of suffering affliction, and of patience.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 11,
+          "text": "Behold, we count them happy which endure. Ye have heard of the patience of Job, and have seen the end of the Lord; that the Lord is very pitiful, and of tender mercy.",
+          "marked_text": "Behold, we count them happy which endure. Ye have heard of the patience of Job, and have seen the end of the Lord; that the Lord is very pitiful, and of tender mercy.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 12,
+          "text": "But above all things, my brethren, swear not, neither by heaven, neither by the earth, neither by any other oath: but let your yea be yea; and your nay, nay; lest ye fall into condemnation.",
+          "marked_text": "But above all things, my brethren, swear not, neither by heaven, neither by the earth, neither by any other oath: but let your yea be yea; and your nay, nay; lest ye fall into condemnation.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 13,
+          "text": "Is any among you afflicted? let him pray. Is any merry? let him sing psalms.",
+          "marked_text": "Is any among you afflicted? let him pray. Is any merry? let him sing psalms.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 14,
+          "text": "Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord:",
+          "marked_text": "Is any sick among you? let him call for the elders of the church; and let them pray over him, anointing him with oil in the name of the Lord:",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 15,
+          "text": "And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him.",
+          "marked_text": "And the prayer of faith shall save the sick, and the Lord shall raise him up; and if he have committed sins, they shall be forgiven him.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 16,
+          "text": "Confess your faults one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
+          "marked_text": "Confess your faults<fn n=\"3\"/> one to another, and pray one for another, that ye may be healed. The effectual fervent prayer of a righteous man availeth much.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 16,
+              "note_idx": 3,
+              "keyword": "faults",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") . righteous (See Scofield \" Rom 10:10 \") .",
+              "html": "<p><b>faults</b> Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p><p><b>righteous</b> <i>(See Scofield &quot;</i><i><ref>Rom 10:10</ref></i><i>&quot;)</i>. </p>",
+              "references": [
+                "Rom 3:23",
+                "Rom 10:10"
+              ]
+            }
+          ]
+        },
+        {
+          "verse": 17,
+          "text": "Elias was a man subject to like passions as we are, and he prayed earnestly that it might not rain: and it rained not on the earth by the space of three years and six months.",
+          "marked_text": "Elias was a man subject to like passions as we are, and he prayed earnestly that it might not rain: and it rained not on the earth by the space of three years and six months.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 18,
+          "text": "And he prayed again, and the heaven gave rain, and the earth brought forth her fruit.",
+          "marked_text": "And he prayed again, and the heaven gave rain, and the earth brought forth her fruit.",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 19,
+          "text": "Brethren, if any of you do err from the truth, and one convert him;",
+          "marked_text": "Brethren, if any of you do err from the truth, and one convert him;",
+          "outlines": null,
+          "footnotes": null
+        },
+        {
+          "verse": 20,
+          "text": "Let him know, that he which converteth the sinner from the error of his way shall save a soul from death, and shall hide a multitude of sins.",
+          "marked_text": "Let him know, that he which converteth the sinner from the error of his way shall save a soul from death, and shall hide a multitude of sins<fn n=\"4\"/>.",
+          "outlines": null,
+          "footnotes": [
+            {
+              "verse": 20,
+              "note_idx": 4,
+              "keyword": "sins",
+              "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+              "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> .</p>",
+              "references": [
+                "Rom 3:23"
+              ]
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        {
+          "verse": 1,
+          "note_idx": 1,
+          "keyword": "sin",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sin</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        },
+        {
+          "verse": 4,
+          "note_idx": 2,
+          "keyword": "the Lord of sabaoth",
+          "text": "i.e. Jehovah of hosts.",
+          "html": "<p><b>the Lord of sabaoth</b> </p><p>i.e. Jehovah of hosts. </p>",
+          "references": []
+        },
+        {
+          "verse": 16,
+          "note_idx": 3,
+          "keyword": "faults",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") . righteous (See Scofield \" Rom 10:10 \") .",
+          "html": "<p><b>faults</b> Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i>. </p><p><b>righteous</b> <i>(See Scofield &quot;</i><i><ref>Rom 10:10</ref></i><i>&quot;)</i>. </p>",
+          "references": [
+            "Rom 3:23",
+            "Rom 10:10"
+          ]
+        },
+        {
+          "verse": 20,
+          "note_idx": 4,
+          "keyword": "sins",
+          "text": "Sin. (See Scofield \" Rom 3:23 \") .",
+          "html": "<p><b>sins</b> </p><p>Sin. <i>(See Scofield &quot;</i><i><ref>Rom 3:23</ref></i><i>&quot;)</i> .</p>",
+          "references": [
+            "Rom 3:23"
+          ]
+        }
+      ]
+    }
+  }
+}
