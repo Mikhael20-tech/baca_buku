@@ -371,6 +371,30 @@ const INITIAL_DEMO_BOOKS = [
     file_path: '/books/spiritual-authority.epub',
     required_tier: 'premium',
     created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-central-line',
+    title: 'The Central Line of the Divine Revelation',
+    author: 'Witness Lee',
+    category: 'Ministry Books',
+    description: 'Witness Lee\'s systematic masterpiece setting forth the central line of the divine revelation throughout the entire Bible: the Triune God, the divine economy, Christ, the Spirit, the divine life, and the New Jerusalem.',
+    cover_gradient: 'from-amber-700 via-stone-900 to-amber-950',
+    cover_icon: '🏛️',
+    file_path: '/books/the-central-line-of-the-divine-revelation.epub',
+    required_tier: 'free',
+    created_at: new Date('2026-01-09').toISOString()
+  },
+  {
+    id: 'mb-life-study-job',
+    title: 'Life-Study of Job',
+    author: 'Witness Lee',
+    category: 'Pelajaran Hayat',
+    description: 'The complete Life-study of Job in 38 messages expounding God\'s dealing with His seekers, stripping them of self-righteousness so they may be filled with the Triune God.',
+    cover_gradient: 'from-orange-800 via-amber-950 to-stone-950',
+    cover_icon: '📜',
+    file_path: '/books/life-study-of-job.epub',
+    required_tier: 'free',
+    created_at: new Date('2026-01-09').toISOString()
   }
 ];
 
@@ -947,6 +971,8 @@ export default function App() {
           <BibleReaderView 
             onBackToHome={() => setViewMode('landing')} 
             onOpenLibrary={() => setViewMode('library')} 
+            onOpenBook={handleOpenBook}
+            allBooks={books}
           />
         </React.Suspense>
       </div>

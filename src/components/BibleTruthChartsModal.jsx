@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   X, Search, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight, 
   BookOpen, Sparkles, Compass, ExternalLink, Info, Check, Share2
@@ -7,7 +7,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 
-export default function BibleTruthChartsModal({ isOpen, onClose, onNavigateToVerse, bibleLang = 'id' }) {
+export default function BibleTruthChartsModal({ 
+  isOpen, 
+  onClose, 
+  onNavigateToVerse, 
+  bibleLang = 'id',
+  onOpenBook,
+  allBooks = [],
+  onOpenLibrary
+}) {
   const [charts, setCharts] = useState([]);
   const [selectedChartId, setSelectedChartId] = useState('chart-1');
   const [searchQuery, setSearchQuery] = useState('');
@@ -117,6 +125,40 @@ export default function BibleTruthChartsModal({ isOpen, onClose, onNavigateToVer
       String(c.number).includes(q)
     );
   });
+
+  // Check if reference points to a book available locally in the app
+  const matchedLocalBook = useMemo(() => {
+    if (!activeNode?.reference || !allBooks || allBooks.length === 0) return null;
+    const refText = activeNode.reference.toLowerCase();
+    
+    return allBooks.find(b => {
+      const titleLower = (b.title || '').toLowerCase();
+      if (titleLower.includes('central line') && refText.includes('central line')) return true;
+      if (titleLower.includes('job') && refText.includes('job')) return true;
+      if (titleLower.includes('all-inclusive christ') && refText.includes('all-inclusive christ')) return true;
+      if (titleLower.includes('economy of god') && (refText.includes('economy of god') || refText.includes('divine economy'))) return true;
+      if (titleLower.includes('knowledge of life') && refText.includes('knowledge of life')) return true;
+      if (titleLower.includes('experience of life') && refText.includes('experience of life')) return true;
+      if (titleLower.includes('glorious church') && refText.includes('glorious church')) return true;
+      if (titleLower.includes('spiritual authority') && refText.includes('spiritual authority')) return true;
+      if (titleLower.includes('normal christian') && refText.includes('normal christian')) return true;
+      if (titleLower.includes('release of the spirit') && refText.includes('release of the spirit')) return true;
+      if (titleLower.includes('matius') && (refText.includes('matthew') || refText.includes('matius'))) return true;
+      if (titleLower.includes('markus') && (refText.includes('mark') || refText.includes('markus'))) return true;
+      if (titleLower.includes('lukas') && (refText.includes('luke') || refText.includes('lukas'))) return true;
+      if (titleLower.includes('yohanes') && (refText.includes('john') || refText.includes('yohanes'))) return true;
+      if (titleLower.includes('roma') && (refText.includes('romans') || refText.includes('roma'))) return true;
+      if (titleLower.includes('korintus') && (refText.includes('corinthians') || refText.includes('korintus'))) return true;
+      if (titleLower.includes('galatia') && (refText.includes('galatians') || refText.includes('galatia'))) return true;
+      if (titleLower.includes('efesus') && (refText.includes('ephesians') || refText.includes('efesus'))) return true;
+      if (titleLower.includes('filipi') && (refText.includes('philippians') || refText.includes('filipi'))) return true;
+      if (titleLower.includes('kolose') && (refText.includes('colossians') || refText.includes('kolose'))) return true;
+      if (titleLower.includes('ibrani') && (refText.includes('hebrews') || refText.includes('ibrani'))) return true;
+      if (titleLower.includes('wahyu') && (refText.includes('revelation') || refText.includes('wahyu'))) return true;
+      if (titleLower.includes('kejadian') && (refText.includes('genesis') || refText.includes('kejadian'))) return true;
+      return false;
+    });
+  }, [activeNode, allBooks]);
 
   const currentIndex = charts.findIndex(c => c.id === selectedChartId);
   const handlePrevChart = () => {
@@ -316,25 +358,73 @@ export default function BibleTruthChartsModal({ isOpen, onClose, onNavigateToVer
 
                   {/* Ministry Reference */}
                   {activeNode.reference ? (
-                    <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-300/80 dark:border-amber-800/60 text-xs text-amber-950 dark:text-amber-200 space-y-1.5">
+                    <div className="p-3.5 bg-amber-500/10 rounded-2xl border border-amber-300/80 dark:border-amber-800/60 text-xs text-amber-950 dark:text-amber-200 space-y-2.5">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-1.5 font-mono">
-                          <ExternalLink className="w-3 h-3" />
-                          <span>Rujukan Buku Pelayanan (Ministry Books):</span>
+                          <BookOpen className="w-3.5 h-3.5" />
+                          <span>Rujukan Buku Pelayanan:</span>
                         </span>
-                        <span className="text-[10px] bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 px-1.5 py-0.2 rounded font-mono">
-                          LSM Online
-                        </span>
+                        {matchedLocalBook && (
+                          <Badge className="bg-emerald-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full font-mono flex items-center gap-1 shadow-2xs">
+                            <Check className="w-2.5 h-2.5" /> Ada di Buku Lokal
+                          </Badge>
+                        )}
                       </div>
-                      <div 
-                        className="leading-relaxed [&_a]:text-amber-900 dark:[&_a]:text-amber-300 [&_a]:underline [&_a]:font-bold [&_a]:hover:text-amber-700 cursor-pointer"
-                        dangerouslySetInnerHTML={{ 
-                          __html: activeNode.reference.replace(/<a\s+(?!.*?target=)/gi, '<a target="_blank" rel="noopener noreferrer" ') 
-                        }}
-                      />
-                      <p className="text-[10px] text-stone-500 dark:text-zinc-400 italic">
-                        Klik rujukan di atas untuk langsung membaca berita lengkap di perpustakaan resmi ministrybooks.org
-                      </p>
+
+                      {/* Tombol Baca Buku Lokal jika tersedia */}
+                      {matchedLocalBook && onOpenBook && (
+                        <div className="p-2.5 bg-white dark:bg-zinc-900 rounded-xl border border-emerald-400 dark:border-emerald-700/60 space-y-2 shadow-2xs">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base">📖</span>
+                            <div className="min-w-0">
+                              <span className="font-bold text-xs text-emerald-950 dark:text-emerald-200 block truncate">
+                                {matchedLocalBook.title}
+                              </span>
+                              <span className="text-[10px] text-stone-500 dark:text-stone-400">
+                                {matchedLocalBook.author} • Buku Lokal Tersedia
+                              </span>
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              onClose();
+                              onOpenBook(matchedLocalBook);
+                            }}
+                            className="w-full bg-[#3B4B34] hover:bg-[#2D3927] text-white text-xs font-bold rounded-xl py-2 flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                          >
+                            <BookOpen className="w-3.5 h-3.5 text-amber-300" />
+                            <span>Buka &amp; Baca Buku di Aplikasi</span>
+                          </Button>
+                        </div>
+                      )}
+
+                      {/* Detail Kutipan & Tautan Online LSM */}
+                      <div className="space-y-1">
+                        <span className="text-[10px] text-stone-600 dark:text-zinc-400 font-semibold block">
+                          Kutipan Rujukan / Pesan:
+                        </span>
+                        <div 
+                          className="leading-relaxed text-[11px] [&_a]:text-amber-900 dark:[&_a]:text-amber-300 [&_a]:underline [&_a]:font-bold [&_a]:hover:text-amber-700 cursor-pointer"
+                          dangerouslySetInnerHTML={{ 
+                            __html: activeNode.reference.replace(/<a\s+(?!.*?target=)/gi, '<a target="_blank" rel="noopener noreferrer" ') 
+                          }}
+                        />
+                      </div>
+
+                      {onOpenLibrary && (
+                        <div className="pt-2 border-t border-amber-300/40 dark:border-amber-800/40 flex items-center justify-between text-[11px]">
+                          <button
+                            onClick={() => {
+                              onClose();
+                              onOpenLibrary();
+                            }}
+                            className="text-amber-800 dark:text-amber-300 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                          >
+                            <span>📚 Jelajahi Katalog Buku Lokal →</span>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ) : null}
 

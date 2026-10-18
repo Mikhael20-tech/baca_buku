@@ -179,7 +179,7 @@ function getOutlineText(otl) {
   return String(otl);
 }
 
-export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
+export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBook, allBooks }) {
   const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'en' | 'scofield'
   const [scofieldLayout, setScofieldLayout] = useState(() => localStorage.getItem('bible_scofield_layout') || 'classic'); // 'classic' | 'modern'
   const [viewMode, setViewMode] = useState(() => localStorage.getItem('bible_view_mode') || 'single'); // 'single' | 'parallel'
@@ -2715,6 +2715,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         isOpen={isTruthChartsOpen}
         onClose={() => setIsTruthChartsOpen(false)}
         bibleLang={bibleLang}
+        onOpenBook={onOpenBook}
+        allBooks={allBooks}
+        onOpenLibrary={onOpenLibrary}
       />
 
     </div>
