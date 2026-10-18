@@ -76,6 +76,7 @@ export default function BibleScofieldClassicView({
   bookData,
   selectedChapter,
   fontSize = 16.5,
+  showOutlines = true,
   onOpenFootnote,
   onOpenIndex,
   onPrevChapter,
@@ -604,7 +605,7 @@ export default function BibleScofieldClassicView({
             </div>
             {leftVerses.map(v => (
               <div key={v.verse} id={`classic-verse-${v.verse}`}>
-                {v.outlines && (
+                {showOutlines && v.outlines && (
                   <div className="sco-outline">{Array.isArray(v.outlines) ? v.outlines.map(o => typeof o === 'string' ? o : o?.text || '').join(' ') : (typeof v.outlines === 'object' ? v.outlines?.text || '' : v.outlines)}</div>
                 )}
                 <div className="sco-verse">
@@ -681,7 +682,7 @@ export default function BibleScofieldClassicView({
             </div>
             {rightVerses.map(v => (
               <div key={v.verse} id={`classic-verse-${v.verse}`}>
-                {v.outlines && (
+                {showOutlines && v.outlines && (
                   <div className="sco-outline">{Array.isArray(v.outlines) ? v.outlines.map(o => typeof o === 'string' ? o : o?.text || '').join(' ') : (typeof v.outlines === 'object' ? v.outlines?.text || '' : v.outlines)}</div>
                 )}
                 <div className="sco-verse">

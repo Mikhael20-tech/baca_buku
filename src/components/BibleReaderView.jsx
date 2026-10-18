@@ -1497,6 +1497,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               bookData={bookData}
               selectedChapter={selectedChapter}
               fontSize={fontSize}
+              showOutlines={showOutlines}
               onOpenFootnote={(vNum, nIdx, fn) => handleOpenFootnote(vNum, nIdx, fn, 'scofield')}
               onOpenIndex={() => setIsScofieldIndexOpen(true)}
               onOpenBookIntro={() => setIsIntroModalOpen(true)}
