@@ -118,6 +118,8 @@ export default function BibleScofieldClassicView({
   const bookName = bookData.name || 'Genesis';
   const bookId = bookData.id || 'kejadian';
   const chronology = BOOK_CHRONOLOGY[bookId] || 'B.C.';
+  const isMalachi = bookId === 'maleakhi' || (bookName && bookName.toLowerCase().includes('malachi'));
+  const isMatthew = bookId === 'matius' || (bookName && bookName.toLowerCase().includes('matthew'));
 
   // Split verses into 2 columns (Left and Right)
   const half = Math.ceil(verses.length / 2);
@@ -533,7 +535,7 @@ export default function BibleScofieldClassicView({
 
         {/* 2. TOOLBAR NAVIGASI PASAL & INDEKS TOPIKAL */}
         <div className="sco-top-toolbar">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
             <span className="font-bold text-stone-900 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded text-[11px] font-mono">
               {chronology}
             </span>
@@ -541,7 +543,7 @@ export default function BibleScofieldClassicView({
               variant="outline"
               size="sm"
               onClick={onOpenIndex}
-              className="h-6 px-2 text-[11px] text-amber-950 bg-amber-50 hover:bg-amber-100 border-amber-300 rounded font-bold flex items-center gap-1 shadow-2xs"
+              className="h-6 px-2 text-[11px] text-amber-950 bg-amber-50 hover:bg-amber-100 border-amber-300 rounded font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
             >
               <Compass className="w-3.5 h-3.5 text-amber-800" />
               <span>Indeks Rantai</span>
@@ -549,13 +551,35 @@ export default function BibleScofieldClassicView({
             <Button
               variant="outline"
               size="sm"
-              onClick={onOpenBookIntro}
-              className="h-6 px-2 text-[11px] text-amber-950 bg-amber-50 hover:bg-amber-100 border-amber-300 rounded font-bold flex items-center gap-1 shadow-2xs"
-              title="Baca Pengantar Kitab, Preface, Panoramic View & Pentateuch"
+              onClick={() => onOpenBookIntro && onOpenBookIntro(isMalachi && selectedChapter === 4 ? 'malachi_to_matthew' : (isMatthew && selectedChapter === 1 ? 'four_gospels' : 'book'))}
+              className="h-6 px-2 text-[11px] text-amber-950 bg-amber-50 hover:bg-amber-100 border-amber-300 rounded font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
+              title="Baca Pengantar Kitab, Preface, Panoramic View & Dokumen Kanonik"
             >
               <BookOpen className="w-3.5 h-3.5 text-amber-800" />
               <span>Pengantar &amp; Dokumen</span>
             </Button>
+            {isMalachi && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onOpenBookIntro && onOpenBookIntro('malachi_to_matthew')}
+                className="h-6 px-2 text-[11px] text-[#8b0000] bg-red-50 hover:bg-red-100 border-red-300 rounded font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
+                title="Buka Dokumen Scofield: From Malachi to Matthew"
+              >
+                <span>📜 Malachi to Matthew</span>
+              </Button>
+            )}
+            {isMatthew && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onOpenBookIntro && onOpenBookIntro('four_gospels')}
+                className="h-6 px-2 text-[11px] text-[#8b0000] bg-red-50 hover:bg-red-100 border-red-300 rounded font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
+                title="Buka Dokumen Scofield: The Four Gospels"
+              >
+                <span>📜 The Four Gospels</span>
+              </Button>
+            )}
           </div>
 
           <div className="flex items-center gap-1">
@@ -582,6 +606,44 @@ export default function BibleScofieldClassicView({
             </button>
           </div>
         </div>
+
+        {/* New Testament Entrance Banner for Matthew 1 */}
+        {isMatthew && selectedChapter === 1 && (
+          <div className="mb-6 p-4 sm:p-5 bg-gradient-to-r from-[#fbf8f0] via-[#f7f0df] to-[#f4e8cc] border-2 border-amber-600/40 rounded-xl shadow-xs text-stone-900 font-serif">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <div className="text-[11px] font-sans font-extrabold uppercase tracking-widest text-[#8b0000] mb-0.5 flex items-center gap-1.5">
+                  <span>📜 RISALAH PEMBUKA PERJANJIAN BARU</span>
+                  <span className="bg-amber-200 text-amber-900 font-mono px-1.5 py-0.2 rounded text-[10px]">C.I. Scofield</span>
+                </div>
+                <div className="text-base sm:text-lg font-serif font-bold text-stone-950">
+                  The Four Gospels &amp; From Malachi to Matthew
+                </div>
+                <p className="text-xs text-stone-700 font-sans mt-0.5 max-w-xl">
+                  Dua dokumen kanonik Scofield: Penjelasan keselarasan 4 Injil serta tinjauan historis masa 400 tahun keheningan dari Maleakhi ke Matius.
+                </p>
+              </div>
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => onOpenBookIntro && onOpenBookIntro('four_gospels')}
+                  className="px-3.5 py-2 bg-[#8b0000] hover:bg-[#a00000] text-amber-50 rounded-lg font-sans font-bold text-xs shadow-xs transition cursor-pointer flex items-center gap-1.5"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-amber-300" />
+                  <span>The Four Gospels</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenBookIntro && onOpenBookIntro('malachi_to_matthew')}
+                  className="px-3.5 py-2 bg-stone-800 hover:bg-stone-900 text-amber-100 rounded-lg font-sans font-bold text-xs shadow-xs transition cursor-pointer flex items-center gap-1.5"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Malachi to Matthew</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 3. PENGANTAR LENGKAP KITAB (PASAL 1) */}
         {selectedChapter === 1 && introParagraphs.length > 0 && (
@@ -717,6 +779,8 @@ export default function BibleScofieldClassicView({
             {bottomFootnotes.map((fn, fIdx) => {
               const isSelected = selectedNoteIdx === fn.note_idx;
               const displayNum = fn.footnote_number || (fIdx + 1);
+              const isMalachiToMatthew = fn.keyword?.toLowerCase().includes('malachi to matthew') || fn.text?.toLowerCase().includes('from malachi to matthew');
+
               return (
                 <div 
                   key={fn.note_idx}
@@ -725,7 +789,7 @@ export default function BibleScofieldClassicView({
                     setSelectedNoteIdx(fn.note_idx);
                     if (onOpenFootnote) onOpenFootnote(fn.verse, fn.note_idx, fn);
                   }}
-                  className={`sco-fn-entry ${isSelected ? 'selected-fn' : ''}`}
+                  className={`sco-fn-entry ${isSelected ? 'selected-fn' : ''} ${isMalachiToMatthew ? 'border-l-4 border-l-amber-600 bg-amber-50/60 p-2 my-2 rounded' : ''}`}
                 >
                   <span className="sco-fn-num">{displayNum}</span>
                   <span className="font-bold">({selectedChapter}:{fn.verse}) </span>
@@ -736,9 +800,58 @@ export default function BibleScofieldClassicView({
                       : (fn.text.slice(0, 240) + (fn.text.length > 240 ? '... [Klik untuk baca selengkapnya]' : ''))
                     }
                   </span>
+
+                  {isMalachiToMatthew && (
+                    <div className="mt-2.5 pt-2 border-t border-amber-300/80 flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-[11px] font-sans text-stone-700 italic">
+                        C.I. Scofield menyertakan risalah historis lengkap masa 400 tahun keheningan untuk catatan ini.
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (onOpenBookIntro) onOpenBookIntro('malachi_to_matthew');
+                        }}
+                        className="px-3 py-1.5 bg-[#8b0000] hover:bg-[#a00000] text-amber-50 font-sans font-bold text-xs rounded-md shadow-xs cursor-pointer flex items-center gap-1.5 transition hover:scale-[1.02]"
+                      >
+                        <BookOpen className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Buka Risalah Lengkap "From Malachi to Matthew"</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {/* Transitional Banner for Malachi 4 (End of Old Testament) */}
+        {isMalachi && selectedChapter === 4 && (
+          <div className="mt-8 p-5 sm:p-6 bg-gradient-to-r from-[#fdfbf7] via-[#faf4e6] to-[#f5ebd2] border-2 border-[#b8860b] rounded-xl shadow-md text-stone-900 font-serif">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="text-[11px] font-sans font-extrabold uppercase tracking-widest text-[#8b0000] flex items-center gap-2">
+                  <span>📜 RISALAH ANTARA PERJANJIAN LAMA &amp; BARU</span>
+                  <span className="bg-amber-200 text-amber-900 font-mono px-2 py-0.5 rounded text-[10px]">C.I. Scofield (1917)</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-stone-950">
+                  From Malachi to Matthew
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-700 font-sans max-w-xl leading-relaxed">
+                  Menjelaskan masa 400 tahun keheningan kenabian: periode Persia, Yunani, Makabe, &amp; Romawi, kemunculan Sinagoge, serta kaum Farisi dan Saduki sebelum pembukaan Kitab Matius.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0 w-full md:w-auto">
+                <button
+                  type="button"
+                  onClick={() => onOpenBookIntro && onOpenBookIntro('malachi_to_matthew')}
+                  className="px-4 py-2.5 bg-[#8b0000] hover:bg-[#a00000] text-amber-50 rounded-lg font-sans font-bold text-xs sm:text-sm tracking-wide shadow-md transition cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02]"
+                >
+                  <BookOpen className="w-4 h-4 text-amber-300" />
+                  <span>Baca "From Malachi to Matthew"</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
 

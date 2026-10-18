@@ -1557,7 +1557,10 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               showOutlines={showOutlines}
               onOpenFootnote={(vNum, nIdx, fn) => handleOpenFootnote(vNum, nIdx, fn, 'scofield')}
               onOpenIndex={() => setIsScofieldIndexOpen(true)}
-              onOpenBookIntro={() => setIsIntroModalOpen(true)}
+              onOpenBookIntro={(tab) => {
+                setIntroModalInitialTab(tab || 'book');
+                setIsIntroModalOpen(true);
+              }}
               onPrevChapter={handlePrevChapter}
               onNextChapter={handleNextChapter}
               canPrev={selectedChapter > 1 || books.findIndex(b => b.id === selectedBookId) > 0}
@@ -2475,24 +2478,40 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between gap-2">
-              <button
-                onClick={() => {
-                  const bookName = activeFootnotePopup.lang === 'en' ? (currentBookInfo.nameEn || currentBookInfo.name) : currentBookInfo.name;
-                  const label = activeFootnotePopup.lang === 'en' ? 'Note' : 'Catatan';
-                  const copyText = `${bookName} ${selectedChapter}:${activeFootnotePopup.verse} [${label} ${activeFootnotePopup.noteIdx}${activeFootnotePopup.keyword ? ` - ${activeFootnotePopup.keyword}` : ''}]:\n${activeFootnotePopup.text}`;
-                  navigator.clipboard.writeText(copyText);
-                  alert(activeFootnotePopup.lang === 'en' ? 'Footnote copied to clipboard!' : 'Catatan kaki berhasil disalin!');
-                }}
-                className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-800 text-xs font-semibold flex items-center gap-1.5 text-slate-600 dark:text-zinc-300 transition"
-              >
-                <Copy className="w-3.5 h-3.5" />
-                <span>{activeFootnotePopup.lang === 'en' ? 'Copy Note' : 'Salin Catatan'}</span>
-              </button>
+            <div className="pt-3 border-t border-slate-100 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const bookName = activeFootnotePopup.lang === 'en' ? (currentBookInfo.nameEn || currentBookInfo.name) : currentBookInfo.name;
+                    const label = activeFootnotePopup.lang === 'en' ? 'Note' : 'Catatan';
+                    const copyText = `${bookName} ${selectedChapter}:${activeFootnotePopup.verse} [${label} ${activeFootnotePopup.noteIdx}${activeFootnotePopup.keyword ? ` - ${activeFootnotePopup.keyword}` : ''}]:\n${activeFootnotePopup.text}`;
+                    navigator.clipboard.writeText(copyText);
+                    alert(activeFootnotePopup.lang === 'en' ? 'Footnote copied to clipboard!' : 'Catatan kaki berhasil disalin!');
+                  }}
+                  className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-800 text-xs font-semibold flex items-center gap-1.5 text-slate-600 dark:text-zinc-300 transition cursor-pointer"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>{activeFootnotePopup.lang === 'en' ? 'Copy Note' : 'Salin Catatan'}</span>
+                </button>
+
+                {(activeFootnotePopup.keyword?.toLowerCase().includes('malachi to matthew') || activeFootnotePopup.text?.toLowerCase().includes('from malachi to matthew')) && (
+                  <button
+                    onClick={() => {
+                      setIntroModalInitialTab('malachi_to_matthew');
+                      setIsIntroModalOpen(true);
+                      handleCloseFootnote();
+                    }}
+                    className="px-3 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Buka Risalah Lengkap</span>
+                  </button>
+                )}
+              </div>
 
               <button
                 onClick={handleCloseFootnote}
-                className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs"
+                className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs cursor-pointer"
               >
                 {activeFootnotePopup.lang === 'en' ? 'Close' : 'Tutup'}
               </button>
