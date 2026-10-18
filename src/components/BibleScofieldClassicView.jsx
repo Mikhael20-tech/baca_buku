@@ -79,6 +79,7 @@ export default function BibleScofieldClassicView({
   showOutlines = true,
   onOpenFootnote,
   onOpenIndex,
+  onOpenBookIntro,
   onPrevChapter,
   onNextChapter,
   canPrev,
@@ -544,6 +545,16 @@ export default function BibleScofieldClassicView({
             >
               <Compass className="w-3.5 h-3.5 text-amber-800" />
               <span>Indeks Rantai</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onOpenBookIntro}
+              className="h-6 px-2 text-[11px] text-amber-950 bg-amber-50 hover:bg-amber-100 border-amber-300 rounded font-bold flex items-center gap-1 shadow-2xs"
+              title="Baca Pengantar Kitab, Preface, Panoramic View & Pentateuch"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-amber-800" />
+              <span>Pengantar &amp; Dokumen</span>
             </Button>
           </div>
 
