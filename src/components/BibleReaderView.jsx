@@ -288,8 +288,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
     setIsLoading(true);
 
     if (viewMode === 'parallel') {
-      const fetchId = fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.ok ? r.json() : null);
-      const fetchEn = fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`).then(r => r.ok ? r.json() : null);
+      const fetchId = fetch(`/bible/${selectedBookId}.json?v=2`).then(r => r.ok ? r.json() : null);
+      const fetchEn = fetch(`/bible/en/${selectedBookId}.json?v=2`).then(r => r.ok ? r.json() : null);
 
       Promise.all([fetchId, fetchEn])
         .then(([idData, enData]) => {
@@ -312,17 +312,17 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         });
     } else {
       setParallelBookData(null);
-      let primaryUrl = `/bible/${selectedBookId}.json?v=${Date.now()}`;
+      let primaryUrl = `/bible/${selectedBookId}.json?v=2`;
       if (bibleLang === 'en') {
-        primaryUrl = `/bible/en/${selectedBookId}.json?v=${Date.now()}`;
+        primaryUrl = `/bible/en/${selectedBookId}.json?v=2`;
       } else if (bibleLang === 'scofield') {
-        primaryUrl = `/bible/scofield/${selectedBookId}.json?v=${Date.now()}`;
+        primaryUrl = `/bible/scofield/${selectedBookId}.json?v=2`;
       }
 
       fetch(primaryUrl)
         .then(res => {
           if (!res.ok) {
-            return fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`).then(r => r.json());
+            return fetch(`/bible/${selectedBookId}.json?v=2`).then(r => r.json());
           }
           return res.json();
         })
@@ -346,6 +346,22 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
     localStorage.setItem('last_bible_book', selectedBookId);
     return () => { isMounted = false; };
   }, [selectedBookId, bibleLang, viewMode]);
+
+  // 3. Prefetch Kitab Berikutnya Secara Diam-diam di Waktu Senggang (Idle Background Prefetch)
+  useEffect(() => {
+    if (!books || books.length === 0) return;
+    const currentIdx = books.findIndex(b => b.id === selectedBookId);
+    if (currentIdx >= 0 && currentIdx < books.length - 1) {
+      const nextBook = books[currentIdx + 1];
+      const timer = setTimeout(() => {
+        let nextUrl = `/bible/${nextBook.id}.json?v=2`;
+        if (bibleLang === 'en') nextUrl = `/bible/en/${nextBook.id}.json?v=2`;
+        else if (bibleLang === 'scofield') nextUrl = `/bible/scofield/${nextBook.id}.json?v=2`;
+        fetch(nextUrl).catch(() => {});
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedBookId, books, bibleLang]);
 
   // Simpan pasal aktif & scroll ke atas saat ganti pasal
   useEffect(() => {

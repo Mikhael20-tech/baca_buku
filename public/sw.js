@@ -1,5 +1,5 @@
 // Lightweight Service Worker for Baca App (Offline & PWA Support)
-const CACHE_NAME = 'baca-cache-v2';
+const CACHE_NAME = 'baca-cache-v3';
 const CORE_URLS = [
   '/',
   '/manifest.webmanifest',
@@ -59,8 +59,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Stale-while-revalidate for Bible JSON data and static assets
-  if (url.pathname.startsWith('/bible/') || url.pathname.startsWith('/assets/')) {
+  // Stale-while-revalidate for Bible, Kidung, Covers, and static assets
+  if (
+    url.pathname.startsWith('/bible/') || 
+    url.pathname.startsWith('/kidung/') || 
+    url.pathname.startsWith('/covers/') || 
+    url.pathname.startsWith('/assets/')
+  ) {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) => {
         return cache.match(event.request).then((cachedResponse) => {
