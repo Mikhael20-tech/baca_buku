@@ -4,7 +4,7 @@ import {
   Settings, Sun, Moon, Coffee, ArrowLeft, Bookmark, Copy, 
   Check, Share2, ZoomIn, ZoomOut, Compass, List, X,
   MessageCircle, ChevronDown, ChevronUp, Info, Maximize2, Minimize2,
-  Highlighter, Columns, BookMarked, Hash, FileText
+  Highlighter, Columns, BookMarked, Hash, FileText, Scroll, Eye
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -98,7 +98,45 @@ const FONTS = [
   { id: 'Merriweather', name: 'Merriweather', font: "'Merriweather', Georgia, serif" },
   { id: 'Literata', name: 'Literata', font: "'Literata', Georgia, serif" },
   { id: 'Inter', name: 'Inter', font: "'Inter', sans-serif" },
-  { id: 'Plus Jakarta Sans', name: 'Jakarta Sans', font: "'Plus Jakarta Sans', sans-serif" }
+];
+
+const SCOFIELD_DOCS = [
+  {
+    id: 'preface',
+    title: 'Preface to the Present Edition (1917)',
+    titleId: 'Kata Pengantar Edisi Revisi 1917',
+    desc: 'Penjelasan revisi Oxford 1917, komite konsultasi referensi, dan pengenalan sistem catatan rantai tematik (chain references).',
+    descEn: 'Explanation of the 1917 Oxford revision, editorial board, and system of topical chain references.',
+    badge: 'Oxford 1917 • Hal. 8',
+    icon: Scroll
+  },
+  {
+    id: 'intro',
+    title: 'Introduction (To Be Read - 1909)',
+    titleId: 'Pengantar 11 Fitur Utama',
+    desc: '11 fitur mendasar Scofield Reference Bible, analisis komprehensif, pembagian dispensasi, dan panduan membaca teks Kitab Suci.',
+    descEn: '11 distinctive features of the Scofield Bible, panoramic analysis, and guide to dispensational study.',
+    badge: 'Edisi 1909 • Hal. 7–8',
+    icon: FileText
+  },
+  {
+    id: 'panoramic',
+    title: 'A Panoramic View of the Bible',
+    titleId: 'Pandangan Panorama Alkitab',
+    desc: 'Ikhtisar panorama terpadu seluruh Kitab Suci: Perjanjian Lama sebagai persiapan, dan Perjanjian Baru sebagai penggenapan Kristus.',
+    descEn: 'Unified panoramic view of Scripture: Old Testament preparation and New Testament fulfillment in Christ.',
+    badge: 'Panorama Biblika • Hal. 9–10',
+    icon: Eye
+  },
+  {
+    id: 'pentateuch',
+    title: 'The Pentateuch',
+    titleId: 'Pengantar 5 Kitab Taurat',
+    desc: 'Risalah pengantar khusus 5 Kitab Taurat Musa (Kejadian sampai Ulangan) sebagai fondasi progresif wahyu Allah.',
+    descEn: 'Special introduction to the Five Books of Moses (Genesis–Deuteronomy) as progressive revelation foundation.',
+    badge: 'Taurat Musa • Hal. 12',
+    icon: Compass
+  }
 ];
 
 function getOutlinesList(rawOutlines) {
@@ -141,6 +179,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   const [isChapterPickerOpen, setIsChapterPickerOpen] = useState(false);
   const [isVersePickerOpen, setIsVersePickerOpen] = useState(false);
   const [isIntroModalOpen, setIsIntroModalOpen] = useState(false);
+  const [introModalInitialTab, setIntroModalInitialTab] = useState('book');
   const [isBookmarksModalOpen, setIsBookmarksModalOpen] = useState(false);
   const [isGlobalSearchOpen, setIsGlobalSearchOpen] = useState(false);
   const [previewReference, setPreviewReference] = useState(null);
@@ -1932,12 +1971,12 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               </button>
             </div>
 
-            {/* Tab PL & PB & Search */}
+            {/* Tab PL, PB, Scofield & Search */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-              <div className="flex p-1 bg-slate-100 dark:bg-zinc-800 rounded-2xl">
+              <div className="flex p-1 bg-slate-100 dark:bg-zinc-800 rounded-2xl overflow-x-auto scrollbar-none">
                 <button
                   onClick={() => setBookPickerTab('PL')}
-                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-xl text-xs font-bold transition ${
+                  className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
                     bookPickerTab === 'PL' ? 'bg-white dark:bg-zinc-700 text-blue-700 dark:text-blue-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
                   }`}
                 >
@@ -1945,11 +1984,22 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 </button>
                 <button
                   onClick={() => setBookPickerTab('PB')}
-                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-xl text-xs font-bold transition ${
+                  className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
                     bookPickerTab === 'PB' ? 'bg-white dark:bg-zinc-700 text-amber-700 dark:text-amber-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
                   }`}
                 >
                   {bibleLang === 'en' ? 'New Testament (27)' : 'Perjanjian Baru (27)'}
+                </button>
+                <button
+                  onClick={() => setBookPickerTab('SCOFIELD')}
+                  className={`flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                    bookPickerTab === 'SCOFIELD'
+                      ? 'bg-amber-600 text-white shadow-2xs'
+                      : 'text-amber-800 dark:text-amber-400 hover:text-amber-600'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Scofield Docs (4)' : 'Dokumen Scofield (4)'}</span>
                 </button>
               </div>
 
@@ -1959,47 +2009,176 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   type="text"
                   value={bookSearchQuery}
                   onChange={(e) => setBookSearchQuery(e.target.value)}
-                  placeholder={bibleLang === 'en' ? "Search book name..." : "Cari nama kitab..."}
+                  placeholder={bibleLang === 'en' ? "Search book or doc..." : "Cari kitab atau dokumen..."}
                   className="w-full pl-8 pr-3 py-1.5 bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl text-xs text-slate-800 dark:text-zinc-100 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20"
                 />
               </div>
             </div>
 
-            {/* Grid Kitab */}
+            {/* Grid Kitab / Dokumen Scofield */}
             <div className="overflow-y-auto pr-1 flex-1">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                {books
-                  .filter(b => b.testament === bookPickerTab)
-                  .filter(b => b.name.toLowerCase().includes(bookSearchQuery.toLowerCase()) || (b.name_id && b.name_id.toLowerCase().includes(bookSearchQuery.toLowerCase())))
-                  .map(b => (
-                    <button
-                      key={b.id}
-                      onClick={() => {
-                        setTransitionAnim('animate-chapter-fade');
-                        if (contentRef.current) contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
-                        setSelectedBookId(b.id);
-                        setSelectedChapter(1);
-                        setIsBookPickerOpen(false);
-                      }}
-                      className={`p-3 rounded-2xl border text-left transition flex items-center justify-between ${
-                        selectedBookId === b.id
-                          ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 font-bold shadow-2xs'
-                          : 'border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-amber-400 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
-                      }`}
-                    >
-                      <div>
-                        <h5 className="text-xs font-bold leading-tight">{b.name}</h5>
-                        {b.name_id && bibleLang === 'en' && (
-                          <span className="text-[10px] text-amber-700/80 dark:text-amber-300/80 font-medium block">
-                            {b.name_id}
-                          </span>
-                        )}
-                        <span className="text-[10px] text-slate-400 dark:text-zinc-500">{b.chapters_count} {bibleLang === 'en' ? 'chs' : 'pasal'}</span>
+              {bookPickerTab === 'SCOFIELD' ? (
+                <div className="space-y-3">
+                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-300/80 dark:border-amber-800/60 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <Sparkles className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0" />
+                      <span className="text-xs font-bold text-amber-950 dark:text-amber-200">
+                        The Scofield Reference Bible 1917 — Oxford University Press Documents
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono text-amber-800/80 dark:text-amber-400 hidden sm:inline">
+                      4 Dokumen Otentik
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {SCOFIELD_DOCS
+                      .filter(d => 
+                        !bookSearchQuery ||
+                        d.title.toLowerCase().includes(bookSearchQuery.toLowerCase()) ||
+                        d.titleId.toLowerCase().includes(bookSearchQuery.toLowerCase()) ||
+                        d.desc.toLowerCase().includes(bookSearchQuery.toLowerCase())
+                      )
+                      .map(doc => {
+                        const IconComp = doc.icon;
+                        return (
+                          <div
+                            key={doc.id}
+                            onClick={() => {
+                              setIsBookPickerOpen(false);
+                              setIntroModalInitialTab(doc.id);
+                              setIsIntroModalOpen(true);
+                            }}
+                            className="p-4 rounded-2xl border border-amber-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900/90 hover:border-amber-500 hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group space-y-2.5"
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                <IconComp className="w-5 h-5" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between gap-1.5">
+                                  <h5 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-zinc-100 group-hover:text-amber-700 dark:group-hover:text-amber-400 leading-tight">
+                                    {doc.title}
+                                  </h5>
+                                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                                </div>
+                                <span className="text-[10px] font-mono text-amber-700 dark:text-amber-400 font-semibold block mt-0.5">
+                                  {doc.badge}
+                                </span>
+                              </div>
+                            </div>
+                            <p className="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed">
+                              {bibleLang === 'en' || bibleLang === 'scofield' ? doc.descEn : doc.desc}
+                            </p>
+                            <div className="pt-2 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-[11px] text-amber-700 dark:text-amber-400 font-bold">
+                              <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Read Document' : 'Buka & Baca'}</span>
+                              <span>→</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2.5">
+                  {/* Pentateuch Banner on Old Testament Tab */}
+                  {bookPickerTab === 'PL' && !bookSearchQuery && (
+                    <div className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/5 border border-amber-300 dark:border-amber-700/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/25 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0">
+                          <Compass className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-extrabold text-xs text-amber-950 dark:text-amber-200">The Pentateuch</span>
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300">Scofield 1917</span>
+                          </div>
+                          <p className="text-[11px] text-stone-600 dark:text-stone-300 leading-tight">
+                            {bibleLang === 'en' || bibleLang === 'scofield'
+                              ? 'Introductory treatise to the Five Books of Moses (Genesis–Deuteronomy)'
+                              : 'Pengantar 5 Kitab Taurat Musa (Kejadian–Ulangan)'}
+                          </p>
+                        </div>
                       </div>
-                      <ChevronRight className="w-3.5 h-3.5 opacity-40" />
-                    </button>
-                  ))}
-              </div>
+                      <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button
+                          onClick={() => {
+                            setIsBookPickerOpen(false);
+                            setIntroModalInitialTab('pentateuch');
+                            setIsIntroModalOpen(true);
+                          }}
+                          className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-2xs flex items-center gap-1.5 cursor-pointer transition"
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                          <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Read Pentateuch' : 'Baca Pentateuch'}</span>
+                        </button>
+                        <button
+                          onClick={() => setBookPickerTab('SCOFIELD')}
+                          className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-amber-200 dark:border-zinc-700 text-amber-900 dark:text-amber-200 text-xs font-semibold hover:bg-amber-50 dark:hover:bg-zinc-700 transition cursor-pointer"
+                        >
+                          {bibleLang === 'en' || bibleLang === 'scofield' ? '4 Scofield Docs →' : '4 Dokumen →'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Matching Scofield doc banner if search query matches */}
+                  {bookSearchQuery && (
+                    SCOFIELD_DOCS.filter(d => 
+                      d.title.toLowerCase().includes(bookSearchQuery.toLowerCase()) ||
+                      d.titleId.toLowerCase().includes(bookSearchQuery.toLowerCase()) ||
+                      d.desc.toLowerCase().includes(bookSearchQuery.toLowerCase())
+                    ).length > 0 && (
+                      <div className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 text-xs font-bold text-amber-900 dark:text-amber-300">
+                          <Sparkles className="w-4 h-4 text-amber-600" />
+                          <span>Ditemukan dokumen Scofield yang cocok</span>
+                        </div>
+                        <button
+                          onClick={() => setBookPickerTab('SCOFIELD')}
+                          className="text-xs font-bold text-amber-700 dark:text-amber-400 hover:underline cursor-pointer"
+                        >
+                          Buka Tab Scofield →
+                        </button>
+                      </div>
+                    )
+                  )}
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                    {books
+                      .filter(b => b.testament === bookPickerTab)
+                      .filter(b => b.name.toLowerCase().includes(bookSearchQuery.toLowerCase()) || (b.name_id && b.name_id.toLowerCase().includes(bookSearchQuery.toLowerCase())))
+                      .map(b => (
+                        <button
+                          key={b.id}
+                          onClick={() => {
+                            setTransitionAnim('animate-chapter-fade');
+                            if (contentRef.current) contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
+                            setSelectedBookId(b.id);
+                            setSelectedChapter(1);
+                            setIsBookPickerOpen(false);
+                          }}
+                          className={`p-3 rounded-2xl border text-left transition flex items-center justify-between ${
+                            selectedBookId === b.id
+                              ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 font-bold shadow-2xs'
+                              : 'border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-amber-400 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
+                          }`}
+                        >
+                          <div>
+                            <h5 className="text-xs font-bold leading-tight">{b.name}</h5>
+                            {b.name_id && bibleLang === 'en' && (
+                              <span className="text-[10px] text-amber-700/80 dark:text-amber-300/80 font-medium block">
+                                {b.name_id}
+                              </span>
+                            )}
+                            <span className="text-[10px] text-slate-400 dark:text-zinc-500">{b.chapters_count} {bibleLang === 'en' ? 'chs' : 'pasal'}</span>
+                          </div>
+                          <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+                        </button>
+                      ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -2136,6 +2315,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         onClose={() => setIsIntroModalOpen(false)}
         bookData={bookData}
         bibleLang={bibleLang}
+        initialTab={introModalInitialTab}
       />
 
       {/* MODAL 5: AYAT TERSIMPAN & BOOKMARK */}

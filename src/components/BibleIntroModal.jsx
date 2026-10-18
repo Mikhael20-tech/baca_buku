@@ -3,13 +3,15 @@ import { Sparkles, X, BookOpen, Clock, MapPin, User, Users, FileText, Scroll, Co
 import { Button } from '@/components/ui/button';
 
 export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, initialTab = 'book' }) {
-  if (!isOpen || !bookData || !bookData.intro) return null;
-
-  const intro = bookData.intro;
   const isEn = bibleLang === 'en' || bibleLang === 'scofield';
-  const isScofield = bibleLang === 'scofield' || bookData.translation_short === 'Scofield 1917';
+  const isScofield = bibleLang === 'scofield' || bookData?.translation_short === 'Scofield 1917' || initialTab !== 'book';
 
-  const [activeTab, setActiveTab] = useState(initialTab || 'book');
+  if (!isOpen) return null;
+  if (!isScofield && (!bookData || !bookData.intro)) return null;
+
+  const intro = bookData?.intro || {};
+
+  const [activeTab, setActiveTab] = useState(initialTab || (isScofield && !intro.text ? 'preface' : 'book'));
   const [frontmatter, setFrontmatter] = useState(null);
   const [isLoadingFrontmatter, setIsLoadingFrontmatter] = useState(false);
 
@@ -21,7 +23,7 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
   }, [isOpen, initialTab]);
 
   useEffect(() => {
-    if (!isOpen || !isScofield) return;
+    if (!isOpen) return;
     if (frontmatter) return;
 
     setIsLoadingFrontmatter(true);
@@ -35,7 +37,7 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
         console.error('Failed to load Scofield frontmatter:', err);
         setIsLoadingFrontmatter(false);
       });
-  }, [isOpen, isScofield, frontmatter]);
+  }, [isOpen, frontmatter]);
 
   const subject = isEn ? intro.Subject : (intro.Pokok || intro.Subject);
   const author = isEn ? intro.Author : (intro.Penulis || intro.Author);
@@ -44,7 +46,7 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
   const recipients = isEn ? intro.Recipients : (intro.Penerima || intro.Recipients);
 
   const scofieldTabs = [
-    { id: 'book', label: `Kitab: ${bookData.name}`, icon: BookOpen },
+    ...(bookData?.name && intro.text ? [{ id: 'book', label: `Kitab: ${bookData.name}`, icon: BookOpen }] : []),
     { id: 'preface', label: 'Preface (1917)', icon: Scroll },
     { id: 'intro', label: 'Introduction (1909)', icon: FileText },
     { id: 'panoramic', label: 'Panoramic View', icon: Eye },
