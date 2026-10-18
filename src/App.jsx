@@ -16,17 +16,25 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { supabase, isSupabaseConfigured, isValidUUID } from './lib/supabase';
 import { deleteBookFromIndexedDB } from './lib/bookStorage';
-import CloudEpubReader from './components/CloudEpubReader';
+const CloudEpubReader = React.lazy(() => import('./components/CloudEpubReader'));
+const BibleReaderView = React.lazy(() => import('./components/BibleReaderView'));
+const KidungReaderView = React.lazy(() => import('./components/KidungReaderView'));
+const UserDashboard = React.lazy(() => import('./components/UserDashboard'));
+const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
+
+const ViewLoadingFallback = ({ text = 'Memuat...' }) => (
+  <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-[#3B4B34]">
+    <div className="w-9 h-9 border-3 border-[#3B4B34]/25 border-t-[#3B4B34] rounded-full animate-spin mb-2.5"></div>
+    <p className="text-xs font-semibold tracking-wider uppercase font-mono text-stone-600">{text}</p>
+  </div>
+);
+
 import AdminUploadModal from './components/AdminUploadModal';
 import AuthModal from './components/AuthModal';
 import LandingPage from './components/LandingPage';
 import KarakterSeriesModal from './components/KarakterSeriesModal';
 import PembinaanTopicsModal from './components/PembinaanTopicsModal';
 import BibleSelectorModal from './components/BibleSelectorModal';
-import BibleReaderView from './components/BibleReaderView';
-import KidungReaderView from './components/KidungReaderView';
-import UserDashboard from './components/UserDashboard';
-import AdminDashboard from './components/AdminDashboard';
 import SubscriptionModal from './components/SubscriptionModal';
 import QuickScriptureModal from './components/QuickScriptureModal';
 import LockedBookModal from './components/LockedBookModal';
@@ -915,14 +923,16 @@ export default function App() {
   if (currentBook) {
     return (
       <div className="fixed inset-0 z-50 bg-white">
-        <CloudEpubReader 
-          book={currentBook} 
-          userId={user.id} 
-          userPlan={userPlan}
-          userRole={userRole}
-          onOpenPricing={() => setIsSubscriptionModalOpen(true)}
-          onBack={() => setCurrentBook(null)} 
-        />
+        <React.Suspense fallback={<ViewLoadingFallback text="Memuat Pembaca Buku..." />}>
+          <CloudEpubReader 
+            book={currentBook} 
+            userId={user.id} 
+            userPlan={userPlan}
+            userRole={userRole}
+            onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+            onBack={() => setCurrentBook(null)} 
+          />
+        </React.Suspense>
       </div>
     );
   }
@@ -933,10 +943,12 @@ export default function App() {
   if (!currentBook && viewMode === 'bible') {
     return (
       <div className="fixed inset-0 z-50 bg-white">
-        <BibleReaderView 
-          onBackToHome={() => setViewMode('landing')} 
-          onOpenLibrary={() => setViewMode('library')} 
-        />
+        <React.Suspense fallback={<ViewLoadingFallback text="Memuat Alkitab Pemulihan..." />}>
+          <BibleReaderView 
+            onBackToHome={() => setViewMode('landing')} 
+            onOpenLibrary={() => setViewMode('library')} 
+          />
+        </React.Suspense>
       </div>
     );
   }
@@ -947,13 +959,15 @@ export default function App() {
   if (!currentBook && viewMode === 'kidung') {
     return (
       <div className="fixed inset-0 z-50 bg-white">
-        <KidungReaderView 
-          initialTab={kidungInitialTab}
-          initialSongId={kidungInitialSongId}
-          onBackToHome={() => setViewMode('landing')} 
-          onOpenLibrary={() => setViewMode('library')} 
-          onOpenBible={() => setViewMode('bible')}
-        />
+        <React.Suspense fallback={<ViewLoadingFallback text="Memuat Kidung Rohani..." />}>
+          <KidungReaderView 
+            initialTab={kidungInitialTab}
+            initialSongId={kidungInitialSongId}
+            onBackToHome={() => setViewMode('landing')} 
+            onOpenLibrary={() => setViewMode('library')} 
+            onOpenBible={() => setViewMode('bible')}
+          />
+        </React.Suspense>
       </div>
     );
   }
@@ -1565,39 +1579,43 @@ export default function App() {
         
         {/* RENDER VIEW 1: USER DASHBOARD */}
         {viewMode === 'user-dashboard' && (
-          <UserDashboard
-            user={user}
-            onUpdateProfile={handleUpdateProfile}
-            plan={userPlan}
-            onOpenPricing={() => setIsSubscriptionModalOpen(true)}
-            onOpenBook={handleOpenBook}
-            onOpenBible={() => setViewMode('bible')}
-            onEnterLibrary={() => setViewMode('library')}
-            enjoyments={enjoyments}
-            onAddEnjoyment={handleAddEnjoyment}
-            initialTab={userDashboardTab}
-            books={books}
-          />
+          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Dashboard Saya..." />}>
+            <UserDashboard
+              user={user}
+              onUpdateProfile={handleUpdateProfile}
+              plan={userPlan}
+              onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+              onOpenBook={handleOpenBook}
+              onOpenBible={() => setViewMode('bible')}
+              onEnterLibrary={() => setViewMode('library')}
+              enjoyments={enjoyments}
+              onAddEnjoyment={handleAddEnjoyment}
+              initialTab={userDashboardTab}
+              books={books}
+            />
+          </React.Suspense>
         )}
 
         {/* RENDER VIEW 2: ADMIN DASHBOARD */}
         {viewMode === 'admin-dashboard' && (
-          <AdminDashboard
-            books={books}
-            onOpenUpload={() => setIsUploadModalOpen(true)}
-            onDeleteBook={handleDeleteBook}
-            onOpenBook={handleOpenBook}
-            enjoyments={enjoyments}
-            onDeleteEnjoyment={handleDeleteEnjoyment}
-            onTogglePinEnjoyment={handleTogglePinEnjoyment}
-            aiSummary={aiSummary}
-            onUpdateAiSummary={(newSummary) => {
-              setAiSummary(newSummary);
-              showToast('Rangkuman Meja Perjamuan berhasil disimpan.');
-            }}
-            initialTab={adminDashboardTab}
-            showToast={showToast}
-          />
+          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Dashboard Admin..." />}>
+            <AdminDashboard
+              books={books}
+              onOpenUpload={() => setIsUploadModalOpen(true)}
+              onDeleteBook={handleDeleteBook}
+              onOpenBook={handleOpenBook}
+              enjoyments={enjoyments}
+              onDeleteEnjoyment={handleDeleteEnjoyment}
+              onTogglePinEnjoyment={handleTogglePinEnjoyment}
+              aiSummary={aiSummary}
+              onUpdateAiSummary={(newSummary) => {
+                setAiSummary(newSummary);
+                showToast('Rangkuman Meja Perjamuan berhasil disimpan.');
+              }}
+              initialTab={adminDashboardTab}
+              showToast={showToast}
+            />
+          </React.Suspense>
         )}
 
         {/* RENDER VIEW 3: KATALOG BUKU (LIBRARY) */}
