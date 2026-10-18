@@ -1,0 +1,114 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 829.458 1000" enable-background="new 0 0 829.458 1000" xml:space="preserve">
+<g id="图层_2">
+	<rect x="16.388" y="14" fill="#FFFFFF" width="803" height="977"/>
+</g>
+<g id="边框">
+	<rect x="53.888" y="104.5" fill="none" stroke="#000000" stroke-miterlimit="10" width="720" height="860"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="53.388" y1="526.5" x2="773.388" y2="526.5"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="412.888" y1="105" x2="412.888" y2="526"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="53.388" y1="744.5" x2="773.388" y2="744.5"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="53.388" y1="309.5" x2="773.388" y2="309.5"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="236.888" y1="105" x2="236.888" y2="526"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="589.888" y1="105" x2="589.888" y2="526"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="299.888" y1="745" x2="299.888" y2="965"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="532.888" y1="745" x2="532.888" y2="965"/>
+	<circle fill="#FFC000" cx="147.388" cy="196.75" r="54.25"/>
+	<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="326.638" cy="202.25" r="43.75"/>
+	<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="500.251" cy="209.833" r="58"/>
+	<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="500.251" cy="209.833" r="35.5"/>
+	<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="500.251" cy="209.833" r="17.75"/>
+	<circle fill="#333333" stroke="#000000" stroke-miterlimit="10" cx="679.701" cy="209.833" r="58"/>
+	<circle fill="#333333" stroke="#FFFFFF" stroke-miterlimit="10" cx="679.701" cy="209.833" r="37.5"/>
+	<circle fill="#333333" stroke="#FFFFFF" stroke-miterlimit="10" cx="679.701" cy="209.833" r="17.75"/>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 484.9907 214.5)" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 486.4126 239.8335)" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 485.5405 260.167)" font-family="'ArialNarrow'" font-size="12">BODY</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 664.3169 214.5)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 665.7388 239.8335)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 664.9165 261.167)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">BODY</text>
+	<circle fill="#333333" cx="180.638" cy="843.834" r="58"/>
+	<circle fill="#333333" stroke="#FFFFFF" stroke-miterlimit="10" cx="180.888" cy="843.834" r="37.5"/>
+	<circle fill="#FFC000" cx="180.638" cy="843.834" r="17.75"/>
+	<circle fill="#FFC000" cx="651.638" cy="841.834" r="58"/>
+	<circle fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="651.888" cy="841.834" r="37"/>
+	<circle fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="651.638" cy="841.834" r="17.75"/>
+	<circle fill="#333333" cx="415.638" cy="843.834" r="58"/>
+	<circle fill="#333333" stroke="#000000" stroke-miterlimit="10" cx="326.638" cy="408.833" r="58"/>
+	<circle fill="#333333" stroke="#000000" stroke-miterlimit="10" cx="202.805" cy="650.834" r="58"/>
+	<circle fill="#FFC000" cx="619.471" cy="648.834" r="58"/>
+	<circle fill="#FFC000" cx="683.638" cy="408.833" r="58"/>
+	<circle fill="#FFC000" cx="326.638" cy="408.833" r="26.091"/>
+	<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="148.638" cy="407.109" r="58"/>
+	<circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="147.946" cy="407.109" r="35.5"/>
+	<polygon fill="#FFC000" points="174.944,436.773 149.016,422.5 124.308,437.415 130.638,408.25 108.05,389.456 137.638,387 
+		148.638,359.172 160.388,386.25 189.981,388.417 167.138,408.25 	"/>
+	<circle fill="#FFC000" cx="503.638" cy="408.833" r="58"/>
+	<circle fill="#FFC000" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="503.888" cy="408.833" r="35.5"/>
+	<polygon fill="#FFC000" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" points="531.408,437.768 505.001,421.745 
+		478.61,438.824 485.428,408.989 461.29,388.937 492.026,385.896 503.383,357.048 515.999,385.677 546.719,387.227 523.036,407.669 
+			"/>
+	<rect x="407.388" y="572" fill="#DD1E20" width="16" height="130"/>
+	<rect x="368.388" y="608" fill="#DD1E20" width="94" height="15"/>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 101.0225 131.375)" font-family="'Georgia'" font-size="18">Triune God</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 87.5488 273.5)" font-family="'Georgia'" font-size="18">Uncreated Life</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 130.0825 293.8428)" font-family="'Georgia'" font-size="14">Fig. 1</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 91.9512 337.1982)" font-family="'Georgia'" font-size="18">The God-Man</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 87.2578 493.4941)" font-family="'Georgia'" font-size="18">The Last Adam</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 106.5298 557.4941)" font-family="'Georgia'" font-size="18">Sphere of Sin and Death</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 532.5659 557.4941)"><tspan x="0" y="0" font-family="'Georgia'" font-size="18">Sphere of Eternal Life</tspan><tspan x="28.309" y="21.6" font-family="'Georgia'" font-size="18">in Christ Jesus</tspan></text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 389.3896 557.4941)" font-family="'Georgia'" font-size="18">Isa. 53</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 127.729 733.0498)" font-family="'Georgia'" font-size="18">“Out of...” Col. 1:13</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 558.7104 733.0498)" font-family="'Georgia'" font-size="18">“Into...” Col. 1:13</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 130.3052 513.8369)" font-family="'Georgia'" font-size="14">Fig. 5</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 127.2358 771.2646)" font-family="'Georgia'" font-size="18">Regeneration</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 90.3613 927.5605)" font-family="'Georgia'" font-size="18">Hath the Son hath Life</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 159.9492 947.9033)" font-family="'Georgia'" font-size="14">Fig. 10</text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 359.8359 771.2646)" font-family="'Georgia'" font-size="18">Transformtion</text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 341.5547 927.5605)" font-family="'Georgia'" font-size="18">From glory to glory</text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 398.7378 947.9033)" font-family="'Georgia'" font-size="14">Fig. 11</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 545.9155 771.2646)" font-family="'Georgia'" font-size="16">“Like Him...See Him as He is”</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 549.0171 927.5605)" font-family="'Georgia'" font-size="16">Manifestation of Sons of God</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 631.3354 947.9033)" font-family="'Georgia'" font-size="14">Fig. 12</text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 267.8916 337.1982)" font-family="'Georgia'" font-size="18">The Sin Bearer</text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 257.96 493.4941)" font-family="'Georgia'" font-size="18">The Lamb of God</text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 309.542 513.8369)" font-family="'Georgia'" font-size="14">Fig. 6</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 452.5493 337.1982)" font-family="'Georgia'" font-size="18">Resurrection</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 430.4536 493.4941)" font-family="'Georgia'" font-size="18">Alive for evermore</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 487.103 513.8369)" font-family="'Georgia'" font-size="14">Fig. 7</text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 395.5415 731.9629)" font-family="'Georgia'" font-size="14">Fig. 9</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 634.4146 337.1982)" font-family="'Georgia'" font-size="18">In Him: Life</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 628.7544 493.4941)" font-family="'Georgia'" font-size="18">Christ our life</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 666.0796 513.8369)" font-family="'Georgia'" font-size="14">Fig. 8</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 264.8003 131.375)" font-family="'Georgia'" font-size="18">The First Adam</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 278.186 273.5)" font-family="'Georgia'" font-size="18">Created Life</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 309.3848 293.8428)" font-family="'Georgia'" font-size="14">Fig. 2</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 429.3433 131.375)" font-family="'Georgia'" font-size="18">The Sinless Adam</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 611.6304 131.375)" font-family="'Georgia'" font-size="18">The Fallen Adam</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 482.9722 293.8428)" font-family="'Georgia'" font-size="14">Fig. 3</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 662.2046 293.8428)" font-family="'Georgia'" font-size="14">Fig. 4</text>
+	<path fill="none" d="M402.349,87.79"/>
+	<path fill="none" d="M326.638,158.5"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="326.888" y1="142" x2="326.888" y2="159"/>
+	<text transform="matrix(1 0 0 1 671.3335 381)"><tspan x="0" y="0" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="10">GOD</tspan><tspan x="-31.975" y="14" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="10">HATH GIVEN TO</tspan><tspan x="-35.031" y="28" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="10">US ETERNALLIFE</tspan><tspan x="-28.472" y="42" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="10">AND THIS LIFE</tspan><tspan x="-12.173" y="56" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="10">IS IN HIS</tspan><tspan x="0.764" y="70" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="10">SON</tspan></text>
+	<polygon fill="#FFC000" points="402.554,811.166 415.388,829.5 429.346,811.374 425.888,833.125 446.388,830.75 430.055,843.084 
+		446.388,856.125 426.055,854.396 429.388,876.032 415.388,858.625 402.554,876.009 406.388,854.672 384.388,857.125 
+		402.388,843.563 384.388,830.5 406.388,833.668 	"/>
+	<text transform="matrix(1 0 0 1 214.333 46.626)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">9. THE TRIUNE GOD BEING LIFE</tspan><tspan x="-28.031" y="28.8" font-family="'Georgia'" font-size="24">TO SATURATE THE TRIPARTITE MAN</tspan></text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 135.1772 412.0913)" fill="#FFFFFF" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 136.5991 437.4248)" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 135.7271 457.7583)" font-family="'ArialNarrow'" font-size="12">BODY</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 489.8032 414.0913)" fill="#FFFFFF" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 491.2251 439.4248)" fill="#FFFFFF" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 490.353 459.7583)" fill="#FFFFFF" font-family="'ArialNarrow'" font-size="12">BODY</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 165.6606 848.5)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 167.0825 873.834)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 166.2603 895.167)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">BODY</text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 402.9106 848.5)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 404.3325 873.834)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 403.5103 895.167)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">BODY</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 636.4106 847.5)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SPIRIT</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 637.8325 872.834)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">SOUL</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 637.0103 894.167)" fill="#FCFCFC" font-family="'ArialNarrow'" font-size="12">BODY</text>
+</g>
+</svg>

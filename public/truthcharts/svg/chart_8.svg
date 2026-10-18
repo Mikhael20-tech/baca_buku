@@ -1,0 +1,47 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1190.941 946.947" enable-background="new 0 0 1190.941 946.947"
+	 xml:space="preserve">
+<g id="图层_3">
+	<rect x="105.508" y="11" fill="#FFFFFF" width="977" height="927"/>
+</g>
+<g id="图层_2">
+	<text transform="matrix(1 0 0 1 293.123 81.626)"><tspan x="0" y="0" font-family="'Georgia'" font-size="36">8. GOD&apos;S OBJECTIVE SALVATION AND</tspan><tspan x="111.56" y="43.2" font-family="'Georgia'" font-size="36">SUBJECTIVE SALVATION</tspan></text>
+	<g>
+		<path fill="#666666" d="M272.097,278.234c3.126,28.764,1.495,44.252-9.787,59.74c10.603,10.747,11.418,28.764,8.699,55.315
+			c-5.98,57.212-3.67,67.643,12.641,80.918l-1.223,6.954c-19.981-15.488-22.428-37.298-18.758-87.24
+			c3.398-46.464,2.311-51.522-13.185-51.838v-8.218c15.359,0.948,18.35-12.644,14-65.43c-3.67-44.252,0.544-58.16,18.758-70.803
+			l0.544,5.373C268.155,214.068,266.66,227.344,272.097,278.234z"/>
+	</g>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 105.5127 326.481)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">THE</tspan><tspan x="-32.01" y="43.2" font-family="'ArialMT'" font-size="36">SINNER</tspan></text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 41.4668 744.627)" font-family="'ArialMT'" font-size="36">BELIEVERS</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 356.0322 230.4854)" font-family="'ArialMT'" font-size="36">SIN</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 649.7466 230.4854)" font-family="'ArialMT'" font-size="36">BLOOD</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 955.0356 211.4863)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">SUBSTITU-</tspan><tspan x="14.994" y="40" font-family="'ArialMT'" font-size="36">TIONARY</tspan></text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 304.0273 627.6328)" font-family="'ArialMT'" font-size="36">GOD’S LIFE</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 338.0498 767.8027)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">HUMAN</tspan><tspan x="27.984" y="43.199" font-family="'ArialMT'" font-size="36">LIFE</tspan></text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 654.7466 627.6328)" font-family="'ArialMT'" font-size="36">FLESH</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 953.5083 627.6328)" font-family="'ArialMT'" font-size="36">RELEASING</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 350.0381 392.3955)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">THE</tspan><tspan x="-46.011" y="43.2" font-family="'ArialMT'" font-size="36">OLD MAN</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 676.7642 384.395)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">THE</tspan><tspan x="-28.011" y="43.2" font-family="'ArialMT'" font-size="36">CROSS</tspan></text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 676.7642 776.2012)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">THE</tspan><tspan x="-28.012" y="43.199" font-family="'ArialMT'" font-size="36">CROSS</tspan></text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 988.5239 797.8008)" font-family="'ArialMT'" font-size="36">LOSING</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 956.5415 384.395)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="36">TOGETHER</tspan><tspan x="54.018" y="40" font-family="'ArialMT'" font-size="36">WITH</tspan></text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 304.0273 266.502)" font-family="'ArialMT'" font-size="24">(THE PRODUCT)</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 335.3457 663.4258)" font-family="'ArialMT'" font-size="24">(POSITIVE)</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 302.0293 856.416)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="24">(THE MORTAL, NATURAL, </tspan><tspan x="44.66" y="28.799" font-family="'ArialMT'" font-size="24">AND ANIMAL LIFE)</tspan></text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 304.0273 473.4736)" font-family="'ArialMT'" font-size="24">(THE FACTORY)</text>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="520.508" y1="219" x2="621.508" y2="219"/>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="789.508" y1="219" x2="934.508" y2="219"/>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="520.508" y1="392" x2="621.508" y2="392"/>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="789.508" y1="392" x2="934.508" y2="392"/>
+	<g>
+		<path fill="#666666" d="M277.097,674.234c3.126,28.764,1.495,44.252-9.787,59.74c10.603,10.746,11.418,28.764,8.699,55.314
+			c-5.98,57.212-3.67,67.643,12.641,80.918l-1.223,6.954c-19.981-15.488-22.428-37.298-18.758-87.239
+			c3.398-46.465,2.311-51.522-13.185-51.838v-8.219c15.359,0.948,18.35-12.644,14-65.43c-3.67-44.252,0.544-58.16,18.758-70.803
+			l0.544,5.373C273.155,610.068,271.66,623.344,277.097,674.234z"/>
+	</g>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="520.508" y1="615" x2="621.508" y2="615"/>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="789.508" y1="615" x2="934.508" y2="615"/>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="520.508" y1="787" x2="621.508" y2="787"/>
+	<line fill="none" stroke="#666666" stroke-width="2" stroke-miterlimit="10" x1="789.508" y1="787" x2="934.508" y2="787"/>
+</g>
+</svg>

@@ -1,0 +1,18 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 710.964" enable-background="new 0 0 1000 710.964" xml:space="preserve">
+<g id="图层_2">
+	<rect x="17" y="29.008" fill="#FFFFFF" width="963" height="661"/>
+</g>
+<g id="图层_3">
+	<text transform="matrix(1 0 0 1 289.0146 93.1279)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">14. KNOWING THE THREE ASPECTS</tspan><tspan x="48.24" y="28.8" font-family="'Georgia'" font-size="24">OF THE LORD’S RECOVERY</tspan></text>
+	<path fill="#A7A7FC" stroke="#4D4D4D" stroke-width="2" stroke-miterlimit="10" d="M495,168.342l-143.333,84
+		c0,0,49.583,82,143.333,82c101,0,141.333-82.996,141.333-82.996L495,168.342z"/>
+	<path fill="#BEBEFC" stroke="#4D4D4D" stroke-width="2" stroke-miterlimit="10" d="M227,324.008c0,0,88,157,268,157
+		c175.5,0,266.5-157,266.5-157l-125.167-72.662c0,0-40.293,82.996-141.333,82.996c-94.5,0-143.333-82-143.333-82L227,324.008z"/>
+	<path fill="#DEDEFF" stroke="#666666" stroke-width="2" stroke-miterlimit="10" d="M93.667,398.341
+		c0,0,116.666,233.333,401.333,233.333c283.332,0,400.667-229.333,400.667-229.333L761.5,324.008c0,0-91.835,157-266.5,157
+		c-180,0-268-157-268-157L93.667,398.341z"/>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 414.1978 246.0083)"><tspan x="0" y="0" font-family="'Georgia'" font-size="20">THE RECOVERY</tspan><tspan x="23.936" y="24" font-family="'Georgia'" font-size="20">OF CHRIST</tspan><tspan x="-3.726" y="48" font-family="'Georgia'" font-size="20">AS EVERYTHING</tspan></text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 379.5723 376.5015)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">THE RECOVERY OF</tspan><tspan x="8.051" y="28.8" font-family="'Georgia'" font-size="24">THE ONENESS OF</tspan><tspan x="-16.242" y="57.601" font-family="'Georgia'" font-size="24">THE BODY OF CHRIST</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 379.5718 518.5015)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">THE RECOVERY OF</tspan><tspan x="-135.082" y="28.8" font-family="'Georgia'" font-size="24">THE FUNCTION OF ALL THE MEMBERS OF</tspan><tspan x="-16.242" y="57.601" font-family="'Georgia'" font-size="24">THE BODY OF CHRIST</tspan></text>
+</g>
+</svg>

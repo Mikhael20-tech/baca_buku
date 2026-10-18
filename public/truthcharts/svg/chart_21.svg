@@ -1,0 +1,443 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1376.931 1521.814" enable-background="new 0 0 1376.931 1521.814"
+	 xml:space="preserve">
+<g id="图层_4">
+	<rect x="68.877" y="95.885" fill="#FFFFFF" stroke="#333333" stroke-miterlimit="10" width="1252" height="1384"/>
+</g>
+<g id="图层_3">
+	<path fill="#FFFFFF" stroke="#1A1A1A" stroke-miterlimit="10" d="M614.877,864.475c0,37.12,0,29.011,0,43.088
+		c0,15.781,22.874,31.482,46,32.319c23.127,0.837,47-14.64,47-31.313c0-15.152,0-5.753,0-43.76L614.877,864.475z"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M713.377,746.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="731.714,875.057 723.697,846.394 713.377,864.734 				"/>
+			</g>
+		</g>
+	</g>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M400.377,828.888c0,70.046-50.444,126.831-112.668,126.831
+		c-62.223,0-112.665-56.785-112.665-126.831c0-70.051,50.442-126.836,112.665-126.836
+		C349.933,702.052,400.377,758.837,400.377,828.888z"/>
+	<text transform="matrix(1 0 0 1 250.6577 61.5122)" font-family="'Georgia'" font-size="36">21. THE MINGLING OF DIVINITY AND HUMANITY</text>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="293.212" cy="502.719" rx="46.833" ry="29.666"/>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 262.0439 509.3999)" font-family="'ArialMT'" font-size="24">Christ</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 355.1274 490.9009)" font-family="'ArialMT'" font-size="14">Out of Him</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 575.9893 466.9009)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Glory</tspan><tspan x="-7.01" y="16.8" font-family="'ArialMT'" font-size="14">fullness</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 528.0913 521.2817)" font-family="'ArialMT'" font-size="14">Unto</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 508.811 555.6353)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Being</tspan><tspan x="3.507" y="16.799" font-family="'ArialMT'" font-size="14">filled</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 707.6528 466.9009)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Glory</tspan><tspan x="-1.947" y="16.8" font-family="'ArialMT'" font-size="14">riches</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 789.3696 555.6353)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Power</tspan><tspan x="-9.349" y="16.801" font-family="'ArialMT'" font-size="14">operating</tspan></text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 901.312 511.0669)" font-family="'ArialMT'" font-size="14">Growing</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1105.647 490.9009)" font-family="'ArialMT'" font-size="14">Out of Him</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1158.5278 522.2817)" font-family="'ArialMT'" font-size="14">Richly supply</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1184.856 583.2817)" font-family="'ArialMT'" font-size="14">Individual</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1177.5845 609.0591)" font-family="'ArialMT'" font-size="14">Corporate</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1124.0024 643.4155)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Building &amp; builded</tspan><tspan x="5.076" y="16.8" font-family="'ArialMT'" font-size="14">God, ministering</tspan><tspan x="28.803" y="33.6" font-family="'ArialMT'" font-size="14">to others</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 552.2666 671.4165)" font-family="'ArialMT'" font-size="14">Christ makes His home in our hearts</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 103.771 540.3853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Growth of</tspan><tspan x="5.428" y="15" font-family="'ArialMT'" font-size="14">the Body</tspan></text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 131.2466 617.2661)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Growing</tspan><tspan x="29.559" y="15" font-family="'ArialMT'" font-size="14">into</tspan></text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 414.0444 542.2603)" font-family="'ArialMT'" font-size="14">Perfercting</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 400.3774 615.3853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Three</tspan><tspan x="0" y="14" font-family="'ArialMT'" font-size="14">arrivals</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 737.8774 891.8853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Vertical and</tspan><tspan x="0" y="16" font-family="'ArialMT'" font-size="14">horizontal fellowship</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 738.8774 730.8853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">One flow</tspan><tspan x="0" y="16" font-family="'ArialMT'" font-size="14">One fellowship</tspan></text>
+	<text transform="matrix(1 0 0 1 252.0576 564.3999)" font-family="'Georgia'" font-size="16">Eph. 4:8-16</text>
+	<text transform="matrix(1 0 0 1 244.2383 800.9067)" font-family="'Georgia'" font-size="16">John 15:5, 7</text>
+	<text transform="matrix(1 0 0 1 221.0439 1100.6431)" font-family="'Georgia'" font-size="16">Rom. 3:22 (note 1)</text>
+	<text transform="matrix(1 0 0 1 91.7109 1362.4419)" font-family="'Georgia'" font-size="16">Eph. 1:11b</text>
+	<text transform="matrix(1 0 0 1 396.3774 1362.4419)" font-family="'Georgia'" font-size="16">Eph. 1:18</text>
+	<text transform="matrix(1 0 0 1 596.627 1094.8101)" font-family="'Georgia'" font-size="16">Eph. 3:20 (note 1)</text>
+	<text transform="matrix(1 0 0 1 1020.7446 796.0854)" font-family="'Georgia'" font-size="16">Rev. 21:22</text>
+	<text transform="matrix(1 0 0 1 1025.2681 828.7173)" font-family="'Georgia'" font-size="16">Rev. 21:3</text>
+	<text transform="matrix(1 0 0 1 869.7104 1100.2271)" font-family="'Georgia'" font-size="16">2 Thes. 3:5</text>
+	<text transform="matrix(1 0 0 1 1175.0435 1100.2271)" font-family="'Georgia'" font-size="16">1 John 4:19</text>
+	<text transform="matrix(1 0 0 1 614.8779 810.8101)" font-family="'Georgia'" font-size="16">1 John 1:1-7</text>
+	<text transform="matrix(1 0 0 1 614.8779 564.4009)" font-family="'Georgia'" font-size="16">Eph. 3:16-21</text>
+	<text transform="matrix(1 0 0 1 1011.3774 564.4009)" font-family="'Georgia'" font-size="16">Col. 2:7, 19</text>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="293.212" cy="617.734" rx="46.833" ry="29.682"/>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 271.1284 636.0659)" font-family="'ArialMT'" font-size="20">Body</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 281.3774 609.0591)" font-family="'ArialMT'" font-size="20">Us</text>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M345.377,499.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="363.715,628.057 355.697,599.394 345.377,617.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="5" stroke-miterlimit="10" d="M337.377,522.282
+				c21.3,3.386,35.5,18.158,35.5,35.394c0,15.964-11.078,29.358-26.598,35.104"/>
+			<g>
+				<polygon fill="#7877C6" points="350.457,602.538 344.781,582.049 337.377,595.13 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M239.752,621.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="221.067,490.554 230.077,518.921 239.752,500.234 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="5" stroke-miterlimit="10" d="M248.377,597.224
+				c-19.702-3.58-32.837-19.202-32.837-37.428c0-16.662,9.983-30.679,24.048-36.883"/>
+			<g>
+				<polygon fill="#D66B6B" points="234.994,513.347 241.54,533.574 248.377,520.188 				"/>
+			</g>
+		</g>
+	</g>
+	<line fill="none" stroke="#CE4646" stroke-miterlimit="10" x1="172.377" y1="551.059" x2="186.377" y2="564.4"/>
+	<line fill="none" stroke="#CE4646" stroke-miterlimit="10" x1="189.377" y1="619.059" x2="228.669" y2="588.052"/>
+	<line fill="none" stroke="#1A1A1A" stroke-miterlimit="10" x1="215.627" y1="1193.885" x2="243.669" y2="1182.052"/>
+	<line fill="none" stroke="#7877C6" stroke-miterlimit="10" x1="374.377" y1="607.059" x2="391.377" y2="615.385"/>
+	<line fill="none" stroke="#7877C6" stroke-miterlimit="10" x1="372.877" y1="550.135" x2="409.377" y2="540.385"/>
+	<path fill="none" stroke="#1A1A1A" stroke-miterlimit="10" d="M252.058,603.555c25.653,19.845,62.32,16.983,81.294-1.116"/>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="1048.212" cy="502.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="1048.212" cy="617.734" rx="46.833" ry="29.682"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M1100.377,499.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="1118.714,628.057 1110.697,599.394 1100.377,617.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="5" stroke-miterlimit="10" d="M1092.377,522.282
+				c21.3,3.386,35.5,18.158,35.5,35.394c0,15.964-11.078,29.359-26.599,35.104"/>
+			<g>
+				<polygon fill="#7877C6" points="1105.457,602.538 1099.781,582.049 1092.377,595.13 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M994.752,621.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="976.067,490.554 985.078,518.921 994.752,500.234 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="5" stroke-miterlimit="10" d="M1003.377,597.224
+				c-19.702-3.58-32.838-19.202-32.838-37.428c0-16.662,9.983-30.68,24.048-36.883"/>
+			<g>
+				<polygon fill="#D66B6B" points="989.994,513.347 996.54,533.574 1003.377,520.188 				"/>
+			</g>
+		</g>
+	</g>
+	<line fill="none" stroke="#7877C6" stroke-miterlimit="10" x1="1123.481" y1="574.4" x2="1175.377" y2="578.385"/>
+	<line fill="none" stroke="#7877C6" stroke-miterlimit="10" x1="1139.098" y1="597.224" x2="1172.877" y2="602.439"/>
+	<path fill="none" stroke="#7877C6" stroke-miterlimit="10" d="M1163.377,625.885"/>
+	<path fill="none" stroke="#7877C6" stroke-miterlimit="10" d="M1127.377,609.885"/>
+	<path fill="none" stroke="#1A1A1A" stroke-miterlimit="10" d="M1007.057,603.555c25.654,19.845,62.32,16.983,81.295-1.116"/>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="660.212" cy="502.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="659.725" cy="618.603" rx="30.043" ry="20.517"/>
+	<ellipse fill="none" stroke="#000000" stroke-miterlimit="10" cx="660.212" cy="618.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M712.377,499.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="730.714,628.057 722.697,599.394 712.377,617.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M606.752,621.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="588.067,490.554 597.077,518.921 606.752,500.234 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="665.473" cy="172.375" rx="72.837" ry="46.138"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="665.55" cy="353.562" rx="72.837" ry="51.761"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="9" stroke-miterlimit="10" d="M747.864,168.151
+				c51.322,8.554,85.537,45.879,85.537,89.426c0,42.24-29.276,77.363-69.464,90.623"/>
+			<g>
+				<polygon fill="#7877C6" points="771.156,365.977 761.625,328.915 747.864,352.21 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="9" stroke-miterlimit="10" d="M583.593,357.889
+				c-47.473-8.757-79.123-46.965-79.123-91.542c0-42.825,26.563-78.503,63.184-92.371"/>
+			<g>
+				<polygon fill="#D66B6B" points="559.859,156.481 570.609,193.208 583.593,169.471 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="1058.212" cy="751.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="1058.212" cy="867.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M1110.377,748.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="1128.714,877.057 1120.697,848.394 1110.377,866.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M1004.752,870.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="986.067,739.554 995.078,767.921 1004.752,749.234 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="661.212" cy="749.719" rx="46.833" ry="29.666"/>
+	<path fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" d="M708.045,865.603c0,16.907-18.458,33.282-46.834,33.282
+		c-25.865,0-46.833-14.901-46.833-33.282s20.968-33.282,46.833-33.282S708.045,847.222,708.045,865.603z"/>
+	<ellipse fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" cx="771.212" cy="807.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M607.752,868.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="589.067,737.554 598.077,765.921 607.752,747.234 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="286.212" cy="740.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="286.212" cy="856.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M338.377,737.385
+				c24.4,5.5,41.667,29.5,41.667,57.5c0,25.105-12.563,46.301-29.694,56.098"/>
+			<g>
+				<polygon fill="#7877C6" points="357.825,863.773 346.412,836.285 338.377,855.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M232.993,859.385
+				c-23.569-5.631-39.282-30.198-39.282-58.861c0-25.546,13.371-43.505,30.281-52.259"/>
+			<g>
+				<polygon fill="#D66B6B" points="216.755,735.307 227.637,763.01 236.044,743.719 				"/>
+			</g>
+		</g>
+	</g>
+	<circle fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="230.044" cy="901.385" r="9"/>
+	<circle fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="254.044" cy="913.385" r="9"/>
+	<circle fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="286.044" cy="919.385" r="9"/>
+	<circle fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="322.044" cy="913.385" r="9"/>
+	<circle fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="345.044" cy="901.385" r="9"/>
+	<g>
+		<g>
+			<line fill="none" stroke="#4D4D4D" stroke-miterlimit="10" x1="252.433" y1="879.643" x2="241.33" y2="889.836"/>
+			<g>
+				<polygon fill="#4D4D4D" points="239.033,885.177 236.044,894.69 245.777,892.523 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line fill="none" stroke="#4D4D4D" stroke-miterlimit="10" x1="268.433" y1="887.643" x2="262.255" y2="898.193"/>
+			<g>
+				<polygon fill="#4D4D4D" points="258.689,894.414 258.628,904.385 267.295,899.454 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line fill="none" stroke="#4D4D4D" stroke-miterlimit="10" x1="285.433" y1="889.643" x2="285.833" y2="903.212"/>
+			<g>
+				<polygon fill="#4D4D4D" points="280.806,901.901 286.044,910.385 290.774,901.607 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line fill="none" stroke="#4D4D4D" stroke-miterlimit="10" x1="305.433" y1="887.643" x2="313.467" y2="898.598"/>
+			<g>
+				<polygon fill="#4D4D4D" points="308.583,900.371 317.711,904.385 316.625,894.473 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line fill="none" stroke="#4D4D4D" stroke-miterlimit="10" x1="319.433" y1="879.643" x2="332.854" y2="890.773"/>
+			<g>
+				<polygon fill="#4D4D4D" points="328.547,893.68 338.377,895.354 334.914,886.003 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" cx="543.212" cy="807.603" rx="46.833" ry="33.282"/>
+	<line fill="none" stroke="#1A1A1A" stroke-miterlimit="10" x1="305.627" y1="1015.885" x2="333.669" y2="1007.635"/>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="277.212" cy="1039.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="277.212" cy="1160.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M329.377,1036.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="347.715,1165.057 339.697,1136.394 329.377,1154.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M223.752,1158.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="205.067,1027.554 214.077,1055.921 223.752,1037.234 				"/>
+			</g>
+		</g>
+	</g>
+	<line fill="none" stroke="#1A1A1A" stroke-miterlimit="10" x1="999.627" y1="1190.885" x2="1027.668" y2="1179.052"/>
+	<line fill="none" stroke="#1A1A1A" stroke-miterlimit="10" x1="1089.627" y1="1012.885" x2="1117.668" y2="1004.635"/>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="1061.212" cy="1036.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="1061.212" cy="1157.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M1113.377,1033.385c29.4,5.5,49,29.5,49,57.5
+				c0,25.928-15.284,47.686-36.698,57.023"/>
+			<g>
+				<polygon fill="#7877C6" points="1132.137,1161.269 1122.908,1132.972 1113.377,1151.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M1007.752,1155.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="989.067,1024.554 998.078,1052.921 1007.752,1034.234 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="281.212" cy="1283.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="281.212" cy="1404.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M333.377,1280.385c29.4,5.5,49,29.5,49,57.5
+				c0,25.928-15.284,47.686-36.699,57.023"/>
+			<g>
+				<polygon fill="#7877C6" points="352.137,1408.269 342.908,1379.972 333.377,1398.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M227.752,1402.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="209.067,1271.554 218.077,1299.921 227.752,1281.234 				"/>
+			</g>
+		</g>
+	</g>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="1058.212" cy="1279.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="1058.212" cy="1400.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M1110.377,1276.385c29.4,5.5,49,29.5,49,57.5
+				c0,25.928-15.284,47.686-36.698,57.023"/>
+			<g>
+				<polygon fill="#7877C6" points="1129.137,1404.269 1119.908,1375.972 1110.377,1394.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M1004.752,1398.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="986.067,1267.554 995.078,1295.921 1004.752,1277.234 				"/>
+			</g>
+		</g>
+	</g>
+	<line fill="none" stroke="#1A1A1A" stroke-miterlimit="10" x1="596.627" y1="1186.885" x2="624.669" y2="1175.052"/>
+	<line fill="none" stroke="#1A1A1A" stroke-miterlimit="10" x1="686.627" y1="1008.885" x2="714.668" y2="1000.635"/>
+	<ellipse fill="#FFFC88" stroke="#000000" stroke-miterlimit="10" cx="658.212" cy="1032.719" rx="46.833" ry="29.666"/>
+	<ellipse fill="#6EF76B" stroke="#000000" stroke-miterlimit="10" cx="658.212" cy="1153.603" rx="46.833" ry="33.282"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#7877C6" stroke-width="7" stroke-miterlimit="10" d="M710.377,1029.385c33,5.5,55,29.5,55,57.5
+				c0,26.412-17.802,48.496-42.546,57.533"/>
+			<g>
+				<polygon fill="#7877C6" points="728.714,1158.057 720.697,1129.394 710.377,1147.734 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="none" stroke="#D66B6B" stroke-width="7" stroke-miterlimit="10" d="M604.752,1151.385
+				c-30.525-5.631-50.875-30.198-50.875-58.861c0-26.717,16.078-49.107,38.542-58.561"/>
+			<g>
+				<polygon fill="#D66B6B" points="586.067,1020.554 595.077,1048.921 604.752,1030.234 				"/>
+			</g>
+		</g>
+	</g>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 617.1333 179.0405)" font-family="'ArialMT'" font-size="30">Divinity</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 354.1836 269.3682)" font-family="'ArialMT'" font-size="24">Resurrection</text>
+	<text transform="matrix(1 0 0 1 84.1753 130.6792)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">Mystical</tspan><tspan x="0.281" y="28.8" font-family="'Georgia'" font-size="24">Genitive</tspan></text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 626.3027 270.9683)" font-family="'ArialMT'" font-size="30">Christ</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 851.3374 269.3682)" font-family="'ArialMT'" font-size="24">Incarnation</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 602.1187 364.707)" font-family="'ArialMT'" font-size="30">Humanity</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 641.9775 615.2222)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">Inner</tspan><tspan x="2.672" y="15" font-family="'ArialMT'" font-size="16">Man</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 638.1284 508.3999)" font-family="'ArialMT'" font-size="24">God</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1015.7954 511.0669)" font-family="'ArialMT'" font-size="24">Christ</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1024.8794 637.7329)" font-family="'ArialMT'" font-size="20">Body</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1035.1294 610.7261)" font-family="'ArialMT'" font-size="20">Us</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 953.3003 564.4009)" font-family="'ArialMT'" font-size="14">Rooted</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 1098.5747 564.4009)" font-family="'ArialMT'" font-size="14">Building</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 261.1953 746.3853)" font-family="'ArialMT'" font-size="24">Vine</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 252.0576 1045.7192)" font-family="'ArialMT'" font-size="24">Faith</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 629.8726 1036.7183)" font-family="'ArialMT'" font-size="24">Glory</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 629.8726 1160.603)" font-family="'ArialMT'" font-size="24">Glory</text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 1035.1294 1043.0522)" font-family="'ArialMT'" font-size="24">Love</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 1027.6685 1285.4067)" font-family="'ArialMT'" font-size="24">Christ</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 1046.2124 1407.4067)" font-family="'ArialMT'" font-size="24">Us</text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 1035.1294 1163.7192)" font-family="'ArialMT'" font-size="24">Love</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 252.0439 1167.3784)" font-family="'ArialMT'" font-size="24">Faith</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 257.3774 1288.7124)" font-family="'ArialMT'" font-size="24">God</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 1017.7134 750.7192)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">Redeeming</tspan><tspan x="25.793" y="19.2" font-family="'ArialMT'" font-size="16">God</tspan></text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 997.772 714.8081)" font-family="'ArialMT'" font-size="16">As God’s Temple</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 268.0444 1414.8853)" font-family="'ArialMT'" font-size="24">Us</text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 630.6792 746.3853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="18">Eternal</tspan><tspan x="14.005" y="21.6" font-family="'ArialMT'" font-size="18">Life</tspan></text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 967.9634 919.7183)" font-family="'ArialMT'" font-size="16">As the Tabernacle of God</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 1043.8423 852.3853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">The</tspan><tspan x="-25.352" y="19.2" font-family="'ArialMT'" font-size="16">Redeemed</tspan><tspan x="-8.449" y="38.4" font-family="'ArialMT'" font-size="16">Saints</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 635.186 860.7339)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="18">Divine</tspan><tspan x="5.493" y="21.6" font-family="'ArialMT'" font-size="18">Light</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 729.6958 813.9009)" font-family="'ArialMT'" font-size="18">Fellowship</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 893.4224 812.5591)" font-family="'ArialMT'" font-size="14">Dwelling</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 1173.3101 812.5591)" font-family="'ArialMT'" font-size="14">Dwelling</text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 640.2017 909.9146)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14">Mutual</tspan><tspan x="-12.059" y="16.801" font-family="'ArialMT'" font-size="14">Fellowship</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 502.8477 805.1021)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="18">The blood</tspan><tspan x="6.513" y="21.6" font-family="'ArialMT'" font-size="18">of Jesus</tspan></text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 243.9658 863.4751)" font-family="'ArialMT'" font-size="20">Branches</text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 244.1919 942.1421)" font-family="'ArialMT'" font-size="14">Bearing fruits</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 336.3657 1011.7603)" font-family="'ArialMT'" font-size="16">Jesus Christ</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 508.3579 1190.8853)" font-family="'ArialMT'" font-size="16">The church</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 719.9868 995.7603)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">Christ</tspan><tspan x="-0.008" y="19.2" font-family="'ArialMT'" font-size="16">Jesus</tspan></text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 1122.0864 1007.0522)" font-family="'ArialMT'" font-size="18">God</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 928.0728 1252.0522)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">The good</tspan><tspan x="18.68" y="19.2" font-family="'ArialMT'" font-size="16">land</tspan></text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 1101.522 1252.0522)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">The seed</tspan><tspan x="14.234" y="19.2" font-family="'ArialMT'" font-size="16">of life</tspan></text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 1114.6372 1423.8853)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="16">The soil of</tspan><tspan x="4.887" y="19.2" font-family="'ArialMT'" font-size="16">our heart</tspan></text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 920.7378 1426.5522)" font-family="'ArialMT'" font-size="16">Living plants</text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 1011.4038 1340.7271)" font-family="'ArialMT'" font-size="16">Deeply rooted</text>
+	<text transform="matrix(1 0 0 1 872.5269 1340.7271)" font-family="'ArialMT'" font-size="16">Col. 2:6-7</text>
+	<text transform="matrix(1 0 0 1 1170.4087 1340.7271)" font-family="'ArialMT'" font-size="16">Matt. 13:23</text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 964.312 1194.7183)" font-family="'ArialMT'" font-size="18">Our</text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 184.979 1198.0522)" font-family="'ArialMT'" font-size="16">Our</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 89.3999 1340.3101)" font-family="'ArialMT'" font-size="16">Inheritance</text>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 390.0664 1340.3101)" font-family="'ArialMT'" font-size="16">Inheritance</text>
+</g>
+</svg>

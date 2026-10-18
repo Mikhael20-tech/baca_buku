@@ -1,0 +1,58 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 830.958" enable-background="new 0 0 1000 830.958" xml:space="preserve">
+<g id="图层_4">
+	<rect x="9" y="9.009" fill="#FFFFFF" width="982" height="810"/>
+</g>
+<g id="图层_3">
+	<path fill="#4D4D4D" d="M482.247,221.03c48.253,0,139.301,26.479,139.128,119.979c-0.12,65.035-0.858,258.29,0.063,318
+		c1.069,69.334-89.606,114.836-147.104,112.999C401.333,769.676,339,721.932,339,659.009c0-84.996,0-268.999,0-318
+		S370.411,221.03,482.247,221.03z"/>
+</g>
+<g id="图层_2">
+	<path fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" d="M383.083,248.676c-24,19-43.583,50-43.583,92.333
+		c0,31.667,0,285.664,0,318c0,43,47.833,112.999,132.167,112.999C572,772.008,621.5,703.009,621.5,659.009
+		c0-47.006-1.215-274.996,0-318c1.25-44.25-22.25-76-37.25-85.666c3-30.834-10.612-54.686-44.445-71.186
+		c-33.148-16.166-86.492-17.982-120.45,1.853C392.479,201.709,381.917,228.842,383.083,248.676z"/>
+	<g>
+		<g>
+			<path fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" d="M383.333,248.676
+				c1.578-1.232,3.185-2.424,4.82-3.573"/>
+			<path fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="11.9403,11.9403" d="
+				M398.237,238.715c53.082-30.183,128.438-22.697,176.394,9.527"/>
+			<path fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" d="M579.506,251.674
+				c1.618,1.193,3.2,2.417,4.744,3.669"/>
+		</g>
+	</g>
+	<g>
+		<line x1="246" y1="210.009" x2="372" y2="210.009"/>
+		<g>
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="246" y1="209.509" x2="350" y2="209.509"/>
+			<g>
+				<polygon points="346,224.468 371.906,209.509 346,194.55 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<line x1="719" y1="568.009" x2="637" y2="568.009"/>
+		<g>
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="719" y1="567.509" x2="659" y2="567.509"/>
+			<g>
+				<polygon points="663,552.55 637.094,567.509 663,582.468 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<line x1="719" y1="210.009" x2="608" y2="210.009"/>
+		<g>
+			<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="719" y1="209.509" x2="630" y2="209.509"/>
+			<g>
+				<polygon points="634,194.55 608.094,209.509 634,224.468 				"/>
+			</g>
+		</g>
+	</g>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 31.8276 221.0303)"><tspan x="0" y="0" font-family="'Georgia'" font-size="36">THE FLESH</tspan><tspan x="33.346" y="43.2" font-family="'Georgia'" font-size="36">OF JESUS</tspan></text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 734.998 220.6455)" font-family="'Georgia'" font-size="36">GOD IS HERE</text>
+	<text transform="matrix(1 0 0 1 223.9897 100.6509)" font-family="'Georgia'" font-size="36">4. CHRIST BECOMING FLESH</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 736.998 538.001)"><tspan x="0" y="0" font-family="'Georgia'" font-size="36">The SPHERE</tspan><tspan x="0" y="43.2" font-family="'Georgia'" font-size="36">OF THE</tspan><tspan x="0" y="86.4" font-family="'Georgia'" font-size="36">FLESH</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 455.187 454.0059)"><tspan x="0" y="0" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="36">SIN</tspan><tspan x="-8.956" y="43.2" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="36">AND</tspan><tspan x="-31.588" y="86.399" fill="#FFFFFF" font-family="'Georgia-Bold'" font-size="36">SATAN</tspan></text>
+</g>
+</svg>

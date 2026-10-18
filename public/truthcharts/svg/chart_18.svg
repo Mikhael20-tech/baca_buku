@@ -1,0 +1,81 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-32 -28 1486 1070" enable-background="new -32 -28 1486 1070" xml:space="preserve">
+<g id="图层_2">
+</g>
+<g id="图层_3">
+	<rect x="1024.606" y="336" fill="#DEEAF6" stroke="#000000" stroke-miterlimit="10" width="348" height="42.496"/>
+	<rect x="1024.606" y="379.223" fill="#FCFCFC" stroke="#000000" stroke-miterlimit="10" width="348" height="183"/>
+	<rect x="791.96" y="720" fill="#DEEAF6" stroke="#000000" stroke-miterlimit="10" width="349.638" height="103"/>
+	<rect x="76.872" y="512.339" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="665.967" height="425.979"/>
+	<rect x="412.858" y="526.475" fill="#DEEAF6" stroke="#000000" stroke-miterlimit="10" width="134.992" height="61.496"/>
+	<rect x="97" y="828.459" fill="#DEEAF6" stroke="#000000" stroke-miterlimit="10" width="637.589" height="41.613"/>
+	<rect x="97" y="669.459" fill="#FCFCFC" stroke="#000000" stroke-miterlimit="10" width="402.589" height="159"/>
+	<rect x="499.589" y="669.459" fill="#FCFCFC" stroke="#000000" stroke-miterlimit="10" width="131.419" height="159"/>
+	<rect x="76.872" y="876.821" fill="#B5DF85" stroke="#000000" stroke-miterlimit="10" width="259.487" height="61.496"/>
+	<path fill="#FEFF9A" stroke="#000000" stroke-miterlimit="10" d="M1145.569,282.069c0,6.627-5.965,12-13.322,12H815.408
+		c-7.357,0-13.322-5.373-13.322-12v-96.993c0-6.627,5.965-12,13.322-12h316.838c7.357,0,13.322,5.373,13.322,12V282.069z"/>
+	<text transform="matrix(1 0 0 1 361.8679 55.6426)"><tspan x="0" y="0" font-family="'Georgia'" font-size="30">18. GOD&apos;S DISPENSING FOR THE BUILDING UP</tspan><tspan x="153.208" y="36" font-family="'Georgia'" font-size="30">OF THE BODY OF CHRIST</tspan></text>
+	<polyline fill="#FFC000" points="974.125,300.454 934,341 953,341 952.418,572 993.418,572 994,341 1014,341 	"/>
+	<polyline fill="#FFC000" points="259.875,562.546 300,522 281,522 281.582,291 240.582,291 240,522 220,522 	"/>
+	<polyline fill="#FFC000" points="808.547,620.239 768,580.227 768,599.227 386,598.645 386,639.645 768,640.227 768,660 	"/>
+	<path fill="#B5DF85" d="M368.81,644.081c0,6.627-6.037,12-13.485,12h-244.84c-7.448,0-13.485-5.373-13.485-12v-47.996
+		c0-6.628,6.037-12,13.485-12h244.84c7.448,0,13.485,5.372,13.485,12V644.081z"/>
+	<path fill="#FEFF9A" stroke="#000000" stroke-miterlimit="10" d="M415.105,263.102c0,6.627-5.863,12-13.097,12h-296.29
+		c-7.233,0-13.097-5.373-13.097-12v-47.997c0-6.627,5.863-12,13.097-12h296.29c7.234,0,13.097,5.373,13.097,12V263.102z"/>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 113.9895 250.0723)" font-family="'ArialMT'" font-size="32">GOD’S ECONOMY</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 472.3074 629.0518)" font-family="'ArialMT'" font-size="26">GOD’S DISPENSING</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(0 1 -1 0 251.7786 298.7627)" font-family="'ArialMT'" font-size="24">GOD’S DISPENSING</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(0 -1 1 0 981.4553 556.9688)" font-family="'ArialMT'" font-size="22">GOD’S DISPENSING</text>
+	<text style="cursor:pointer" onclick = "func19()" transform="matrix(1 0 0 1 830.8674 216.0732)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="32">THE BUILDING UP </tspan><tspan x="34.68" y="31" font-family="'ArialMT'" font-size="32">OF THE BODY</tspan><tspan x="56.914" y="62" font-family="'ArialMT'" font-size="32">OF CHRIST</tspan></text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 120.0505 631.0518)" font-family="'ArialMT'" font-size="27">GIFTED PERSONS</text>
+	<path fill="#B5DF85" d="M1113.368,644.081c0,6.627-5.863,12-13.098,12H833.287c-7.233,0-13.097-5.373-13.097-12v-47.996
+		c0-6.628,5.863-12,13.097-12h266.983c7.234,0,13.098,5.372,13.098,12V644.081z"/>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 832.6838 631.6436)" font-family="'ArialMT'" font-size="27">PERFECTED SAINTS</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 91.5227 917.0371)" font-family="'ArialMT'" font-size="32">STEWARDSHIP</text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 430.8269 549.8906)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="22">Perfecting</tspan><tspan x="17.735" y="26.4" font-family="'ArialMT'" font-size="22">saints </tspan></text>
+	<text style="cursor:pointer" onclick = "func12()" transform="matrix(1 0 0 1 107.8362 701.8906)" font-family="'ArialMT'" font-size="20">Apostles – (planting church trees) </text>
+	<text style="cursor:pointer" onclick = "func13()" transform="matrix(1 0 0 1 107.8059 729.2246)" font-family="'ArialMT'" font-size="20">Prophets – (prophesying for building up)</text>
+	<text style="cursor:pointer" onclick = "func14()" transform="matrix(1 0 0 1 107.8059 756.5586)" font-family="'ArialMT'" font-size="20">Evangelists – (gospel – preaching)</text>
+	<text style="cursor:pointer" onclick = "func15()" transform="matrix(1 0 0 1 107.8059 783.8926)" font-family="'ArialMT'" font-size="20">Shepherds – (shepherding, nourishing)</text>
+	<text style="cursor:pointer" onclick = "func15()" transform="matrix(1 0 0 1 107.8059 811.2266)" font-family="'ArialMT'" font-size="20">Teachers – (teaching, perfecting)</text>
+	<text style="cursor:pointer" onclick = "func18()" transform="matrix(1 0 0 1 514.6057 731.2246)" font-family="'ArialMT'" font-size="20">Building up</text>
+	<text transform="matrix(1 0 0 1 1146.5686 362.4541)" font-family="'ArialMT'" font-size="22">Arriving at</text>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 1084.2571 491.7637)" fill="#3733DD" font-family="'Arial-BoldMT'" font-size="22">A FULL-GROWN man</text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 805.0334 752.7754)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="22">The functioning of each one part</tspan><tspan x="20.211" y="26.4" font-family="'ArialMT'" font-size="22">Every joint of the rich supply</tspan><tspan x="84.406" y="52.8" font-family="'ArialMT'" font-size="22">Knitting sinews</tspan></text>
+	<text style="cursor:pointer" onclick = "func18()" transform="matrix(1 0 0 1 514.6057 758.5586)" font-family="'ArialMT'" font-size="20">Begetting</text>
+	<text style="cursor:pointer" onclick = "func18()" transform="matrix(1 0 0 1 514.6057 785.8926)" font-family="'ArialMT'" font-size="20">Nourishing</text>
+	<text style="cursor:pointer" onclick = "func18()" transform="matrix(1 0 0 1 514.6057 813.2266)" font-family="'ArialMT'" font-size="20">Perfecting</text>
+	<rect x="631.008" y="669.459" fill="#DEEAF6" stroke="#000000" stroke-miterlimit="10" width="103.581" height="159"/>
+	<text style="cursor:pointer" onclick = "func17()" transform="matrix(1 0 0 1 656.5017 754.5771)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="22">Local</tspan><tspan x="-18.337" y="26.4" font-family="'ArialMT'" font-size="22">churches</tspan></text>
+	<text style="cursor:pointer" onclick = "func16()" transform="matrix(1 0 0 1 327.9597 857.875)" font-family="'ArialMT'" font-size="22">The God-ordained way</text>
+	<rect x="567.931" y="526.475" fill="#DEEAF6" stroke="#000000" stroke-miterlimit="10" width="151.326" height="61.496"/>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 605.7004 549.8906)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="22">Work of</tspan><tspan x="-18.342" y="26.4" font-family="'ArialMT'" font-size="22">the ministry</tspan></text>
+	<path fill="#FEFF9A" stroke="#000000" stroke-miterlimit="10" d="M770.839,264.102c0,6.627-5.317,12-11.878,12H490.232
+		c-6.561,0-11.878-5.373-11.878-12v-47.997c0-6.627,5.318-12,11.878-12h268.729c6.561,0,11.878,5.373,11.878,12V264.102z"/>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 574.9246 235.0723)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="32">GOD’S</tspan><tspan x="-86.219" y="28" font-family="'ArialMT'" font-size="32">ADMINISTRATION</tspan></text>
+	<rect x="1084.257" y="388.085" fill="none" width="268" height="76"/>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 1084.2571 406.9639)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="22">The </tspan><tspan x="44.021" y="0" fill="#4E2FEA" font-family="'Arial-BoldMT'" font-size="22">ONENESS</tspan><tspan x="151.604" y="0" font-family="'ArialMT'" font-size="22"> of the faith </tspan><tspan x="0" y="26.4" font-family="'ArialMT'" font-size="22">and of the full knowledge of </tspan><tspan x="0" y="52.801" font-family="'ArialMT'" font-size="22">the Son of God</tspan></text>
+	<rect x="1084.257" y="504.954" fill="none" width="268" height="46.963"/>
+	<text style="cursor:pointer" onclick = "func11()" transform="matrix(1 0 0 1 1084.2571 523.833)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="22">The measure of the stature </tspan><tspan x="0" y="26.4" font-family="'ArialMT'" font-size="22">of the fullness of Christ</tspan></text>
+	<text transform="matrix(1 0 0 1 1041.0002 406.9639)" font-family="'ArialMT'" font-size="22">1.</text>
+	<text transform="matrix(1 0 0 1 1041.0002 492.3359)" font-family="'ArialMT'" font-size="22">2.</text>
+	<text transform="matrix(1 0 0 1 1041.0002 523.833)" font-family="'ArialMT'" font-size="22">3.</text>
+	<g>
+		<g>
+			
+				<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="480.354" y1="240.104" x2="430.147" y2="240.104"/>
+			<g>
+				<polygon points="433.065,230.131 415.795,240.104 433.065,250.076 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			
+				<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="962.809" y1="719.944" x2="962.809" y2="669.738"/>
+			<g>
+				<polygon points="972.781,672.656 962.809,655.386 952.836,672.656 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

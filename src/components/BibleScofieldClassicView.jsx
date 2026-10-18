@@ -79,6 +79,7 @@ export default function BibleScofieldClassicView({
   showOutlines = true,
   onOpenFootnote,
   onOpenIndex,
+  onOpenTruthCharts,
   onOpenBookIntro,
   onPrevChapter,
   onNextChapter,
@@ -557,6 +558,16 @@ export default function BibleScofieldClassicView({
             >
               <BookOpen className="w-3.5 h-3.5 text-amber-800" />
               <span>Pengantar &amp; Dokumen</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onOpenTruthCharts}
+              className="h-6 px-2 text-[11px] text-amber-950 bg-amber-50 hover:bg-amber-100 border-amber-300 rounded font-bold flex items-center gap-1 shadow-2xs cursor-pointer"
+              title="22 Bagan Kebenaran Ilahi (LSM Truth Charts)"
+            >
+              <Compass className="w-3.5 h-3.5 text-amber-800" />
+              <span>Bagan Kebenaran</span>
             </Button>
             {isMalachi && (
               <Button

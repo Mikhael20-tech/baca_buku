@@ -20,6 +20,7 @@ import BibleNotesListModal from './BibleNotesListModal';
 import BibleVerseCompareModal from './BibleVerseCompareModal';
 import BibleScofieldIndexModal from './BibleScofieldIndexModal';
 import BibleScofieldClassicView from './BibleScofieldClassicView';
+import BibleTruthChartsModal from './BibleTruthChartsModal';
 
 const BIBLE_ABBR_MAP = {
   gen: 'kejadian', genesis: 'kejadian', kej: 'kejadian',
@@ -183,6 +184,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   const [scofieldLayout, setScofieldLayout] = useState(() => localStorage.getItem('bible_scofield_layout') || 'classic'); // 'classic' | 'modern'
   const [viewMode, setViewMode] = useState(() => localStorage.getItem('bible_view_mode') || 'single'); // 'single' | 'parallel'
   const [isScofieldIndexOpen, setIsScofieldIndexOpen] = useState(false);
+  const [isTruthChartsOpen, setIsTruthChartsOpen] = useState(false);
   
   const [books, setBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(() => localStorage.getItem('last_bible_book') || 'matius');
@@ -1237,6 +1239,18 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
 
               {/* Quick Action Tools */}
               <div className="flex items-center gap-1 shrink-0">
+                {/* 22 Truth Charts */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsTruthChartsOpen(true)}
+                  className="shrink-0 rounded-xl font-bold text-[10px] border border-amber-400 bg-amber-50/90 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 h-7 px-2 flex items-center gap-1 shadow-2xs hover:bg-amber-100 dark:hover:bg-amber-900/50 cursor-pointer"
+                  title="22 Bagan Kebenaran Ilahi (LSM Truth Charts)"
+                >
+                  <Compass className="w-3 h-3 text-amber-700 dark:text-amber-300" />
+                  <span>Bagan</span>
+                </Button>
+
                 {/* Verse Jump */}
                 <Button
                   variant="outline"
@@ -1573,6 +1587,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               showOutlines={showOutlines}
               onOpenFootnote={(vNum, nIdx, fn) => handleOpenFootnote(vNum, nIdx, fn, 'scofield')}
               onOpenIndex={() => setIsScofieldIndexOpen(true)}
+              onOpenTruthCharts={() => setIsTruthChartsOpen(true)}
               onOpenBookIntro={(tab) => {
                 setIntroModalInitialTab(tab || 'book');
                 setIsIntroModalOpen(true);
@@ -2130,6 +2145,17 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Scofield Docs (6)' : 'Dokumen Scofield (6)'}</span>
                 </button>
+                <button
+                  onClick={() => {
+                    setIsBookPickerOpen(false);
+                    setIsTruthChartsOpen(true);
+                  }}
+                  className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer text-amber-900 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-950/40 border border-amber-300/60 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20"
+                  title="22 Bagan Kebenaran Ilahi (LSM Truth Charts)"
+                >
+                  <Compass className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                  <span>{bibleLang === 'en' ? 'Truth Charts (22)' : 'Bagan Kebenaran (22)'}</span>
+                </button>
               </div>
 
               <div className="relative flex-1 sm:max-w-xs">
@@ -2681,6 +2707,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
         isOpen={isScofieldIndexOpen}
         onClose={() => setIsScofieldIndexOpen(false)}
         onSelectReference={handleSelectScofieldReference}
+        bibleLang={bibleLang}
+      />
+
+      {/* MODAL 14: 22 BAGAN KEBENARAN ILAHI (LSM TRUTH CHARTS) */}
+      <BibleTruthChartsModal
+        isOpen={isTruthChartsOpen}
+        onClose={() => setIsTruthChartsOpen(false)}
         bibleLang={bibleLang}
       />
 

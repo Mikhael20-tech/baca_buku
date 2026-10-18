@@ -1,0 +1,72 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 704.011" enable-background="new 0 0 1000 704.011" xml:space="preserve">
+<g id="图层_2">
+	<rect x="13" y="10.011" fill="#FFFFFF" width="975" height="474"/>
+</g>
+<g id="图层_3">
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 392.1831 168.2583)" font-family="'Georgia'" font-size="36">MODALISM</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 716.667 384.4448)" font-family="'Georgia'" font-size="36">MODALISM</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 390.3462 279.6304)" font-family="'Georgia'" font-size="36">TRITHEISM</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 70.8618 384.4448)" font-family="'Georgia'" font-size="36">TRITHEISM</text>
+	<g>
+		<line fill="#589CD3" x1="624" y1="412.011" x2="937" y2="412.011"/>
+		<g>
+			<line fill="none" stroke="#4343FF" stroke-width="10" stroke-miterlimit="10" x1="624" y1="412.011" x2="926" y2="412.011"/>
+			<g>
+				<polygon fill="#4343FF" points="925,399.863 925,424.16 937.146,412.011 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<line fill="#589CD3" x1="366" y1="192.011" x2="619" y2="192.011"/>
+		<g>
+			<line fill="none" stroke="#4343FF" stroke-width="10" stroke-miterlimit="10" x1="366" y1="192.011" x2="609" y2="192.011"/>
+			<g>
+				<polygon fill="#4343FF" points="607,179.863 607,204.16 619.146,192.011 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<line fill="#589CD3" x1="362" y1="412.011" x2="55" y2="412.011"/>
+		<g>
+			<line fill="none" stroke="#FF434D" stroke-width="10" stroke-miterlimit="10" x1="362" y1="412.011" x2="66" y2="412.011"/>
+			<g>
+				<polygon fill="#FF434D" points="67,424.16 67,399.863 54.854,412.011 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<line fill="#589CD3" x1="619" y1="299.011" x2="366" y2="299.011"/>
+		<g>
+			<line fill="none" stroke="#FF434D" stroke-width="10" stroke-miterlimit="10" x1="619" y1="299.011" x2="376" y2="299.011"/>
+			<g>
+				<polygon fill="#FF434D" points="378,311.16 378,286.863 365.854,299.011 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			
+				<line fill="none" stroke="#333333" stroke-width="10" stroke-miterlimit="10" x1="376.992" y1="471.43" x2="299.19" y2="521.005"/>
+			<g>
+				<polygon fill="#333333" points="307.092,530.375 294.036,509.884 290.321,526.657 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			
+				<line fill="none" stroke="#333333" stroke-width="10" stroke-miterlimit="10" x1="604.017" y1="473.393" x2="685.061" y2="523.12"/>
+			<g>
+				<polygon fill="#333333" points="690.025,511.914 677.318,532.623 694.024,528.62 				"/>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 142.666 75.625)" font-family="'Georgia'" font-size="30">3. THE PURE REVELATION OF THE TRIUNE GOD</text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 401.605 385.3169)"><tspan x="0" y="0" font-family="'Georgia'" font-size="36">THE PURE</tspan><tspan x="-25.55" y="43.2" font-family="'Georgia'" font-size="36">REVELATION</tspan></text>
+	<rect x="361" y="341.011" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="263" height="112"/>
+	<rect x="168" y="544.011" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="256" height="112"/>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 197.0034 589.3169)"><tspan x="0" y="0" font-family="'Georgia'" font-size="36">ESSENTIAL</tspan><tspan x="24.803" y="43.2" font-family="'Georgia'" font-size="36">TRINITY</tspan></text>
+	<rect x="564" y="544.011" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="266" height="112"/>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 575.002 589.3169)"><tspan x="0" y="0" font-family="'Georgia'" font-size="36">ECONOMICAL</tspan><tspan x="48.305" y="43.2" font-family="'Georgia'" font-size="36">TRINITY</tspan></text>
+</g>
+</svg>

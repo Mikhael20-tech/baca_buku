@@ -1,0 +1,42 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 616.469" enable-background="new 0 0 1000 616.469" xml:space="preserve">
+<g id="图层_3">
+	<rect x="22" y="16.387" fill="#FFFFFF" width="966" height="582"/>
+</g>
+<g id="图层_2">
+	<text transform="matrix(1 0 0 1 322 66.5117)" font-family="'Georgia'" font-size="36">7. THE TABERNACLE</text>
+	<rect x="73.5" y="125.887" fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" width="837" height="427"/>
+	<rect x="231" y="294.387" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="250" height="85"/>
+	<rect x="266" y="324.387" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="14" height="22"/>
+	<rect x="758" y="314.387" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="42" height="43"/>
+	<rect x="322" y="330.387" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="9" height="9"/>
+	<rect x="390" y="302.387" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" width="18" height="7"/>
+	<circle fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" cx="619.25" cy="336.137" r="13.75"/>
+	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="315" y1="294.387" x2="315" y2="379.387"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="398.5" y1="356.387" x2="398.5" y2="372.387"/>
+	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="395" y1="372.887" x2="402" y2="372.887"/>
+	<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M391.333,363.887c1.167,1.5,3.333,3.834,7.167,3.834
+		c3.5,0,5.333-1.834,7.5-3.834"/>
+	<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M392.625,360.638c1.167,1.5,3,3.083,5.875,3.083
+		c2.833,0,4.302-1.416,5.927-3.083"/>
+	<path fill="none" stroke="#000000" stroke-miterlimit="10" d="M394.563,357.68c1.167,1.5,2.229,2.041,3.937,2.041
+		c1.208,0,2.833-0.833,4-2.208"/>
+	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="901" y1="251.387" x2="920" y2="251.387"/>
+	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="901" y1="421.387" x2="920" y2="421.387"/>
+	<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="215" y1="336.887" x2="273" y2="336.887"/>
+	<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="326.5" y1="335.387" x2="326.5" y2="389.387"/>
+	<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="398.5" y1="447.387" x2="398.5" y2="376.387"/>
+	<polyline fill="none" stroke="#FF0000" stroke-miterlimit="10" points="401.5,305.888 451.5,327.387 451.5,406.387 	"/>
+	<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="619.5" y1="336.387" x2="619.5" y2="373.387"/>
+	<line fill="none" stroke="#FF0000" stroke-miterlimit="10" x1="778.5" y1="341.387" x2="778.5" y2="367.387"/>
+	<text style="cursor:pointer" onclick = "func10()" transform="matrix(1 0 0 1 119.5942 342.3872)" font-family="'ArialMT'" font-size="18" letter-spacing="1">THE ARK</text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 576.9023 205.7207)" font-family="'ArialMT'" font-size="18" letter-spacing="1">THE OUTER COURT</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 866.2676 331.8872)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE</tspan><tspan x="-5.76" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">GATE</tspan></text>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(1 0 0 1 233.0933 258.3872)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE HOLY</tspan><tspan x="-3.035" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">OF HOLIES</tspan></text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 350.0933 258.3872)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE HOLY</tspan><tspan x="14.152" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">PLACE</tspan></text>
+	<text style="cursor:pointer" onclick = "func6()" transform="matrix(1 0 0 1 574.75 388.7207)" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE LAVER</text>
+	<text style="cursor:pointer" onclick = "func9()" transform="matrix(1 0 0 1 311.1001 411.0542)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE</tspan><tspan x="-48.624" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">INCENSE ALTAR</tspan></text>
+	<text style="cursor:pointer" onclick = "func7()" transform="matrix(1 0 0 1 383.1001 464.3872)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE</tspan><tspan x="-32.986" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">LAMPSTAND</tspan></text>
+	<text style="cursor:pointer" onclick = "func8()" transform="matrix(1 0 0 1 480.4326 411.0542)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE</tspan><tspan x="-64.414" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">SHOWBREAD TABLE</tspan></text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 734.8926 400.3872)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="14" letter-spacing="1">THE ALTAR</tspan><tspan x="-40.979" y="16.8" font-family="'ArialMT'" font-size="14" letter-spacing="1">OF BURNT OFFERING</tspan></text>
+</g>
+</svg>

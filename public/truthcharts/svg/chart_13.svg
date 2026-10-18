@@ -1,0 +1,41 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 767.961" enable-background="new 0 0 1000 767.961" xml:space="preserve">
+<g id="图层_3">
+	<rect x="41" y="44.505" fill="#FFFFFF" width="933" height="690"/>
+</g>
+<g id="图层_2">
+	<text transform="matrix(1 0 0 1 94.5698 119.626)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">13. THE LORD’S RECOVERY, GOD’S ECONOMY, GOD’S ADMINISTRATION,</tspan><tspan x="182.455" y="28.8" font-family="'Georgia'" font-size="24">GOD’S DISPENSING, AND STEWARDSHIP</tspan></text>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 365.061 245.4253)" font-family="'Georgia'" font-size="30">GOD’S ECONOMY</text>
+	<text style="cursor:pointer" onclick = "func2()" transform="matrix(1 0 0 1 317.1685 673.4248)" font-family="'Georgia'" font-size="30">THE LORD’S RECOVERY</text>
+	<circle fill="#C7C7FF" stroke="#333333" stroke-width="2" stroke-miterlimit="10" cx="664.201" cy="447.402" r="135.069"/>
+	<circle fill="#A9FFA9" stroke="#4D4D4D" stroke-width="2" stroke-miterlimit="10" cx="664.201" cy="447.48" r="85"/>
+	<g>
+		<g>
+			<line fill="none" stroke="#666666" stroke-width="3" stroke-miterlimit="10" x1="156" y1="277.005" x2="803" y2="277.005"/>
+			<g>
+				<polygon fill="#666666" points="798,291.964 823.905,277.005 798,262.046 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line fill="none" stroke="#666666" stroke-width="3" stroke-miterlimit="10" x1="156" y1="614.005" x2="803" y2="614.005"/>
+			<g>
+				<polygon fill="#666666" points="798,628.964 823.905,614.005 798,599.046 				"/>
+			</g>
+		</g>
+	</g>
+	<path fill="#C7C7FF" d="M181.03,449.505c39.499,0,236.993,0,267.789,0c0-83-55.102-136.738-133.328-136.738
+		C237.266,312.767,181.03,374.505,181.03,449.505z"/>
+	<path fill="#A9FFA9" d="M449.415,446.38c-39.499,0-237.589,0.137-268.385,0.137c0,81.676,66.724,133.784,133.328,134.061
+		C392.583,580.901,449.415,521.36,449.415,446.38z"/>
+	<path fill="none" stroke="#4D4D4D" stroke-width="2" stroke-miterlimit="10" d="M449.358,446.38
+		c0,73.945-59.947,133.892-133.895,133.892S181.569,520.325,181.569,446.38c0-73.95,59.947-133.895,133.895-133.895
+		S449.358,372.43,449.358,446.38z"/>
+	<line fill="none" stroke="#1A1A1A" stroke-width="2" stroke-miterlimit="10" x1="182" y1="447.505" x2="449" y2="447.505"/>
+	<text style="cursor:pointer" onclick = "func1()" transform="matrix(1 0 0 1 202.9058 427.9805)" font-family="'Georgia'" font-size="27">GOD’S ECONOMY</text>
+	<text style="cursor:pointer" onclick = "func4()" transform="matrix(1 0 0 1 628.1309 433.9805)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">GOD’S</tspan><tspan x="-38.004" y="28.8" font-family="'Georgia'" font-size="24">DISPENSING</tspan></text>
+	<text style="cursor:pointer" onclick = "func5()" transform="matrix(1 0 0 1 205.3398 491.9805)" font-family="'Georgia'" font-size="30">STEWARDSHIP</text>
+	<path fill="none" d="M535.334,450.505C542,513.838,596.5,572.271,664.201,572.271C729,572.271,785.5,516.005,794,450.505"/>
+	<text style="cursor:pointer" onclick = "func3()" transform="matrix(0.3866 0.9223 -0.9223 0.3866 541.7539 480.2344)"><tspan x="0" y="0" font-family="'Georgia'" font-size="24">G</tspan><tspan x="19.443" y="-0.129" font-family="'Georgia'" font-size="24" rotate="-7.874">O</tspan><tspan x="39.099" y="-2.984" font-family="'Georgia'" font-size="24" rotate="-15.755">D</tspan><tspan x="57.789" y="-8.631" font-family="'Georgia'" font-size="24" rotate="-21.06">’</tspan><tspan x="64.193" y="-10.986" font-family="'Georgia'" font-size="24" rotate="-25.474">S</tspan><tspan x="77.52" y="-17.568" font-family="'Georgia'" font-size="24" rotate="-30.079"> </tspan><tspan x="83.981" y="-21.111" font-family="'Georgia'" font-size="24" rotate="-35.464">A</tspan><tspan x="98.799" y="-31.76" font-family="'Georgia'" font-size="24" rotate="-44.093">D</tspan><tspan x="113.541" y="-46.079" font-family="'Georgia'" font-size="24" rotate="-54.845">M</tspan><tspan x="127.049" y="-66.398" font-family="'Georgia'" font-size="24" rotate="-63.624">I</tspan><tspan x="132.276" y="-76.528" font-family="'Georgia'" font-size="24" rotate="-71.574">N</tspan><tspan x="138.297" y="-96.06" font-family="'Georgia'" font-size="24" rotate="-79.547">I</tspan><tspan x="140.319" y="-106.949" font-family="'Georgia'" font-size="24" rotate="-85.884">S</tspan><tspan x="141.335" y="-122.326" font-family="'Georgia'" font-size="24" rotate="-93.295">T</tspan><tspan x="140.291" y="-139.123" font-family="'Georgia'" font-size="24" rotate="-101.034">R</tspan><tspan x="136.532" y="-157.542" font-family="'Georgia'" font-size="24" rotate="-108.608">A</tspan><tspan x="130.667" y="-174.482" font-family="'Georgia'" font-size="24" rotate="-115.44">T</tspan><tspan x="123.456" y="-189.181" font-family="'Georgia'" font-size="24" rotate="-120.721">I</tspan><tspan x="117.944" y="-198.716" font-family="'Georgia'" font-size="24" rotate="-126.609">O</tspan><tspan x="106" y="-214.603" font-family="'Georgia'" font-size="24" rotate="-134.476">N</tspan></text>
+</g>
+</svg>
