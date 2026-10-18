@@ -141,7 +141,9 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
     { id: 'preface', label: 'Preface (1917)', icon: Scroll },
     { id: 'intro', label: 'Introduction (1909)', icon: FileText },
     { id: 'panoramic', label: 'Panoramic View', icon: Eye },
-    { id: 'pentateuch', label: 'The Pentateuch', icon: Compass }
+    { id: 'pentateuch', label: 'The Pentateuch', icon: Compass },
+    { id: 'malachi_to_matthew', label: 'Malachi to Matthew', icon: Clock },
+    { id: 'four_gospels', label: 'The Four Gospels', icon: BookOpen }
   ];
 
   return (
@@ -382,6 +384,56 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
                 <div className="py-12 text-center text-xs text-stone-500">Memuat naskah otentik...</div>
               ) : frontmatter?.the_pentateuch ? (
                 renderFormattedDoc(frontmatter.the_pentateuch)
+              ) : (
+                <div className="py-12 text-center text-xs text-stone-500">Dokumen tidak ditemukan.</div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 6: FROM MALACHI TO MATTHEW */}
+          {activeTab === 'malachi_to_matthew' && (
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-zinc-800/60 border border-amber-200/80 dark:border-zinc-700 space-y-5 font-serif shadow-xs">
+              <div className="border-b border-amber-200/70 dark:border-zinc-700 pb-3 text-center">
+                <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-amber-700 dark:text-amber-400 block mb-1">
+                  The Intertestamental Period • Scofield 1917
+                </span>
+                <h4 className="font-extrabold text-lg sm:text-2xl text-stone-900 dark:text-zinc-100 font-serif">
+                  From Malachi to Matthew
+                </h4>
+                <p className="text-xs text-stone-500 dark:text-stone-400 font-sans mt-1">
+                  Jembatan Sejarah &amp; Rohani Masa 400 Tahun Keheningan Profetik Menuju Kedatangan Kristus
+                </p>
+              </div>
+
+              {isLoadingFrontmatter ? (
+                <div className="py-12 text-center text-xs text-stone-500">Memuat naskah otentik...</div>
+              ) : frontmatter?.from_malachi_to_matthew ? (
+                renderFormattedDoc(frontmatter.from_malachi_to_matthew)
+              ) : (
+                <div className="py-12 text-center text-xs text-stone-500">Dokumen tidak ditemukan.</div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 7: THE FOUR GOSPELS */}
+          {activeTab === 'four_gospels' && (
+            <div className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-zinc-800/60 border border-amber-200/80 dark:border-zinc-700 space-y-5 font-serif shadow-xs">
+              <div className="border-b border-amber-200/70 dark:border-zinc-700 pb-3 text-center">
+                <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-amber-700 dark:text-amber-400 block mb-1">
+                  General Introduction • Scofield 1917
+                </span>
+                <h4 className="font-extrabold text-lg sm:text-2xl text-stone-900 dark:text-zinc-100 font-serif">
+                  The Four Gospels
+                </h4>
+                <p className="text-xs text-stone-500 dark:text-stone-400 font-sans mt-1">
+                  Pengantar Empat Injil &amp; 7 Prinsip Esensial Memahami Pribadi dan Karya Kristus
+                </p>
+              </div>
+
+              {isLoadingFrontmatter ? (
+                <div className="py-12 text-center text-xs text-stone-500">Memuat naskah otentik...</div>
+              ) : frontmatter?.the_four_gospels ? (
+                renderFormattedDoc(frontmatter.the_four_gospels)
               ) : (
                 <div className="py-12 text-center text-xs text-stone-500">Dokumen tidak ditemukan.</div>
               )}

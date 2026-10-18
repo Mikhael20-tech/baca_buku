@@ -4,7 +4,7 @@ import {
   Settings, Sun, Moon, Coffee, ArrowLeft, Bookmark, Copy, 
   Check, Share2, ZoomIn, ZoomOut, Compass, List, X,
   MessageCircle, ChevronDown, ChevronUp, Info, Maximize2, Minimize2,
-  Highlighter, Columns, BookMarked, Hash, FileText, Scroll, Eye
+  Highlighter, Columns, BookMarked, Hash, FileText, Scroll, Eye, Clock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -136,6 +136,24 @@ const SCOFIELD_DOCS = [
     descEn: 'Special introduction to the Five Books of Moses (Genesis–Deuteronomy) as progressive revelation foundation.',
     badge: 'Taurat Musa • Hal. 12',
     icon: Compass
+  },
+  {
+    id: 'malachi_to_matthew',
+    title: 'From Malachi to Matthew',
+    titleId: 'Dari Maleakhi ke Matius (Masa 400 Tahun)',
+    desc: 'Jembatan sejarah & rohani masa 400 tahun keheningan profetik: era Persia, Yunani Alexander, Antiokhus Epifanes, kepahlawanan Makabe, hingga era Romawi & lahirnya Kristus.',
+    descEn: 'The 400 silent years between the Testaments: Persian, Grecian, Maccabean, and Roman periods leading to Christ.',
+    badge: 'Antara PL & PB • Hal. 995–996',
+    icon: Clock
+  },
+  {
+    id: 'four_gospels',
+    title: 'The Four Gospels',
+    titleId: 'Pengantar Empat Injil',
+    desc: 'Pengantar umum catatan Injil dan 7 prinsip esensial memahami empat wujud Kristus: Raja (Matius), Hamba (Markus), Manusia Sejati (Lukas), dan Anak Allah (Yohanes).',
+    descEn: 'General introduction to the Evangelical record and the sevenfold united testimony of the Gospels.',
+    badge: 'Kanonik Injil • Hal. 999–1001',
+    icon: BookOpen
   }
 ];
 
@@ -1548,6 +1566,53 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
           ) : (
             <>
 
+          {/* New Testament Entrance Banner (The Four Gospels & Malachi to Matthew) */}
+          {selectedBookId === 'matius' && selectedChapter === 1 && (
+            <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/5 border border-amber-300 dark:border-amber-700/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/25 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-extrabold text-xs text-amber-950 dark:text-amber-200">
+                      {bibleLang === 'en' || bibleLang === 'scofield' ? 'New Testament Treatises' : 'Pengantar Perjanjian Baru'}
+                    </span>
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300">
+                      Scofield 1917
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-600 dark:text-stone-300 leading-tight">
+                    {bibleLang === 'en' || bibleLang === 'scofield'
+                      ? 'The Four Gospels & From Malachi to Matthew (400 Silent Years)'
+                      : 'Pengantar 4 Injil & Masa 400 Tahun Keheningan Profetik (Maleakhi ke Matius)'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <button
+                  onClick={() => {
+                    setIntroModalInitialTab('four_gospels');
+                    setIsIntroModalOpen(true);
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-2xs flex items-center gap-1.5 cursor-pointer transition"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>The Four Gospels</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setIntroModalInitialTab('malachi_to_matthew');
+                    setIsIntroModalOpen(true);
+                  }}
+                  className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-amber-200 dark:border-zinc-700 text-amber-900 dark:text-amber-200 text-xs font-semibold hover:bg-amber-50 dark:hover:bg-zinc-700 transition cursor-pointer"
+                >
+                  Maleakhi ke Matius →
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Pengantar Lengkap Kitab Scofield (Modern Mode Pada Pasal 1) */}
           {selectedChapter === 1 && bookData?.intro && bibleLang === 'scofield' && (
             <div className="rounded-2xl border border-amber-300 dark:border-amber-700/80 p-5 sm:p-6 bg-amber-50/60 dark:bg-amber-950/30 text-stone-900 dark:text-zinc-100 font-serif space-y-3.5 shadow-xs">
@@ -1913,6 +1978,51 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
               })}
             </div>
           )}
+          {/* Malachi to Matthew Transition Card at end of Malachi */}
+          {selectedBookId === 'maleakhi' && selectedChapter === 4 && (
+            <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/5 border border-amber-300 dark:border-amber-700/60 space-y-2.5 my-4 shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0">
+                  <Clock className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-sm text-amber-950 dark:text-amber-200">
+                    {bibleLang === 'en' || bibleLang === 'scofield' ? 'End of the Old Testament' : 'Akhir Perjanjian Lama'}
+                  </h4>
+                  <span className="text-[11px] text-amber-800/80 dark:text-amber-400 font-mono">
+                    From Malachi to Matthew • Masa 400 Tahun Keheningan Profetik
+                  </span>
+                </div>
+              </div>
+              <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-serif">
+                {bibleLang === 'en' || bibleLang === 'scofield'
+                  ? 'Before reading Matthew, explore the 400 silent years between the Old and New Testaments as explained in the authentic 1917 Scofield Reference Bible.'
+                  : 'Sebelum memasuki Injil Matius, pelajari masa 400 tahun keheningan profetik antara Maleakhi dan Matius dalam naskah otentik Scofield 1917.'}
+              </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  onClick={() => {
+                    setIntroModalInitialTab('malachi_to_matthew');
+                    setIsIntroModalOpen(true);
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 cursor-pointer transition"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Read "From Malachi to Matthew"' : 'Baca "From Malachi to Matthew"'}</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedBookId('matius');
+                    setSelectedChapter(1);
+                    if (contentRef.current) contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-amber-200 dark:border-zinc-700 text-amber-900 dark:text-amber-200 text-xs font-semibold hover:bg-amber-50 dark:hover:bg-zinc-700 transition cursor-pointer"
+                >
+                  {bibleLang === 'en' || bibleLang === 'scofield' ? 'Go to Matthew 1 →' : 'Lanjut ke Matius 1 →'}
+                </button>
+              </div>
+            </div>
+          )}
           </>
           )}
 
@@ -1999,7 +2109,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Scofield Docs (4)' : 'Dokumen Scofield (4)'}</span>
+                  <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Scofield Docs (6)' : 'Dokumen Scofield (6)'}</span>
                 </button>
               </div>
 
@@ -2027,7 +2137,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                       </span>
                     </div>
                     <span className="text-[11px] font-mono text-amber-800/80 dark:text-amber-400 hidden sm:inline">
-                      4 Dokumen Otentik
+                      6 Dokumen Otentik
                     </span>
                   </div>
 
@@ -2116,7 +2226,52 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                           onClick={() => setBookPickerTab('SCOFIELD')}
                           className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-amber-200 dark:border-zinc-700 text-amber-900 dark:text-amber-200 text-xs font-semibold hover:bg-amber-50 dark:hover:bg-zinc-700 transition cursor-pointer"
                         >
-                          {bibleLang === 'en' || bibleLang === 'scofield' ? '4 Scofield Docs →' : '4 Dokumen →'}
+                          {bibleLang === 'en' || bibleLang === 'scofield' ? '6 Scofield Docs →' : '6 Dokumen →'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* The Four Gospels & Malachi-to-Matthew Banner on New Testament Tab */}
+                  {bookPickerTab === 'PB' && !bookSearchQuery && (
+                    <div className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/5 border border-amber-300 dark:border-amber-700/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs mb-1">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-xl bg-amber-500/25 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0">
+                          <BookOpen className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-extrabold text-xs text-amber-950 dark:text-amber-200">The Four Gospels</span>
+                            <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300">Scofield 1917</span>
+                          </div>
+                          <p className="text-[11px] text-stone-600 dark:text-stone-300 leading-tight">
+                            {bibleLang === 'en' || bibleLang === 'scofield'
+                              ? 'General introduction to the Evangelical record & 7 principles'
+                              : 'Pengantar 4 Injil (Matius, Markus, Lukas, Yohanes) & masa 400 tahun'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button
+                          onClick={() => {
+                            setIsBookPickerOpen(false);
+                            setIntroModalInitialTab('four_gospels');
+                            setIsIntroModalOpen(true);
+                          }}
+                          className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-2xs flex items-center gap-1.5 cursor-pointer transition"
+                        >
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>The Four Gospels</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsBookPickerOpen(false);
+                            setIntroModalInitialTab('malachi_to_matthew');
+                            setIsIntroModalOpen(true);
+                          }}
+                          className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-zinc-800 border border-amber-200 dark:border-zinc-700 text-amber-900 dark:text-amber-200 text-xs font-semibold hover:bg-amber-50 dark:hover:bg-zinc-700 transition cursor-pointer"
+                        >
+                          Maleakhi ke Matius →
                         </button>
                       </div>
                     </div>
@@ -2176,6 +2331,43 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                           <ChevronRight className="w-3.5 h-3.5 opacity-40" />
                         </button>
                       ))}
+
+                    {/* From Malachi to Matthew card placed at the very end of Old Testament */}
+                    {bookPickerTab === 'PL' && !bookSearchQuery && (
+                      <div className="col-span-2 sm:col-span-3 md:col-span-4 p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/5 border border-amber-300 dark:border-amber-700/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 shadow-2xs mt-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-xl bg-amber-500/25 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0">
+                            <Clock className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-extrabold text-xs text-amber-950 dark:text-amber-200">
+                                {bibleLang === 'en' || bibleLang === 'scofield' ? 'From Malachi to Matthew' : 'Dari Maleakhi ke Matius'}
+                              </span>
+                              <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-300">
+                                Masa 400 Tahun
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-stone-600 dark:text-stone-300 leading-tight">
+                              {bibleLang === 'en' || bibleLang === 'scofield'
+                                ? 'The 400 silent years between the Testaments (Persian, Grecian, Maccabean, Roman)'
+                                : 'Jembatan sejarah & rohani masa 400 tahun keheningan profetik menuju kelahiran Kristus'}
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setIsBookPickerOpen(false);
+                            setIntroModalInitialTab('malachi_to_matthew');
+                            setIsIntroModalOpen(true);
+                          }}
+                          className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-2xs flex items-center gap-1.5 cursor-pointer transition shrink-0 w-full sm:w-auto justify-center"
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                          <span>{bibleLang === 'en' || bibleLang === 'scofield' ? 'Read Document' : 'Buka Pengantar'}</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
