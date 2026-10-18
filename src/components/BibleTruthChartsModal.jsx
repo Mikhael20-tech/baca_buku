@@ -315,18 +315,28 @@ export default function BibleTruthChartsModal({ isOpen, onClose, onNavigateToVer
                   </div>
 
                   {/* Ministry Reference */}
-                  {activeNode.reference && (
-                    <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-300/80 dark:border-amber-800/60 text-xs text-amber-950 dark:text-amber-200 space-y-1">
-                      <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-1.5 font-mono">
-                        <ExternalLink className="w-3 h-3" />
-                        <span>Rujukan Buku Pelayanan (Ministry Books):</span>
-                      </span>
+                  {activeNode.reference ? (
+                    <div className="p-3 bg-amber-500/10 rounded-xl border border-amber-300/80 dark:border-amber-800/60 text-xs text-amber-950 dark:text-amber-200 space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-1.5 font-mono">
+                          <ExternalLink className="w-3 h-3" />
+                          <span>Rujukan Buku Pelayanan (Ministry Books):</span>
+                        </span>
+                        <span className="text-[10px] bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 px-1.5 py-0.2 rounded font-mono">
+                          LSM Online
+                        </span>
+                      </div>
                       <div 
-                        className="leading-relaxed [&_a]:text-amber-900 dark:[&_a]:text-amber-300 [&_a]:underline [&_a]:font-bold"
-                        dangerouslySetInnerHTML={{ __html: activeNode.reference }}
+                        className="leading-relaxed [&_a]:text-amber-900 dark:[&_a]:text-amber-300 [&_a]:underline [&_a]:font-bold [&_a]:hover:text-amber-700 cursor-pointer"
+                        dangerouslySetInnerHTML={{ 
+                          __html: activeNode.reference.replace(/<a\s+(?!.*?target=)/gi, '<a target="_blank" rel="noopener noreferrer" ') 
+                        }}
                       />
+                      <p className="text-[10px] text-stone-500 dark:text-zinc-400 italic">
+                        Klik rujukan di atas untuk langsung membaca berita lengkap di perpustakaan resmi ministrybooks.org
+                      </p>
                     </div>
-                  )}
+                  ) : null}
 
                   {/* Bible Verses */}
                   {activeNode.verses && (

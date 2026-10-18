@@ -68,14 +68,21 @@ for item in CHART_LIST:
     funcs = {}
     func_blocks = re.findall(r'function\s+(func\d+)\s*\(\)\s*\{([^}]+)\}', html, re.DOTALL)
     for fn_name, fn_body in func_blocks:
-        part0 = re.search(r"document\.getElementById\(['\"]part0['\"]\)\.innerHTML\s*=\s*['\"](.*?)['\"];?", fn_body)
-        part1 = re.search(r"document\.getElementById\(['\"]part1['\"]\)\.innerHTML\s*=\s*['\"](.*?)['\"];?", fn_body)
-        part2 = re.search(r"document\.getElementById\(['\"]part2['\"]\)\.innerHTML\s*=\s*['\"](.*?)['\"];?", fn_body)
-        
+        def get_val(part_name):
+            m = re.search(r"document\.getElementById\(['\"]" + part_name + r"['\"]\)\.innerHTML\s*=\s*['\"](.*)['\"];?\s*$", fn_body, re.MULTILINE)
+            if m:
+                return m.group(1).strip()
+            m2 = re.search(r"document\.getElementById\(['\"]" + part_name + r"['\"]\)\.innerHTML\s*=\s*['\"](.*?)['\"];?", fn_body)
+            return m2.group(1).strip() if m2 else ""
+
+        p0 = get_val('part0')
+        p1 = get_val('part1')
+        p2 = get_val('part2')
+
         funcs[fn_name] = {
-            "title": part0.group(1).strip() if part0 else "",
-            "verses": part1.group(1).strip() if part1 else "",
-            "reference": part2.group(1).strip() if part2 else ""
+            "title": p0,
+            "verses": p1,
+            "reference": p2
         }
 
     # Extract SVG
