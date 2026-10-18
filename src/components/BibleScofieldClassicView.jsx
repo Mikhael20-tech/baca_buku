@@ -605,7 +605,7 @@ export default function BibleScofieldClassicView({
             {leftVerses.map(v => (
               <div key={v.verse} id={`classic-verse-${v.verse}`}>
                 {v.outlines && (
-                  <div className="sco-outline">{v.outlines}</div>
+                  <div className="sco-outline">{Array.isArray(v.outlines) ? v.outlines.map(o => typeof o === 'string' ? o : o?.text || '').join(' ') : (typeof v.outlines === 'object' ? v.outlines?.text || '' : v.outlines)}</div>
                 )}
                 <div className="sco-verse">
                   <span className="sco-vn">{v.verse}</span>
@@ -682,7 +682,7 @@ export default function BibleScofieldClassicView({
             {rightVerses.map(v => (
               <div key={v.verse} id={`classic-verse-${v.verse}`}>
                 {v.outlines && (
-                  <div className="sco-outline">{v.outlines}</div>
+                  <div className="sco-outline">{Array.isArray(v.outlines) ? v.outlines.map(o => typeof o === 'string' ? o : o?.text || '').join(' ') : (typeof v.outlines === 'object' ? v.outlines?.text || '' : v.outlines)}</div>
                 )}
                 <div className="sco-verse">
                   <span className="sco-vn">{v.verse}</span>

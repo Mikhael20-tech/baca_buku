@@ -213,16 +213,16 @@ export default function LandingPage({
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift">
               <Utensils className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-200" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#1C1917] font-serif">
                   Baca.
                 </span>
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden sm:inline-flex">
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden 2xl:inline-flex">
                   Mari Makan Tuhan
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden md:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
+              <p className="text-[11px] text-[#78716C] hidden xl:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
             </div>
           </div>
 

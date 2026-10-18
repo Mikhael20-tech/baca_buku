@@ -101,6 +101,27 @@ const FONTS = [
   { id: 'Plus Jakarta Sans', name: 'Jakarta Sans', font: "'Plus Jakarta Sans', sans-serif" }
 ];
 
+function getOutlinesList(rawOutlines) {
+  if (!rawOutlines) return [];
+  if (Array.isArray(rawOutlines)) return rawOutlines;
+  if (typeof rawOutlines === 'string') {
+    const trimmed = rawOutlines.trim();
+    return trimmed ? [trimmed] : [];
+  }
+  if (typeof rawOutlines === 'object') {
+    if (rawOutlines.text) return [rawOutlines.text];
+    return [JSON.stringify(rawOutlines)];
+  }
+  return [String(rawOutlines)];
+}
+
+function getOutlineText(otl) {
+  if (!otl) return '';
+  if (typeof otl === 'string') return otl;
+  if (typeof otl === 'object' && otl.text) return otl.text;
+  return String(otl);
+}
+
 export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
   const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'en' | 'scofield'
   const [scofieldLayout, setScofieldLayout] = useState(() => localStorage.getItem('bible_scofield_layout') || 'classic'); // 'classic' | 'modern'
@@ -1557,18 +1578,24 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
           )}
 
           {/* Garis Besar Pasal Utama */}
-          {showOutlines && chapterData?.outlines && chapterData.outlines.length > 0 && !filteredVerses.some(v => v.outlines) && (
-            <div className="space-y-2 py-3 text-center px-4">
-              {chapterData.outlines.map((otl, idx) => (
-                <h4 
-                  key={idx}
-                  className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-relaxed ${themeStyles.outlineText}`}
-                >
-                  {typeof otl === 'string' ? otl : otl.text}
-                </h4>
-              ))}
-            </div>
-          )}
+          {(() => {
+            const chapterOutlines = getOutlinesList(chapterData?.outlines);
+            const hasVerseOutlines = filteredVerses.some(v => getOutlinesList(v.outlines).length > 0);
+            if (!showOutlines || chapterOutlines.length === 0 || hasVerseOutlines) return null;
+
+            return (
+              <div className="space-y-2 py-3 text-center px-4">
+                {chapterOutlines.map((otl, idx) => (
+                  <h4 
+                    key={idx}
+                    className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-relaxed ${themeStyles.outlineText}`}
+                  >
+                    {getOutlineText(otl)}
+                  </h4>
+                ))}
+              </div>
+            );
+          })()}
 
           {/* Isi Ayat-Ayat */}
           {isLoading ? (
@@ -1586,18 +1613,19 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary }) {
                 const enItem = parallelChapterData?.verses?.find(ev => ev.verse === item.verse);
                 const isBookmarked = isVerseBookmarked(item.verse);
                 const highlightClass = getHighlightStyle(item.verse);
+                const verseOutlines = getOutlinesList(item.outlines);
 
                 return (
                   <div key={`${bibleLang}-${selectedBookId}-${selectedChapter}-${item.verse}-${idx}`} className="relative">
                     {/* Garis Besar Rohani di atas ayat */}
-                    {showOutlines && item.outlines && item.outlines.length > 0 && (
+                    {showOutlines && verseOutlines.length > 0 && (
                       <div className="pt-6 pb-2.5 space-y-1.5 text-center px-4">
-                        {item.outlines.map((otl, oIdx) => (
+                        {verseOutlines.map((otl, oIdx) => (
                           <h4
                             key={oIdx}
                             className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-relaxed ${themeStyles.outlineText}`}
                           >
-                            {otl}
+                            {getOutlineText(otl)}
                           </h4>
                         ))}
                       </div>

@@ -1121,7 +1121,7 @@ export default function App() {
             >
               <Utensils className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-200" />
             </button>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setViewMode('landing')}
@@ -1129,26 +1129,26 @@ export default function App() {
                 >
                   Baca.
                 </button>
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden sm:inline-flex">
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden 2xl:inline-flex">
                   Mari Makan Tuhan
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden md:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
+              <p className="text-[11px] text-[#78716C] hidden xl:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
             </div>
           </div>
 
           {/* Navigation Items (ROLE-SEPARATED: Admin only sees Admin, Reader only sees Reader) */}
-          <nav className="hidden md:flex items-center gap-1 p-1 bg-white/70 rounded-full border border-[#1C1917]/10 text-xs shadow-xs">
+          <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 p-1 bg-white/70 rounded-full border border-[#1C1917]/10 text-xs shadow-xs shrink-0">
             <button
               onClick={() => setViewMode('landing')}
-              className="px-3 py-1.5 rounded-full font-semibold text-[#78716C] hover:text-[#1C1917] hover:bg-stone-100 transition"
+              className="px-2.5 lg:px-3 py-1.5 rounded-full font-semibold text-[#78716C] hover:text-[#1C1917] hover:bg-stone-100 transition whitespace-nowrap"
             >
               Beranda
             </button>
 
             <button
               onClick={() => setViewMode('library')}
-              className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+              className={`px-2.5 lg:px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 whitespace-nowrap ${
                 viewMode === 'library'
                   ? 'bg-[#3B4B34] text-white shadow-xs'
                   : 'text-[#78716C] hover:text-[#1C1917]'
@@ -1164,7 +1164,7 @@ export default function App() {
                 setKidungInitialSongId(null);
                 setViewMode('kidung');
               }}
-              className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+              className={`px-2.5 lg:px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 whitespace-nowrap ${
                 viewMode === 'kidung'
                   ? 'bg-[#3B4B34] text-white shadow-xs'
                   : 'text-[#78716C] hover:text-[#1C1917]'
@@ -1178,14 +1178,14 @@ export default function App() {
             {isLoggedIn && userRole === 'reader' && (
               <button
                 onClick={() => setViewMode('user-dashboard')}
-                className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+                className={`px-2.5 lg:px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 whitespace-nowrap ${
                   viewMode === 'user-dashboard'
                     ? 'bg-[#3B4B34] text-white shadow-xs'
                     : 'text-[#78716C] hover:text-[#1C1917]'
                 }`}
               >
                 <User className="w-3.5 h-3.5 text-amber-300" />
-                <span>Dashboard Saya</span>
+                <span><span className="hidden xl:inline">Dashboard </span>Saya</span>
               </button>
             )}
 
@@ -1193,14 +1193,14 @@ export default function App() {
             {isLoggedIn && userRole === 'admin' && (
               <button
                 onClick={() => setViewMode('admin-dashboard')}
-                className={`px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 ${
+                className={`px-2.5 lg:px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 whitespace-nowrap ${
                   viewMode === 'admin-dashboard'
                     ? 'bg-stone-900 text-white shadow-xs'
                     : 'text-[#78716C] hover:text-[#1C1917]'
                 }`}
               >
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Dashboard Admin</span>
+                <span><span className="hidden xl:inline">Dashboard </span>Admin</span>
               </button>
             )}
           </nav>
@@ -1213,11 +1213,11 @@ export default function App() {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsQuickScriptureOpen(true)}
-                className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                className="hidden md:inline-flex rounded-full text-xs font-bold border-amber-600/30 text-amber-900 hover:bg-amber-100/50 bg-amber-50/70 h-9 px-2.5 xl:px-3.5 shadow-xs btn-lift whitespace-nowrap"
                 title="Cari Cepat Ayat Alkitab & Catatan Kaki"
               >
-                <Search className="w-3.5 h-3.5 mr-1 text-amber-700" />
-                <span>Cari Ayat</span>
+                <Search className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                <span className="hidden xl:inline ml-1">Cari Ayat</span>
               </Button>
             )}
 
@@ -1233,17 +1233,17 @@ export default function App() {
                   setViewMode('bible');
                 }
               }}
-              className="hidden sm:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-3.5 shadow-xs btn-lift whitespace-nowrap"
+              className="hidden sm:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-9 px-2.5 lg:px-3.5 shadow-xs btn-lift whitespace-nowrap"
               title="Buka 66 Kitab Alkitab Versi Pemulihan"
             >
-              <BookOpen className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
-              <span>Alkitab</span>
+              <BookOpen className="w-3.5 h-3.5 text-[#3B4B34] shrink-0" />
+              <span className="hidden md:inline ml-1">Alkitab</span>
             </Button>
 
             {/* Dropdown Akun & Paket (ROLE-SEPARATED) */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift">
+                <button className="flex items-center gap-1.5 bg-white/80 hover:bg-white text-[#1C1917] px-2.5 sm:px-3 py-1.5 rounded-full border border-[#1C1917]/15 text-xs font-bold shadow-xs transition btn-lift shrink-0">
                   {isLoggedIn ? (
                     <>
                       {userRole === 'admin' ? (
