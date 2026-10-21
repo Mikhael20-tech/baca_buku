@@ -1,63 +1,141 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { X, Download, Copy, Check, Sparkles, Image as ImageIcon } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Sparkles, Download, Copy, Check, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const CARD_THEMES = [
   {
     id: 'amber',
-    name: 'Royal Amber',
-    bg: 'from-amber-600 via-amber-700 to-amber-900',
-    canvasBg: ['#d97706', '#b45309', '#78350f'],
-    textColor: '#ffffff',
-    subColor: '#fef3c7',
-    accentColor: '#f59e0b'
-  },
-  {
-    id: 'dark',
-    name: 'Midnight Sacred',
-    bg: 'from-zinc-900 via-slate-900 to-black',
-    canvasBg: ['#18181b', '#0f172a', '#000000'],
-    textColor: '#f4f4f5',
-    subColor: '#fef08a',
-    accentColor: '#eab308'
-  },
-  {
-    id: 'sepia',
-    name: 'Parchment Sepia',
-    bg: 'from-[#f5edd6] via-[#ebd9b8] to-[#dfc79e]',
-    canvasBg: ['#f5edd6', '#ebd9b8', '#dfc79e'],
-    textColor: '#291809',
-    subColor: '#78350f',
-    accentColor: '#92400e'
+    name: 'Klasik Emas',
+    bg: 'from-[#2C2416] via-[#1A1610] to-[#0D0B08]',
+    canvasBg: ['#2C2416', '#1A1610', '#0D0B08'],
+    textColor: '#FDFBF7',
+    subColor: '#F59E0B',
+    accentColor: '#D97706'
   },
   {
     id: 'emerald',
-    name: 'Emerald Life',
-    bg: 'from-emerald-800 via-emerald-900 to-slate-950',
-    canvasBg: ['#065f46', '#064e3b', '#022c22'],
-    textColor: '#ecfdf5',
-    subColor: '#a7f3d0',
+    name: 'Hijau Zamrud',
+    bg: 'from-[#064E3B] via-[#022C22] to-[#01140F]',
+    canvasBg: ['#064E3B', '#022C22', '#01140F'],
+    textColor: '#ECFDF5',
+    subColor: '#34D399',
+    accentColor: '#059669'
+  },
+  {
+    id: 'navy',
+    name: 'Biru Samudera',
+    bg: 'from-[#1E3A8A] via-[#0F172A] to-[#020617]',
+    canvasBg: ['#1E3A8A', '#0F172A', '#020617'],
+    textColor: '#F8FAFC',
+    subColor: '#60A5FA',
+    accentColor: '#2563EB'
+  },
+  {
+    id: 'royal',
+    name: 'Ungu Ningrat',
+    bg: 'from-[#4C1D95] via-[#2E1065] to-[#0F051D]',
+    canvasBg: ['#4C1D95', '#2E1065', '#0F051D'],
+    textColor: '#FAF5FF',
+    subColor: '#C084FC',
+    accentColor: '#9333EA'
+  },
+  {
+    id: 'parchment',
+    name: 'Kertas Kuno',
+    bg: 'from-[#FDFBF7] via-[#F4EFE6] to-[#E8DEC8]',
+    canvasBg: ['#FDFBF7', '#F4EFE6', '#E8DEC8'],
+    textColor: '#292524',
+    subColor: '#78350F',
+    accentColor: '#B45309'
+  },
+  {
+    id: 'charcoal',
+    name: 'Hitam Obsidian',
+    bg: 'from-[#262626] via-[#171717] to-[#0A0A0A]',
+    canvasBg: ['#262626', '#171717', '#0A0A0A'],
+    textColor: '#FAFAFA',
+    subColor: '#E2E8F0',
     accentColor: '#10b981'
   }
+];
+
+const TRANSLATION_LABELS = {
+  id: 'Alkitab Versi Pemulihan',
+  tb: 'Terjemahan Baru (TB - LAI)',
+  en: 'Holy Bible Recovery Version',
+  kjv: 'King James Version (KJV 1769)',
+  asv: 'American Standard Version (ASV 1901)',
+  net: 'New English Translation (NET Bible)',
+  scofield: 'The Scofield Reference Bible 1917'
+};
+
+const LANG_OPTIONS = [
+  { id: 'id', label: 'ID' },
+  { id: 'tb', label: 'TB' },
+  { id: 'en', label: 'EN' },
+  { id: 'kjv', label: 'KJV' },
+  { id: 'asv', label: 'ASV' },
+  { id: 'net', label: 'NET' },
+  { id: 'scofield', label: 'Scofield' }
 ];
 
 export default function BibleVerseCardModal({ isOpen, onClose, verseData, bibleLang = 'id' }) {
   const [selectedTheme, setSelectedTheme] = useState('amber');
   const [isCopied, setIsCopied] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [cardLang, setCardLang] = useState(bibleLang);
+  const [dynamicText, setDynamicText] = useState('');
   const canvasRef = useRef(null);
 
-  const isEn = bibleLang === 'en';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(cardLang);
 
-  // Bersihkan teks ayat dari tag catatan kaki <fn n="..."/>
   const cleanVerseText = (text) => {
     if (!text) return '';
     return text.replace(/<fn n="\d+"\/>/g, '').replace(/\s+/g, ' ').trim();
   };
 
-  const verseText = cleanVerseText(verseData?.text || '');
+  useEffect(() => {
+    if (isOpen) {
+      setCardLang(bibleLang);
+      setDynamicText(verseData?.text || '');
+    }
+  }, [isOpen, bibleLang, verseData]);
+
+  // Handle switching translation inside the card generator
+  useEffect(() => {
+    if (!isOpen || !verseData?.bookId) return;
+
+    if (cardLang === bibleLang && verseData.text) {
+      setDynamicText(verseData.text);
+      return;
+    }
+
+    const loadDifferentTranslation = async () => {
+      try {
+        const url = ['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(cardLang)
+          ? `/bible/${cardLang}/${verseData.bookId}.json`
+          : `/bible/${verseData.bookId}.json`;
+
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          const chap = data?.chapters?.[verseData.chapter] || data?.chapters?.[String(verseData.chapter)];
+          const vObj = chap?.verses?.find(v => v.verse === verseData.verse);
+          if (vObj?.text) {
+            setDynamicText(vObj.text);
+          }
+        }
+      } catch (err) {
+        console.warn('Gagal memuat teks terjemahan kartu:', err);
+      }
+    };
+
+    loadDifferentTranslation();
+  }, [cardLang, isOpen, verseData, bibleLang]);
+
+  const verseText = cleanVerseText(dynamicText || verseData?.text || '');
   const citation = `${verseData?.bookName || ''} ${verseData?.chapter || ''}:${verseData?.verse || ''}`;
-  const versionTag = isEn ? 'Recovery Version' : 'Alkitab Versi Pemulihan';
+  const versionTag = TRANSLATION_LABELS[cardLang] || TRANSLATION_LABELS.id;
 
   // Render canvas untuk download gambar kualitas tinggi (1080x1080)
   useEffect(() => {
@@ -182,7 +260,7 @@ export default function BibleVerseCardModal({ isOpen, onClose, verseData, bibleL
       const canvas = canvasRef.current;
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `${citation.replace(/[: ]/g, '_')}_RecoveryVersion.png`;
+      link.download = `${citation.replace(/[: ]/g, '_')}_${cardLang.toUpperCase()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -231,6 +309,27 @@ export default function BibleVerseCardModal({ isOpen, onClose, verseData, bibleL
           >
             <X className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Translation Selector */}
+        <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 border-b border-slate-100 dark:border-zinc-800">
+          <span className="text-[10px] uppercase font-bold text-slate-400 mr-1 shrink-0 font-mono">
+            {isEn ? 'Version:' : 'Versi:'}
+          </span>
+          {LANG_OPTIONS.map(opt => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => setCardLang(opt.id)}
+              className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition whitespace-nowrap cursor-pointer ${
+                cardLang === opt.id
+                  ? 'bg-amber-600 text-white shadow-2xs'
+                  : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
 
         {/* Live Card Preview */}
@@ -286,7 +385,7 @@ export default function BibleVerseCardModal({ isOpen, onClose, verseData, bibleL
               <button
                 key={t.id}
                 onClick={() => setSelectedTheme(t.id)}
-                className={`py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-3 rounded-xl border text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                   selectedTheme === t.id
                     ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 ring-2 ring-amber-400/50'
                     : 'border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800'
@@ -304,7 +403,7 @@ export default function BibleVerseCardModal({ isOpen, onClose, verseData, bibleL
           <Button
             variant="outline"
             onClick={handleCopyTextQuote}
-            className="rounded-xl text-xs font-bold flex items-center justify-center gap-2 h-10"
+            className="rounded-xl text-xs font-bold flex items-center justify-center gap-2 h-10 cursor-pointer"
           >
             {isCopied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
             <span>{isCopied ? (isEn ? 'Text Copied!' : 'Teks Tersalin!') : (isEn ? 'Copy Quote Text' : 'Salin Teks Kutipan')}</span>
@@ -313,7 +412,7 @@ export default function BibleVerseCardModal({ isOpen, onClose, verseData, bibleL
           <Button
             onClick={handleDownloadImage}
             disabled={isDownloading}
-            className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center gap-2 h-10 shadow-md"
+            className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center gap-2 h-10 shadow-md cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>{isDownloading ? (isEn ? 'Generating...' : 'Memproses...') : (isEn ? 'Download Image (PNG)' : 'Unduh Gambar (PNG)')}</span>

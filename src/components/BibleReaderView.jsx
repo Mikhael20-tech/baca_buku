@@ -4,11 +4,27 @@ import {
   Settings, Sun, Moon, Coffee, ArrowLeft, Bookmark, Copy, 
   Check, Share2, ZoomIn, ZoomOut, Compass, List, X,
   MessageCircle, ChevronDown, ChevronUp, Info, Maximize2, Minimize2,
-  Highlighter, Columns, BookMarked, Hash, FileText, Scroll, Eye, Clock
+  Highlighter, Columns, BookMarked, Hash, FileText, Scroll, Eye, Clock,
+  ArrowLeftRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+
+const PARALLEL_TRANSLATIONS = [
+  { id: 'id', code: 'ID', name: 'Pemulihan' },
+  { id: 'tb', code: 'TB', name: 'Terjemahan Baru LAI' },
+  { id: 'en', code: 'EN', name: 'Recovery Version' },
+  { id: 'kjv', code: 'KJV', name: 'King James (1769)' },
+  { id: 'asv', code: 'ASV', name: 'American Standard' },
+  { id: 'net', code: 'NET', name: 'NET Bible' },
+  { id: 'scofield', code: 'SCO', name: 'Scofield 1917' }
+];
+
+const getTranslationLabel = (lang) => {
+  const found = PARALLEL_TRANSLATIONS.find(t => t.id === lang);
+  return found ? `${found.code} • ${found.name}` : (lang ? lang.toUpperCase() : 'ID');
+};
 
 import BibleIntroModal from './BibleIntroModal';
 import BibleBookmarksModal from './BibleBookmarksModal';
@@ -183,6 +199,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
   const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'tb' | 'en' | 'kjv' | 'asv' | 'net' | 'scofield'
   const [scofieldLayout, setScofieldLayout] = useState(() => localStorage.getItem('bible_scofield_layout') || 'classic'); // 'classic' | 'modern'
   const [viewMode, setViewMode] = useState(() => localStorage.getItem('bible_view_mode') || 'single'); // 'single' | 'parallel'
+  const [parallelLeftLang, setParallelLeftLang] = useState(() => localStorage.getItem('bible_parallel_left') || 'id');
+  const [parallelRightLang, setParallelRightLang] = useState(() => localStorage.getItem('bible_parallel_right') || 'en');
   const [isScofieldIndexOpen, setIsScofieldIndexOpen] = useState(false);
   const [isTruthChartsOpen, setIsTruthChartsOpen] = useState(false);
   
@@ -288,18 +306,25 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     setIsLoading(true);
 
     if (viewMode === 'parallel') {
-      const fetchId = fetch(`/bible/${selectedBookId}.json?v=2`).then(r => r.ok ? r.json() : null);
-      const fetchEn = fetch(`/bible/en/${selectedBookId}.json?v=2`).then(r => r.ok ? r.json() : null);
+      const getLangUrl = (lang) => {
+        if (['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(lang)) {
+          return `/bible/${lang}/${selectedBookId}.json?v=2`;
+        }
+        return `/bible/${selectedBookId}.json?v=2`;
+      };
 
-      Promise.all([fetchId, fetchEn])
-        .then(([idData, enData]) => {
+      const fetchLeft = fetch(getLangUrl(parallelLeftLang)).then(r => r.ok ? r.json() : null);
+      const fetchRight = fetch(getLangUrl(parallelRightLang)).then(r => r.ok ? r.json() : null);
+
+      Promise.all([fetchLeft, fetchRight])
+        .then(([leftData, rightData]) => {
           if (!isMounted) return;
-          // In parallel mode: bookData is ID, parallelBookData is EN
-          setBookData(idData || enData);
-          setParallelBookData(enData || idData);
+          // In parallel mode: bookData is left, parallelBookData is right
+          setBookData(leftData || rightData);
+          setParallelBookData(rightData || leftData);
           setIsLoading(false);
 
-          const primary = idData || enData;
+          const primary = leftData || rightData;
           const availableChaps = Object.keys(primary?.chapters || {}).map(Number);
           if (!availableChaps.includes(selectedChapter) && availableChaps.length > 0) {
             setSelectedChapter(availableChaps[0]);
@@ -343,7 +368,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
     localStorage.setItem('last_bible_book', selectedBookId);
     return () => { isMounted = false; };
-  }, [selectedBookId, bibleLang, viewMode]);
+  }, [selectedBookId, bibleLang, viewMode, parallelLeftLang, parallelRightLang]);
 
   // 3. Prefetch Kitab Berikutnya Secara Diam-diam di Waktu Senggang (Idle Background Prefetch)
   useEffect(() => {
@@ -788,7 +813,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     }
 
     const currentMap = viewMode === 'parallel'
-      ? (sourceLang === 'en' ? parallelFootnoteMap : footnoteMap)
+      ? (sourceLang === parallelRightLang ? parallelFootnoteMap : footnoteMap)
       : footnoteMap;
 
     const parts = item.marked_text.split(/(<fn n="\d+"\/>)/g);
@@ -1861,6 +1886,61 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             );
           })()}
 
+          {/* Bar Kontrol Mode Paralel (Pilih Terjemahan Kiri & Kanan) */}
+          {viewMode === 'parallel' && (
+            <div className="mb-4 p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 backdrop-blur-xs flex flex-wrap items-center justify-between gap-2 shadow-2xs">
+              <div className="flex items-center gap-2 flex-1 min-w-[130px]">
+                <span className="text-[10px] font-bold uppercase text-slate-500 dark:text-zinc-400 tracking-wider">Kiri:</span>
+                <select
+                  value={parallelLeftLang}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setParallelLeftLang(val);
+                    localStorage.setItem('bible_parallel_left', val);
+                  }}
+                  className="px-2.5 py-1 text-xs font-bold rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-800 dark:text-zinc-100 shadow-2xs focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
+                >
+                  {PARALLEL_TRANSLATIONS.map(t => (
+                    <option key={t.id} value={t.id}>{t.code} - {t.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const temp = parallelLeftLang;
+                  setParallelLeftLang(parallelRightLang);
+                  setParallelRightLang(temp);
+                  localStorage.setItem('bible_parallel_left', parallelRightLang);
+                  localStorage.setItem('bible_parallel_right', temp);
+                }}
+                className="p-1.5 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-amber-500/15 text-slate-600 dark:text-zinc-300 transition shadow-2xs cursor-pointer active:scale-95 flex items-center gap-1 text-[11px] font-bold"
+                title="Tukar Posisi Terjemahan"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span className="hidden sm:inline">Tukar</span>
+              </button>
+
+              <div className="flex items-center gap-2 flex-1 min-w-[130px] justify-end">
+                <span className="text-[10px] font-bold uppercase text-slate-500 dark:text-zinc-400 tracking-wider">Kanan:</span>
+                <select
+                  value={parallelRightLang}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setParallelRightLang(val);
+                    localStorage.setItem('bible_parallel_right', val);
+                  }}
+                  className="px-2.5 py-1 text-xs font-bold rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-800 dark:text-zinc-100 shadow-2xs focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
+                >
+                  {PARALLEL_TRANSLATIONS.map(t => (
+                    <option key={t.id} value={t.id}>{t.code} - {t.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+
           {/* Isi Ayat-Ayat */}
           {isLoading ? (
             <div className="py-24 text-center space-y-3">
@@ -1905,38 +1985,38 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                           : highlightClass || themeStyles.verseHover
                       }`}
                     >
-                      {/* Mode Paralel (Side-by-Side: ID & EN) */}
+                      {/* Mode Paralel (Side-by-Side Kiri & Kanan Dinamis) */}
                       {viewMode === 'parallel' ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
-                          {/* Kolom Kiri: Bahasa Indonesia */}
+                          {/* Kolom Kiri */}
                           <div className="flex items-start gap-2.5">
                             <span className={`shrink-0 w-7 h-7 rounded-lg font-mono text-[10px] sm:text-xs font-extrabold border flex items-center justify-center select-none shadow-2xs ${themeStyles.verseNum}`}>
                               {item.verse}
                             </span>
                             <div className="flex-1 min-w-0">
                               <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-zinc-500 block mb-0.5 font-mono">
-                                ID • Pemulihan
+                                {getTranslationLabel(parallelLeftLang)}
                               </span>
                               <p 
                                 className={`leading-relaxed ${themeStyles.text}`}
                                 style={{ fontFamily: activeFontFamily, fontSize: `${fontSize}px`, lineHeight: 1.85 }}
                               >
-                                {renderVerseText(item, 'id')}
+                                {renderVerseText(item, parallelLeftLang)}
                               </p>
                             </div>
                           </div>
 
-                          {/* Kolom Kanan: Bahasa Inggris */}
+                          {/* Kolom Kanan */}
                           <div className="border-t md:border-t-0 md:border-l border-slate-200 dark:border-zinc-800 pt-2 md:pt-0 md:pl-4 flex items-start gap-2.5">
                             <div className="flex-1 min-w-0">
                               <span className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 block mb-0.5 font-mono">
-                                EN • Recovery Version
+                                {getTranslationLabel(parallelRightLang)}
                               </span>
                               <p 
                                 className={`leading-relaxed ${themeStyles.text}`}
                                 style={{ fontFamily: activeFontFamily, fontSize: `${fontSize}px`, lineHeight: 1.85 }}
                               >
-                                {enItem ? renderVerseText(enItem, 'en') : '—'}
+                                {enItem ? renderVerseText(enItem, parallelRightLang) : '—'}
                               </p>
                             </div>
                           </div>
@@ -2140,6 +2220,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                           <button
                             onClick={() => {
                               setCardModalVerse({
+                                bookId: selectedBookId,
                                 bookName: currentBookInfo.name,
                                 chapter: selectedChapter,
                                 verse: item.verse,

@@ -5,6 +5,16 @@ import { Button } from '@/components/ui/button';
 // In-memory cache for downloaded book data during search
 const BOOK_CACHE = {};
 
+const TRANSLATION_OPTIONS = [
+  { id: 'id', label: 'ID • Pemulihan' },
+  { id: 'tb', label: 'TB • LAI' },
+  { id: 'en', label: 'EN • RcV' },
+  { id: 'kjv', label: 'KJV' },
+  { id: 'asv', label: 'ASV' },
+  { id: 'net', label: 'NET' },
+  { id: 'scofield', label: 'Scofield' }
+];
+
 export default function BibleGlobalSearchModal({
   isOpen,
   onClose,
@@ -15,19 +25,22 @@ export default function BibleGlobalSearchModal({
 }) {
   const [query, setQuery] = useState('');
   const [scope, setScope] = useState('ALL'); // 'ALL' | 'PL' | 'PB' | 'CURRENT'
+  const [searchLang, setSearchLang] = useState(bibleLang);
   const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [progressText, setProgressText] = useState('');
   const searchAbortRef = useRef(false);
 
-  const isEn = bibleLang === 'en';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(searchLang);
 
   useEffect(() => {
-    if (!isOpen) {
+    if (isOpen) {
+      setSearchLang(bibleLang);
+    } else {
       searchAbortRef.current = true;
       setIsSearching(false);
     }
-  }, [isOpen]);
+  }, [isOpen, bibleLang]);
 
   const handleSearch = async (e) => {
     if (e) e.preventDefault();
@@ -58,11 +71,14 @@ export default function BibleGlobalSearchModal({
       setProgressText(`${isEn ? 'Searching in' : 'Memeriksa'} ${b.name} (${i + 1}/${targetBooks.length})...`);
 
       try {
-        const cacheKey = `${bibleLang}-${b.id}`;
+        const cacheKey = `${searchLang}-${b.id}`;
         let bookData = BOOK_CACHE[cacheKey];
 
         if (!bookData) {
-          const url = isEn ? `/bible/en/${b.id}.json` : `/bible/${b.id}.json`;
+          const url = ['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(searchLang)
+            ? `/bible/${searchLang}/${b.id}.json`
+            : `/bible/${b.id}.json`;
+
           const res = await fetch(url);
           if (res.ok) {
             bookData = await res.json();
@@ -83,7 +99,8 @@ export default function BibleGlobalSearchModal({
                     bookName: b.name,
                     chapter: Number(chapKey),
                     verse: v.verse,
-                    text: v.text
+                    text: v.text,
+                    lang: searchLang
                   });
                 }
               }
@@ -139,7 +156,7 @@ export default function BibleGlobalSearchModal({
                 {isEn ? 'Global Scripture Search' : 'Pencarian Firman Alkitab'}
               </h3>
               <p className="text-[11px] text-slate-400">
-                {isEn ? 'Search words or phrases across all 66 books' : 'Cari kata atau frasa di 66 kitab Alkitab'}
+                {isEn ? 'Search words or phrases across 66 books' : 'Cari kata atau frasa di seluruh 66 kitab'}
               </p>
             </div>
           </div>
@@ -149,6 +166,30 @@ export default function BibleGlobalSearchModal({
           >
             <X className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Translation Selector Bar */}
+        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1">
+          <span className="text-[11px] text-slate-400 mr-1 shrink-0 font-medium">
+            {isEn ? 'Translation:' : 'Versi:'}
+          </span>
+          {TRANSLATION_OPTIONS.map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => {
+                setSearchLang(opt.id);
+                setResults([]);
+              }}
+              className={`px-2.5 py-1 rounded-xl text-[11px] font-bold transition whitespace-nowrap cursor-pointer ${
+                searchLang === opt.id
+                  ? 'bg-amber-600 text-white shadow-2xs'
+                  : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
 
         {/* Search Input & Scope Bar */}
@@ -174,14 +215,14 @@ export default function BibleGlobalSearchModal({
           </div>
 
           {/* Scope Selector */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-bold">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-bold scrollbar-none">
             <span className="text-[11px] text-slate-400 mr-1 shrink-0 font-medium">
               {isEn ? 'Scope:' : 'Cakupan:'}
             </span>
             <button
               type="button"
               onClick={() => setScope('ALL')}
-              className={`px-3 py-1 rounded-xl transition ${
+              className={`px-3 py-1 rounded-xl transition cursor-pointer ${
                 scope === 'ALL'
                   ? 'bg-amber-600 text-white shadow-2xs'
                   : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
@@ -192,7 +233,7 @@ export default function BibleGlobalSearchModal({
             <button
               type="button"
               onClick={() => setScope('PL')}
-              className={`px-3 py-1 rounded-xl transition ${
+              className={`px-3 py-1 rounded-xl transition cursor-pointer ${
                 scope === 'PL'
                   ? 'bg-amber-600 text-white shadow-2xs'
                   : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
@@ -203,7 +244,7 @@ export default function BibleGlobalSearchModal({
             <button
               type="button"
               onClick={() => setScope('PB')}
-              className={`px-3 py-1 rounded-xl transition ${
+              className={`px-3 py-1 rounded-xl transition cursor-pointer ${
                 scope === 'PB'
                   ? 'bg-amber-600 text-white shadow-2xs'
                   : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
@@ -214,7 +255,7 @@ export default function BibleGlobalSearchModal({
             <button
               type="button"
               onClick={() => setScope('CURRENT')}
-              className={`px-3 py-1 rounded-xl transition ${
+              className={`px-3 py-1 rounded-xl transition cursor-pointer ${
                 scope === 'CURRENT'
                   ? 'bg-amber-600 text-white shadow-2xs'
                   : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
@@ -250,7 +291,7 @@ export default function BibleGlobalSearchModal({
             <div
               key={`${res.bookId}-${res.chapter}-${res.verse}-${rIdx}`}
               onClick={() => {
-                onSelectResult(res);
+                onSelectResult({ ...res, lang: searchLang });
                 onClose();
               }}
               className="p-3 rounded-2xl border border-slate-200 dark:border-zinc-800 hover:border-amber-400 dark:hover:border-amber-600 bg-slate-50/50 dark:bg-zinc-800/40 hover:bg-amber-50/40 transition-all cursor-pointer group flex items-start justify-between gap-3"
@@ -259,6 +300,9 @@ export default function BibleGlobalSearchModal({
                 <div className="flex items-center gap-2 mb-1">
                   <span className="px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-800 dark:text-amber-300 font-bold font-mono text-[11px]">
                     {res.bookName} {res.chapter}:{res.verse}
+                  </span>
+                  <span className="text-[10px] uppercase font-mono font-bold text-slate-500 dark:text-zinc-400">
+                    {searchLang.toUpperCase()}
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-zinc-200 leading-relaxed">

@@ -5,6 +5,16 @@ import { parseReference } from '@/utils/bibleRefParser';
 
 const PREVIEW_CACHE = {};
 
+const PREVIEW_LANGS = [
+  { id: 'id', label: 'ID' },
+  { id: 'tb', label: 'TB' },
+  { id: 'en', label: 'EN' },
+  { id: 'kjv', label: 'KJV' },
+  { id: 'asv', label: 'ASV' },
+  { id: 'net', label: 'NET' },
+  { id: 'scofield', label: 'Scofield' }
+];
+
 export default function BibleRefPreviewModal({
   referenceText,
   isOpen,
@@ -15,11 +25,13 @@ export default function BibleRefPreviewModal({
   fontFamily = "'Lora', Georgia, serif",
   onJumpToPassage
 }) {
-  const [targetLang, setTargetLang] = useState(bibleLang); // 'id' | 'en'
+  const [targetLang, setTargetLang] = useState(bibleLang);
   const [loading, setLoading] = useState(true);
   const [resolvedPassage, setResolvedPassage] = useState(null);
   const [error, setError] = useState(null);
   const [previewFontSize, setPreviewFontSize] = useState(fontSize || 20);
+
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(targetLang);
 
   // Sync targetLang with bibleLang when modal opens
   useEffect(() => {
@@ -42,7 +54,7 @@ export default function BibleRefPreviewModal({
 
     const parsed = parseReference(referenceText);
     if (!parsed) {
-      setError(targetLang === 'en' ? 'Invalid reference format' : 'Format rujukan tidak dikenali');
+      setError(isEn ? 'Invalid reference format' : 'Format rujukan tidak dikenali');
       setLoading(false);
       return;
     }
@@ -50,17 +62,19 @@ export default function BibleRefPreviewModal({
     setLoading(true);
     setError(null);
 
-    const isEn = targetLang === 'en';
     const cacheKey = `${targetLang}-${parsed.bookId}`;
 
     const loadPassage = async () => {
       try {
         let bookData = PREVIEW_CACHE[cacheKey];
         if (!bookData) {
-          const url = isEn ? `/bible/en/${parsed.bookId}.json` : `/bible/${parsed.bookId}.json`;
+          const url = ['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(targetLang)
+            ? `/bible/${targetLang}/${parsed.bookId}.json`
+            : `/bible/${parsed.bookId}.json`;
+
           let res = await fetch(url);
-          if (!res.ok && isEn) {
-            // Fallback to id if en is not found
+          if (!res.ok) {
+            // Fallback to id if targetLang file fails
             res = await fetch(`/bible/${parsed.bookId}.json`);
           }
           if (!res.ok) throw new Error('Book not found');
@@ -88,7 +102,7 @@ export default function BibleRefPreviewModal({
           verses: targetVerses
         });
       } catch (err) {
-        setError(targetLang === 'en' ? 'Scripture text could not be loaded.' : 'Ayat rujukan tidak dapat dimuat.');
+        setError(isEn ? 'Scripture text could not be loaded.' : 'Ayat rujukan tidak dapat dimuat.');
       } finally {
         setLoading(false);
       }
@@ -98,8 +112,6 @@ export default function BibleRefPreviewModal({
   }, [referenceText, isOpen, targetLang, books]);
 
   if (!isOpen) return null;
-
-  const isEn = targetLang === 'en';
 
   return (
     <div 
@@ -129,28 +141,6 @@ export default function BibleRefPreviewModal({
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Language Selector: ID | EN */}
-            <div className="flex items-center p-0.5 rounded-xl border border-slate-200 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 text-[11px] font-bold">
-              <button
-                type="button"
-                onClick={() => setTargetLang('id')}
-                className={`px-2 py-0.5 rounded-lg transition ${
-                  targetLang === 'id' ? 'bg-[#3B4B34] text-white shadow-xs' : 'text-slate-500 hover:text-slate-900 dark:text-zinc-400'
-                }`}
-              >
-                ID
-              </button>
-              <button
-                type="button"
-                onClick={() => setTargetLang('en')}
-                className={`px-2 py-0.5 rounded-lg transition ${
-                  targetLang === 'en' ? 'bg-[#3B4B34] text-white shadow-xs' : 'text-slate-500 hover:text-slate-900 dark:text-zinc-400'
-                }`}
-              >
-                EN
-              </button>
-            </div>
-
             {/* Quick Font Size Controls */}
             <div className="flex items-center border border-slate-200 dark:border-zinc-700 rounded-xl p-0.5 bg-slate-50 dark:bg-zinc-800">
               <button
@@ -183,17 +173,38 @@ export default function BibleRefPreviewModal({
           </div>
         </div>
 
-        {/* Body Content */}
-        <div className="overflow-y-auto pr-1 flex-1 py-2">
+        {/* Translation Selector Bar */}
+        <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 border-b border-slate-100 dark:border-zinc-800">
+          <span className="text-[10px] uppercase font-bold text-slate-400 mr-1 shrink-0 font-mono">
+            {isEn ? 'Version:' : 'Versi:'}
+          </span>
+          {PREVIEW_LANGS.map(lang => (
+            <button
+              key={lang.id}
+              type="button"
+              onClick={() => setTargetLang(lang.id)}
+              className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition whitespace-nowrap cursor-pointer ${
+                targetLang === lang.id
+                  ? 'bg-amber-600 text-white shadow-2xs'
+                  : 'bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 hover:bg-slate-200'
+              }`}
+            >
+              {lang.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content Body */}
+        <div className="overflow-y-auto pr-1 flex-1">
           {loading ? (
-            <div className="py-16 text-center space-y-2.5">
-              <Loader2 className="w-8 h-8 text-amber-600 animate-spin mx-auto" />
-              <p className="text-xs text-slate-500 font-medium">
-                {isEn ? 'Fetching scripture text...' : 'Memuat ayat firman...'}
+            <div className="flex flex-col items-center justify-center py-16 space-y-3">
+              <Loader2 className="w-7 h-7 text-amber-600 animate-spin" />
+              <p className="text-xs text-slate-400 font-medium animate-pulse">
+                {isEn ? 'Loading scripture passage...' : 'Memuat ayat rujukan...'}
               </p>
             </div>
           ) : error ? (
-            <div className="py-12 text-center text-sm text-rose-500 font-medium">
+            <div className="p-4 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 text-red-700 dark:text-red-300 text-xs text-center font-medium my-6">
               {error}
             </div>
           ) : resolvedPassage ? (
@@ -241,10 +252,10 @@ export default function BibleRefPreviewModal({
           )}
 
           <Button
-            size="sm"
             variant="outline"
+            size="sm"
             onClick={onClose}
-            className="rounded-xl text-xs font-semibold ml-auto px-5"
+            className="rounded-xl text-xs font-bold ml-auto"
           >
             {isEn ? 'Close' : 'Tutup'}
           </Button>
