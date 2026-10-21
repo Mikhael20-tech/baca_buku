@@ -10,12 +10,16 @@ export default function BibleVerseCompareModal({
   bookNameEn,
   chapter,
   idVerse,
+  tbVerse,
   enVerse,
+  kjvVerse,
+  asvVerse,
+  netVerse,
   scofieldVerse,
   bibleLang = 'id'
 }) {
   const [copiedType, setCopiedType] = useState(null);
-  const isEn = bibleLang === 'en';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
 
   if (!isOpen || !verseNum) return null;
 
@@ -25,7 +29,11 @@ export default function BibleVerseCompareModal({
   };
 
   const idText = cleanText(idVerse?.text || '');
+  const tbText = cleanText(tbVerse?.text || '');
   const enText = cleanText(enVerse?.text || '');
+  const kjvText = cleanText(kjvVerse?.text || '');
+  const asvText = cleanText(asvVerse?.text || '');
+  const netText = cleanText(netVerse?.text || '');
   const scofieldText = cleanText(scofieldVerse?.text || '');
   const citation = `${isEn ? (bookNameEn || bookName) : bookName} ${chapter}:${verseNum}`;
 
@@ -37,10 +45,14 @@ export default function BibleVerseCompareModal({
   };
 
   const handleCopyAll = () => {
-    let formatted = `${citation}\n[ID • Pemulihan]:\n"${idText}"\n\n[EN • Recovery Version]:\n"${enText}"`;
-    if (scofieldText) {
-      formatted += `\n\n[Scofield 1917 • KJV]:\n"${scofieldText}"`;
-    }
+    let formatted = `${citation}`;
+    if (idText) formatted += `\n\n[ID • Pemulihan]:\n"${idText}"`;
+    if (tbText) formatted += `\n\n[ID • Terjemahan Baru (TB - LAI)]:\n"${tbText}"`;
+    if (enText) formatted += `\n\n[EN • Recovery Version]:\n"${enText}"`;
+    if (kjvText) formatted += `\n\n[EN • King James Version (KJV)]:\n"${kjvText}"`;
+    if (asvText) formatted += `\n\n[EN • American Standard Version (ASV)]:\n"${asvText}"`;
+    if (netText) formatted += `\n\n[EN • New English Translation (NET)]:\n"${netText}"`;
+    if (scofieldText) formatted += `\n\n[Scofield 1917 • Reference Bible]:\n"${scofieldText}"`;
     navigator.clipboard.writeText(formatted);
     setCopiedType('all');
     setTimeout(() => setCopiedType(null), 2000);
@@ -52,7 +64,7 @@ export default function BibleVerseCompareModal({
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-zinc-900 rounded-3xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 flex flex-col space-y-4 max-h-[88vh] animate-modal-card-in"
+        className="bg-white dark:bg-zinc-900 rounded-3xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 flex flex-col space-y-4 max-h-[90vh] animate-modal-card-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -79,8 +91,8 @@ export default function BibleVerseCompareModal({
         </div>
 
         {/* Translation Cards */}
-        <div className="overflow-y-auto pr-1 flex-1 space-y-3.5">
-          {/* Bahasa Indonesia */}
+        <div className="overflow-y-auto pr-1 flex-1 space-y-3.5 scrollbar-thin">
+          {/* 1. Bahasa Indonesia: Versi Pemulihan */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700/80 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-800">
@@ -99,7 +111,26 @@ export default function BibleVerseCompareModal({
             </p>
           </div>
 
-          {/* English Recovery Version */}
+          {/* 2. Bahasa Indonesia: Terjemahan Baru LAI */}
+          <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/60 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-emerald-800 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-900/60 px-2 py-0.5 rounded-md border border-emerald-300/80 dark:border-emerald-700">
+                Bahasa Indonesia (Terjemahan Baru • LAI)
+              </span>
+              <button
+                onClick={() => handleCopy('tb', tbText, 'ID Terjemahan Baru')}
+                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
+              >
+                {copiedType === 'tb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedType === 'tb' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
+              </button>
+            </div>
+            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
+              {tbText || '—'}
+            </p>
+          </div>
+
+          {/* 3. English: Holy Bible Recovery Version */}
           <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-amber-800 dark:text-amber-300 bg-amber-100/80 dark:bg-amber-900/60 px-2 py-0.5 rounded-md border border-amber-300/80 dark:border-amber-700">
@@ -118,7 +149,64 @@ export default function BibleVerseCompareModal({
             </p>
           </div>
 
-          {/* Scofield Reference Bible 1917 (KJV) */}
+          {/* 4. English: King James Version (KJV 1769) */}
+          <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200/80 dark:border-indigo-800/60 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-indigo-800 dark:text-indigo-300 bg-indigo-100/80 dark:bg-indigo-900/60 px-2 py-0.5 rounded-md border border-indigo-300/80 dark:border-indigo-700">
+                King James Version (KJV 1769)
+              </span>
+              <button
+                onClick={() => handleCopy('kjv', kjvText, 'KJV 1769')}
+                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
+              >
+                {copiedType === 'kjv' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedType === 'kjv' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
+              </button>
+            </div>
+            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
+              {kjvText || '—'}
+            </p>
+          </div>
+
+          {/* 5. English: American Standard Version (ASV 1901) */}
+          <div className="p-4 rounded-2xl bg-teal-50/60 dark:bg-teal-950/30 border border-teal-200/80 dark:border-teal-800/60 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-teal-800 dark:text-teal-300 bg-teal-100/80 dark:bg-teal-900/60 px-2 py-0.5 rounded-md border border-teal-300/80 dark:border-teal-700">
+                American Standard Version (ASV 1901)
+              </span>
+              <button
+                onClick={() => handleCopy('asv', asvText, 'ASV 1901')}
+                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
+              >
+                {copiedType === 'asv' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedType === 'asv' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
+              </button>
+            </div>
+            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
+              {asvText || '—'}
+            </p>
+          </div>
+
+          {/* 6. English: New English Translation (NET Bible) */}
+          <div className="p-4 rounded-2xl bg-sky-50/60 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-800/60 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-sky-800 dark:text-sky-300 bg-sky-100/80 dark:bg-sky-900/60 px-2 py-0.5 rounded-md border border-sky-300/80 dark:border-sky-700">
+                New English Translation (NET Bible)
+              </span>
+              <button
+                onClick={() => handleCopy('net', netText, 'NET Bible')}
+                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
+              >
+                {copiedType === 'net' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedType === 'net' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
+              </button>
+            </div>
+            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
+              {netText || '—'}
+            </p>
+          </div>
+
+          {/* 7. English: Scofield Reference Bible 1917 (KJV) */}
           <div className="p-4 rounded-2xl bg-[#fcfaf2] dark:bg-stone-900/80 border border-amber-300 dark:border-stone-700 space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -169,7 +257,7 @@ export default function BibleVerseCompareModal({
             className="rounded-xl text-xs font-bold flex items-center gap-1.5"
           >
             {copiedType === 'all' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copiedType === 'all' ? (isEn ? 'All Copied!' : 'Semua Versi Tersalin!') : (isEn ? 'Copy All 3 Translations' : 'Salin 3 Terjemahan')}</span>
+            <span>{copiedType === 'all' ? (isEn ? 'All Copied!' : 'Semua Versi Tersalin!') : (isEn ? 'Copy All Translations' : 'Salin Semua Terjemahan')}</span>
           </Button>
 
           <Button

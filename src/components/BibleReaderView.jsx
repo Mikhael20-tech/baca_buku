@@ -180,7 +180,7 @@ function getOutlineText(otl) {
 }
 
 export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBook, allBooks }) {
-  const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'en' | 'scofield'
+  const [bibleLang, setBibleLang] = useState(() => localStorage.getItem('bible_language') || 'id'); // 'id' | 'tb' | 'en' | 'kjv' | 'asv' | 'net' | 'scofield'
   const [scofieldLayout, setScofieldLayout] = useState(() => localStorage.getItem('bible_scofield_layout') || 'classic'); // 'classic' | 'modern'
   const [viewMode, setViewMode] = useState(() => localStorage.getItem('bible_view_mode') || 'single'); // 'single' | 'parallel'
   const [isScofieldIndexOpen, setIsScofieldIndexOpen] = useState(false);
@@ -267,10 +267,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
   // 1. Fetch Daftar 66 Kitab
   useEffect(() => {
     let booksUrl = '/bible/books.json';
-    if (bibleLang === 'en') {
-      booksUrl = '/bible/en/books.json';
-    } else if (bibleLang === 'scofield') {
-      booksUrl = '/bible/scofield/books.json';
+    if (['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(bibleLang)) {
+      booksUrl = `/bible/${bibleLang}/books.json`;
     }
 
     fetch(booksUrl)
@@ -315,10 +313,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     } else {
       setParallelBookData(null);
       let primaryUrl = `/bible/${selectedBookId}.json?v=2`;
-      if (bibleLang === 'en') {
-        primaryUrl = `/bible/en/${selectedBookId}.json?v=2`;
-      } else if (bibleLang === 'scofield') {
-        primaryUrl = `/bible/scofield/${selectedBookId}.json?v=2`;
+      if (['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(bibleLang)) {
+        primaryUrl = `/bible/${bibleLang}/${selectedBookId}.json?v=2`;
       }
 
       fetch(primaryUrl)
@@ -357,8 +353,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       const nextBook = books[currentIdx + 1];
       const timer = setTimeout(() => {
         let nextUrl = `/bible/${nextBook.id}.json?v=2`;
-        if (bibleLang === 'en') nextUrl = `/bible/en/${nextBook.id}.json?v=2`;
-        else if (bibleLang === 'scofield') nextUrl = `/bible/scofield/${nextBook.id}.json?v=2`;
+        if (['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(bibleLang)) {
+          nextUrl = `/bible/${bibleLang}/${nextBook.id}.json?v=2`;
+        }
         fetch(nextUrl).catch(() => {});
       }, 1200);
       return () => clearTimeout(timer);
@@ -1025,6 +1022,22 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   type="button"
                   onClick={() => {
                     setViewMode('single');
+                    setBibleLang('tb');
+                    localStorage.setItem('bible_language', 'tb');
+                  }}
+                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'tb'
+                      ? 'bg-emerald-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="Alkitab Terjemahan Baru LAI (TB)"
+                >
+                  TB
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
                     setBibleLang('en');
                     localStorage.setItem('bible_language', 'en');
                   }}
@@ -1036,6 +1049,54 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   title="Holy Bible Recovery Version (EN)"
                 >
                   EN
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
+                    setBibleLang('kjv');
+                    localStorage.setItem('bible_language', 'kjv');
+                  }}
+                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'kjv'
+                      ? 'bg-indigo-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="King James Version (KJV 1769)"
+                >
+                  KJV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
+                    setBibleLang('asv');
+                    localStorage.setItem('bible_language', 'asv');
+                  }}
+                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'asv'
+                      ? 'bg-teal-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="American Standard Version (ASV 1901)"
+                >
+                  ASV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
+                    setBibleLang('net');
+                    localStorage.setItem('bible_language', 'net');
+                  }}
+                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'net'
+                      ? 'bg-sky-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="New English Translation (NET Bible)"
+                >
+                  NET
                 </button>
                 <button
                   type="button"
@@ -1176,7 +1237,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             {/* Baris 2: Versi Alkitab (ID/EN/Scofield) & Toolbar Cepat (Scrollable Halus Tanpa Wrap) */}
             <div className="flex items-center justify-between gap-1.5 w-full overflow-x-auto no-scrollbar py-0.5 flex-nowrap">
               {/* Language Switcher */}
-              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0`}>
+              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0 overflow-x-auto max-w-[280px] xs:max-w-xs sm:max-w-none scrollbar-none`}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1196,6 +1257,22 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   type="button"
                   onClick={() => {
                     setViewMode('single');
+                    setBibleLang('tb');
+                    localStorage.setItem('bible_language', 'tb');
+                  }}
+                  className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'tb'
+                      ? 'bg-emerald-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="Alkitab Terjemahan Baru LAI (TB)"
+                >
+                  TB
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
                     setBibleLang('en');
                     localStorage.setItem('bible_language', 'en');
                   }}
@@ -1206,6 +1283,54 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   }`}
                 >
                   EN
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
+                    setBibleLang('kjv');
+                    localStorage.setItem('bible_language', 'kjv');
+                  }}
+                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'kjv'
+                      ? 'bg-indigo-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="King James Version (KJV 1769)"
+                >
+                  KJV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
+                    setBibleLang('asv');
+                    localStorage.setItem('bible_language', 'asv');
+                  }}
+                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'asv'
+                      ? 'bg-teal-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="American Standard Version (ASV 1901)"
+                >
+                  ASV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setViewMode('single');
+                    setBibleLang('net');
+                    localStorage.setItem('bible_language', 'net');
+                  }}
+                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                    viewMode === 'single' && bibleLang === 'net'
+                      ? 'bg-sky-800 text-white shadow-xs'
+                      : `${themeStyles.text} opacity-60 hover:opacity-100`
+                  }`}
+                  title="New English Translation (NET Bible)"
+                >
+                  NET
                 </button>
                 <button
                   type="button"
@@ -1911,57 +2036,102 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                             <FileText className="w-3.5 h-3.5" />
                           </button>
 
-                          {/* Compare ID, EN & Scofield Translation (Nomor 6) */}
+                          {/* Compare ID, TB, EN, KJV, ASV, NET & Scofield Translation (Nomor 6) */}
                           <button
                             onClick={async () => {
                               const vNum = item.verse;
-                              let idV = item;
-                              let enV = enItem;
+                              let idV = null;
+                              let tbV = null;
+                              let enV = enItem || null;
+                              let kjvV = null;
+                              let asvV = null;
+                              let netV = null;
                               let scofieldV = null;
 
-                              if (bibleLang === 'scofield') {
-                                scofieldV = item;
-                                try {
-                                  const resId = await fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`);
-                                  if (resId.ok) {
-                                    const d = await resId.json();
-                                    idV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
-                                  }
-                                  const resEn = await fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`);
-                                  if (resEn.ok) {
-                                    const d = await resEn.json();
-                                    enV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
-                                  }
-                                } catch(e) {}
-                              } else {
-                                if (!enV) {
-                                  try {
-                                    const res = await fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`);
-                                    if (res.ok) {
-                                      const d = await res.json();
-                                      enV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
-                                    }
-                                  } catch(e) {}
-                                }
-                                try {
-                                  const sRes = await fetch(`/bible/scofield/${selectedBookId}.json?v=${Date.now()}`);
-                                  if (sRes.ok) {
-                                    const sData = await sRes.json();
-                                    scofieldV = sData?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum);
-                                  }
-                                } catch(e) {}
+                              if (bibleLang === 'id') idV = item;
+                              else if (bibleLang === 'tb') tbV = item;
+                              else if (bibleLang === 'en') enV = item;
+                              else if (bibleLang === 'kjv') kjvV = item;
+                              else if (bibleLang === 'asv') asvV = item;
+                              else if (bibleLang === 'net') netV = item;
+                              else if (bibleLang === 'scofield') scofieldV = item;
+
+                              const fetches = [];
+                              if (!idV) {
+                                fetches.push(
+                                  fetch(`/bible/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { idV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+                              if (!tbV) {
+                                fetches.push(
+                                  fetch(`/bible/tb/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { tbV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+                              if (!enV) {
+                                fetches.push(
+                                  fetch(`/bible/en/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { enV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+                              if (!kjvV) {
+                                fetches.push(
+                                  fetch(`/bible/kjv/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { kjvV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+                              if (!asvV) {
+                                fetches.push(
+                                  fetch(`/bible/asv/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { asvV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+                              if (!netV) {
+                                fetches.push(
+                                  fetch(`/bible/net/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { netV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+                              if (!scofieldV) {
+                                fetches.push(
+                                  fetch(`/bible/scofield/${selectedBookId}.json?v=${Date.now()}`)
+                                    .then(r => r.ok ? r.json() : null)
+                                    .then(d => { scofieldV = d?.chapters?.[selectedChapter]?.verses?.find(v => v.verse === vNum); })
+                                    .catch(() => {})
+                                );
+                              }
+
+                              if (fetches.length > 0) {
+                                await Promise.all(fetches);
                               }
 
                               setCompareVerseData({
                                 verseNum: vNum,
                                 idVerse: idV,
+                                tbVerse: tbV,
                                 enVerse: enV,
+                                kjvVerse: kjvV,
+                                asvVerse: asvV,
+                                netVerse: netV,
                                 scofieldVerse: scofieldV
                               });
                               setActiveVerseMenu(null);
                             }}
                             className="p-1.5 rounded-full text-slate-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-zinc-700 transition"
-                            title={bibleLang === 'en' ? 'Compare ID, EN & Scofield' : 'Bandingkan Terjemahan (3 Versi)'}
+                            title={bibleLang === 'en' ? 'Compare 7 Bible Translations' : 'Bandingkan Terjemahan (7 Versi)'}
                           >
                             <Columns className="w-3.5 h-3.5" />
                           </button>
@@ -2697,7 +2867,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
         bookNameEn={currentBookInfo.nameEn || currentBookInfo.name}
         chapter={selectedChapter}
         idVerse={compareVerseData?.idVerse}
+        tbVerse={compareVerseData?.tbVerse}
         enVerse={compareVerseData?.enVerse}
+        kjvVerse={compareVerseData?.kjvVerse}
+        asvVerse={compareVerseData?.asvVerse}
+        netVerse={compareVerseData?.netVerse}
         scofieldVerse={compareVerseData?.scofieldVerse}
         bibleLang={bibleLang}
       />

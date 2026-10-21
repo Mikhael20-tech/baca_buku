@@ -81,21 +81,104 @@ export const FKKP_DEFAULT_DAYS_WEEK2 = {
   }
 };
 
+export const FKKP_DEFAULT_DAYS_WEEK3 = {
+  1: {
+    day: 1,
+    dayName: 'Senin',
+    verse: 'Tetapi oleh karena Dia kamu berada dalam Kristus Yesus, yang oleh Allah telah menjadi hikmat bagi kita: Ia membenarkan dan menguduskan dan menebus kita... Kasih karunia Tuhan Yesus Kristus menyertai rohmu.',
+    verseRef: '1 Korintus 1:30; Filemon 1:25 • FKKP Minggu 3 Hari 1',
+    theme: 'Kristus Menjadi Hikmat, Kebenaran, dan Pengudusan Kita',
+    summary: 'Allah menempatkan kita di dalam Kristus Yesus sehingga segala sesuatu yang kita perlukan bagi pertumbuhan hayat menjadi bagian kita. Kristus bukan sekadar teladan luar, melainkan hikmat hidup yang menguduskan dan memperbarui batin kita setiap hari.',
+    prayer: 'Tuhan Yesus, terima kasih telah menjadi bagian dan hikmat hidupku. Pagi ini aku membuka hatiku untuk dipenuhi oleh limpahan kasih karunia-Mu.',
+    file: 'FKKP_2026-4_Summer_Training-21.xhtml',
+    anchor: ''
+  },
+  2: {
+    day: 2,
+    dayName: 'Selasa',
+    verse: 'Namun aku hidup, tetapi bukan lagi aku sendiri yang hidup, melainkan Kristus yang hidup di dalam aku. Dan hidup yang kuhidupi sekarang di dalam daging, adalah hidup oleh iman dalam Anak Allah yang telah mengasihi aku...',
+    verseRef: 'Galatia 2:20 • FKKP Minggu 3 Hari 2',
+    theme: 'Bukan Lagi Aku, Melainkan Kristus yang Hidup di Dalamku',
+    summary: 'Kunci kehidupan kaum beriman adalah kehidupan yang dicangkokkan dengan Kristus. Manusia lama kita telah disalibkan bersama Dia, dan kini hayat kebangkitan Kristus yang berkuasa mengalir di dalam roh kita.',
+    prayer: 'Tuhan, aku menyangkal diriku dan berserah kepada-Mu. Hiduplah dan berekspresilah melalui pikiranku, perasaanku, dan kehendakku hari ini.',
+    file: 'FKKP_2026-4_Summer_Training-22.xhtml',
+    anchor: ''
+  },
+  3: {
+    day: 3,
+    dayName: 'Rabu',
+    verse: 'Sebab di dalam Dialah berdiam secara jasmaniah seluruh kepenuhan ke-Allahan, dan kamu telah dipenuhi di dalam Dia... Marilah kita dengan penuh keberanian menghampiri takhta kasih karunia...',
+    verseRef: 'Kolose 2:9-10; Ibrani 4:16 • FKKP Minggu 3 Hari 3',
+    theme: 'Dipenuhi oleh Kepenuhan Kristus di Takhta Kasih Karunia',
+    summary: 'Di dalam Kristus berdiam seluruh kepenuhan keallahan. Ketika kita berdoa dan berpaling kepada roh, takhta kasih karunia terbuka lebar bagi kita untuk menerima pertolongan, damai sejahtera, dan pasokan hayat yang berlimpah tepat pada waktunya.',
+    prayer: 'Ya Tuhan Yesus, dengan penuh keberanian aku menghampiri takhta kasih karunia-Mu pagi ini. Basahi dan penuhilah bejanaku dengan limpah ruah kepenuhan-Mu.',
+    file: 'FKKP_2026-4_Summer_Training-23.xhtml',
+    anchor: ''
+  },
+  4: {
+    day: 4,
+    dayName: 'Kamis',
+    verse: 'Tetapi barangsiapa mengikatkan dirinya pada Tuhan, menjadi satu roh dengan Dia... Roh itu bersaksi bersama-sama dengan roh kita, bahwa kita adalah anak-anak Allah.',
+    verseRef: '1 Korintus 6:17; Roma 8:16 • FKKP Minggu 3 Hari 4',
+    theme: 'Satu Roh dengan Tuhan di dalam Roh yang Berbaur',
+    summary: 'Misteri terbesar dalam pengalaman kaum beriman adalah penyatuan roh kita dengan Roh Kudus. Di dalam roh yang berbaur inilah kita menerima bimbingan ilahi, sukacita, dan kekuatan untuk menang atas segala tantangan.',
+    prayer: 'Tuhan, jaga rohku agar tetap peka dan senantiasa bersatu erat dengan Roh-Mu di sepanjang aktivitas harianku.',
+    file: 'FKKP_2026-4_Summer_Training-24.xhtml',
+    anchor: ''
+  },
+  5: {
+    day: 5,
+    dayName: 'Jumat',
+    verse: 'Hiduplah oleh Roh, maka kamu tidak akan menuruti keinginan daging... Jikalau kita hidup oleh Roh, baiklah hidup kita juga dipimpin oleh Roh.',
+    verseRef: 'Galatia 5:16, 25 • FKKP Minggu 3 Hari 5',
+    theme: 'Berjalan dan Hidup Menurut Pimpinan Roh Kudus',
+    summary: 'Hidup kristiani bukanlah menaati hukum lahiriah dengan daya upaya pribadi, melainkan belajar selaras dengan dorongan Roh di dalam batin. Saat kita berjalan menurut Roh, buah hayat berupa kasih, sukacita, dan kelemahlembutan akan terbit secara wajar.',
+    prayer: 'Tuhan Yesus, ajar aku untuk taat pada sentuhan halus Roh-Mu. Aku memilih untuk hidup dan melangkah menurut pimpinan Roh hari ini.',
+    file: 'FKKP_2026-4_Summer_Training-25.xhtml',
+    anchor: ''
+  },
+  6: {
+    day: 6,
+    dayName: 'Sabtu',
+    verse: 'Kamu adalah surat Kristus... ditulis bukan dengan tinta, tetapi dengan Roh dari Allah yang hidup, bukan pada loh-loh batu, melainkan pada loh-loh daging, yaitu di dalam hati manusia.',
+    verseRef: '2 Korintus 3:3 • FKKP Minggu 3 Hari 6',
+    theme: 'Menjadi Surat Kristus yang Mengalirkan Hayat',
+    summary: 'Setiap pengalaman doa-makan firman memeteraikan dan menuliskan unsur Kristus ke dalam hati kita. Kita dipersiapkan menjadi surat hidup yang memancarkan aroma kemuliaan Kristus bagi sesama.',
+    prayer: 'Tuhan, tuliskanlah sifat ilahi-Mu semakin dalam di lubuk hatiku. Biarlah sesamaku dapat melihat dan menikmati Kristus melalui hidupku.',
+    file: 'FKKP_2026-4_Summer_Training-26.xhtml',
+    anchor: ''
+  },
+  7: {
+    day: 7,
+    dayName: 'Hari Tuhan (Minggu)',
+    verse: 'Cawan pengucapan syukur, yang atasnya kita mengucap syukur, bukankah itu persekutuan dengan darah Kristus? Roti yang kita pecah-pecahkan, bukankah itu persekutuan dengan tubuh Kristus?',
+    verseRef: '1 Korintus 10:16-17 • FKKP Minggu 3 Kidung & Review',
+    theme: 'Mengecap Persekutuan Tubuh Kristus di Meja Perjamuan',
+    summary: 'Di hari perhentian kudus ini, kita datang menghadap meja perjamuan Tuhan. Mengingat kembali anugerah sepekan ini bersama saudara-saudari, menaikkan puji-pujian, dan memproklamasikan keesaan satu Tubuh Kristus.',
+    prayer: 'Tuhan Yesus yang kami kasihi, kami bersyukur atas keselamatan dan persekutuan Tubuh-Mu. Terimalah kidung syukur dan sembah kami di hadirat-Mu.',
+    file: 'FKKP_2026-4_Summer_Training-27.xhtml',
+    anchor: ''
+  }
+};
+
 const STORAGE_KEY = 'baca_fkkp_schedule_settings';
 
 export const DEFAULT_FKKP_SETTINGS = {
-  mode: 'auto', // 'auto' (otomatis sesuai hari kalender) | 'manual' (kunci hari & minggu tertentu)
-  currentWeek: 2, // Minggu ke-1 s/d 12
+  mode: 'auto', // 'auto' (otomatis sesuai hari dan minggu kalender) | 'manual' (kunci hari & minggu tertentu)
+  startDate: '2026-10-05', // Tanggal mulai Minggu 1 Hari 1 (Senin 5 Okt 2026)
+  currentWeek: 3, // Minggu ke-1 s/d 12
   manualDay: 4, // 1 (Senin) - 7 (Minggu)
-  customOverrides: {} // format: { 'w2d4': { summary, verse, theme, prayer } }
+  customOverrides: {} // format: { 'w3d3': { summary, verse, theme, prayer } }
 };
 
 export function getFkkpSettings() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      return { ...DEFAULT_FKKP_SETTINGS, ...parsed };
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return { ...DEFAULT_FKKP_SETTINGS, ...parsed };
+      }
     }
   } catch (e) {
     console.error('Failed to parse FKKP settings:', e);
@@ -105,18 +188,43 @@ export function getFkkpSettings() {
 
 export function saveFkkpSettings(settings) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-    window.dispatchEvent(new CustomEvent('fkkp_settings_updated', { detail: settings }));
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+      window.dispatchEvent(new CustomEvent('fkkp_settings_updated', { detail: settings }));
+    }
   } catch (e) {
     console.error('Failed to save FKKP settings:', e);
   }
 }
 
 /**
+ * Menghitung nomor minggu FKKP otomatis (1 s/d 12) berdasarkan selisih hari kalender dari tanggal mulai (startDate).
+ * Setiap hari Senin 00:00 akan otomatis berganti ke minggu berikutnya.
+ */
+export function calculateFkkpWeek(startDateStr, now = new Date()) {
+  const baseStr = startDateStr || DEFAULT_FKKP_SETTINGS.startDate;
+  try {
+    const [year, month, day] = baseStr.split('-').map(Number);
+    const start = new Date(year, month - 1, day, 0, 0, 0, 0);
+    const current = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+
+    const diffMs = current.getTime() - start.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return 1;
+    const computedWeek = Math.floor(diffDays / 7) + 1;
+    return Math.min(Math.max(computedWeek, 1), 12);
+  } catch (e) {
+    console.error('Error calculating FKKP week:', e);
+    return 3;
+  }
+}
+
+/**
  * Menghitung hari kalender saat ini (1 = Senin, 2 = Selasa, ..., 6 = Sabtu, 7 = Minggu)
  */
-export function getCalendarDayIndex() {
-  const jsDay = new Date().getDay(); // 0 = Minggu, 1 = Senin, ..., 6 = Sabtu
+export function getCalendarDayIndex(now = new Date()) {
+  const jsDay = now.getDay(); // 0 = Minggu, 1 = Senin, ..., 6 = Sabtu
   if (jsDay === 0) return 7; // Hari Tuhan / Minggu
   return jsDay; // 1 s/d 6
 }
@@ -132,35 +240,60 @@ export const DAY_NAMES = {
 };
 
 /**
+ * Mengambil data default hari FKKP berdasarkan minggu dan hari
+ */
+export function getDefaultFkkpDay(week, dayNum) {
+  const safeDay = Number(dayNum) || 1;
+  const safeWeek = Number(week) || 3;
+
+  if (safeWeek === 2 && FKKP_DEFAULT_DAYS_WEEK2[safeDay]) {
+    return FKKP_DEFAULT_DAYS_WEEK2[safeDay];
+  }
+  if (safeWeek === 3 && FKKP_DEFAULT_DAYS_WEEK3[safeDay]) {
+    return FKKP_DEFAULT_DAYS_WEEK3[safeDay];
+  }
+
+  // Fallback generik untuk minggu lainnya jika belum ada template spesifik
+  const fileIndex = 4 + (safeWeek - 1) * 8 + safeDay;
+  return {
+    day: safeDay,
+    dayName: DAY_NAMES[safeDay] || `Hari ${safeDay}`,
+    verse: `Tuhan itu setia; Ia akan menguatkan hatimu dan memelihara kamu terhadap yang jahat... Hendaklah damai sejahtera Kristus memerintah dalam hatimu.`,
+    verseRef: `FKKP Minggu ${safeWeek} Hari ${safeDay}`,
+    theme: `Menikmati Kristus sebagai Bagian Hidup Kaum Beriman`,
+    summary: `Santapan fajar FKKP Minggu ke-${safeWeek} Hari ${safeDay}. Teruslah membuka hati dalam doa-makan firman untuk menikmati penyaluran hayat dan pembaharuan batin dari Roh Kudus.`,
+    prayer: `Tuhan Yesus, basahi dan segarkan rohku dengan firman-Mu pagi ini. Jadikan hariku penuh dengan perkenanan dan damai sejahtera-Mu.`,
+    file: `FKKP_2026-4_Summer_Training-${fileIndex}.xhtml`,
+    anchor: ''
+  };
+}
+
+/**
  * Mengambil data hari FKKP aktif (ayat, tema, ringkasan, initialLocation EPUB)
  */
-export function getCurrentFkkpDay(customSettings = null) {
+export function getCurrentFkkpDay(customSettings = null, now = new Date()) {
   const settings = customSettings || getFkkpSettings();
-  const week = settings.currentWeek || 2;
   
-  // Tentukan nomor hari (1-7)
-  let dayNum = 4;
+  let week = 3;
+  let dayNum = 3;
+
+  // Jika mode 'auto', baik hari maupun minggu dihitung otomatis dari tanggal kalender
   if (settings.mode === 'auto') {
-    dayNum = getCalendarDayIndex();
+    dayNum = getCalendarDayIndex(now);
+    week = calculateFkkpWeek(settings.startDate || DEFAULT_FKKP_SETTINGS.startDate, now);
   } else {
+    // Mode manual: gunakan nilai statis yang dikunci admin
+    week = Number(settings.currentWeek) || 3;
     dayNum = Number(settings.manualDay) || 4;
   }
 
-  // Cari data default hari
-  let dayData = FKKP_DEFAULT_DAYS_WEEK2[dayNum];
-  if (!dayData) {
-    dayData = FKKP_DEFAULT_DAYS_WEEK2[4];
-  }
+  // Cari data default hari untuk minggu & hari terkait
+  const dayData = getDefaultFkkpDay(week, dayNum);
 
-  // Hitung perkiraan anchor EPUB jika week berbeda
-  let targetFile = dayData.file;
-  let targetAnchor = dayData.anchor;
-  if (week !== 2) {
-    // Estimasi rumus bab FKKP (8 bab per minggu)
-    const fileIndex = 4 + (week - 1) * 8 + (dayNum === 7 ? 7 : (dayNum - 1));
-    targetFile = `FKKP_2026-4_Summer_Training-${fileIndex}.xhtml`;
-    targetAnchor = '';
-  }
+  // File EPUB bab FKKP (8 bab per minggu: 1 Garis Besar + 7 Hari Santapan)
+  const fileIndex = 4 + (week - 1) * 8 + dayNum;
+  const targetFile = dayData.file || `FKKP_2026-4_Summer_Training-${fileIndex}.xhtml`;
+  const targetAnchor = dayData.anchor || '';
 
   const overrideKey = `w${week}d${dayNum}`;
   const override = settings.customOverrides?.[overrideKey] || {};
@@ -172,11 +305,12 @@ export function getCurrentFkkpDay(customSettings = null) {
     badge: `Minggu ${week} • Hari ${dayNum} (${DAY_NAMES[dayNum] || dayData.dayName})`,
     theme: override.theme || dayData.theme,
     verse: override.verse || dayData.verse,
-    verseRef: override.verseRef || (week === 2 ? dayData.verseRef : `FKKP Minggu ${week} Hari ${dayNum}`),
+    verseRef: override.verseRef || dayData.verseRef || `FKKP Minggu ${week} Hari ${dayNum}`,
     summary: override.summary || dayData.summary,
     prayer: override.prayer || dayData.prayer,
     initialLocation: `${targetFile}${targetAnchor}`,
-    mode: settings.mode
+    mode: settings.mode,
+    startDate: settings.startDate || DEFAULT_FKKP_SETTINGS.startDate
   };
 
   return resolved;

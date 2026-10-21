@@ -29,8 +29,9 @@ import {
   getFkkpSettings,
   saveFkkpSettings,
   getCurrentFkkpDay,
+  getDefaultFkkpDay,
+  calculateFkkpWeek,
   DAY_NAMES,
-  FKKP_DEFAULT_DAYS_WEEK2,
   getCalendarDayIndex
 } from '../lib/fkkpSchedule';
 
@@ -81,12 +82,15 @@ export default function AdminDashboard({
 
   // Day data for currently selected tab in editor
   const previewDayData = useMemo(() => {
-    const defaultData = FKKP_DEFAULT_DAYS_WEEK2[selectedPreviewDay] || FKKP_DEFAULT_DAYS_WEEK2[4];
-    const key = `w${fkkpSettings.currentWeek}d${selectedPreviewDay}`;
+    const activeWeek = fkkpSettings.mode === 'auto'
+      ? calculateFkkpWeek(fkkpSettings.startDate)
+      : (fkkpSettings.currentWeek || 3);
+    const defaultData = getDefaultFkkpDay(activeWeek, selectedPreviewDay);
+    const key = `w${activeWeek}d${selectedPreviewDay}`;
     const override = fkkpSettings.customOverrides?.[key] || {};
     return {
       verse: override.verse !== undefined ? override.verse : defaultData.verse,
-      verseRef: override.verseRef !== undefined ? override.verseRef : (fkkpSettings.currentWeek === 2 ? defaultData.verseRef : `FKKP Minggu ${fkkpSettings.currentWeek} Hari ${selectedPreviewDay}`),
+      verseRef: override.verseRef !== undefined ? override.verseRef : defaultData.verseRef,
       theme: override.theme !== undefined ? override.theme : defaultData.theme,
       summary: override.summary !== undefined ? override.summary : defaultData.summary,
       prayer: override.prayer !== undefined ? override.prayer : defaultData.prayer,
@@ -114,7 +118,10 @@ export default function AdminDashboard({
   const handleSaveFkkpSettings = (newSettings, updatedDayFields = null) => {
     let toSave = { ...newSettings };
     if (updatedDayFields) {
-      const key = `w${toSave.currentWeek}d${selectedPreviewDay}`;
+      const activeWeek = toSave.mode === 'auto'
+        ? calculateFkkpWeek(toSave.startDate)
+        : (toSave.currentWeek || 3);
+      const key = `w${activeWeek}d${selectedPreviewDay}`;
       toSave.customOverrides = {
         ...(toSave.customOverrides || {}),
         [key]: updatedDayFields
@@ -127,7 +134,10 @@ export default function AdminDashboard({
   };
 
   const handleResetDayDefault = () => {
-    const key = `w${fkkpSettings.currentWeek}d${selectedPreviewDay}`;
+    const activeWeek = fkkpSettings.mode === 'auto'
+      ? calculateFkkpWeek(fkkpSettings.startDate)
+      : (fkkpSettings.currentWeek || 3);
+    const key = `w${activeWeek}d${selectedPreviewDay}`;
     const newOverrides = { ...(fkkpSettings.customOverrides || {}) };
     delete newOverrides[key];
     const newSettings = { ...fkkpSettings, customOverrides: newOverrides };
@@ -1008,48 +1018,90 @@ export default function AdminDashboard({
 
             {/* Select Week & Manual Day Controls */}
             <div className="pt-4 border-t border-[#1C1917]/8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#1C1917] block">
-                  Minggu Buku FKKP yang Sedang Dipelajari:
-                </label>
-                <select
-                  value={fkkpSettings.currentWeek}
-                  onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(e.target.value) })}
-                  className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
-                >
-                  {[...Array(12)].map((_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      Minggu ke-{i + 1} {i + 1 === 2 ? '(FKKP Kaum Beriman yang Sedang Berjalan)' : ''}
-                    </option>
-                  ))}
-                </select>
-                <p className="text-[10px] text-[#78716C]">
-                  Buku FKKP memiliki 12 Minggu. Pilih minggu yang sedang dipelajari jemaat saat ini.
-                </p>
-              </div>
+              {fkkpSettings.mode === 'auto' ? (
+                <>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#1C1917] flex items-center justify-between">
+                      <span>Tanggal Mulai Siklus FKKP (Senin Minggu 1):</span>
+                      <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-semibold">
+                        Otomatis Berganti Tiap Pekan
+                      </span>
+                    </label>
+                    <input
+                      type="date"
+                      value={fkkpSettings.startDate || '2026-10-05'}
+                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, startDate: e.target.value })}
+                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    />
+                    <p className="text-[10px] text-[#78716C]">
+                      Hari ini otomatis: <strong className="text-[#3B4B34]">Minggu ke-{currentFkkpLive.week} • Hari {currentFkkpLive.day} ({currentFkkpLive.dayName})</strong>. Setiap hari Senin jam 00:00 minggu akan bertambah secara otomatis.
+                    </p>
+                  </div>
 
-              {fkkpSettings.mode === 'manual' && (
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#1C1917] block">
-                    Kunci Hari Santapan (Mode Manual):
-                  </label>
-                  <select
-                    value={fkkpSettings.manualDay}
-                    onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, manualDay: Number(e.target.value) })}
-                    className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
-                  >
-                    <option value={1}>Hari 1 (Senin)</option>
-                    <option value={2}>Hari 2 (Selasa)</option>
-                    <option value={3}>Hari 3 (Rabu)</option>
-                    <option value={4}>Hari 4 (Kamis)</option>
-                    <option value={5}>Hari 5 (Jumat)</option>
-                    <option value={6}>Hari 6 (Sabtu)</option>
-                    <option value={7}>Hari 7 (Hari Tuhan / Kidung Review)</option>
-                  </select>
-                  <p className="text-[10px] text-amber-700 font-semibold">
-                    Santapan akan terkunci di hari ini sampai admin menggantinya.
-                  </p>
-                </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#1C1917] block">
+                      Pratinjau / Pilih Minggu untuk Diedit:
+                    </label>
+                    <select
+                      value={fkkpSettings.currentWeek || currentFkkpLive.week}
+                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(e.target.value) })}
+                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    >
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          Minggu ke-{i + 1} {i + 1 === currentFkkpLive.week ? '(Sedang Berjalan Sekarang)' : ''}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-[10px] text-[#78716C]">
+                      Pilih minggu jika ingin melihat atau mengedit santapan minggu tertentu pada editor di bawah.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#1C1917] block">
+                      Kunci Minggu Santapan (Mode Manual):
+                    </label>
+                    <select
+                      value={fkkpSettings.currentWeek}
+                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(e.target.value) })}
+                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    >
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          Minggu ke-{i + 1}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-[10px] text-[#78716C]">
+                      Buku FKKP memiliki 12 Minggu. Pilih minggu yang ingin dikunci.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-[#1C1917] block">
+                      Kunci Hari Santapan (Mode Manual):
+                    </label>
+                    <select
+                      value={fkkpSettings.manualDay}
+                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, manualDay: Number(e.target.value) })}
+                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    >
+                      <option value={1}>Hari 1 (Senin)</option>
+                      <option value={2}>Hari 2 (Selasa)</option>
+                      <option value={3}>Hari 3 (Rabu)</option>
+                      <option value={4}>Hari 4 (Kamis)</option>
+                      <option value={5}>Hari 5 (Jumat)</option>
+                      <option value={6}>Hari 6 (Sabtu)</option>
+                      <option value={7}>Hari 7 (Hari Tuhan / Kidung Review)</option>
+                    </select>
+                    <p className="text-[10px] text-amber-700 font-semibold">
+                      Santapan akan terkunci di hari ini sampai admin menggantinya.
+                    </p>
+                  </div>
+                </>
               )}
             </div>
           </div>

@@ -1,0 +1,464 @@
+[
+  {
+    "id": "kejadian",
+    "name": "Genesis",
+    "name_id": "Kejadian",
+    "testament": "PL",
+    "chapters_count": 50
+  },
+  {
+    "id": "keluaran",
+    "name": "Exodus",
+    "name_id": "Keluaran",
+    "testament": "PL",
+    "chapters_count": 40
+  },
+  {
+    "id": "imamat",
+    "name": "Leviticus",
+    "name_id": "Imamat",
+    "testament": "PL",
+    "chapters_count": 27
+  },
+  {
+    "id": "bilangan",
+    "name": "Numbers",
+    "name_id": "Bilangan",
+    "testament": "PL",
+    "chapters_count": 36
+  },
+  {
+    "id": "ulangan",
+    "name": "Deuteronomy",
+    "name_id": "Ulangan",
+    "testament": "PL",
+    "chapters_count": 34
+  },
+  {
+    "id": "yosua",
+    "name": "Joshua",
+    "name_id": "Yosua",
+    "testament": "PL",
+    "chapters_count": 24
+  },
+  {
+    "id": "hakim-hakim",
+    "name": "Judges",
+    "name_id": "Hakim-Hakim",
+    "testament": "PL",
+    "chapters_count": 21
+  },
+  {
+    "id": "rut",
+    "name": "Ruth",
+    "name_id": "Rut",
+    "testament": "PL",
+    "chapters_count": 4
+  },
+  {
+    "id": "1-samuel",
+    "name": "First Samuel",
+    "name_id": "1 Samuel",
+    "testament": "PL",
+    "chapters_count": 31
+  },
+  {
+    "id": "2-samuel",
+    "name": "Second Samuel",
+    "name_id": "2 Samuel",
+    "testament": "PL",
+    "chapters_count": 24
+  },
+  {
+    "id": "1-raja-raja",
+    "name": "First Kings",
+    "name_id": "1 Raja-Raja",
+    "testament": "PL",
+    "chapters_count": 22
+  },
+  {
+    "id": "2-raja-raja",
+    "name": "Second Kings",
+    "name_id": "2 Raja-Raja",
+    "testament": "PL",
+    "chapters_count": 25
+  },
+  {
+    "id": "1-tawarikh",
+    "name": "First Chronicles",
+    "name_id": "1 Tawarikh",
+    "testament": "PL",
+    "chapters_count": 29
+  },
+  {
+    "id": "2-tawarikh",
+    "name": "Second Chronicles",
+    "name_id": "2 Tawarikh",
+    "testament": "PL",
+    "chapters_count": 36
+  },
+  {
+    "id": "ezra",
+    "name": "Ezra",
+    "name_id": "Ezra",
+    "testament": "PL",
+    "chapters_count": 10
+  },
+  {
+    "id": "nehemia",
+    "name": "Nehemiah",
+    "name_id": "Nehemia",
+    "testament": "PL",
+    "chapters_count": 13
+  },
+  {
+    "id": "ester",
+    "name": "Esther",
+    "name_id": "Ester",
+    "testament": "PL",
+    "chapters_count": 10
+  },
+  {
+    "id": "ayub",
+    "name": "Job",
+    "name_id": "Ayub",
+    "testament": "PL",
+    "chapters_count": 42
+  },
+  {
+    "id": "mazmur",
+    "name": "Psalms",
+    "name_id": "Mazmur",
+    "testament": "PL",
+    "chapters_count": 150
+  },
+  {
+    "id": "amsal",
+    "name": "Proverbs",
+    "name_id": "Amsal",
+    "testament": "PL",
+    "chapters_count": 31
+  },
+  {
+    "id": "pengkhotbah",
+    "name": "Ecclesiastes",
+    "name_id": "Pengkhotbah",
+    "testament": "PL",
+    "chapters_count": 12
+  },
+  {
+    "id": "kidung-agung",
+    "name": "Song of Songs",
+    "name_id": "Kidung Agung",
+    "testament": "PL",
+    "chapters_count": 8
+  },
+  {
+    "id": "yesaya",
+    "name": "Isaiah",
+    "name_id": "Yesaya",
+    "testament": "PL",
+    "chapters_count": 66
+  },
+  {
+    "id": "yeremia",
+    "name": "Jeremiah",
+    "name_id": "Yeremia",
+    "testament": "PL",
+    "chapters_count": 52
+  },
+  {
+    "id": "ratapan",
+    "name": "Lamentations",
+    "name_id": "Ratapan",
+    "testament": "PL",
+    "chapters_count": 5
+  },
+  {
+    "id": "yehezkiel",
+    "name": "Ezekiel",
+    "name_id": "Yehezkiel",
+    "testament": "PL",
+    "chapters_count": 48
+  },
+  {
+    "id": "daniel",
+    "name": "Daniel",
+    "name_id": "Daniel",
+    "testament": "PL",
+    "chapters_count": 12
+  },
+  {
+    "id": "hosea",
+    "name": "Hosea",
+    "name_id": "Hosea",
+    "testament": "PL",
+    "chapters_count": 14
+  },
+  {
+    "id": "yoel",
+    "name": "Joel",
+    "name_id": "Yoel",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "amos",
+    "name": "Amos",
+    "name_id": "Amos",
+    "testament": "PL",
+    "chapters_count": 9
+  },
+  {
+    "id": "obaja",
+    "name": "Obadiah",
+    "name_id": "Obaja",
+    "testament": "PL",
+    "chapters_count": 1
+  },
+  {
+    "id": "yunus",
+    "name": "Jonah",
+    "name_id": "Yunus",
+    "testament": "PL",
+    "chapters_count": 4
+  },
+  {
+    "id": "mikha",
+    "name": "Micah",
+    "name_id": "Mikha",
+    "testament": "PL",
+    "chapters_count": 7
+  },
+  {
+    "id": "nahum",
+    "name": "Nahum",
+    "name_id": "Nahum",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "habakuk",
+    "name": "Habakkuk",
+    "name_id": "Habakuk",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "zefanya",
+    "name": "Zephaniah",
+    "name_id": "Zefanya",
+    "testament": "PL",
+    "chapters_count": 3
+  },
+  {
+    "id": "hagai",
+    "name": "Haggai",
+    "name_id": "Hagai",
+    "testament": "PL",
+    "chapters_count": 2
+  },
+  {
+    "id": "zakharia",
+    "name": "Zechariah",
+    "name_id": "Zakharia",
+    "testament": "PL",
+    "chapters_count": 14
+  },
+  {
+    "id": "maleakhi",
+    "name": "Malachi",
+    "name_id": "Maleakhi",
+    "testament": "PL",
+    "chapters_count": 4
+  },
+  {
+    "id": "matius",
+    "name": "Matthew",
+    "name_id": "Matius",
+    "testament": "PB",
+    "chapters_count": 28
+  },
+  {
+    "id": "markus",
+    "name": "Mark",
+    "name_id": "Markus",
+    "testament": "PB",
+    "chapters_count": 16
+  },
+  {
+    "id": "lukas",
+    "name": "Luke",
+    "name_id": "Lukas",
+    "testament": "PB",
+    "chapters_count": 24
+  },
+  {
+    "id": "yohanes",
+    "name": "John",
+    "name_id": "Yohanes",
+    "testament": "PB",
+    "chapters_count": 21
+  },
+  {
+    "id": "kisah-para-rasul",
+    "name": "Acts",
+    "name_id": "Kisah Para Rasul",
+    "testament": "PB",
+    "chapters_count": 28
+  },
+  {
+    "id": "roma",
+    "name": "Romans",
+    "name_id": "Roma",
+    "testament": "PB",
+    "chapters_count": 16
+  },
+  {
+    "id": "1-korintus",
+    "name": "1 Corinthians",
+    "name_id": "1 Korintus",
+    "testament": "PB",
+    "chapters_count": 16
+  },
+  {
+    "id": "2-korintus",
+    "name": "2 Corinthians",
+    "name_id": "2 Korintus",
+    "testament": "PB",
+    "chapters_count": 13
+  },
+  {
+    "id": "galatia",
+    "name": "Galatians",
+    "name_id": "Galatia",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "efesus",
+    "name": "Ephesians",
+    "name_id": "Efesus",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "filipi",
+    "name": "Philippians",
+    "name_id": "Filipi",
+    "testament": "PB",
+    "chapters_count": 4
+  },
+  {
+    "id": "kolose",
+    "name": "Colossians",
+    "name_id": "Kolose",
+    "testament": "PB",
+    "chapters_count": 4
+  },
+  {
+    "id": "1-tesalonika",
+    "name": "1 Thessalonians",
+    "name_id": "1 Tesalonika",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "2-tesalonika",
+    "name": "2 Thessalonians",
+    "name_id": "2 Tesalonika",
+    "testament": "PB",
+    "chapters_count": 3
+  },
+  {
+    "id": "1-timotius",
+    "name": "1 Timothy",
+    "name_id": "1 Timotius",
+    "testament": "PB",
+    "chapters_count": 6
+  },
+  {
+    "id": "2-timotius",
+    "name": "2 Timothy",
+    "name_id": "2 Timotius",
+    "testament": "PB",
+    "chapters_count": 4
+  },
+  {
+    "id": "titus",
+    "name": "Titus",
+    "name_id": "Titus",
+    "testament": "PB",
+    "chapters_count": 3
+  },
+  {
+    "id": "filemon",
+    "name": "Philemon",
+    "name_id": "Filemon",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "ibrani",
+    "name": "Hebrews",
+    "name_id": "Ibrani",
+    "testament": "PB",
+    "chapters_count": 13
+  },
+  {
+    "id": "yakobus",
+    "name": "James",
+    "name_id": "Yakobus",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "1-petrus",
+    "name": "1 Peter",
+    "name_id": "1 Petrus",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "2-petrus",
+    "name": "2 Peter",
+    "name_id": "2 Petrus",
+    "testament": "PB",
+    "chapters_count": 3
+  },
+  {
+    "id": "1-yohanes",
+    "name": "1 John",
+    "name_id": "1 Yohanes",
+    "testament": "PB",
+    "chapters_count": 5
+  },
+  {
+    "id": "2-yohanes",
+    "name": "2 John",
+    "name_id": "2 Yohanes",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "3-yohanes",
+    "name": "3 John",
+    "name_id": "3 Yohanes",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "yudas",
+    "name": "Jude",
+    "name_id": "Yudas",
+    "testament": "PB",
+    "chapters_count": 1
+  },
+  {
+    "id": "wahyu",
+    "name": "Revelation",
+    "name_id": "Wahyu",
+    "testament": "PB",
+    "chapters_count": 22
+  }
+]
