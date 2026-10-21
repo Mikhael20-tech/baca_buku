@@ -62,6 +62,24 @@ def clean_text(text):
         r'\bkesia\s*\?*[\-‑–—]?\?*\s*siaan\b': 'kesia-siaan',
         r'\bber\s+air\b': 'berair',
         r'\bdi\s+masak\b': 'dimasak',
+        r'\btutus\b': 'tulus',
+        r'\bTutus\b': 'Tulus',
+        r'\bsating\b': 'saling',
+        r'\bSating\b': 'Saling',
+        r'\blahimya\b': 'lahirnya',
+        r'\bternperamen\b': 'temperamen',
+        r'\bsekalipin\b': 'sekalipun',
+        r'\bTutp\b': 'Tutup',
+        r'\btutp\b': 'tutup',
+        r'\bkemuthan\b': 'kemudian',
+        r'\bsernuanya\b': 'semuanya',
+        r'\bburni\b': 'bumi',
+        r'\bperternuan\b': 'pertemuan',
+        r'\bmeyernbelih\b': 'menyembelih',
+        r'\bmenhonnati\b': 'menghormati',
+        r'\bRrn\.\b': 'Rm.',
+        r'\brrn\.\b': 'rm.',
+        r'\bridak\b': 'tidak',
     }
     for pat, repl in ocr_map.items():
         text = re.sub(pat, repl, text)
@@ -83,7 +101,8 @@ def clean_text(text):
         'contoh-contoh', 'musuh-musuh', 'kota-kota', 'negeri-negeri', 'surat-surat',
         'murid-murid', 'rasul-rasul', 'pengikut-pengikut', 'hukum-hukum', 'kebenaran-kebenaran',
         'pengajaran-pengajaran', 'janji-janji', 'bangsa-bangsa', 'jiwa-jiwa', 'tubuh-tubuh',
-        'orang-orangan'
+        'orang-orangan', 'saat-saat', 'menambah-nambah', 'mengata-ngatai', 'berulang-ulang',
+        'mata-mata', 'lemak-lemak'
     ]
     for r in reduplications:
         unhyphen = r.replace('-', '')
@@ -121,7 +140,14 @@ def clean_text(text):
         r'\b1:1011\b': '1:10-11',
         r'\b2:1115\b': '2:11-15',
         r'\b3:35\b': '3:3-5',
-        r'\b8:1112\b': '8:11-12'
+        r'\b8:1112\b': '8:11-12',
+        r'\b6:57\b': '6:5-7',
+        r'\b4:35\b': '4:3-5',
+        r'\b9:2025\b': '9:20-25',
+        r'\b12:1415\b': '12:14-15',
+        r'\b16:13\b': '16:1-3',
+        r'\b16:810\b': '16:8-10',
+        r'\b16:3135\b': '16:31-35'
     }
     for pat, repl in known_verse_fixes.items():
         text = re.sub(pat, repl, text)
@@ -169,6 +195,13 @@ h3 {
   margin-top: 1.4em;
   margin-bottom: 0.4em;
 }
+h4 {
+  font-size: 1.0em;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
 p {
   margin-top: 0;
   margin-bottom: 1.25em;
@@ -207,8 +240,59 @@ def enhance_xhtml_content(content):
     
     # 2. Strip any previously broken div.verse-quote wrappers cleanly
     cleaned = re.sub(r'<div class="verse-quote">\s*(.*?)\s*</div>', r'\1', cleaned, flags=re.DOTALL)
+
+    # 3. Join split headings broken by source newlines
+    # e.g. <h3>b. Dalam Gereja, Segalanya Harus Berada</h3>\n<p>di dalam Roh dan Kebenaran</p>
+    def repl_join_heading(m):
+        htag = m.group(1)
+        hattr = m.group(2)
+        h_raw = m.group(3)
+        p_raw = m.group(4)
+        h = h_raw.strip()
+        p = p_raw.strip()
+
+        if not p or len(p) >= 120:
+            return m.group(0)
+
+        # Do not join if p is an outline marker
+        if re.match(r'^[a-z0-9]+[\.\)]\s+[A-Z]', p):
+            return m.group(0)
+        if p.count('.') > 1 and not re.search(r'\([A-Za-z0-9\s\.:\-]+\)$', p):
+            return m.group(0)
+
+        should = False
+        if p[0].islower():
+            if not p.endswith('.') or p.endswith('.)') or p.endswith(')') or p.endswith(','):
+                should = True
+        elif h.isupper() and p.isupper():
+            if not re.match(r'^(PASAL|BAB|BAGIAN|BAG\.|KITAB)\b', p):
+                should = True
+        elif re.search(r'(,|\-|\b(dan|atau|serta|dengan|yang|untuk|dalam|di|ke|dari|oleh|pada|agar|supaya|tentang|yaitu|karena|sebagai|adalah|harus|bisa|menjadi)\b)$', h, re.IGNORECASE):
+            if not p.endswith('.') or p.endswith('.)') or p.endswith(')') or p.endswith(','):
+                should = True
+
+        if should:
+            h_clean = re.sub(r'\.$', ',', h)
+            return f'<h{htag}{hattr}>{h_clean} {p}</h{htag}>'
+
+        return m.group(0)
+
+    for _ in range(2):
+        cleaned = re.sub(
+            r'<h([1-3])([^>]*)>(.*?)</h\1>\s*<p(?: class="[^"]*")?>(.*?)</p>',
+            repl_join_heading,
+            cleaned,
+            flags=re.DOTALL
+        )
+
+    # 4. Convert numbered sub-points into <h4> (e.g. <p>1) Menyembah dengan Roh...</p>)
+    cleaned = re.sub(
+        r'<p>\s*(\d+\)\s+[A-Z][^<]{3,100})\s*</p>',
+        r'<h4>\1</h4>',
+        cleaned
+    )
     
-    # 3. Pattern 2-line quote followed by verse ref
+    # 5. Pattern 2-line quote followed by verse ref
     pattern_2line = re.compile(
         r'<p(?: class="[^"]*")?>((?:&quot;|[“\"])[^<]*?)</p>\s*<p(?: class="[^"]*")?>([^<]*?(?:&quot;|[”\"]))</p>\s*<p(?: class="[^"]*")?>[\u2014\-–—&#8212;\s]*([A-Z0-9][^<]*?\d+:\d+[^<]*?)</p>',
         re.DOTALL
@@ -221,7 +305,7 @@ def enhance_xhtml_content(content):
 
     cleaned = pattern_2line.sub(repl_2line, cleaned)
 
-    # 4. Pattern 1-line quote followed by verse ref on next line
+    # 6. Pattern 1-line quote followed by verse ref on next line
     pattern_1line = re.compile(
         r'<p(?: class="[^"]*")?>((?:&quot;|[“\"])[^<]*?(?:&quot;|[”\"]))</p>\s*<p(?: class="[^"]*")?>[\u2014\-–—&#8212;\s]*([A-Z0-9][^<]*?\d+:\d+[^<]*?)</p>',
         re.DOTALL
@@ -235,7 +319,7 @@ def enhance_xhtml_content(content):
 
     cleaned = pattern_1line.sub(repl_1line, cleaned)
 
-    # 5. Standalone quote (including quotes that already have inline verse citation at end)
+    # 7. Standalone quote (including quotes that already have inline verse citation at end)
     def repl_quote_only(m):
         inner = m.group(1).strip()
         is_q = (inner.startswith('“') or inner.startswith('"') or inner.startswith('&quot;'))
@@ -246,7 +330,7 @@ def enhance_xhtml_content(content):
 
     cleaned = re.sub(r'<p>(.*?)</p>', repl_quote_only, cleaned)
 
-    # 6. Split multiple glued quotes in verse-quote
+    # 8. Split multiple glued quotes in verse-quote
     # e.g. <p class="verse-quote">"Quote 1" Ref 1 "Quote 2" (Ref 2)</p>
     split_quote_pat = re.compile(
         r'<p class="verse-quote">(.*?[”"&quot;])\s*([A-Z0-9][a-zA-Z\s\.]*\d+:\d+(?:-\d+)?)\s*([“"&quot;].*?)</p>',

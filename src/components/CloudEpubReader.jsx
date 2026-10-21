@@ -684,6 +684,13 @@ export default function CloudEpubReader({
             margin-bottom: 0.5em !important;
             color: ${isDark ? '#cbd5e1' : (isSepia ? '#6b4f35' : '#475569')} !important;
           }
+          h4 {
+            font-size: 1.0em !important;
+            font-weight: 600 !important;
+            margin-top: 1.2em !important;
+            margin-bottom: 0.4em !important;
+            color: ${isDark ? '#cbd5e1' : (isSepia ? '#6b4f35' : '#475569')} !important;
+          }
           .verse-quote, blockquote {
             margin: 1.4em 0 !important;
             padding: 0.9em 1.25em !important;
