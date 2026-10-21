@@ -11,7 +11,7 @@ export default function BibleBookmarksModal({
   bibleLang = 'id'
 }) {
   const [activeTab, setActiveTab] = useState('bookmarks'); // 'bookmarks' | 'highlights'
-  const isEn = bibleLang === 'en';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
 
   if (!isOpen) return null;
 
@@ -74,9 +74,12 @@ export default function BibleBookmarksModal({
                     onClose();
                   }}
                 >
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-1.5 flex-wrap mb-1">
                     <span className="px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-800 dark:text-amber-300 font-bold font-mono text-[11px]">
                       {bm.bookName} {bm.chapter}:{bm.verse}
+                    </span>
+                    <span className="px-1.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 font-bold font-mono text-[9px] uppercase">
+                      {bm.lang === 'id' ? 'AVP' : bm.lang === 'en' ? 'RCV' : (bm.lang || 'AVP').toUpperCase()}
                     </span>
                     {bm.date && (
                       <span className="text-[10px] text-slate-400 font-mono">

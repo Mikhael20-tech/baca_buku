@@ -94,7 +94,7 @@ function renderFormattedDoc(text) {
 }
 
 export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, initialTab = 'book' }) {
-  const isEn = bibleLang === 'en' || bibleLang === 'scofield';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
   const isScofield = bibleLang === 'scofield' || bookData?.translation_short === 'Scofield 1917' || initialTab !== 'book';
 
   if (!isOpen) return null;
@@ -444,7 +444,7 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
         {/* Footer */}
         <div className="pt-3 border-t border-amber-200/60 dark:border-zinc-800 flex justify-between items-center shrink-0">
           <span className="text-[11px] text-stone-500 dark:text-stone-400 font-mono">
-            {isScofield ? 'The Scofield Reference Bible 1917 • Oxford University Press' : 'Alkitab Versi Pemulihan'}
+            {isScofield ? 'The Scofield Reference Bible 1917 • Oxford University Press' : (bookData?.translation || (isEn ? 'Holy Bible' : 'Alkitab Versi Pemulihan'))}
           </span>
           <Button
             size="sm"

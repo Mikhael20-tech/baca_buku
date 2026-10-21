@@ -12,7 +12,7 @@ export default function BiblePersonalNoteModal({
   bibleLang = 'id'
 }) {
   const [noteText, setNoteText] = useState(initialNote);
-  const isEn = bibleLang === 'en';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
 
   useEffect(() => {
     if (isOpen) {
@@ -68,9 +68,14 @@ export default function BiblePersonalNoteModal({
               <h3 className="font-extrabold text-base text-slate-900 dark:text-zinc-100">
                 {isEn ? 'Personal Reflection Note' : 'Catatan Renungan Pribadi'}
               </h3>
-              <p className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">
-                {citation}
-              </p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <p className="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">
+                  {citation}
+                </p>
+                <span className="px-1.5 py-0.2 rounded bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 font-bold font-mono text-[9px] uppercase">
+                  {bibleLang === 'id' ? 'AVP' : bibleLang === 'en' ? 'RCV' : (bibleLang || 'AVP').toUpperCase()}
+                </span>
+              </div>
             </div>
           </div>
           <button 

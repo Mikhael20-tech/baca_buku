@@ -28,6 +28,7 @@ export default function BibleTruthChartsModal({
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   const svgContainerRef = useRef(null);
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
 
   // 1. Fetch metadata all 23 charts
   useEffect(() => {
@@ -192,14 +193,14 @@ export default function BibleTruthChartsModal({
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-xs tracking-wider uppercase text-amber-400 font-mono">
-                  {bibleLang === 'en' ? 'Divine Truth Charts' : 'Bagan Kebenaran Ilahi'}
+                  {isEn ? 'Divine Truth Charts' : 'Bagan Kebenaran Ilahi'}
                 </span>
                 <span className="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.2 rounded-full font-mono border border-amber-400/30">
                   Living Stream Ministry (22 Charts)
                 </span>
               </div>
               <h2 className="text-sm sm:text-base font-serif font-bold text-amber-100 truncate">
-                {currentChart ? `${currentChart.number}. ${bibleLang === 'en' ? currentChart.title_en : (currentChart.title_id || currentChart.title_en)}` : 'Truth Charts'}
+                {currentChart ? `${currentChart.number}. ${isEn ? currentChart.title_en : (currentChart.title_id || currentChart.title_en)}` : 'Truth Charts'}
               </h2>
             </div>
           </div>

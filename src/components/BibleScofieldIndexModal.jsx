@@ -16,7 +16,7 @@ export default function BibleScofieldIndexModal({
   const [isLoading, setIsLoading] = useState(false);
   const [copiedTopic, setCopiedTopic] = useState(null);
 
-  const isEn = bibleLang === 'en';
+  const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
 
   useEffect(() => {
     if (!isOpen) return;
