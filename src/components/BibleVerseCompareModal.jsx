@@ -46,12 +46,12 @@ export default function BibleVerseCompareModal({
 
   const handleCopyAll = () => {
     let formatted = `${citation}`;
-    if (idText) formatted += `\n\n[ID • Pemulihan]:\n"${idText}"`;
-    if (tbText) formatted += `\n\n[ID • Terjemahan Baru (TB - LAI)]:\n"${tbText}"`;
-    if (enText) formatted += `\n\n[EN • Recovery Version]:\n"${enText}"`;
-    if (kjvText) formatted += `\n\n[EN • King James Version (KJV)]:\n"${kjvText}"`;
-    if (asvText) formatted += `\n\n[EN • American Standard Version (ASV)]:\n"${asvText}"`;
-    if (netText) formatted += `\n\n[EN • New English Translation (NET)]:\n"${netText}"`;
+    if (idText) formatted += `\n\n[AVP • Alkitab Versi Pemulihan]:\n"${idText}"`;
+    if (tbText) formatted += `\n\n[TB • Terjemahan Baru (TB - LAI)]:\n"${tbText}"`;
+    if (enText) formatted += `\n\n[RCV • Recovery Version]:\n"${enText}"`;
+    if (kjvText) formatted += `\n\n[KJV • King James Version (KJV)]:\n"${kjvText}"`;
+    if (asvText) formatted += `\n\n[ASV • American Standard Version (ASV)]:\n"${asvText}"`;
+    if (netText) formatted += `\n\n[NET • New English Translation (NET)]:\n"${netText}"`;
     if (scofieldText) formatted += `\n\n[Scofield 1917 • Reference Bible]:\n"${scofieldText}"`;
     navigator.clipboard.writeText(formatted);
     setCopiedType('all');
@@ -92,14 +92,14 @@ export default function BibleVerseCompareModal({
 
         {/* Translation Cards */}
         <div className="overflow-y-auto pr-1 flex-1 space-y-3.5 scrollbar-thin">
-          {/* 1. Bahasa Indonesia: Versi Pemulihan */}
+          {/* 1. Alkitab Versi Pemulihan (AVP) */}
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700/80 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-800">
-                Bahasa Indonesia (Versi Pemulihan)
+                Alkitab Versi Pemulihan (AVP)
               </span>
               <button
-                onClick={() => handleCopy('id', idText, 'ID Pemulihan')}
+                onClick={() => handleCopy('id', idText, 'AVP')}
                 className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
               >
                 {copiedType === 'id' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -115,10 +115,10 @@ export default function BibleVerseCompareModal({
           <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/60 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-emerald-800 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-900/60 px-2 py-0.5 rounded-md border border-emerald-300/80 dark:border-emerald-700">
-                Bahasa Indonesia (Terjemahan Baru • LAI)
+                Terjemahan Baru (TB • LAI)
               </span>
               <button
-                onClick={() => handleCopy('tb', tbText, 'ID Terjemahan Baru')}
+                onClick={() => handleCopy('tb', tbText, 'TB LAI')}
                 className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
               >
                 {copiedType === 'tb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -130,14 +130,14 @@ export default function BibleVerseCompareModal({
             </p>
           </div>
 
-          {/* 3. English: Holy Bible Recovery Version */}
+          {/* 3. Recovery Version (RCV) */}
           <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-amber-800 dark:text-amber-300 bg-amber-100/80 dark:bg-amber-900/60 px-2 py-0.5 rounded-md border border-amber-300/80 dark:border-amber-700">
-                English (Holy Bible Recovery Version)
+                Recovery Version (RCV)
               </span>
               <button
-                onClick={() => handleCopy('en', enText, 'EN Recovery Version')}
+                onClick={() => handleCopy('en', enText, 'RCV')}
                 className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
               >
                 {copiedType === 'en' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}

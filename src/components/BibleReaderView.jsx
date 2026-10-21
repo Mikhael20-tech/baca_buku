@@ -12,9 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 
 const PARALLEL_TRANSLATIONS = [
-  { id: 'id', code: 'ID', name: 'Pemulihan' },
+  { id: 'id', code: 'AVP', name: 'Alkitab Versi Pemulihan' },
   { id: 'tb', code: 'TB', name: 'Terjemahan Baru LAI' },
-  { id: 'en', code: 'EN', name: 'Recovery Version' },
+  { id: 'en', code: 'RCV', name: 'Recovery Version' },
   { id: 'kjv', code: 'KJV', name: 'King James (1769)' },
   { id: 'asv', code: 'ASV', name: 'American Standard' },
   { id: 'net', code: 'NET', name: 'NET Bible' },
@@ -1039,9 +1039,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       ? 'bg-[#3B4B34] text-white shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
-                  title="Alkitab Versi Pemulihan (ID)"
+                  title="Alkitab Versi Pemulihan (AVP)"
                 >
-                  ID
+                  AVP
                 </button>
                 <button
                   type="button"
@@ -1071,9 +1071,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       ? 'bg-[#3B4B34] text-white shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
-                  title="Holy Bible Recovery Version (EN)"
+                  title="Holy Bible Recovery Version (RCV)"
                 >
-                  EN
+                  RCV
                 </button>
                 <button
                   type="button"
@@ -1275,8 +1275,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       ? 'bg-[#3B4B34] text-white shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
+                  title="Alkitab Versi Pemulihan (AVP)"
                 >
-                  ID
+                  AVP
                 </button>
                 <button
                   type="button"
@@ -1306,8 +1307,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       ? 'bg-[#3B4B34] text-white shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
+                  title="Holy Bible Recovery Version (RCV)"
                 >
-                  EN
+                  RCV
                 </button>
                 <button
                   type="button"

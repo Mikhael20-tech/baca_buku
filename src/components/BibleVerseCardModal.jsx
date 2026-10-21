@@ -60,9 +60,9 @@ const CARD_THEMES = [
 ];
 
 const TRANSLATION_LABELS = {
-  id: 'Alkitab Versi Pemulihan',
+  id: 'Alkitab Versi Pemulihan (AVP)',
   tb: 'Terjemahan Baru (TB - LAI)',
-  en: 'Holy Bible Recovery Version',
+  en: 'Holy Bible Recovery Version (RCV)',
   kjv: 'King James Version (KJV 1769)',
   asv: 'American Standard Version (ASV 1901)',
   net: 'New English Translation (NET Bible)',
@@ -70,9 +70,9 @@ const TRANSLATION_LABELS = {
 };
 
 const LANG_OPTIONS = [
-  { id: 'id', label: 'ID' },
+  { id: 'id', label: 'AVP' },
   { id: 'tb', label: 'TB' },
-  { id: 'en', label: 'EN' },
+  { id: 'en', label: 'RCV' },
   { id: 'kjv', label: 'KJV' },
   { id: 'asv', label: 'ASV' },
   { id: 'net', label: 'NET' },

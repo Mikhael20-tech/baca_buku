@@ -6,9 +6,9 @@ import { parseReference } from '@/utils/bibleRefParser';
 const PREVIEW_CACHE = {};
 
 const PREVIEW_LANGS = [
-  { id: 'id', label: 'ID' },
+  { id: 'id', label: 'AVP' },
   { id: 'tb', label: 'TB' },
-  { id: 'en', label: 'EN' },
+  { id: 'en', label: 'RCV' },
   { id: 'kjv', label: 'KJV' },
   { id: 'asv', label: 'ASV' },
   { id: 'net', label: 'NET' },

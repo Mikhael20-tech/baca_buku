@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 const BOOK_CACHE = {};
 
 const TRANSLATION_OPTIONS = [
-  { id: 'id', label: 'ID • Pemulihan' },
+  { id: 'id', label: 'AVP • Pemulihan' },
   { id: 'tb', label: 'TB • LAI' },
-  { id: 'en', label: 'EN • RcV' },
+  { id: 'en', label: 'RCV • Recovery' },
   { id: 'kjv', label: 'KJV' },
   { id: 'asv', label: 'ASV' },
   { id: 'net', label: 'NET' },
@@ -302,7 +302,7 @@ export default function BibleGlobalSearchModal({
                     {res.bookName} {res.chapter}:{res.verse}
                   </span>
                   <span className="text-[10px] uppercase font-mono font-bold text-slate-500 dark:text-zinc-400">
-                    {searchLang.toUpperCase()}
+                    {searchLang === 'id' ? 'AVP' : searchLang === 'en' ? 'RCV' : searchLang.toUpperCase()}
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-zinc-200 leading-relaxed">
