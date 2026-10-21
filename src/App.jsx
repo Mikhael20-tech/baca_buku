@@ -16,11 +16,31 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { supabase, isSupabaseConfigured, isValidUUID } from './lib/supabase';
 import { deleteBookFromIndexedDB } from './lib/bookStorage';
-const CloudEpubReader = React.lazy(() => import('./components/CloudEpubReader'));
-const BibleReaderView = React.lazy(() => import('./components/BibleReaderView'));
-const KidungReaderView = React.lazy(() => import('./components/KidungReaderView'));
-const UserDashboard = React.lazy(() => import('./components/UserDashboard'));
-const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
+import ErrorBoundary from './components/ErrorBoundary';
+
+function lazyWithRetry(componentImport, componentName = '') {
+  return React.lazy(async () => {
+    const retryKey = 'chunk_retry_' + (componentName || window.location.pathname);
+    const hasReloaded = sessionStorage.getItem(retryKey);
+    try {
+      return await componentImport();
+    } catch (error) {
+      console.warn(`Dynamic import for ${componentName} failed, checking auto-reload:`, error);
+      if (!hasReloaded) {
+        sessionStorage.setItem(retryKey, 'true');
+        window.location.reload();
+        return new Promise(() => {});
+      }
+      throw error;
+    }
+  });
+}
+
+const CloudEpubReader = lazyWithRetry(() => import('./components/CloudEpubReader'), 'CloudEpubReader');
+const BibleReaderView = lazyWithRetry(() => import('./components/BibleReaderView'), 'BibleReaderView');
+const KidungReaderView = lazyWithRetry(() => import('./components/KidungReaderView'), 'KidungReaderView');
+const UserDashboard = lazyWithRetry(() => import('./components/UserDashboard'), 'UserDashboard');
+const AdminDashboard = lazyWithRetry(() => import('./components/AdminDashboard'), 'AdminDashboard');
 
 const ViewLoadingFallback = ({ text = 'Memuat...' }) => (
   <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-[#3B4B34]">
@@ -947,16 +967,18 @@ export default function App() {
   if (currentBook) {
     return (
       <div className="fixed inset-0 z-50 bg-white">
-        <React.Suspense fallback={<ViewLoadingFallback text="Memuat Pembaca Buku..." />}>
-          <CloudEpubReader 
-            book={currentBook} 
-            userId={user.id} 
-            userPlan={userPlan}
-            userRole={userRole}
-            onOpenPricing={() => setIsSubscriptionModalOpen(true)}
-            onBack={() => setCurrentBook(null)} 
-          />
-        </React.Suspense>
+        <ErrorBoundary>
+          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Pembaca Buku..." />}>
+            <CloudEpubReader 
+              book={currentBook} 
+              userId={user.id} 
+              userPlan={userPlan}
+              userRole={userRole}
+              onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+              onBack={() => setCurrentBook(null)} 
+            />
+          </React.Suspense>
+        </ErrorBoundary>
       </div>
     );
   }
@@ -967,14 +989,16 @@ export default function App() {
   if (!currentBook && viewMode === 'bible') {
     return (
       <div className="fixed inset-0 z-50 bg-white">
-        <React.Suspense fallback={<ViewLoadingFallback text="Memuat Alkitab Pemulihan..." />}>
-          <BibleReaderView 
-            onBackToHome={() => setViewMode('landing')} 
-            onOpenLibrary={() => setViewMode('library')} 
-            onOpenBook={handleOpenBook}
-            allBooks={books}
-          />
-        </React.Suspense>
+        <ErrorBoundary>
+          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Alkitab Pemulihan..." />}>
+            <BibleReaderView 
+              onBackToHome={() => setViewMode('landing')} 
+              onOpenLibrary={() => setViewMode('library')} 
+              onOpenBook={handleOpenBook}
+              allBooks={books}
+            />
+          </React.Suspense>
+        </ErrorBoundary>
       </div>
     );
   }
@@ -985,15 +1009,17 @@ export default function App() {
   if (!currentBook && viewMode === 'kidung') {
     return (
       <div className="fixed inset-0 z-50 bg-white">
-        <React.Suspense fallback={<ViewLoadingFallback text="Memuat Kidung Rohani..." />}>
-          <KidungReaderView 
-            initialTab={kidungInitialTab}
-            initialSongId={kidungInitialSongId}
-            onBackToHome={() => setViewMode('landing')} 
-            onOpenLibrary={() => setViewMode('library')} 
-            onOpenBible={() => setViewMode('bible')}
-          />
-        </React.Suspense>
+        <ErrorBoundary>
+          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Kidung Rohani..." />}>
+            <KidungReaderView 
+              initialTab={kidungInitialTab}
+              initialSongId={kidungInitialSongId}
+              onBackToHome={() => setViewMode('landing')} 
+              onOpenLibrary={() => setViewMode('library')} 
+              onOpenBible={() => setViewMode('bible')}
+            />
+          </React.Suspense>
+        </ErrorBoundary>
       </div>
     );
   }
@@ -1605,43 +1631,47 @@ export default function App() {
         
         {/* RENDER VIEW 1: USER DASHBOARD */}
         {viewMode === 'user-dashboard' && (
-          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Dashboard Saya..." />}>
-            <UserDashboard
-              user={user}
-              onUpdateProfile={handleUpdateProfile}
-              plan={userPlan}
-              onOpenPricing={() => setIsSubscriptionModalOpen(true)}
-              onOpenBook={handleOpenBook}
-              onOpenBible={() => setViewMode('bible')}
-              onEnterLibrary={() => setViewMode('library')}
-              enjoyments={enjoyments}
-              onAddEnjoyment={handleAddEnjoyment}
-              initialTab={userDashboardTab}
-              books={books}
-            />
-          </React.Suspense>
+          <ErrorBoundary>
+            <React.Suspense fallback={<ViewLoadingFallback text="Memuat Dashboard Saya..." />}>
+              <UserDashboard
+                user={user}
+                onUpdateProfile={handleUpdateProfile}
+                plan={userPlan}
+                onOpenPricing={() => setIsSubscriptionModalOpen(true)}
+                onOpenBook={handleOpenBook}
+                onOpenBible={() => setViewMode('bible')}
+                onEnterLibrary={() => setViewMode('library')}
+                enjoyments={enjoyments}
+                onAddEnjoyment={handleAddEnjoyment}
+                initialTab={userDashboardTab}
+                books={books}
+              />
+            </React.Suspense>
+          </ErrorBoundary>
         )}
 
         {/* RENDER VIEW 2: ADMIN DASHBOARD */}
         {viewMode === 'admin-dashboard' && (
-          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Dashboard Admin..." />}>
-            <AdminDashboard
-              books={books}
-              onOpenUpload={() => setIsUploadModalOpen(true)}
-              onDeleteBook={handleDeleteBook}
-              onOpenBook={handleOpenBook}
-              enjoyments={enjoyments}
-              onDeleteEnjoyment={handleDeleteEnjoyment}
-              onTogglePinEnjoyment={handleTogglePinEnjoyment}
-              aiSummary={aiSummary}
-              onUpdateAiSummary={(newSummary) => {
-                setAiSummary(newSummary);
-                showToast('Rangkuman Meja Perjamuan berhasil disimpan.');
-              }}
-              initialTab={adminDashboardTab}
-              showToast={showToast}
-            />
-          </React.Suspense>
+          <ErrorBoundary>
+            <React.Suspense fallback={<ViewLoadingFallback text="Memuat Dashboard Admin..." />}>
+              <AdminDashboard
+                books={books}
+                onOpenUpload={() => setIsUploadModalOpen(true)}
+                onDeleteBook={handleDeleteBook}
+                onOpenBook={handleOpenBook}
+                enjoyments={enjoyments}
+                onDeleteEnjoyment={handleDeleteEnjoyment}
+                onTogglePinEnjoyment={handleTogglePinEnjoyment}
+                aiSummary={aiSummary}
+                onUpdateAiSummary={(newSummary) => {
+                  setAiSummary(newSummary);
+                  showToast('Rangkuman Meja Perjamuan berhasil disimpan.');
+                }}
+                initialTab={adminDashboardTab}
+                showToast={showToast}
+              />
+            </React.Suspense>
+          </ErrorBoundary>
         )}
 
         {/* RENDER VIEW 3: KATALOG BUKU (LIBRARY) */}
