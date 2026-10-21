@@ -163,6 +163,8 @@ blockquote {
 
     print(f"Created EPUB: {output_path} ({len(chapters)} chapters, {os.path.getsize(output_path):,} bytes)")
 
+from fix_all_book_typos import clean_text
+
 def clean_text_to_html(lines):
     html_paragraphs = []
     current_p = []
@@ -171,7 +173,7 @@ def clean_text_to_html(lines):
         if not s or s == '\xa0':
             if current_p:
                 p_text = " ".join(current_p)
-                p_text = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', p_text)
+                p_text = clean_text(p_text)
                 # STRICT XML ESCAPING ON TEXT
                 safe_p = xml_clean(p_text)
                 if re.match(r'^[0-9IVX]+\.\s+[A-Z\s]+$', p_text):
@@ -187,7 +189,7 @@ def clean_text_to_html(lines):
             current_p.append(s)
     if current_p:
         p_text = " ".join(current_p)
-        p_text = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', p_text)
+        p_text = clean_text(p_text)
         safe_p = xml_clean(p_text)
         html_paragraphs.append(f"<p>{safe_p}</p>")
     return "\n".join(html_paragraphs)

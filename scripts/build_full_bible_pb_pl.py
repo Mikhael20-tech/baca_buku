@@ -3,6 +3,7 @@ import os
 import sys
 import re
 import shutil
+from fix_all_book_typos import clean_text
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 file_path = r"D:\Magang\Baca\pdb\roti_hayat_full.txt"
@@ -195,14 +196,12 @@ def parse_bible_slice_to_html(lines, book_name):
         if m_verse and int(m_verse.group(1)) <= 176:
             v_num = m_verse.group(1)
             v_txt = m_verse.group(2)
-            # clean up raw inline footnote numbers like 1a, 2b from text body for smooth reading
-            # e.g. "1aPada 2mulanya 3Allah" -> "Pada mulanya Allah"
             clean_body = re.sub(r'\b\d+[a-z]?([A-Za-z])', r'\1', v_txt)
-            clean_body = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', clean_body)
+            clean_body = clean_text(clean_body)
             html_parts.append(f'<p class="verse"><span class="verse-num">{v_num}</span>{xml_clean(clean_body)}</p>')
         else:
             # continuation or general paragraph
-            clean_s = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', s)
+            clean_s = clean_text(s)
             html_parts.append(f'<p>{xml_clean(clean_s)}</p>')
             
     return "\n".join(html_parts), sub_navs

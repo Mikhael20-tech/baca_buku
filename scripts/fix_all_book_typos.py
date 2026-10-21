@@ -6,74 +6,125 @@ import glob
 def clean_text(text):
     # 0. Clean previously broken replacement characters or symbols
     text = re.sub(r'<p style="font-weight: 600; color: #b45309; text-indent: 0; margin-top: -0.5em; margin-bottom: 1.2em;">[\u2014\-–—\s]*', '<p>', text)
-    text = text.replace('', '')
     text = text.replace('&mdash;', '&#8212;').replace('&ndash;', '&#8211;').replace('&hellip;', '&#8230;').replace('&nbsp;', '&#160;')
 
-    # 1. Fix ?- and corrupt hyphenation patterns from PalmDOC/iSilo
-    # e.g., ke?-hendak -> kehendak, sesung?-guhnya -> sesungguhnya, peru?-bahan -> perubahan
+    # 1. Fix ?- and corrupt hyphenation patterns from PalmDOC/iSilo/OCR
     def repl_hyphen(m):
         w1 = m.group(1)
         w2 = m.group(2)
-        # Reduplication check (e.g., orang-orang, benar-benar, pikiran-pikiranku)
+        # Reduplication check (e.g., orang-orang, benar-benar, pikiran-pikiranku, apa-apa)
         w2_stem = re.sub(r'(ku|mu|nya|lah|kah|kan|an)$', '', w2.lower())
         if w1.lower() == w2.lower() or w1.lower() == w2_stem:
             return f"{w1}-{w2}"
         # ke- prefix with digit (e.g., ke-2, ke-10)
         if w1.lower() == 'ke' and w2.isdigit():
             return f"{w1}-{w2}"
+        # Divine pronouns
+        if w2 in ('Nya', 'Ku', 'Mu'):
+            return f"{w1}-{w2}"
         return f"{w1}{w2}"
 
-    # Pattern with ? and dash: ke?-hendak, ke-?hendak, ke? -hendak
+    # Pattern with ? and dash: ke?-hendak, ke-?hendak, ke? -hendak, ke?--hendak, sia-?-sia
+    text = re.sub(r'([A-Za-z]+)\s*[\-‑–—]+\?+[\-‑–—]+\s*([A-Za-z0-9]+)', repl_hyphen, text)
     text = re.sub(r'([A-Za-z]+)\s*\?+[\-‑–—]+\s*([A-Za-z0-9]+)', repl_hyphen, text)
     text = re.sub(r'([A-Za-z]+)\s*[\-‑–—]+\?+\s*([A-Za-z0-9]+)', repl_hyphen, text)
     
-    # Pattern with standalone ? between syllables: ke?hendak, Tri?tunggal, Arti?nya, datang?lah
+    # Standalone ? between syllables: ke?hendak, Tri?tunggal, Arti?nya, datang?lah
     text = re.sub(r'([A-Za-z]{2,})\?+([A-Za-z]{2,})', repl_hyphen, text)
     text = re.sub(r'([A-Za-z]{2,})\?+(lah|kah|kan|an|nya|ku|mu)\b', r'\1\2', text, flags=re.IGNORECASE)
 
-    # 2. Fix common Indonesian OCR typos:
-    text = re.sub(r'\bbalk\b', 'baik', text)
-    text = re.sub(r'\bBalk\b', 'Baik', text)
-    text = re.sub(r'\bakhimya\b', 'akhirnya', text)
-    text = re.sub(r'\bAkhimya\b', 'Akhirnya', text)
-    text = re.sub(r'\bpemah\b', 'pernah', text)
-    text = re.sub(r'\bPemah\b', 'Pernah', text)
-    text = re.sub(r'\bKaIau\b', 'Kalau', text)
-    text = re.sub(r'\bkaIau\b', 'kalau', text)
-    text = re.sub(r'\bmen yembah\b', 'menyembah', text)
-    text = re.sub(r'\bMen yembah\b', 'Menyembah', text)
-    text = re.sub(r'\bsia\s*\?*[\-‑–—]?\?*\s*sia\b', 'sia-sia', text)
+    # 2. Fix broken prefix: men y... and pen y... (e.g. men yembah -> menyembah, men yembahNya -> menyembah-Nya)
+    text = re.sub(r'\b(m|M)en\s+y([a-zA-Z]+)\b', r'\1eny\2', text)
+    text = re.sub(r'\b(p|P)en\s+y([a-zA-Z]+)\b', r'\1eny\2', text)
 
-    # Common Indonesian reduplications that lost their hyphens
-    text = re.sub(r'\btergesagesa\b', 'tergesa-gesa', text)
-    text = re.sub(r'\bcepatcepat\b', 'cepat-cepat', text)
-    text = re.sub(r'\bpikiranpikiranku\b', 'pikiran-pikiranku', text)
-    text = re.sub(r'\bpikiranpikiran\b', 'pikiran-pikiran', text)
-    text = re.sub(r'\borangorang\b', 'orang-orang', text)
-    text = re.sub(r'\bmalammalam\b', 'malam-malam', text)
-    text = re.sub(r'\bsendirisendiri\b', 'sendiri-sendiri', text)
+    # 3. Fix common Indonesian OCR character confusion & typos:
+    ocr_map = {
+        r'\bbalk\b': 'baik',
+        r'\bBalk\b': 'Baik',
+        r'\bakhimya\b': 'akhirnya',
+        r'\bAkhimya\b': 'Akhirnya',
+        r'\bpemah\b': 'pernah',
+        r'\bPemah\b': 'Pernah',
+        r'\bKaIau\b': 'Kalau',
+        r'\bkaIau\b': 'kalau',
+        r'\bjaIan\b': 'jalan',
+        r'\bmisaInya\b': 'misalnya',
+        r'\bInjit\b': 'Injil',
+        r'\bItulab\b': 'Itulah',
+        r'\bIngln\b': 'Ingin',
+        r'\bsa1ju\b': 'salju',
+        r'\b1ain\b': 'lain',
+        r'\bha1\b': 'hal',
+        r'\bWAJ1B\b': 'WAJIB',
+        r'\bRasu15\b': 'Rasul 5',
+        r'\bDial\s+Jangan\b': 'Dia! Jangan',
+        r'\bsia\s*\?*[\-‑–—]?\?*\s*sia\b': 'sia-sia',
+        r'\bkesia\s*\?*[\-‑–—]?\?*\s*siaan\b': 'kesia-siaan',
+        r'\bber\s+air\b': 'berair',
+        r'\bdi\s+masak\b': 'dimasak',
+    }
+    for pat, repl in ocr_map.items():
+        text = re.sub(pat, repl, text)
 
-    # 3. Fix merged scripture verse ranges:
-    # e.g., 4:2425 -> 4:24-25, 1:1011 -> 1:10-11, 27:2122 -> 27:21-22, 2:1115 -> 2:11-15
-    def fix_verse_num_4(m):
-        ch = m.group(1)
-        v1 = int(m.group(2))
-        v2 = int(m.group(3))
-        if 0 < v1 < 200 and 0 < v2 < 200 and v1 < v2 <= v1 + 30:
-            return f"{ch}:{v1}-{v2}"
-        return m.group(0)
+    # 4. Fix Indonesian reduplications that lost their hyphens:
+    reduplications = [
+        'hal-hal', 'orang-orang', 'meja-meja', 'ahli-ahli', 'anak-anak',
+        'kata-kata', 'hari-hari', 'tanda-tanda', 'berpura-pura', 'pura-pura',
+        'berturut-turut', 'seolah-olah', 'masing-masing', 'sungguh-sungguh',
+        'terus-menerus', 'tiap-tiap', 'rata-rata', 'selama-lamanya', 'malam-malam',
+        'bermalam-malam', 'berlaksa-laksa', 'sendiri-sendiri', 'tergesa-gesa',
+        'cepat-cepat', 'benar-benar', 'kasih-kasihan', 'macam-macam', 'tumbuh-tumbuhan',
+        'pertanyaan-pertanyaan', 'bintang-bintang', 'ujung-ujungnya', 'kadang-kadang',
+        'mudah-mudahan', 'pelan-pelan', 'sampar-sampar', 'hambatan-hambatan',
+        'peristiwa-peristiwa', 'gerakan-gerakan', 'masalah-masalah', 'pikiran-pikiran',
+        'pikiran-pikiranku', 'berjual-beli', 'kolega-kolega', 'saudara-saudara',
+        'Saudara-saudara', 'buku-buku', 'ayat-ayat', 'nama-nama', 'tempat-tempat',
+        'perkara-perkara', 'golongan-golongan', 'pribadi-pribadi', 'unsur-unsur',
+        'contoh-contoh', 'musuh-musuh', 'kota-kota', 'negeri-negeri', 'surat-surat',
+        'murid-murid', 'rasul-rasul', 'pengikut-pengikut', 'hukum-hukum', 'kebenaran-kebenaran',
+        'pengajaran-pengajaran', 'janji-janji', 'bangsa-bangsa', 'jiwa-jiwa', 'tubuh-tubuh',
+        'orang-orangan'
+    ]
+    for r in reduplications:
+        unhyphen = r.replace('-', '')
+        text = re.sub(rf'\b{unhyphen}\b', r, text, flags=re.IGNORECASE)
 
-    text = re.sub(r'\b(\d+):(\d{2})(\d{2})\b', fix_verse_num_4, text)
+    # 5. Fix Divine Pronouns missing hyphens:
+    # e.g. padaNya -> pada-Nya, firmanNya -> firman-Nya, menyembahNya -> menyembah-Nya
+    text = re.sub(
+        r'(?<!-)\b([a-zA-Z]+)Nya\b',
+        r'\1-Nya',
+        text
+    )
+    # Divine first person: -Ku
+    text = re.sub(
+        r'(?<!-)\b(umat|kepada|perkataan|perintah|kasih|nama|hadirat|firman|suara|anak|takhta|tubuh|darah)Ku\b',
+        r'\1-Ku',
+        text
+    )
+    # Divine second person: -Mu
+    text = re.sub(
+        r'(?<!-)\b(firman|nama|kehendak|kasih|rencana|umat|hadirat|takhta|suara|hajat|janji|hukum|kuasa|kemuliaan|jalan|kebenaran)Mu\b',
+        r'\1-Mu',
+        text
+    )
 
-    def fix_verse_num_3(m):
-        ch = m.group(1)
-        v1 = int(m.group(2))
-        v2 = int(m.group(3))
-        if 0 < v1 < 10 and 0 < v2 < 25 and v1 < v2 <= v1 + 10:
-            return f"{ch}:{v1}-{v2}"
-        return m.group(0)
-
-    text = re.sub(r'\b(\d+):(\d{1})(\d{2})\b', fix_verse_num_3, text)
+    # 6. Fix Merged Scripture verse numbers:
+    # e.g., 15:89 -> 15:8-9, 15:56 -> 15:5-6, 10:23 -> 10:2-3, 3:13 -> 3:1-3, 4:2425 -> 4:24-25
+    known_verse_fixes = {
+        r'\b15:89\b': '15:8-9',
+        r'\b15:56\b': '15:5-6',
+        r'\b10:23\b': '10:2-3',
+        r'\b3:13\b': '3:1-3',
+        r'\b4:2425\b': '4:24-25',
+        r'\b27:2122\b': '27:21-22',
+        r'\b1:1011\b': '1:10-11',
+        r'\b2:1115\b': '2:11-15',
+        r'\b3:35\b': '3:3-5',
+        r'\b8:1112\b': '8:11-12'
+    }
+    for pat, repl in known_verse_fixes.items():
+        text = re.sub(pat, repl, text)
 
     return text
 
@@ -151,14 +202,13 @@ p {
 '''
 
 def enhance_xhtml_content(content):
-    # Apply text typo cleaning
+    # 1. Apply text typo cleaning
     cleaned = clean_text(content)
     
-    # Strip any previously broken div.verse-quote wrappers cleanly without touching other valid divs
+    # 2. Strip any previously broken div.verse-quote wrappers cleanly
     cleaned = re.sub(r'<div class="verse-quote">\s*(.*?)\s*</div>', r'\1', cleaned, flags=re.DOTALL)
     
-    # Pattern 1: 2-line quote followed by verse ref
-    # E.g. <p>“Bersukacitalah...”</p><p>dan bertekunlah...”</p><p>Roma 12:12</p>
+    # 3. Pattern 2-line quote followed by verse ref
     pattern_2line = re.compile(
         r'<p(?: class="[^"]*")?>((?:&quot;|[“\"])[^<]*?)</p>\s*<p(?: class="[^"]*")?>([^<]*?(?:&quot;|[”\"]))</p>\s*<p(?: class="[^"]*")?>[\u2014\-–—&#8212;\s]*([A-Z0-9][^<]*?\d+:\d+[^<]*?)</p>',
         re.DOTALL
@@ -171,8 +221,7 @@ def enhance_xhtml_content(content):
 
     cleaned = pattern_2line.sub(repl_2line, cleaned)
 
-    # Pattern 2: 1-line quote followed by verse ref on next line
-    # E.g. <p>“Allah adalah Benar”</p><p>Roma 3:4</p>
+    # 4. Pattern 1-line quote followed by verse ref on next line
     pattern_1line = re.compile(
         r'<p(?: class="[^"]*")?>((?:&quot;|[“\"])[^<]*?(?:&quot;|[”\"]))</p>\s*<p(?: class="[^"]*")?>[\u2014\-–—&#8212;\s]*([A-Z0-9][^<]*?\d+:\d+[^<]*?)</p>',
         re.DOTALL
@@ -186,7 +235,7 @@ def enhance_xhtml_content(content):
 
     cleaned = pattern_1line.sub(repl_1line, cleaned)
 
-    # Pattern 3: Standalone quote (including quotes that already have inline verse citation at end)
+    # 5. Standalone quote (including quotes that already have inline verse citation at end)
     def repl_quote_only(m):
         inner = m.group(1).strip()
         is_q = (inner.startswith('“') or inner.startswith('"') or inner.startswith('&quot;'))
@@ -197,10 +246,21 @@ def enhance_xhtml_content(content):
 
     cleaned = re.sub(r'<p>(.*?)</p>', repl_quote_only, cleaned)
 
+    # 6. Split multiple glued quotes in verse-quote
+    # e.g. <p class="verse-quote">"Quote 1" Ref 1 "Quote 2" (Ref 2)</p>
+    split_quote_pat = re.compile(
+        r'<p class="verse-quote">(.*?[”"&quot;])\s*([A-Z0-9][a-zA-Z\s\.]*\d+:\d+(?:-\d+)?)\s*([“"&quot;].*?)</p>',
+        re.DOTALL
+    )
+    # Loop to handle cases with 2 or more glued quotes
+    for _ in range(5):
+        if not split_quote_pat.search(cleaned):
+            break
+        cleaned = split_quote_pat.sub(r'<p class="verse-quote">\1 (\2)</p>\n<p class="verse-quote">\3</p>', cleaned)
+
     return cleaned
 
 def process_epub(epub_path):
-    # FKKP memiliki UI, UX, dan format font asli bawaan yang tidak boleh diubah
     if 'fkkp' in epub_path.lower():
         return False
 

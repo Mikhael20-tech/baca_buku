@@ -140,6 +140,8 @@ p {
         epub.writestr('OEBPS/toc.ncx', toc_ncx, compress_type=zipfile.ZIP_DEFLATED)
     print(f"Created EPUB: {output_path} ({len(chapters)} chapters, {os.path.getsize(output_path):,} bytes)")
 
+from fix_all_book_typos import clean_text
+
 def clean_bible_to_html(lines):
     html_out = []
     current_p = []
@@ -148,7 +150,7 @@ def clean_bible_to_html(lines):
         if not s or s == '\xa0':
             if current_p:
                 raw_txt = " ".join(current_p)
-                raw_txt = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', raw_txt)
+                raw_txt = clean_text(raw_txt)
                 m_verse = re.match(r'^(\d+)\s+(.+)', raw_txt)
                 if m_verse and int(m_verse.group(1)) <= 150:
                     v_num = m_verse.group(1)
@@ -173,7 +175,7 @@ def clean_bible_to_html(lines):
             current_p.append(s)
     if current_p:
         raw_txt = " ".join(current_p)
-        raw_txt = re.sub(r'(\w+)[\?‑\-](\w+)', r'\1\2', raw_txt)
+        raw_txt = clean_text(raw_txt)
         safe_p = xml_clean(raw_txt)
         html_out.append(f'<p>{safe_p}</p>')
     return "\n".join(html_out)
