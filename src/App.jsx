@@ -513,6 +513,109 @@ export default function App() {
     setIsAuthModalOpen(true);
   }, []);
 
+  // Perlindungan Navigasi & Gesture Swipe Android (Hardware Back Button)
+  useEffect(() => {
+    let lastBackPressTime = 0;
+    let removeListenerFn = null;
+
+    const setupBackButton = async () => {
+      try {
+        const { App: CapApp } = await import('@capacitor/app');
+
+        const listener = await CapApp.addListener('backButton', () => {
+          // 1. Tutup modal/dialog yang sedang terbuka
+          if (isUploadModalOpen) {
+            setIsUploadModalOpen(false);
+            return;
+          }
+          if (selectedDetailBook) {
+            setSelectedDetailBook(null);
+            return;
+          }
+          if (isAuthModalOpen) {
+            setIsAuthModalOpen(false);
+            return;
+          }
+          if (isSubscriptionModalOpen) {
+            setIsSubscriptionModalOpen(false);
+            return;
+          }
+          if (isKarakterSeriesModalOpen) {
+            setIsKarakterSeriesModalOpen(false);
+            return;
+          }
+          if (isPembinaanModalOpen) {
+            setIsPembinaanModalOpen(false);
+            return;
+          }
+          if (isBibleSelectorModalOpen) {
+            setIsBibleSelectorModalOpen(false);
+            return;
+          }
+          if (isQuickScriptureOpen) {
+            setIsQuickScriptureOpen(false);
+            return;
+          }
+          if (lockedBookNotice) {
+            setLockedBookNotice(null);
+            return;
+          }
+          if (isMobileMenuOpen) {
+            setIsMobileMenuOpen(false);
+            return;
+          }
+
+          // 2. Jika sedang membaca buku EPUB -> kembali ke katalog
+          if (currentBook) {
+            setCurrentBook(null);
+            return;
+          }
+
+          // 3. Jika sedang di tab Alkitab, Kidung, User Dashboard, atau Admin Dashboard -> kembali ke Beranda (Landing)
+          if (viewMode !== 'landing') {
+            setViewMode('landing');
+            return;
+          }
+
+          // 4. Jika sudah di Beranda (Landing) -> cegah keluar langsung akibat swipe layar
+          const now = Date.now();
+          if (now - lastBackPressTime < 2000) {
+            CapApp.exitApp();
+          } else {
+            lastBackPressTime = now;
+            showToast('Tekan sekali lagi untuk keluar dari aplikasi');
+          }
+        });
+
+        removeListenerFn = () => listener.remove();
+      } catch (err) {
+        // Lingkungan web browser biasa, abaikan
+      }
+    };
+
+    setupBackButton();
+
+    return () => {
+      if (removeListenerFn) {
+        removeListenerFn();
+      }
+    };
+  }, [
+    isUploadModalOpen,
+    selectedDetailBook,
+    isAuthModalOpen,
+    isSubscriptionModalOpen,
+    isKarakterSeriesModalOpen,
+    isPembinaanModalOpen,
+    isBibleSelectorModalOpen,
+    isQuickScriptureOpen,
+    lockedBookNotice,
+    isMobileMenuOpen,
+    currentBook,
+    viewMode,
+    showToast
+  ]);
+
   // Memuat data buku dari Supabase atau LocalStorage fallback
   const fetchBooks = useCallback(async () => {
     setIsLoadingBooks(true);
