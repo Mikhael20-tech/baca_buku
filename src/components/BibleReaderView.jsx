@@ -880,9 +880,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           {/* ========================================================= */}
           {/* DESKTOP HEADER (MD & LARGER): Satu Baris Lebar & Lega     */}
           {/* ========================================================= */}
-          <div className="hidden md:flex items-center justify-between px-4 lg:px-6 py-2.5 gap-2">
+          <div className="hidden md:flex items-center justify-between px-3 lg:px-6 py-2.5 gap-2 w-full">
             {/* Kiri: Tombol Beranda & Selector Kitab */}
-            <div className="flex items-center gap-2 min-w-0">
+            <div className="flex items-center gap-1.5 lg:gap-2 min-w-0">
               <Button
                 variant="outline"
                 size="sm"
@@ -898,13 +898,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 variant="ghost"
                 size="sm"
                 onClick={onOpenLibrary}
-                className="shrink-0 rounded-xl text-xs font-semibold text-slate-500 hover:text-amber-700 transition hidden lg:flex items-center gap-1.5 h-8 px-2.5"
+                className="shrink-0 rounded-xl text-xs font-semibold text-slate-500 hover:text-amber-700 transition hidden xl:flex items-center gap-1.5 h-8 px-2.5"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>{isEnBible ? 'Book Catalog' : 'Katalog Buku'}</span>
               </Button>
 
-              <div className="h-5 w-px bg-slate-300 dark:bg-zinc-700 mx-0.5 shrink-0" />
+              <div className="h-5 w-px bg-slate-300 dark:bg-zinc-700 mx-0.5 shrink-0 hidden sm:block" />
 
               {/* Quick Picker: Kitab, Pasal, Ayat & Info Kitab */}
               <div className="flex items-center gap-1.5 min-w-0">
@@ -917,27 +917,49 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     }
                     setIsBookPickerOpen(true);
                   }}
-                  className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition h-8 px-2.5 min-w-0`}
+                  className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition h-8 px-2.5 min-w-0 shrink-0`}
+                  title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
                 >
-                  <span className="truncate max-w-[105px] lg:max-w-[150px] xl:max-w-[200px]">📖 {currentBookInfo.name}</span>
+                  <span className="truncate max-w-[95px] lg:max-w-[140px] xl:max-w-[180px]">📖 {currentBookInfo.name}</span>
                   <Compass className="w-3.5 h-3.5 ml-1 opacity-70 shrink-0" />
                 </Button>
 
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setIsChapterPickerOpen(true)}
-                  className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2.5`}
-                >
-                  <span>{isEnBible ? 'Ch' : 'Ps'} {selectedChapter}</span>
-                  <List className="w-3.5 h-3.5 ml-1 opacity-70" />
-                </Button>
+                {/* Unified Chapter Navigator: [ ◂ ] Ch. 1/28 [ ▸ ] */}
+                <div className="flex items-center border rounded-xl overflow-hidden shadow-xs border-slate-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-800/60 shrink-0">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handlePrevChapter}
+                    className={`h-8 w-7 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition p-0 flex items-center justify-center`}
+                    title={isEnBible ? 'Previous Chapter (ArrowLeft)' : 'Pasal Sebelumnya (ArrowLeft)'}
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                  </Button>
+                  <button
+                    type="button"
+                    onClick={() => setIsChapterPickerOpen(true)}
+                    className={`px-2 h-8 text-xs font-bold font-mono hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center gap-1 cursor-pointer ${themeStyles.text}`}
+                    title={isEnBible ? 'Select Chapter' : 'Pilih Pasal'}
+                  >
+                    <span>{isEnBible ? 'Ch' : 'Ps'} {selectedChapter}/{totalChapters}</span>
+                    <List className="w-3 h-3 opacity-60 shrink-0" />
+                  </button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleNextChapter}
+                    className={`h-8 w-7 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition p-0 flex items-center justify-center`}
+                    title={isEnBible ? 'Next Chapter (ArrowRight)' : 'Pasal Berikutnya (ArrowRight)'}
+                  >
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
 
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setIsVersePickerOpen(true)}
-                  className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2.5`}
+                  className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2`}
                   title={isEnBible ? 'Jump to Verse Number' : 'Loncat ke Nomor Ayat'}
                 >
                   <Hash className="w-3.5 h-3.5 mr-0.5 text-amber-600 dark:text-amber-400" />
@@ -960,31 +982,6 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
             {/* Kanan: Navigasi Cepat, Search, Mode Paralel & Settings */}
             <div className="flex items-center gap-1.5 lg:gap-2 shrink-0">
-              {/* Quick Prev & Next Chapter Buttons */}
-              <div className="flex items-center border rounded-xl overflow-hidden shadow-xs border-slate-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-800/60">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handlePrevChapter}
-                  className={`h-8 w-8 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
-                  title={isEnBible ? 'Previous Chapter (ArrowLeft)' : 'Pasal Sebelumnya (ArrowLeft)'}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </Button>
-                <span className={`px-1.5 text-[10px] font-bold font-mono opacity-80 ${themeStyles.text}`}>
-                  {selectedChapter}/{totalChapters}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleNextChapter}
-                  className={`h-8 w-8 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition`}
-                  title={isEnBible ? 'Next Chapter (ArrowRight)' : 'Pasal Berikutnya (ArrowRight)'}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-
               {/* Global Search Button */}
               <Button
                 variant="outline"
@@ -1029,7 +1026,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </Button>
 
               {/* Language & Parallel View Selector */}
-              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5`}>
+              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0 overflow-x-auto no-scrollbar`}>
                 <button
                   type="button"
                   onClick={() => {
