@@ -440,8 +440,8 @@ export default function LandingPage({
                     >
                       <LogIn className="w-4 h-4 text-amber-300" />
                       <div>
-                        <p className="font-bold text-xs text-white">Masuk / Daftar Akun</p>
-                        <p className="text-[10px] text-amber-100/80">Pilih peran di halaman login</p>
+                        <p className="font-bold text-xs text-white">Masuk ke Akun</p>
+                        <p className="text-[10px] text-amber-100/80">Akses akun pembaca &amp; pengelola</p>
                       </div>
                     </DropdownMenuItem>
 

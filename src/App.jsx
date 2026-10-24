@@ -1065,7 +1065,7 @@ export default function App() {
           onOpenBible={() => {
             if (!isLoggedIn) {
               openAuthModal('reader');
-              showToast('Silakan masuk atau buat akun baru terlebih dahulu untuk membaca Alkitab.');
+              showToast('Silakan masuk ke akun terlebih dahulu untuk membaca Alkitab.');
             } else {
               setViewMode('bible');
             }

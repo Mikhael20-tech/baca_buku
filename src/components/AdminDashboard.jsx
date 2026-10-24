@@ -5,7 +5,7 @@ import {
   Sparkles, Layers, BookOpen, Users, DollarSign, Settings,
   Eye, Check, Pin, X, Plus, Edit2, Search, Filter, Phone,
   Mail, MapPin, UserCheck, UserX, Camera, Clock, FileCheck,
-  Calendar, Sun, Flame, RotateCcw
+  Calendar, Sun, Flame, RotateCcw, Lock
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -170,6 +170,7 @@ export default function AdminDashboard({
   const [editingUserId, setEditingUserId] = useState(null);
   const [userFormName, setUserFormName] = useState('');
   const [userFormEmail, setUserFormEmail] = useState('');
+  const [userFormPassword, setUserFormPassword] = useState('123456');
   const [userFormWhatsapp, setUserFormWhatsapp] = useState('');
   const [userFormDistrikLokal, setUserFormDistrikLokal] = useState('');
   const [userFormPhotoUrl, setUserFormPhotoUrl] = useState('');
@@ -189,6 +190,7 @@ export default function AdminDashboard({
     setEditingUserId(null);
     setUserFormName('');
     setUserFormEmail('');
+    setUserFormPassword('123456');
     setUserFormWhatsapp('');
     setUserFormDistrikLokal('');
     setUserFormPhotoUrl('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80');
@@ -202,6 +204,7 @@ export default function AdminDashboard({
     setEditingUserId(user.id);
     setUserFormName(user.full_name || '');
     setUserFormEmail(user.email || '');
+    setUserFormPassword(user.password || '123456');
     setUserFormWhatsapp(user.whatsapp || '');
     setUserFormDistrikLokal(user.distrik_lokal || '');
     setUserFormPhotoUrl(user.photo_url || '');
@@ -218,6 +221,7 @@ export default function AdminDashboard({
       const updated = updateUser(editingUserId, {
         full_name: userFormName.trim(),
         email: userFormEmail.trim(),
+        password: userFormPassword.trim() || '123456',
         whatsapp: userFormWhatsapp.trim(),
         distrik_lokal: userFormDistrikLokal.trim(),
         photo_url: userFormPhotoUrl.trim(),
@@ -230,6 +234,7 @@ export default function AdminDashboard({
       const updated = addUser({
         full_name: userFormName.trim(),
         email: userFormEmail.trim(),
+        password: userFormPassword.trim() || '123456',
         whatsapp: userFormWhatsapp.trim(),
         distrik_lokal: userFormDistrikLokal.trim(),
         photo_url: userFormPhotoUrl.trim(),
@@ -719,6 +724,10 @@ export default function AdminDashboard({
                           <p className="text-[11px] text-[#78716C] flex items-center gap-1">
                             <Mail className="w-3 h-3 text-blue-500" />
                             {u.email}
+                          </p>
+                          <p className="text-[10px] text-stone-500 font-mono flex items-center gap-1">
+                            <Lock className="w-2.5 h-2.5 text-stone-400" />
+                            Pass: {u.password || '123456'}
                           </p>
                         </td>
 
@@ -1307,6 +1316,21 @@ export default function AdminDashboard({
                 onChange={(e) => setUserFormEmail(e.target.value)}
                 placeholder="user@email.com"
                 className="rounded-xl bg-white text-xs h-9"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-[#1C1917] flex items-center justify-between">
+                <span>Kata Sandi Akun</span>
+                <span className="text-[10px] text-stone-500 font-normal">Default: 123456</span>
+              </label>
+              <Input
+                type="text"
+                required
+                value={userFormPassword}
+                onChange={(e) => setUserFormPassword(e.target.value)}
+                placeholder="123456"
+                className="rounded-xl bg-white text-xs h-9 font-mono"
               />
             </div>
 
