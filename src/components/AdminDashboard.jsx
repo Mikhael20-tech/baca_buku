@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import AestheticDatePicker from '@/components/ui/AestheticDatePicker';
 import { 
   getStoredUsers, 
   saveStoredUsers, 
@@ -566,7 +567,64 @@ export default function AdminDashboard({
             </Button>
           </div>
 
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
+          {/* Mobile Card List for Books (sm:hidden) */}
+          <div className="grid grid-cols-1 gap-3 sm:hidden">
+            {books.map((b) => (
+              <div 
+                key={b.id} 
+                className="p-4 bg-white rounded-2xl border border-[#1C1917]/10 shadow-xs flex flex-col gap-3"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl p-2 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/10 shrink-0">
+                      {b.cover_icon || '📖'}
+                    </span>
+                    <div>
+                      <h4 className="font-bold text-sm text-[#1C1917] leading-snug">{b.title}</h4>
+                      <p className="text-xs text-[#78716C]">{b.author}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#1C1917]/5 text-[11px]">
+                  <Badge variant="outline" className="text-[10px] rounded-full">
+                    {b.category || 'Umum'}
+                  </Badge>
+                  <Badge className="bg-emerald-100 text-emerald-900 border-emerald-300 text-[10px]">
+                    Premium / Ultimate
+                  </Badge>
+                  <span className="flex items-center gap-1 text-blue-600 font-medium text-[10px] ml-auto">
+                    <CheckCircle2 className="w-3 h-3" />
+                    Sync OK
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#1C1917]/5">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onOpenBook(b)}
+                    className="h-8 px-3 text-[#3B4B34] bg-[#FAF7F2] hover:bg-[#EAE3D5] rounded-xl text-xs font-semibold flex-1 flex items-center justify-center gap-1.5"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    Baca Buku
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => triggerDeleteBook(b, e)}
+                    className="h-8 px-3 text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold flex items-center gap-1"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    Hapus
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop & Tablet Table View (hidden sm:block) */}
+          <div className="hidden sm:block bg-white rounded-2xl sm:rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
             <div className="overflow-x-auto scrollbar-thin">
               <table className="w-full text-left text-xs min-w-[680px]">
                 <thead className="bg-[#FAF7F2] border-b border-[#1C1917]/8 text-[#78716C] uppercase font-bold text-[10px] tracking-wider whitespace-nowrap">
@@ -687,8 +745,123 @@ export default function AdminDashboard({
             </div>
           </div>
 
-          {/* User Table */}
-          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
+          {/* Mobile Card List for Users (sm:hidden) */}
+          <div className="grid grid-cols-1 gap-3 sm:hidden">
+            {filteredUsers.length === 0 ? (
+              <div className="p-8 text-center text-[#78716C] text-xs bg-white rounded-2xl border border-[#1C1917]/10">
+                Tidak ada pengguna yang sesuai dengan pencarian.
+              </div>
+            ) : (
+              filteredUsers.map((u) => (
+                <div 
+                  key={u.id}
+                  className="p-4 bg-white rounded-2xl border border-[#1C1917]/10 shadow-xs flex flex-col gap-3"
+                >
+                  {/* Header: Photo, Name, ID, Tier, Status */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <img 
+                        src={u.photo_url || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'} 
+                        alt={u.full_name} 
+                        className="w-12 h-12 rounded-xl object-cover border border-[#1C1917]/10 shadow-xs shrink-0"
+                      />
+                      <div>
+                        <h4 className="font-bold text-sm text-[#1C1917]">{u.full_name}</h4>
+                        <p className="text-[10px] text-[#78716C]">ID: {u.id.substring(0, 10)}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-1 shrink-0">
+                      <Badge 
+                        variant="outline" 
+                        className={`text-[10px] font-bold uppercase ${
+                          u.plan_tier === 'ultimate'
+                            ? 'bg-amber-100 text-amber-900 border-amber-300'
+                            : u.plan_tier === 'premium'
+                              ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                              : 'bg-stone-100 text-stone-800 border-stone-300'
+                        }`}
+                      >
+                        {u.plan_tier ? u.plan_tier.toUpperCase() : 'STANDART'}
+                      </Badge>
+                      {u.status === 'active' ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700">
+                          <UserCheck className="w-3 h-3" />
+                          Aktif
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-rose-700">
+                          <UserX className="w-3 h-3" />
+                          Ditangguhkan
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Info Details */}
+                  <div className="grid grid-cols-1 gap-1.5 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/5 text-xs">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-[#78716C] flex items-center gap-1.5">
+                        <Phone className="w-3 h-3 text-emerald-600" /> WhatsApp
+                      </span>
+                      <span className="font-semibold text-emerald-800">{u.whatsapp || '-'}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-[#78716C] flex items-center gap-1.5">
+                        <Mail className="w-3 h-3 text-blue-500" /> Email
+                      </span>
+                      <span className="font-medium text-[#1C1917] truncate max-w-[190px]">{u.email}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-[#78716C] flex items-center gap-1.5">
+                        <MapPin className="w-3 h-3 text-amber-700" /> Distrik - Lokal
+                      </span>
+                      <span className="font-medium text-[#1C1917] truncate max-w-[190px]">{u.distrik_lokal || 'Belum diatur'}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-[#78716C] flex items-center gap-1.5">
+                        <Lock className="w-2.5 h-2.5 text-stone-400" /> Password
+                      </span>
+                      <span className="font-mono text-stone-600">{u.password || '123456'}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] text-stone-400 pt-1 border-t border-[#1C1917]/5">
+                      <span>Terdaftar</span>
+                      <span>{u.joined_date || '2026-01-01'}</span>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center justify-end gap-2 pt-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleOpenEditUser(u)}
+                      className="h-8 px-3 text-[#3B4B34] bg-[#FAF7F2] hover:bg-[#EAE3D5] rounded-xl text-xs font-semibold flex-1 flex items-center justify-center gap-1.5"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                      Edit Data Akun
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => triggerDeleteUser(u)}
+                      className="h-8 px-3 text-rose-600 hover:bg-rose-50 rounded-xl text-xs font-semibold flex items-center gap-1"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Hapus
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Desktop & Tablet Table View (hidden sm:block) */}
+          <div className="hidden sm:block bg-white rounded-2xl sm:rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
             <div className="overflow-x-auto scrollbar-thin">
               <table className="w-full text-left text-xs min-w-[760px]">
                 <thead className="bg-[#FAF7F2] border-b border-[#1C1917]/8 text-[#78716C] uppercase font-bold text-[10px] tracking-wider whitespace-nowrap">
@@ -1046,11 +1219,9 @@ export default function AdminDashboard({
                         Otomatis Berganti Tiap Pekan
                       </span>
                     </label>
-                    <input
-                      type="date"
+                    <AestheticDatePicker
                       value={fkkpSettings.startDate || '2026-10-05'}
-                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, startDate: e.target.value })}
-                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                      onChange={(newDate) => handleSaveFkkpSettings({ ...fkkpSettings, startDate: newDate })}
                     />
                     <p className="text-[10px] text-[#78716C]">
                       Hari ini otomatis: <strong className="text-[#3B4B34]">Minggu ke-{currentFkkpLive.week} • Hari {currentFkkpLive.day} ({currentFkkpLive.dayName})</strong>. Setiap hari Senin jam 00:00 minggu akan bertambah secara otomatis.
@@ -1061,17 +1232,21 @@ export default function AdminDashboard({
                     <label className="text-xs font-bold text-[#1C1917] block">
                       Pratinjau / Pilih Minggu untuk Diedit:
                     </label>
-                    <select
-                      value={fkkpSettings.currentWeek || currentFkkpLive.week}
-                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(e.target.value) })}
-                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    <Select
+                      value={String(fkkpSettings.currentWeek || currentFkkpLive.week)}
+                      onValueChange={(val) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(val) })}
                     >
-                      {[...Array(12)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          Minggu ke-{i + 1} {i + 1 === currentFkkpLive.week ? '(Sedang Berjalan Sekarang)' : ''}
-                        </option>
-                      ))}
-                    </select>
+                      <SelectTrigger className="w-full h-10 px-3.5 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917]">
+                        <SelectValue placeholder="Pilih Minggu" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[...Array(12)].map((_, i) => (
+                          <SelectItem key={i + 1} value={String(i + 1)}>
+                            Minggu ke-{i + 1} {i + 1 === currentFkkpLive.week ? '(Sedang Berjalan Sekarang)' : ''}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <p className="text-[10px] text-[#78716C]">
                       Pilih minggu jika ingin melihat atau mengedit santapan minggu tertentu pada editor di bawah.
                     </p>
@@ -1083,17 +1258,21 @@ export default function AdminDashboard({
                     <label className="text-xs font-bold text-[#1C1917] block">
                       Kunci Minggu Santapan (Mode Manual):
                     </label>
-                    <select
-                      value={fkkpSettings.currentWeek}
-                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(e.target.value) })}
-                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    <Select
+                      value={String(fkkpSettings.currentWeek || 1)}
+                      onValueChange={(val) => handleSaveFkkpSettings({ ...fkkpSettings, currentWeek: Number(val) })}
                     >
-                      {[...Array(12)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                          Minggu ke-{i + 1}
-                        </option>
-                      ))}
-                    </select>
+                      <SelectTrigger className="w-full h-10 px-3.5 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917]">
+                        <SelectValue placeholder="Pilih Minggu" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[...Array(12)].map((_, i) => (
+                          <SelectItem key={i + 1} value={String(i + 1)}>
+                            Minggu ke-{i + 1}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <p className="text-[10px] text-[#78716C]">
                       Buku FKKP memiliki 12 Minggu. Pilih minggu yang ingin dikunci.
                     </p>
@@ -1103,19 +1282,23 @@ export default function AdminDashboard({
                     <label className="text-xs font-bold text-[#1C1917] block">
                       Kunci Hari Santapan (Mode Manual):
                     </label>
-                    <select
-                      value={fkkpSettings.manualDay}
-                      onChange={(e) => handleSaveFkkpSettings({ ...fkkpSettings, manualDay: Number(e.target.value) })}
-                      className="w-full h-10 px-3.5 rounded-xl bg-[#FBF9F5] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#3B4B34]"
+                    <Select
+                      value={String(fkkpSettings.manualDay || 1)}
+                      onValueChange={(val) => handleSaveFkkpSettings({ ...fkkpSettings, manualDay: Number(val) })}
                     >
-                      <option value={1}>Hari 1 (Senin)</option>
-                      <option value={2}>Hari 2 (Selasa)</option>
-                      <option value={3}>Hari 3 (Rabu)</option>
-                      <option value={4}>Hari 4 (Kamis)</option>
-                      <option value={5}>Hari 5 (Jumat)</option>
-                      <option value={6}>Hari 6 (Sabtu)</option>
-                      <option value={7}>Hari 7 (Hari Tuhan / Kidung Review)</option>
-                    </select>
+                      <SelectTrigger className="w-full h-10 px-3.5 rounded-xl bg-[#FAF7F2] border border-[#1C1917]/15 text-xs font-bold text-[#1C1917]">
+                        <SelectValue placeholder="Pilih Hari" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">Hari 1 (Senin)</SelectItem>
+                        <SelectItem value="2">Hari 2 (Selasa)</SelectItem>
+                        <SelectItem value="3">Hari 3 (Rabu)</SelectItem>
+                        <SelectItem value="4">Hari 4 (Kamis)</SelectItem>
+                        <SelectItem value="5">Hari 5 (Jumat)</SelectItem>
+                        <SelectItem value="6">Hari 6 (Sabtu)</SelectItem>
+                        <SelectItem value="7">Hari 7 (Hari Tuhan / Kidung Review)</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <p className="text-[10px] text-amber-700 font-semibold">
                       Santapan akan terkunci di hari ini sampai admin menggantinya.
                     </p>
