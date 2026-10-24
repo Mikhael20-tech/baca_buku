@@ -959,11 +959,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   variant="outline"
                   size="sm"
                   onClick={() => setIsVersePickerOpen(true)}
-                  className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2`}
+                  className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2 hidden lg:flex items-center`}
                   title={isEnBible ? 'Jump to Verse Number' : 'Loncat ke Nomor Ayat'}
                 >
                   <Hash className="w-3.5 h-3.5 mr-0.5 text-amber-600 dark:text-amber-400" />
-                  <span className="hidden lg:inline">{isEnBible ? 'Verse' : 'Ayat'}</span>
+                  <span className="hidden xl:inline">{isEnBible ? 'Verse' : 'Ayat'}</span>
                 </Button>
 
                 {bookData?.intro && (
@@ -971,7 +971,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-8 w-8 rounded-xl ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition shrink-0`}
+                    className={`h-8 w-8 rounded-xl ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition shrink-0 hidden xl:flex`}
                     title={isEnBible ? 'Book Introduction & Background' : 'Pengantar & Pokok Kitab'}
                   >
                     <Info className="w-4 h-4 text-amber-600 dark:text-amber-400" />
@@ -1026,7 +1026,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </Button>
 
               {/* Language & Parallel View Selector */}
-              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0 overflow-x-auto no-scrollbar`}>
+              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0 max-w-[210px] sm:max-w-[280px] xl:max-w-none overflow-x-auto no-scrollbar`}>
                 <button
                   type="button"
                   onClick={() => {
