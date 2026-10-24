@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getStoredUsers, addUser } from '../lib/userManagement';
-import { LogIn, Loader2, AlertCircle, CheckCircle2, ShieldCheck, User, Info, Lock } from 'lucide-react';
+import { LogIn, Loader2, AlertCircle, CheckCircle2, ShieldCheck, User, Info, Lock, Phone } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -226,11 +226,22 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
         </DialogHeader>
 
         {/* Informasi penutupan registrasi publik sementara */}
-        <div className="p-3 bg-amber-50/80 border border-amber-200/80 rounded-2xl text-xs text-amber-900 flex items-start gap-2.5">
-          <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-          <p className="text-[11px] leading-relaxed">
-            <strong className="font-semibold">Pendaftaran publik ditutup sementara.</strong> Akun baru ditambahkan langsung oleh Administrator.
-          </p>
+        <div className="p-3 bg-amber-50/80 border border-amber-200/80 rounded-2xl text-xs text-amber-900 flex items-center justify-between gap-2.5">
+          <div className="flex items-start gap-2">
+            <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+            <p className="text-[11px] leading-relaxed">
+              <strong className="font-semibold">Pendaftaran ditangani langsung oleh Admin.</strong> Hubungi admin untuk buat akun.
+            </p>
+          </div>
+          <a
+            href="https://wa.me/628960671871?text=Syalom%20Admin%20Baca,%20saya%20ingin%20minta%20dibuatkan%20akun%20pembaca%20baru."
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-[10px] font-bold flex items-center gap-1 shadow-xs transition"
+          >
+            <Phone className="w-3 h-3" />
+            <span>WA Admin</span>
+          </a>
         </div>
 
         {/* Tombol Masuk dengan Google */}
@@ -322,7 +333,16 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
           </Button>
 
           <p className="text-center text-[11px] text-stone-500 pt-1">
-            Belum memiliki akun? Hubungi <span className="font-semibold text-stone-700">Administrator</span> untuk didaftarkan sebagai pembaca.
+            Belum memiliki akun? Hubungi WhatsApp Admin di{' '}
+            <a
+              href="https://wa.me/628960671871?text=Syalom%20Admin%20Baca,%20saya%20ingin%20minta%20dibuatkan%20akun%20pembaca%20baru."
+              target="_blank"
+              rel="noreferrer"
+              className="font-bold text-emerald-800 underline hover:text-emerald-950"
+            >
+              0896-0671-871
+            </a>{' '}
+            untuk didaftarkan.
           </p>
         </form>
       </DialogContent>

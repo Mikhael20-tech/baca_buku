@@ -111,7 +111,7 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
 
   const handleOpenWhatsApp = (plan) => {
     const text = encodeURIComponent(getUpgradeMessage(plan));
-    window.open(`https://wa.me/6281234567890?text=${text}`, '_blank');
+    window.open(`https://wa.me/628960671871?text=${text}`, '_blank');
   };
 
   const handleCopyMessage = (plan) => {
@@ -299,7 +299,7 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
             <div className="bg-white p-3.5 rounded-2xl border border-[#1C1917]/10 space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-stone-500 font-medium">WhatsApp Admin:</span>
-                <span className="font-bold text-emerald-800 font-mono">0812-3456-7890</span>
+                <span className="font-bold text-emerald-800 font-mono">0896-0671-871</span>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-stone-500 font-medium">Email Pengelola:</span>
