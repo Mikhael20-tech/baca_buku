@@ -1,5 +1,5 @@
 // Lightweight Service Worker for Baca App (Offline & PWA Support)
-const CACHE_NAME = 'baca-cache-v10';
+const CACHE_NAME = 'baca-cache-v11';
 const CORE_URLS = [
   '/',
   '/manifest.webmanifest',

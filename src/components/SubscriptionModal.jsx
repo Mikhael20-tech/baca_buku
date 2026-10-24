@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { 
-  Check, Sparkles, ShieldCheck, RefreshCw, Smartphone, 
-  ExternalLink, Zap, CheckCircle2, AlertCircle, ArrowRight, X, QrCode
+  Check, Sparkles, ShieldCheck, Smartphone, 
+  CheckCircle2, Phone, MessageSquare, Copy, X, Info
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import QrisPaymentModal from './QrisPaymentModal';
 
 export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlanUpdated }) {
   const [selectedBilling, setSelectedBilling] = useState('monthly'); // 'monthly' | 'yearly'
-  const [activeTier, setActiveTier] = useState(currentPlan?.tier || 'premium');
   const [syncSuccessMsg, setSyncSuccessMsg] = useState('');
   
-  // State Pembayaran QRIS Dinamis
-  const [isQrisModalOpen, setIsQrisModalOpen] = useState(false);
-  const [selectedPaymentPlan, setSelectedPaymentPlan] = useState(null);
+  // Modal Kontak Admin untuk Upgrade
+  const [contactAdminModal, setContactAdminModal] = useState({ isOpen: false, plan: null });
+  const [copiedText, setCopiedText] = useState(false);
 
   const plans = [
     {
@@ -56,8 +54,8 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Simpan catatan perenungan firman & highlight di Cloud',
         'Dukungan penuh pembacaan di HP, Tablet & Laptop'
       ],
-      storeSync: 'QRIS Instan Aktif Otomatis',
-      cta: 'Bayar via QRIS'
+      storeSync: 'Aktivasi langsung oleh Admin',
+      cta: 'Minta Upgrade ke Admin'
     },
     {
       id: 'ultimate',
@@ -77,14 +75,13 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
         'Akses prioritas terbitan baru Living Stream Ministry & Yasperin',
         'Jaminan bebas biaya pembaruan seluruh edisi buku'
       ],
-      storeSync: 'QRIS Instan Aktif Otomatis',
-      cta: 'Bayar via QRIS'
+      storeSync: 'Aktivasi langsung oleh Admin',
+      cta: 'Minta Upgrade ke Admin'
     }
   ];
 
   const handleSelectPlan = (tierId) => {
     if (tierId === 'standart') {
-      setActiveTier('standart');
       if (onPlanUpdated) {
         onPlanUpdated({
           ...currentPlan,
@@ -100,41 +97,34 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
       return;
     }
 
-    // Untuk paket berbayar (Premium / Ultimate), buka popup QRIS Dinamis Otomatis
+    // Untuk paket berbayar (Premium / Ultimate), buka modal kontak admin untuk upgrade
     const targetPlan = plans.find(p => p.id === tierId);
-    setSelectedPaymentPlan(targetPlan);
-    setIsQrisModalOpen(true);
+    setContactAdminModal({ isOpen: true, plan: targetPlan });
   };
 
-  const handleQrisPaymentSuccess = (paymentDetails) => {
-    const expires = new Date();
-    if (selectedBilling === 'yearly') {
-      expires.setFullYear(expires.getFullYear() + 1);
-    } else {
-      expires.setMonth(expires.getMonth() + 1);
-    }
+  const getUpgradeMessage = (plan) => {
+    if (!plan) return '';
+    const cycle = selectedBilling === 'yearly' ? 'Tahunan' : 'Bulanan';
+    const price = selectedBilling === 'yearly' ? plan.priceYearly : plan.priceMonthly;
+    return `Syalom Admin Perpustakaan Baca, saya ingin meminta upgrade akun saya ke paket ${plan.name} (${cycle} - ${price}). Mohon bantuan aktivasi akun saya. Terima kasih!`;
+  };
 
-    const updatedPlan = {
-      ...currentPlan,
-      tier: paymentDetails.tier,
-      status: 'active',
-      billingCycle: selectedBilling,
-      expiresAt: expires.toISOString().split('T')[0],
-      lastPayment: paymentDetails
-    };
+  const handleOpenWhatsApp = (plan) => {
+    const text = encodeURIComponent(getUpgradeMessage(plan));
+    window.open(`https://wa.me/6281234567890?text=${text}`, '_blank');
+  };
 
-    if (onPlanUpdated) {
-      onPlanUpdated(updatedPlan);
-    }
-
-    setIsQrisModalOpen(false);
-    onClose();
+  const handleCopyMessage = (plan) => {
+    const text = getUpgradeMessage(plan);
+    navigator.clipboard.writeText(text);
+    setCopiedText(true);
+    setTimeout(() => setCopiedText(false), 2000);
   };
 
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-4xl p-6 sm:p-8 bg-[#F4EFE6] text-[#1C1917] rounded-[32px] border border-[#1C1917]/15 overflow-y-auto max-h-[92vh]">
+        <DialogContent className="max-w-4xl p-6 sm:p-8 bg-[#F4EFE6] text-[#1C1917] rounded-[32px] border border-[#1C1917]/15 overflow-y-auto max-h-[92vh] scrollbar-thin">
           <DialogHeader className="space-y-3 text-center">
             <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full bg-[#8E9C75]/25 border border-[#8E9C75]/40 text-[#3B4B34] text-xs font-bold tracking-wider uppercase mx-auto">
               <Sparkles className="w-3.5 h-3.5 text-amber-600" />
@@ -145,12 +135,13 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
               Pilih Paket Pembacaan Anda
             </DialogTitle>
             <DialogDescription className="text-xs sm:text-sm text-[#78716C] max-w-xl mx-auto">
-              Tingkatkan pertumbuhan rohani Anda dengan akses penuh firman dan buku-buku pembinaan. Pembayaran mudah &amp; otomatis aktif via <strong>QRIS</strong>.
+              Tingkatkan pertumbuhan rohani Anda dengan akses penuh firman dan buku pembinaan. Untuk sementara, pendaftaran akun dan upgrade paket dilakukan langsung melalui <strong>Administrator</strong>.
             </DialogDescription>
 
             {/* Billing Switcher */}
             <div className="inline-flex items-center gap-1 p-1 bg-white/80 rounded-full border border-[#1C1917]/10 mx-auto shadow-xs">
               <button
+                type="button"
                 onClick={() => setSelectedBilling('monthly')}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                   selectedBilling === 'monthly'
@@ -161,6 +152,7 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
                 Tagihan Bulanan
               </button>
               <button
+                type="button"
                 onClick={() => setSelectedBilling('yearly')}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
                   selectedBilling === 'yearly'
@@ -230,29 +222,30 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-[#1C1917]/8 space-y-2">
-                    <div className="text-[10px] text-[#8E9C75] font-semibold flex items-center gap-1.5 bg-[#8E9C75]/10 px-2.5 py-1 rounded-lg">
+                    <div className="text-[10px] text-[#3B4B34] font-semibold flex items-center gap-1.5 bg-[#8E9C75]/15 px-2.5 py-1.5 rounded-xl">
                       {p.id === 'standart' ? (
                         <Smartphone className="w-3 h-3 text-[#3B4B34]" />
                       ) : (
-                        <QrCode className="w-3 h-3 text-red-600" />
+                        <Phone className="w-3 h-3 text-emerald-700" />
                       )}
                       <span>{p.storeSync}</span>
                     </div>
 
                     <Button
+                      type="button"
                       onClick={() => handleSelectPlan(p.id)}
                       disabled={isCurrent}
-                      className={`w-full rounded-full text-xs font-bold py-2.5 transition-all ${
+                      className={`w-full rounded-full text-xs font-bold py-2.5 transition-all btn-lift ${
                         isCurrent
                           ? 'bg-stone-200 text-stone-500 cursor-default'
                           : p.popular
                           ? 'bg-[#3B4B34] hover:bg-[#20251A] text-white shadow-md'
-                          : 'bg-[#1C1917] hover:bg-[#3B4B34] text-white'
+                          : 'bg-[#1C1917] hover:bg-[#3B4B34] text-white shadow-xs'
                       }`}
                     >
                       {isCurrent ? 'Sedang Digunakan' : (
                         <span className="flex items-center justify-center gap-1.5">
-                          {p.id !== 'standart' && <QrCode className="w-3.5 h-3.5" />}
+                          {p.id !== 'standart' && <MessageSquare className="w-3.5 h-3.5" />}
                           {p.cta}
                         </span>
                       )}
@@ -266,23 +259,95 @@ export default function SubscriptionModal({ isOpen, onClose, currentPlan, onPlan
           <div className="mt-6 pt-4 border-t border-[#1C1917]/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#78716C]">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              Pembayaran aman terenkripsi &amp; didukung seluruh bank &amp; dompet digital (QRIS).
+              Pendaftaran &amp; upgrade paket sementara dikonfirmasi langsung oleh Administrator.
             </span>
-            <span className="text-[10px] text-[#8E9C75] font-bold">
-              Tanpa Tunggu Approval Admin • Langsung Aktif
+            <span className="text-[10px] text-[#3B4B34] font-bold">
+              Hubungi Admin untuk Bantuan &amp; Upgrade
             </span>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Modal QRIS Dinamis Otomatis */}
-      <QrisPaymentModal
-        isOpen={isQrisModalOpen}
-        onClose={() => setIsQrisModalOpen(false)}
-        plan={selectedPaymentPlan}
-        billingCycle={selectedBilling}
-        onPaymentSuccess={handleQrisPaymentSuccess}
-      />
+      {/* Modal Dialog Khusus: Minta Upgrade ke Admin */}
+      <Dialog open={contactAdminModal.isOpen} onOpenChange={(open) => !open && setContactAdminModal({ isOpen: false, plan: null })}>
+        <DialogContent className="max-w-md p-6 sm:p-7 bg-[#FAF7F2] text-[#1C1917] rounded-[32px] border border-[#1C1917]/15 shadow-2xl">
+          <DialogHeader className="text-left space-y-1">
+            <div className="flex items-center gap-3 mb-1">
+              <div className="w-10 h-10 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md">
+                <MessageSquare className="w-5 h-5 text-amber-300" />
+              </div>
+              <div>
+                <DialogTitle className="text-lg font-serif font-bold text-[#1C1917]">
+                  Minta Upgrade ke Admin
+                </DialogTitle>
+                <DialogDescription className="text-xs text-[#78716C]">
+                  Paket Pilihan: <strong className="text-[#3B4B34] font-bold">{contactAdminModal.plan?.name}</strong> ({selectedBilling === 'yearly' ? 'Tahunan' : 'Bulanan'} - {selectedBilling === 'yearly' ? contactAdminModal.plan?.priceYearly : contactAdminModal.plan?.priceMonthly})
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div className="space-y-4 pt-1">
+            <div className="p-3 bg-amber-50 border border-amber-200/80 rounded-2xl text-xs text-amber-900 flex items-start gap-2.5">
+              <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+              <p className="text-[11px] leading-relaxed">
+                Pendaftaran &amp; upgrade paket saat ini ditangani langsung oleh Administrator. Admin akan mengaktifkan paket Anda melalui Dashboard Manajemen Pengguna.
+              </p>
+            </div>
+
+            {/* Info Kontak Admin */}
+            <div className="bg-white p-3.5 rounded-2xl border border-[#1C1917]/10 space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-stone-500 font-medium">WhatsApp Admin:</span>
+                <span className="font-bold text-emerald-800 font-mono">0812-3456-7890</span>
+              </div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-stone-500 font-medium">Email Pengelola:</span>
+                <span className="font-bold text-stone-800 font-mono">admin123@baca.id</span>
+              </div>
+            </div>
+
+            {/* Format Pesan */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-bold text-stone-600 block">Pesan Permintaan:</label>
+              <div className="p-3 bg-stone-100/80 border border-stone-200 rounded-xl text-xs text-stone-700 font-mono leading-relaxed select-all">
+                {getUpgradeMessage(contactAdminModal.plan)}
+              </div>
+            </div>
+
+            {/* Tombol Aksi */}
+            <div className="flex flex-col gap-2 pt-1">
+              <Button
+                type="button"
+                onClick={() => handleOpenWhatsApp(contactAdminModal.plan)}
+                className="w-full h-11 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-md btn-lift flex items-center justify-center gap-2"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Chat WhatsApp Admin Sekarang</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => handleCopyMessage(contactAdminModal.plan)}
+                className="w-full h-10 rounded-full border-[#1C1917]/15 bg-white text-stone-800 font-bold text-xs hover:bg-stone-50 flex items-center justify-center gap-2"
+              >
+                {copiedText ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-600" />
+                    <span>Pesan Berhasil Disalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-stone-600" />
+                    <span>Salin Format Pesan</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
