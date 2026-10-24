@@ -18,6 +18,13 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { 
   getStoredUsers, 
   saveStoredUsers, 
@@ -663,17 +670,18 @@ export default function AdminDashboard({
             </div>
 
             <div className="flex items-center gap-2 w-full sm:w-auto">
-              <span className="text-[11px] font-bold text-[#78716C]">Filter Paket:</span>
-              <select
-                value={userTierFilter}
-                onChange={(e) => setUserTierFilter(e.target.value)}
-                className="h-9 px-3 text-xs rounded-xl bg-[#FAF7F2] border border-[#1C1917]/10 font-medium text-[#1C1917] focus:outline-none"
-              >
-                <option value="all">Semua Paket</option>
-                <option value="standart">Standart (Gratis)</option>
-                <option value="premium">Premium</option>
-                <option value="ultimate">Ultimate</option>
-              </select>
+              <span className="text-[11px] font-bold text-[#78716C] whitespace-nowrap">Filter Paket:</span>
+              <Select value={userTierFilter} onValueChange={setUserTierFilter}>
+                <SelectTrigger className="h-9 min-w-[145px] rounded-xl bg-[#FAF7F2] border-[#1C1917]/10 text-xs font-semibold">
+                  <SelectValue placeholder="Semua Paket" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Semua Paket</SelectItem>
+                  <SelectItem value="standart">Standart (Gratis)</SelectItem>
+                  <SelectItem value="premium">Premium</SelectItem>
+                  <SelectItem value="ultimate">Ultimate</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -1348,27 +1356,29 @@ export default function AdminDashboard({
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
                 <label className="text-xs font-bold text-[#1C1917]">Paket Langganan</label>
-                <select
-                  value={userFormTier}
-                  onChange={(e) => setUserFormTier(e.target.value)}
-                  className="w-full h-9 px-3 rounded-xl bg-white border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none"
-                >
-                  <option value="standart">Standart (Gratis)</option>
-                  <option value="premium">Premium</option>
-                  <option value="ultimate">Ultimate</option>
-                </select>
+                <Select value={userFormTier} onValueChange={setUserFormTier}>
+                  <SelectTrigger className="w-full h-9 rounded-xl bg-white border-[#1C1917]/15 text-xs font-semibold">
+                    <SelectValue placeholder="Pilih Paket" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="standart">Standart (Gratis)</SelectItem>
+                    <SelectItem value="premium">Premium</SelectItem>
+                    <SelectItem value="ultimate">Ultimate</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-[#1C1917]">Status Akun</label>
-                <select
-                  value={userFormStatus}
-                  onChange={(e) => setUserFormStatus(e.target.value)}
-                  className="w-full h-9 px-3 rounded-xl bg-white border border-[#1C1917]/15 text-xs font-bold text-[#1C1917] focus:outline-none"
-                >
-                  <option value="active">Aktif</option>
-                  <option value="suspended">Ditangguhkan</option>
-                </select>
+                <Select value={userFormStatus} onValueChange={setUserFormStatus}>
+                  <SelectTrigger className="w-full h-9 rounded-xl bg-white border-[#1C1917]/15 text-xs font-semibold">
+                    <SelectValue placeholder="Pilih Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Aktif</SelectItem>
+                    <SelectItem value="suspended">Ditangguhkan</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
