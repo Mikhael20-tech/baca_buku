@@ -453,20 +453,30 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
   // Touch Swipe Handlers for Mobile Chapter Navigation
   const handleTouchStart = (e) => {
-    touchStartX.current = e.changedTouches[0].screenX;
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+    const x = e.changedTouches[0].screenX;
+    // Abaikan jika swipe dimulai di dekat tepi layar (< 30px) agar tidak bertabrakan dengan navigasi sistem OS
+    if (x < 30 || x > window.innerWidth - 30) {
+      touchStartX.current = null;
+      return;
+    }
+    touchStartX.current = x;
     touchStartY.current = e.changedTouches[0].screenY;
   };
 
   const handleTouchEnd = (e) => {
+    if (touchStartX.current === null || !e.changedTouches || e.changedTouches.length === 0) return;
     const diffX = e.changedTouches[0].screenX - touchStartX.current;
     const diffY = e.changedTouches[0].screenY - touchStartY.current;
-    if (Math.abs(diffX) > 80 && Math.abs(diffY) < 60) {
+    // Hanya picu ganti pasal jika gerakan horizontal dominan (> 80px) dan vertikal minim (< 50px)
+    if (Math.abs(diffX) > 80 && Math.abs(diffY) < 50) {
       if (diffX < 0) {
-        handleNextChapter(); // Swipe left -> Next
+        handleNextChapter(); // Swipe kiri -> Pasal Berikutnya
       } else {
-        handlePrevChapter(); // Swipe right -> Prev
+        handlePrevChapter(); // Swipe kanan -> Pasal Sebelumnya
       }
     }
+    touchStartX.current = null;
   };
 
   // Simpan pengaturan tampilan
@@ -868,7 +878,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
   return (
     <div 
-      className={`h-full flex flex-col ${themeStyles.bg} selection:bg-amber-400 selection:text-slate-950 transition-colors duration-200`}
+      className={`h-full flex flex-col ${themeStyles.bg} selection:bg-amber-400 selection:text-slate-950 transition-colors duration-200 overscroll-none touch-pan-y`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >

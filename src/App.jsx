@@ -811,6 +811,29 @@ export default function App() {
     showToast(`Paket berhasil diperbarui ke ${newPlan.tier.toUpperCase()}!`);
   };
 
+  // Sinkronisasi history browser agar gesture back/swipe di HP/Tablet tidak langsung keluar web
+  useEffect(() => {
+    const handlePopState = () => {
+      if (currentBook) {
+        setCurrentBook(null);
+        return;
+      }
+      if (viewMode !== 'landing') {
+        setViewMode('landing');
+        return;
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [currentBook, viewMode]);
+
+  useEffect(() => {
+    if (currentBook || viewMode !== 'landing') {
+      window.history.pushState({ appView: viewMode, book: currentBook?.id }, '');
+    }
+  }, [currentBook, viewMode]);
+
   useEffect(() => {
     fetchBooks();
 
