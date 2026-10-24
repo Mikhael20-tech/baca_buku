@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Baca</string>
+    <string name="title_activity_main">Baca</string>
+    <string name="package_name">com.baca.alkitab</string>
+    <string name="custom_url_scheme">com.baca.alkitab</string>
+</resources>

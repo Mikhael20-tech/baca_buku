@@ -33,3 +33,5 @@ __pycache__/
 *.pyc
 Alkitab/*.pdf
 Alkitab/*.epub
+*.apk
+*.aab
