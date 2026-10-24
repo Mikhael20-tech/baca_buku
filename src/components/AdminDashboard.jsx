@@ -399,24 +399,24 @@ export default function AdminDashboard({
       )}
 
       {/* Top Admin Banner */}
-      <div className="relative overflow-hidden rounded-[32px] p-6 sm:p-8 text-white border border-stone-800 shadow-2xl bg-stone-900">
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="flex items-start sm:items-center gap-4">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-amber-400 text-stone-950 font-serif font-bold text-2xl sm:text-3xl flex items-center justify-center shadow-lg border-2 border-amber-300">
+      <div className="relative overflow-hidden rounded-3xl sm:rounded-[32px] p-5 sm:p-8 text-white border border-stone-800 shadow-2xl bg-stone-900">
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 sm:gap-4">
+            <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-amber-400 text-stone-950 font-serif font-bold text-2xl sm:text-3xl flex items-center justify-center shadow-lg border-2 border-amber-300 shrink-0">
               A
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-1 sm:space-y-1.5 min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  Portal Administrator
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                  <span>Portal Administrator</span>
                 </span>
                 <Badge variant="outline" className="text-[10px] uppercase font-bold text-amber-300 border-amber-400/40 bg-amber-400/10">
                   Mode Pengelola Penuh
                 </Badge>
               </div>
 
-              <h1 className="text-xl sm:text-3xl font-serif font-bold text-white">
+              <h1 className="text-xl sm:text-3xl font-serif font-bold text-white leading-tight">
                 Administrator (admin123)
               </h1>
               <p className="text-xs text-stone-400 max-w-xl leading-relaxed">
@@ -425,119 +425,121 @@ export default function AdminDashboard({
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full lg:w-auto">
             <Button
               onClick={() => {
                 setActiveTab('users');
                 handleOpenCreateUser();
               }}
               variant="outline"
-              className="rounded-full text-xs font-bold border-stone-700 text-stone-200 hover:bg-stone-800 bg-stone-800/50 btn-lift"
+              className="flex-1 sm:flex-initial rounded-full text-xs font-bold border-stone-700 text-stone-200 hover:bg-stone-800 bg-stone-800/50 btn-lift h-10 px-4"
             >
               <Plus className="w-3.5 h-3.5 mr-1 text-emerald-400" />
-              Tambah User Baru
+              <span>Tambah User Baru</span>
             </Button>
 
             <Button
               onClick={onOpenUpload}
-              className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white px-5 shadow-lg btn-lift"
+              className="flex-1 sm:flex-initial rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white px-5 shadow-lg btn-lift h-10"
             >
               <UploadCloud className="w-3.5 h-3.5 mr-1.5 text-amber-300" />
-              Unggah Buku EPUB
+              <span>Unggah Buku EPUB</span>
             </Button>
           </div>
         </div>
 
         {/* Admin Quick Stat Cards */}
-        <div className="mt-8 pt-6 border-t border-stone-800 grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-          <div className="p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
+        <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-stone-800 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
             <div className="flex items-center justify-between text-stone-400">
-              <span>Total Koleksi Buku</span>
-              <BookOpen className="w-4 h-4 text-amber-400" />
+              <span className="text-[11px] truncate">Total Koleksi Buku</span>
+              <BookOpen className="w-4 h-4 text-amber-400 shrink-0" />
             </div>
-            <p className="text-2xl font-serif font-bold text-white">{books.length} Buku</p>
-            <p className="text-[10px] text-emerald-400 font-semibold">Tersimpan di Cloud &amp; Lokal</p>
+            <p className="text-xl sm:text-2xl font-serif font-bold text-white">{books.length} Buku</p>
+            <p className="text-[10px] text-emerald-400 font-semibold truncate">Tersimpan Cloud &amp; Lokal</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
             <div className="flex items-center justify-between text-stone-400">
-              <span>Pengguna Terdaftar</span>
-              <Users className="w-4 h-4 text-emerald-400" />
+              <span className="text-[11px] truncate">Pengguna Terdaftar</span>
+              <Users className="w-4 h-4 text-emerald-400 shrink-0" />
             </div>
-            <p className="text-2xl font-serif font-bold text-white">{users.length} User</p>
-            <p className="text-[10px] text-stone-300">Standart, Premium, Ultimate</p>
+            <p className="text-xl sm:text-2xl font-serif font-bold text-white">{users.length} User</p>
+            <p className="text-[10px] text-stone-300 truncate">Standart, Premium, Ultimate</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
             <div className="flex items-center justify-between text-stone-400">
-              <span>Status Server Cloud</span>
-              <Database className="w-4 h-4 text-emerald-400" />
+              <span className="text-[11px] truncate">Server Cloud</span>
+              <Database className="w-4 h-4 text-emerald-400 shrink-0" />
             </div>
-            <p className="text-2xl font-serif font-bold text-white">Online &amp; Sinkron</p>
-            <p className="text-[10px] text-emerald-400 font-semibold">Database Siap Pakai</p>
+            <p className="text-xl sm:text-2xl font-serif font-bold text-white">Online &amp; Aktif</p>
+            <p className="text-[10px] text-emerald-400 font-semibold truncate">Database Siap Pakai</p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-stone-800/60 border border-stone-700/60 space-y-1">
             <div className="flex items-center justify-between text-stone-400">
-              <span>Bagi Nikmat Masuk</span>
-              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span className="text-[11px] truncate">Bagi Nikmat</span>
+              <Sparkles className="w-4 h-4 text-amber-300 shrink-0" />
             </div>
-            <p className="text-2xl font-serif font-bold text-white">{enjoyments.length} Testimoni</p>
-            <p className="text-[10px] text-stone-300">Moderasi Komunitas</p>
+            <p className="text-xl sm:text-2xl font-serif font-bold text-white">{enjoyments.length} Cerita</p>
+            <p className="text-[10px] text-stone-300 truncate">Moderasi Komunitas</p>
           </div>
         </div>
       </div>
 
       {/* Admin Nav Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#1C1917]/10 pb-3 overflow-x-auto scrollbar-none">
+      <div className="flex items-center gap-2 border-b border-[#1C1917]/10 pb-3 overflow-x-auto scrollbar-none touch-pan-x -webkit-overflow-scrolling-touch">
         <button
+          type="button"
           onClick={() => setActiveTab('books')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap shrink-0 flex items-center gap-2 ${
             activeTab === 'books'
               ? 'bg-[#1C1917] text-white shadow-sm'
               : 'text-[#78716C] hover:text-[#1C1917] hover:bg-stone-200/50'
           }`}
         >
           <BookOpen className="w-3.5 h-3.5" />
-          <span>Katalog &amp; Hak Akses Buku ({books.length})</span>
+          <span>Katalog Buku ({books.length})</span>
         </button>
 
         <button
+          type="button"
           onClick={() => setActiveTab('users')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap shrink-0 flex items-center gap-2 ${
             activeTab === 'users'
               ? 'bg-[#1C1917] text-white shadow-sm'
               : 'text-[#78716C] hover:text-[#1C1917] hover:bg-stone-200/50'
           }`}
         >
           <Users className="w-3.5 h-3.5 text-emerald-500" />
-          <span>Data Pengguna &amp; Langganan ({users.length})</span>
+          <span>Data Pengguna ({users.length})</span>
         </button>
 
-
-
         <button
+          type="button"
           onClick={() => setActiveTab('community')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap shrink-0 flex items-center gap-2 ${
             activeTab === 'community'
               ? 'bg-[#1C1917] text-white shadow-sm'
               : 'text-[#78716C] hover:text-[#1C1917] hover:bg-stone-200/50'
           }`}
         >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Moderasi Bagi Nikmat ({enjoyments.length})</span>
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <span>Moderasi Komunitas ({enjoyments.length})</span>
         </button>
 
         <button
+          type="button"
           onClick={() => setActiveTab('ai')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2 ${
+          className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap shrink-0 flex items-center gap-2 ${
             activeTab === 'ai'
               ? 'bg-[#1C1917] text-white shadow-sm'
               : 'text-[#78716C] hover:text-[#1C1917] hover:bg-stone-200/50'
           }`}
         >
           <Settings className="w-3.5 h-3.5" />
-          <span>Pengaturan Santapan FKKP</span>
+          <span>Santapan FKKP</span>
         </button>
       </div>
 
@@ -564,10 +566,10 @@ export default function AdminDashboard({
             </Button>
           </div>
 
-          <div className="bg-white rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[#FAF7F2] border-b border-[#1C1917]/8 text-[#78716C] uppercase font-bold text-[10px] tracking-wider">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
+            <div className="overflow-x-auto scrollbar-thin">
+              <table className="w-full text-left text-xs min-w-[680px]">
+                <thead className="bg-[#FAF7F2] border-b border-[#1C1917]/8 text-[#78716C] uppercase font-bold text-[10px] tracking-wider whitespace-nowrap">
                   <tr>
                     <th className="py-3.5 px-4">Buku &amp; Penulis</th>
                     <th className="py-3.5 px-4">Kategori</th>
@@ -657,7 +659,7 @@ export default function AdminDashboard({
           </div>
 
           {/* Search & Filter Bar */}
-          <div className="p-3 bg-white rounded-2xl border border-[#1C1917]/10 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+          <div className="p-3 bg-white rounded-2xl border border-[#1C1917]/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-xs">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 text-[#78716C] absolute left-3 top-2.5" />
               <Input
@@ -665,14 +667,14 @@ export default function AdminDashboard({
                 placeholder="Cari nama, email, wa, atau distrik..."
                 value={userSearchQuery}
                 onChange={(e) => setUserSearchQuery(e.target.value)}
-                className="pl-9 h-9 text-xs rounded-xl bg-[#FAF7F2] border-[#1C1917]/10"
+                className="pl-9 h-9 text-xs rounded-xl bg-[#FAF7F2] border-[#1C1917]/10 w-full"
               />
             </div>
 
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
               <span className="text-[11px] font-bold text-[#78716C] whitespace-nowrap">Filter Paket:</span>
               <Select value={userTierFilter} onValueChange={setUserTierFilter}>
-                <SelectTrigger className="h-9 min-w-[145px] rounded-xl bg-[#FAF7F2] border-[#1C1917]/10 text-xs font-semibold">
+                <SelectTrigger className="h-9 min-w-[145px] flex-1 sm:flex-initial rounded-xl bg-[#FAF7F2] border-[#1C1917]/10 text-xs font-semibold">
                   <SelectValue placeholder="Semua Paket" />
                 </SelectTrigger>
                 <SelectContent>
@@ -686,10 +688,10 @@ export default function AdminDashboard({
           </div>
 
           {/* User Table */}
-          <div className="bg-white rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[#FAF7F2] border-b border-[#1C1917]/8 text-[#78716C] uppercase font-bold text-[10px] tracking-wider">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#1C1917]/10 overflow-hidden shadow-sm">
+            <div className="overflow-x-auto scrollbar-thin">
+              <table className="w-full text-left text-xs min-w-[760px]">
+                <thead className="bg-[#FAF7F2] border-b border-[#1C1917]/8 text-[#78716C] uppercase font-bold text-[10px] tracking-wider whitespace-nowrap">
                   <tr>
                     <th className="py-3.5 px-4">Pengguna</th>
                     <th className="py-3.5 px-4">Kontak (WA &amp; Email)</th>
@@ -1267,7 +1269,7 @@ export default function AdminDashboard({
 
       {/* ======================= MODAL CRUD USER ======================= */}
       <Dialog open={isUserModalOpen} onOpenChange={setIsUserModalOpen}>
-        <DialogContent className="sm:max-w-md rounded-[32px] p-7 bg-[#F7F4ED] border border-[#1C1917]/15 shadow-2xl text-[#1C1917]">
+        <DialogContent className="w-[94vw] max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl sm:rounded-[32px] p-5 sm:p-7 bg-[#F7F4ED] border border-[#1C1917]/15 shadow-2xl text-[#1C1917] scrollbar-thin">
           <DialogHeader className="text-left space-y-1">
             <DialogTitle className="text-lg font-serif font-bold text-[#1C1917] flex items-center gap-2">
               <Users className="w-5 h-5 text-[#3B4B34]" />
@@ -1291,7 +1293,7 @@ export default function AdminDashboard({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
                 <label className="text-xs font-bold text-[#1C1917]">Nomor WhatsApp</label>
                 <Input
@@ -1353,7 +1355,7 @@ export default function AdminDashboard({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
                 <label className="text-xs font-bold text-[#1C1917]">Paket Langganan</label>
                 <Select value={userFormTier} onValueChange={setUserFormTier}>
