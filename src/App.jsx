@@ -14,9 +14,32 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuLabel 
 } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { supabase, isSupabaseConfigured, isValidUUID } from './lib/supabase';
 import { deleteBookFromIndexedDB } from './lib/bookStorage';
 import ErrorBoundary from './components/ErrorBoundary';
+import AdminUploadModal from './components/AdminUploadModal';
+import AuthModal from './components/AuthModal';
+import LandingPage from './components/LandingPage';
+import KarakterSeriesModal from './components/KarakterSeriesModal';
+import PembinaanTopicsModal from './components/PembinaanTopicsModal';
+import BibleSelectorModal from './components/BibleSelectorModal';
+import SubscriptionModal from './components/SubscriptionModal';
+import QuickScriptureModal from './components/QuickScriptureModal';
+import LockedBookModal from './components/LockedBookModal';
+import { isBookLocked, getBookAccessInfo } from './lib/accessControl';
+import { 
+  getStoredEnjoyments, 
+  saveStoredEnjoyments, 
+  addEnjoyment, 
+  getUserSubscription, 
+  saveUserSubscription 
+} from './lib/communityStorage';
+import { syncUserProfileToSupabase } from './lib/userManagement';
 
 function lazyWithRetry(componentImport, componentName = '') {
   return React.lazy(async () => {
@@ -48,30 +71,6 @@ const ViewLoadingFallback = ({ text = 'Memuat...' }) => (
     <p className="text-xs font-semibold tracking-wider uppercase font-mono text-stone-600">{text}</p>
   </div>
 );
-
-import AdminUploadModal from './components/AdminUploadModal';
-import AuthModal from './components/AuthModal';
-import LandingPage from './components/LandingPage';
-import KarakterSeriesModal from './components/KarakterSeriesModal';
-import PembinaanTopicsModal from './components/PembinaanTopicsModal';
-import BibleSelectorModal from './components/BibleSelectorModal';
-import SubscriptionModal from './components/SubscriptionModal';
-import QuickScriptureModal from './components/QuickScriptureModal';
-import LockedBookModal from './components/LockedBookModal';
-import { isBookLocked, getBookAccessInfo } from './lib/accessControl';
-import { 
-  getStoredEnjoyments, 
-  saveStoredEnjoyments, 
-  addEnjoyment, 
-  getUserSubscription, 
-  saveUserSubscription 
-} from './lib/communityStorage';
-import { syncUserProfileToSupabase } from './lib/userManagement';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
 const INITIAL_DEMO_BOOKS = [
   {

@@ -1,15 +1,25 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { 
   BookOpen, ChevronLeft, ChevronRight, Search, Sparkles, 
   Settings, Sun, Moon, Coffee, ArrowLeft, Bookmark, Copy, 
   Check, Share2, ZoomIn, ZoomOut, Compass, List, X,
-  MessageCircle, ChevronDown, ChevronUp, Info, Maximize2, Minimize2,
-  Highlighter, Columns, BookMarked, Hash, FileText, Scroll, Eye, Clock,
+  Info, Maximize2, Minimize2,
+  Columns, BookMarked, Hash, FileText, Scroll, Eye, Clock,
   ArrowLeftRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
+import BibleIntroModal from './BibleIntroModal';
+import BibleBookmarksModal from './BibleBookmarksModal';
+import BibleGlobalSearchModal from './BibleGlobalSearchModal';
+import BibleRefPreviewModal from './BibleRefPreviewModal';
+import BibleVerseCardModal from './BibleVerseCardModal';
+import BiblePersonalNoteModal from './BiblePersonalNoteModal';
+import BibleNotesListModal from './BibleNotesListModal';
+import BibleVerseCompareModal from './BibleVerseCompareModal';
+import BibleScofieldIndexModal from './BibleScofieldIndexModal';
+import BibleScofieldClassicView from './BibleScofieldClassicView';
+import BibleTruthChartsModal from './BibleTruthChartsModal';
 
 const PARALLEL_TRANSLATIONS = [
   { id: 'id', code: 'AVP', name: 'Alkitab Versi Pemulihan' },
@@ -25,18 +35,6 @@ const getTranslationLabel = (lang) => {
   const found = PARALLEL_TRANSLATIONS.find(t => t.id === lang);
   return found ? `${found.code} • ${found.name}` : (lang ? lang.toUpperCase() : 'ID');
 };
-
-import BibleIntroModal from './BibleIntroModal';
-import BibleBookmarksModal from './BibleBookmarksModal';
-import BibleGlobalSearchModal from './BibleGlobalSearchModal';
-import BibleRefPreviewModal from './BibleRefPreviewModal';
-import BibleVerseCardModal from './BibleVerseCardModal';
-import BiblePersonalNoteModal from './BiblePersonalNoteModal';
-import BibleNotesListModal from './BibleNotesListModal';
-import BibleVerseCompareModal from './BibleVerseCompareModal';
-import BibleScofieldIndexModal from './BibleScofieldIndexModal';
-import BibleScofieldClassicView from './BibleScofieldClassicView';
-import BibleTruthChartsModal from './BibleTruthChartsModal';
 
 const BIBLE_ABBR_MAP = {
   gen: 'kejadian', genesis: 'kejadian', kej: 'kejadian',
@@ -277,7 +275,6 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
   const [activeNoteKey, setActiveNoteKey] = useState(null);
   const [highlightedVerse, setHighlightedVerse] = useState(null);
   const [transitionAnim, setTransitionAnim] = useState('animate-chapter-fade');
-  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
 
   const contentRef = useRef(null);
   const touchStartX = useRef(0);
@@ -409,83 +406,6 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     localStorage.setItem('bible_view_mode', viewMode);
   }, [viewMode]);
 
-  // Keyboard navigation (ArrowLeft & ArrowRight) & Escape key
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
-
-      if (e.key === 'Escape') {
-        if (previewReference) {
-          setPreviewReference(null);
-        } else if (activeFootnotePopup) {
-          handleCloseFootnote();
-        } else if (isIntroModalOpen) {
-          setIsIntroModalOpen(false);
-        } else if (isBookmarksModalOpen) {
-          setIsBookmarksModalOpen(false);
-        } else if (isGlobalSearchOpen) {
-          setIsGlobalSearchOpen(false);
-        } else if (isBookPickerOpen) {
-          setIsBookPickerOpen(false);
-        } else if (isChapterPickerOpen) {
-          setIsChapterPickerOpen(false);
-        } else if (isSettingsOpen) {
-          setIsSettingsOpen(false);
-        } else if (isDistractionFree) {
-          setIsDistractionFree(false);
-        }
-      } else if (e.key === 'ArrowLeft') {
-        handlePrevChapter();
-      } else if (e.key === 'ArrowRight') {
-        handleNextChapter();
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setIsGlobalSearchOpen(true);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [
-    activeFootnotePopup, previewReference, isIntroModalOpen, 
-    isBookmarksModalOpen, isGlobalSearchOpen, isBookPickerOpen, 
-    isChapterPickerOpen, isSettingsOpen, isDistractionFree, selectedChapter, books
-  ]);
-
-  // Touch Swipe Handlers for Mobile Chapter Navigation
-  const handleTouchStart = (e) => {
-    if (!e.changedTouches || e.changedTouches.length === 0) return;
-    const x = e.changedTouches[0].screenX;
-    // Abaikan jika swipe dimulai di dekat tepi layar (< 30px) agar tidak bertabrakan dengan navigasi sistem OS
-    if (x < 30 || x > window.innerWidth - 30) {
-      touchStartX.current = null;
-      return;
-    }
-    touchStartX.current = x;
-    touchStartY.current = e.changedTouches[0].screenY;
-  };
-
-  const handleTouchEnd = (e) => {
-    if (touchStartX.current === null || !e.changedTouches || e.changedTouches.length === 0) return;
-    const diffX = e.changedTouches[0].screenX - touchStartX.current;
-    const diffY = e.changedTouches[0].screenY - touchStartY.current;
-    // Hanya picu ganti pasal jika gerakan horizontal dominan (> 80px) dan vertikal minim (< 50px)
-    if (Math.abs(diffX) > 80 && Math.abs(diffY) < 50) {
-      if (diffX < 0) {
-        handleNextChapter(); // Swipe kiri -> Pasal Berikutnya
-      } else {
-        handlePrevChapter(); // Swipe kanan -> Pasal Sebelumnya
-      }
-    }
-    touchStartX.current = null;
-  };
-
-  // Simpan pengaturan tampilan
-  useEffect(() => {
-    localStorage.setItem('bible_theme', theme);
-    localStorage.setItem('bible_font', fontFamily);
-    localStorage.setItem('bible_font_size', fontSize);
-  }, [theme, fontFamily, fontSize]);
-
   const currentBookInfo = useMemo(() => {
     return books.find(b => b.id === selectedBookId) || { name: 'Memuat...', testament: 'PL', chapters_count: 1 };
   }, [books, selectedBookId]);
@@ -542,7 +462,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
   }, [parallelChapterData]);
 
   // Navigasi Next & Prev Pasal
-  const handlePrevChapter = () => {
+  const handlePrevChapter = useCallback(() => {
     setTransitionAnim('animate-chapter-prev');
     if (contentRef.current) {
       contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
@@ -557,9 +477,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
         setSelectedChapter(prevBook.chapters_count || 1);
       }
     }
-  };
+  }, [selectedChapter, books, selectedBookId]);
 
-  const handleNextChapter = () => {
+  const handleNextChapter = useCallback(() => {
     setTransitionAnim('animate-chapter-next');
     if (contentRef.current) {
       contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
@@ -574,7 +494,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
         setSelectedChapter(1);
       }
     }
-  };
+  }, [selectedChapter, totalChapters, books, selectedBookId]);
 
   const handleOpenFootnote = (verseNum, noteIdx, foundNote, noteLang = bibleLang) => {
     const key = `${verseNum}-${noteIdx}`;
@@ -601,14 +521,14 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     }, 3500);
   };
 
-  const handleCloseFootnote = () => {
+  const handleCloseFootnote = useCallback(() => {
     setIsClosingFootnote(true);
     setTimeout(() => {
       setActiveFootnotePopup(null);
       setIsClosingFootnote(false);
       setActiveNoteKey(null);
     }, 180);
-  };
+  }, []);
 
   const handleCopyVerse = (vNum, text) => {
     const fullText = `${currentBookInfo.name} ${selectedChapter}:${vNum} — "${text}"`;
@@ -616,6 +536,84 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     setCopiedVerse(vNum);
     setTimeout(() => setCopiedVerse(null), 2000);
   };
+
+  // Touch Swipe Handlers for Mobile Chapter Navigation
+  const handleTouchStart = (e) => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+    const x = e.changedTouches[0].screenX;
+    // Abaikan jika swipe dimulai di dekat tepi layar (< 30px) agar tidak bertabrakan dengan navigasi sistem OS
+    if (x < 30 || x > window.innerWidth - 30) {
+      touchStartX.current = null;
+      return;
+    }
+    touchStartX.current = x;
+    touchStartY.current = e.changedTouches[0].screenY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null || !e.changedTouches || e.changedTouches.length === 0) return;
+    const diffX = e.changedTouches[0].screenX - touchStartX.current;
+    const diffY = e.changedTouches[0].screenY - touchStartY.current;
+    // Hanya picu ganti pasal jika gerakan horizontal dominan (> 80px) dan vertikal minim (< 50px)
+    if (Math.abs(diffX) > 80 && Math.abs(diffY) < 50) {
+      if (diffX < 0) {
+        handleNextChapter(); // Swipe kiri -> Pasal Berikutnya
+      } else {
+        handlePrevChapter(); // Swipe kanan -> Pasal Sebelumnya
+      }
+    }
+    touchStartX.current = null;
+  };
+
+  // Keyboard navigation (ArrowLeft & ArrowRight) & Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+      if (e.key === 'Escape') {
+        if (previewReference) {
+          setPreviewReference(null);
+        } else if (activeFootnotePopup) {
+          handleCloseFootnote();
+        } else if (isIntroModalOpen) {
+          setIsIntroModalOpen(false);
+        } else if (isBookmarksModalOpen) {
+          setIsBookmarksModalOpen(false);
+        } else if (isGlobalSearchOpen) {
+          setIsGlobalSearchOpen(false);
+        } else if (isBookPickerOpen) {
+          setIsBookPickerOpen(false);
+        } else if (isChapterPickerOpen) {
+          setIsChapterPickerOpen(false);
+        } else if (isSettingsOpen) {
+          setIsSettingsOpen(false);
+        } else if (isDistractionFree) {
+          setIsDistractionFree(false);
+        }
+      } else if (e.key === 'ArrowLeft') {
+        handlePrevChapter();
+      } else if (e.key === 'ArrowRight') {
+        handleNextChapter();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsGlobalSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    activeFootnotePopup, previewReference, isIntroModalOpen, 
+    isBookmarksModalOpen, isGlobalSearchOpen, isBookPickerOpen, 
+    isChapterPickerOpen, isSettingsOpen, isDistractionFree, 
+    handlePrevChapter, handleNextChapter, handleCloseFootnote
+  ]);
+
+  // Simpan pengaturan tampilan
+  useEffect(() => {
+    localStorage.setItem('bible_theme', theme);
+    localStorage.setItem('bible_font', fontFamily);
+    localStorage.setItem('bible_font_size', fontSize);
+  }, [theme, fontFamily, fontSize]);
 
   // Highlights & Bookmarks Actions
   const handleSetHighlight = (vNum, color) => {

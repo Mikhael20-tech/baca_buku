@@ -97,9 +97,6 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
   const isEn = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleLang);
   const isScofield = bibleLang === 'scofield' || bookData?.translation_short === 'Scofield 1917' || initialTab !== 'book';
 
-  if (!isOpen) return null;
-  if (!isScofield && (!bookData || !bookData.intro)) return null;
-
   const intro = bookData?.intro || {};
 
   const [activeTab, setActiveTab] = useState(initialTab || (isScofield && !intro.text ? 'preface' : 'book'));
@@ -129,6 +126,9 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
         setIsLoadingFrontmatter(false);
       });
   }, [isOpen, frontmatter]);
+
+  if (!isOpen) return null;
+  if (!isScofield && (!bookData || !bookData.intro)) return null;
 
   const subject = isEn ? intro.Subject : (intro.Pokok || intro.Subject);
   const author = isEn ? intro.Author : (intro.Penulis || intro.Author);

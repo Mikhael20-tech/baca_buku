@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, BookMarked, Save, Trash2, Clock } from 'lucide-react';
+import { X, BookMarked, Save, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function BiblePersonalNoteModal({
