@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
-  X, Search, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight, 
-  BookOpen, Sparkles, Compass, ExternalLink, Info, Check, Share2
+  X, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight, 
+  BookOpen, Compass, Info, Check
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 
 export default function BibleTruthChartsModal({ 
@@ -18,7 +17,6 @@ export default function BibleTruthChartsModal({
 }) {
   const [charts, setCharts] = useState([]);
   const [selectedChartId, setSelectedChartId] = useState('chart-1');
-  const [searchQuery, setSearchQuery] = useState('');
   const [svgContent, setSvgContent] = useState('');
   const [isLoadingSvg, setIsLoadingSvg] = useState(false);
   const [activeNode, setActiveNode] = useState(null);
@@ -116,16 +114,6 @@ export default function BibleTruthChartsModal({
   };
 
   const handleMouseUp = () => setIsDragging(false);
-
-  // Filtered chart list
-  const filteredCharts = charts.filter(c => {
-    const q = searchQuery.toLowerCase();
-    return (
-      c.title_en.toLowerCase().includes(q) ||
-      (c.title_id && c.title_id.toLowerCase().includes(q)) ||
-      String(c.number).includes(q)
-    );
-  });
 
   // Check if reference points to a book available locally in the app
   const matchedLocalBook = useMemo(() => {

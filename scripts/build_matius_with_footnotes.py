@@ -4,7 +4,8 @@ import sys
 import re
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-file_path = r"D:\Magang\Baca\pdb\roti_hayat_full.txt"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file_path = os.path.join(BASE_DIR, "pdb", "roti_hayat_full.txt")
 
 def xml_clean(s):
     if not s:
@@ -422,8 +423,9 @@ for p_num in range(1, 29):
 
 print(f"Successfully generated {len(matius_chapters)} chapters with clean verses & clickable footnotes!")
 
+output_epub = os.path.join(BASE_DIR, "public", "books", "alkitab-pb-pemulihan.epub")
 build_epub(
-    r"D:\Magang\Baca\public\books\alkitab-pb-pemulihan.epub",
+    output_epub,
     "Injil Matius: Versi Pemulihan (Catatan Kaki Lengkap)",
     "Yasperin / Living Stream Ministry",
     matius_chapters,
@@ -432,10 +434,10 @@ build_epub(
 )
 
 # Copy to dist/books/
-dist_dir = r"D:\Magang\Baca\dist\books"
+dist_dir = os.path.join(BASE_DIR, "dist", "books")
 if os.path.exists(dist_dir):
     import shutil
-    shutil.copy2(r"D:\Magang\Baca\public\books\alkitab-pb-pemulihan.epub", dist_dir)
+    shutil.copy2(output_epub, dist_dir)
     print("Copied alkitab-pb-pemulihan.epub to dist/books/")
 
 print("Finished!")

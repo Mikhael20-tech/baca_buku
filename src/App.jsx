@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
-  BookOpen, Search, UploadCloud, Database, ShieldCheck, UserCheck, 
-  Trash2, Play, Info, Sparkles, CheckCircle2, Copy, 
-  ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, Utensils,
-  User, Smartphone, ChevronDown, LogIn, Settings, Users, Lock, Music,
+  BookOpen, Search, CheckCircle2, 
+  ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, 
+  User, ChevronDown, LogIn, Settings, Users, Lock, Music,
   Menu, Home
 } from 'lucide-react';
 import { 
@@ -11,8 +10,7 @@ import {
   DropdownMenuTrigger, 
   DropdownMenuContent, 
   DropdownMenuItem, 
-  DropdownMenuSeparator, 
-  DropdownMenuLabel 
+  DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -31,7 +29,7 @@ import BibleSelectorModal from './components/BibleSelectorModal';
 import SubscriptionModal from './components/SubscriptionModal';
 import QuickScriptureModal from './components/QuickScriptureModal';
 import LockedBookModal from './components/LockedBookModal';
-import { isBookLocked, getBookAccessInfo } from './lib/accessControl';
+import { isBookLocked } from './lib/accessControl';
 import { 
   getStoredEnjoyments, 
   saveStoredEnjoyments, 
@@ -857,6 +855,46 @@ export default function App() {
     }
   };
 
+  // Handler navigasi langsung ke rujukan ayat Alkitab
+  const handleNavigateToVerse = (verse) => {
+    setIsQuickScriptureOpen(false);
+    if (verse?.book) {
+      const rawBook = String(verse.book).toLowerCase().replace(/[\s.-]+/g, '');
+      const bookMap = {
+        'kejadian': 'kejadian', 'keluaran': 'keluaran', 'imamat': 'imamat', 'bilangan': 'bilangan', 'ulangan': 'ulangan',
+        'yosua': 'yosua', 'hakimhakim': 'hakim-hakim', 'rut': 'rut', '1samuel': '1-samuel', '2samuel': '2-samuel',
+        '1rajaraja': '1-raja-raja', '2rajaraja': '2-raja-raja', '1tawarikh': '1-tawarikh', '2tawarikh': '2-tawarikh',
+        'ezra': 'ezra', 'nehemia': 'nehemia', 'ester': 'ester', 'ayub': 'ayub', 'mazmur': 'mazmur',
+        'amsal': 'amsal', 'pengkhotbah': 'pengkhotbah', 'kidungagung': 'kidung-agung', 'yesaya': 'yesaya',
+        'yeremia': 'yeremia', 'ratapan': 'ratapan', 'yehezkiel': 'yehezkiel', 'daniel': 'daniel',
+        'hosea': 'hosea', 'yoel': 'yoel', 'amos': 'amos', 'obaja': 'obaja', 'yunus': 'yunus',
+        'mikha': 'mikha', 'nahum': 'nahum', 'habakuk': 'habakuk', 'zefanya': 'zefanya', 'hagai': 'hagai',
+        'zakharia': 'zakharia', 'maleakhi': 'maleakhi', 'matius': 'matius', 'markus': 'markus', 'lukas': 'lukas',
+        'yohanes': 'yohanes', 'kisahpararasul': 'kisah-para-rasul', 'kisah': 'kisah-para-rasul',
+        'roma': 'roma', '1korintus': '1-korintus', '2korintus': '2-korintus', 'galatia': 'galatia',
+        'efesus': 'efesus', 'filipi': 'filipi', 'kolose': 'kolose', '1tesalonika': '1-tesalonika',
+        '2tesalonika': '2-tesalonika', '1timotius': '1-timotius', '2timotius': '2-timotius', 'titus': 'titus',
+        'filemon': 'filemon', 'ibrani': 'ibrani', 'yakobus': 'yakobus', '1petrus': '1-petrus',
+        '2petrus': '2-petrus', '1yohanes': '1-yohanes', '2yohanes': '2-yohanes', '3yohanes': '3-yohanes',
+        'yudas': 'yudas', 'wahyu': 'wahyu'
+      };
+      const targetBookId = bookMap[rawBook] || rawBook;
+      localStorage.setItem('last_bible_book', targetBookId);
+      if (verse.chapter) {
+        localStorage.setItem('last_bible_chapter', String(verse.chapter));
+      }
+    }
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true);
+      showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
+    } else {
+      setViewMode('bible');
+      if (verse?.book && verse?.chapter) {
+        showToast(`Membuka ${verse.book} ${verse.chapter} di Pembaca Alkitab`);
+      }
+    }
+  };
+
   // Handler membuka buku (wajib login & cek hak akses paket)
   const handleOpenBook = (book) => {
     if (!isLoggedIn) {
@@ -1264,16 +1302,7 @@ export default function App() {
         <QuickScriptureModal
           isOpen={isQuickScriptureOpen}
           onClose={() => setIsQuickScriptureOpen(false)}
-          onNavigateToVerse={(verse) => {
-            setIsQuickScriptureOpen(false);
-            if (!isLoggedIn) {
-              setIsAuthModalOpen(true);
-              showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
-            } else {
-              setViewMode('bible');
-              showToast(`Membuka ${verse.book} ${verse.chapter}:${verse.verse} di Pembaca Alkitab`);
-            }
-          }}
+          onNavigateToVerse={handleNavigateToVerse}
         />
       </>
     );
@@ -2159,41 +2188,7 @@ export default function App() {
       <QuickScriptureModal
         isOpen={isQuickScriptureOpen}
         onClose={() => setIsQuickScriptureOpen(false)}
-        onNavigateToVerse={(verse) => {
-          setIsQuickScriptureOpen(false);
-          if (verse?.book) {
-            const rawBook = String(verse.book).toLowerCase().replace(/[\s.-]+/g, '');
-            const bookMap = {
-              'kejadian': 'kejadian', 'keluaran': 'keluaran', 'imamat': 'imamat', 'bilangan': 'bilangan', 'ulangan': 'ulangan',
-              'yosua': 'yosua', 'hakimhakim': 'hakim-hakim', 'rut': 'rut', '1samuel': '1-samuel', '2samuel': '2-samuel',
-              '1rajaraja': '1-raja-raja', '2rajaraja': '2-raja-raja', '1tawarikh': '1-tawarikh', '2tawarikh': '2-tawarikh',
-              'ezra': 'ezra', 'nehemia': 'nehemia', 'ester': 'ester', 'ayub': 'ayub', 'mazmur': 'mazmur',
-              'amsal': 'amsal', 'pengkhotbah': 'pengkhotbah', 'kidungagung': 'kidung-agung', 'yesaya': 'yesaya',
-              'yeremia': 'yeremia', 'ratapan': 'ratapan', 'yehezkiel': 'yehezkiel', 'daniel': 'daniel',
-              'hosea': 'hosea', 'yoel': 'yoel', 'amos': 'amos', 'obaja': 'obaja', 'yunus': 'yunus',
-              'mikha': 'mikha', 'nahum': 'nahum', 'habakuk': 'habakuk', 'zefanya': 'zefanya', 'hagai': 'hagai',
-              'zakharia': 'zakharia', 'maleakhi': 'maleakhi', 'matius': 'matius', 'markus': 'markus', 'lukas': 'lukas',
-              'yohanes': 'yohanes', 'kisahpararasul': 'kisah-para-rasul', 'kisah': 'kisah-para-rasul',
-              'roma': 'roma', '1korintus': '1-korintus', '2korintus': '2-korintus', 'galatia': 'galatia',
-              'efesus': 'efesus', 'filipi': 'filipi', 'kolose': 'kolose', '1tesalonika': '1-tesalonika',
-              '2tesalonika': '2-tesalonika', '1timotius': '1-timotius', '2timotius': '2-timotius', 'titus': 'titus',
-              'filemon': 'filemon', 'ibrani': 'ibrani', 'yakobus': 'yakobus', '1petrus': '1-petrus',
-              '2petrus': '2-petrus', '1yohanes': '1-yohanes', '2yohanes': '2-yohanes', '3yohanes': '3-yohanes',
-              'yudas': 'yudas', 'wahyu': 'wahyu'
-            };
-            const targetBookId = bookMap[rawBook] || rawBook;
-            localStorage.setItem('last_bible_book', targetBookId);
-            if (verse.chapter) {
-              localStorage.setItem('last_bible_chapter', String(verse.chapter));
-            }
-          }
-          if (!isLoggedIn) {
-            setIsAuthModalOpen(true);
-            showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');
-          } else {
-            setViewMode('bible');
-          }
-        }}
+        onNavigateToVerse={handleNavigateToVerse}
       />
 
       {/* Floating Mobile Bottom Navigation Bar */}

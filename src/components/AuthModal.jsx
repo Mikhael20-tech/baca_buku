@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { getStoredUsers, addUser } from '../lib/userManagement';
-import { LogIn, Loader2, AlertCircle, CheckCircle2, ShieldCheck, User, Info, Lock, Phone } from 'lucide-react';
+import { getStoredUsers } from '../lib/userManagement';
+import { LogIn, Loader2, AlertCircle, CheckCircle2, User, Lock, Phone } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -161,50 +161,6 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess, initialRole 
     setIsLoading(false);
   };
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    setErrorMsg('');
-    try {
-      if (isSupabaseConfigured()) {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: window.location.origin
-          }
-        });
-        if (error) throw error;
-        return;
-      }
-
-      // Masuk Akun Google lokal
-      const googleUser = {
-        id: 'google-user-' + Date.now(),
-        email: 'pembaca.google@gmail.com',
-        full_name: 'Pembaca Akun Google',
-        whatsapp: '',
-        distrik_lokal: '',
-        photo_url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
-        role: 'reader',
-        plan_tier: 'standart',
-        status: 'active',
-        google_play_synced: true
-      };
-
-      addUser(googleUser);
-      localStorage.setItem('baca_user_profile', JSON.stringify(googleUser));
-      setSuccessMsg('Berhasil masuk dengan Akun Google!');
-      if (typeof onAuthSuccess === 'function') {
-        onAuthSuccess(googleUser);
-      }
-      setTimeout(() => {
-        setIsLoading(false);
-        onClose();
-      }, 700);
-    } catch (err) {
-      setErrorMsg(err.message || 'Gagal masuk dengan Google.');
-      setIsLoading(false);
-    }
-  };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>

@@ -5,9 +5,10 @@ import zipfile
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-rh_path = r"D:\Magang\Baca\pdb\rhv2019_full.txt"
-public_books_dir = r"D:\Magang\Baca\public\books"
-dist_books_dir = r"D:\Magang\Baca\dist\books"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+rh_path = os.path.join(BASE_DIR, "pdb", "rhv2019_full.txt")
+public_books_dir = os.path.join(BASE_DIR, "public", "books")
+dist_books_dir = os.path.join(BASE_DIR, "dist", "books")
 os.makedirs(public_books_dir, exist_ok=True)
 if os.path.exists(dist_books_dir):
     os.makedirs(dist_books_dir, exist_ok=True)

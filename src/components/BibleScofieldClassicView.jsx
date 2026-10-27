@@ -87,7 +87,6 @@ export default function BibleScofieldClassicView({
   canNext
 }) {
   const [selectedNoteIdx, setSelectedNoteIdx] = useState(null);
-  const [activeTooltip, setActiveTooltip] = useState(null);
 
   // Parse full book introduction into styled paragraphs
   const introParagraphs = useMemo(() => {
