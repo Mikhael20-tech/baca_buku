@@ -110,14 +110,6 @@ export default function KidungReaderView({
       });
   }, [initialSongId]);
 
-  // Simpan preferensi font & tema
-  useEffect(() => {
-    localStorage.setItem('kidung_font_size', fontSize);
-  }, [fontSize]);
-
-  useEffect(() => {
-    localStorage.setItem('kidung_theme', themeId);
-  }, [themeId]);
 
   // Scroll to top saat ganti lagu
   useEffect(() => {

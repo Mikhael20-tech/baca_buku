@@ -2161,6 +2161,32 @@ export default function App() {
         onClose={() => setIsQuickScriptureOpen(false)}
         onNavigateToVerse={(verse) => {
           setIsQuickScriptureOpen(false);
+          if (verse?.book) {
+            const rawBook = String(verse.book).toLowerCase().replace(/[\s.-]+/g, '');
+            const bookMap = {
+              'kejadian': 'kejadian', 'keluaran': 'keluaran', 'imamat': 'imamat', 'bilangan': 'bilangan', 'ulangan': 'ulangan',
+              'yosua': 'yosua', 'hakimhakim': 'hakim-hakim', 'rut': 'rut', '1samuel': '1-samuel', '2samuel': '2-samuel',
+              '1rajaraja': '1-raja-raja', '2rajaraja': '2-raja-raja', '1tawarikh': '1-tawarikh', '2tawarikh': '2-tawarikh',
+              'ezra': 'ezra', 'nehemia': 'nehemia', 'ester': 'ester', 'ayub': 'ayub', 'mazmur': 'mazmur',
+              'amsal': 'amsal', 'pengkhotbah': 'pengkhotbah', 'kidungagung': 'kidung-agung', 'yesaya': 'yesaya',
+              'yeremia': 'yeremia', 'ratapan': 'ratapan', 'yehezkiel': 'yehezkiel', 'daniel': 'daniel',
+              'hosea': 'hosea', 'yoel': 'yoel', 'amos': 'amos', 'obaja': 'obaja', 'yunus': 'yunus',
+              'mikha': 'mikha', 'nahum': 'nahum', 'habakuk': 'habakuk', 'zefanya': 'zefanya', 'hagai': 'hagai',
+              'zakharia': 'zakharia', 'maleakhi': 'maleakhi', 'matius': 'matius', 'markus': 'markus', 'lukas': 'lukas',
+              'yohanes': 'yohanes', 'kisahpararasul': 'kisah-para-rasul', 'kisah': 'kisah-para-rasul',
+              'roma': 'roma', '1korintus': '1-korintus', '2korintus': '2-korintus', 'galatia': 'galatia',
+              'efesus': 'efesus', 'filipi': 'filipi', 'kolose': 'kolose', '1tesalonika': '1-tesalonika',
+              '2tesalonika': '2-tesalonika', '1timotius': '1-timotius', '2timotius': '2-timotius', 'titus': 'titus',
+              'filemon': 'filemon', 'ibrani': 'ibrani', 'yakobus': 'yakobus', '1petrus': '1-petrus',
+              '2petrus': '2-petrus', '1yohanes': '1-yohanes', '2yohanes': '2-yohanes', '3yohanes': '3-yohanes',
+              'yudas': 'yudas', 'wahyu': 'wahyu'
+            };
+            const targetBookId = bookMap[rawBook] || rawBook;
+            localStorage.setItem('last_bible_book', targetBookId);
+            if (verse.chapter) {
+              localStorage.setItem('last_bible_chapter', String(verse.chapter));
+            }
+          }
           if (!isLoggedIn) {
             setIsAuthModalOpen(true);
             showToast('Silakan masuk akun terlebih dahulu untuk membaca Alkitab.');

@@ -74,9 +74,15 @@ const PRESET_VERSES = [
   }
 ];
 
-export default function QuickScriptureModal({ isOpen, onClose, onOpenScriptureInReader }) {
+export default function QuickScriptureModal({ 
+  isOpen, 
+  onClose, 
+  onOpenScriptureInReader,
+  onNavigateToVerse
+}) {
   const [query, setQuery] = useState('');
   const [selectedVerse, setSelectedVerse] = useState(PRESET_VERSES[0]);
+  const handleOpenScripture = onNavigateToVerse || onOpenScriptureInReader;
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -215,8 +221,8 @@ export default function QuickScriptureModal({ isOpen, onClose, onOpenScriptureIn
                 size="sm"
                 onClick={() => {
                   onClose();
-                  if (typeof onOpenScriptureInReader === 'function') {
-                    onOpenScriptureInReader(selectedVerse);
+                  if (typeof handleOpenScripture === 'function') {
+                    handleOpenScripture(selectedVerse);
                   }
                 }}
                 className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white shadow-md btn-lift gap-1"
