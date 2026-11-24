@@ -1103,11 +1103,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => handleOpenChapterPicker('chapter')}
-                    className={`px-3 h-8 rounded-full text-sm sm:text-base font-serif font-bold flex items-center gap-1 cursor-pointer ${themeStyles.text} hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition`}
+                    className={`px-3 h-8 rounded-full text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums flex items-center gap-1 cursor-pointer ${themeStyles.text} hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition`}
                     title={isEnBible ? 'Select Chapter & Verse' : 'Pilih Pasal & Ayat'}
                   >
                     <span>{selectedChapter}</span>
-                    <span className="opacity-45 text-xs font-serif">/{totalChapters}</span>
+                    <span className="opacity-45 text-xs font-sans font-medium">/{totalChapters}</span>
                   </button>
 
                   <button
@@ -1373,7 +1373,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => handleOpenChapterPicker('chapter')}
-                    className={`px-2 h-7.5 rounded-full text-xs sm:text-sm font-serif font-bold ${themeStyles.text} shrink-0 cursor-pointer`}
+                    className={`px-2 h-7.5 rounded-full text-xs sm:text-sm font-sans font-semibold tracking-tight tabular-nums ${themeStyles.text} shrink-0 cursor-pointer`}
                     title="Pilih Pasal & Ayat"
                   >
                     <span>{selectedChapter}</span>
@@ -2773,7 +2773,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                                 {b.name_id}
                               </span>
                             )}
-                            <span className="text-xs font-medium text-[#78716C] dark:text-zinc-400 mt-1 block">
+                            <span className="text-xs font-sans font-medium text-[#78716C] dark:text-zinc-400 mt-1 block tabular-nums">
                               {b.chapters_count} {isEnBible ? 'chs' : 'pasal'}
                             </span>
                           </div>
@@ -2904,7 +2904,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                           setPickingChapter(chapNum);
                           setChapterVersePickerStep('verse');
                         }}
-                        className={`h-12 sm:h-13 rounded-2xl text-base sm:text-lg font-serif font-bold transition flex items-center justify-center cursor-pointer active:scale-95 ${
+                        className={`h-12 sm:h-13 rounded-2xl text-base sm:text-lg font-sans font-semibold tracking-tight tabular-nums transition flex items-center justify-center cursor-pointer active:scale-95 ${
                           selectedChapter === chapNum
                             ? 'bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-md shadow-[#3B4B34]/25 scale-105'
                             : 'border border-[#1C1917]/10 dark:border-white/10 bg-white/80 dark:bg-zinc-800/60 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34]/10 hover:border-[#3B4B34]/30 hover:text-[#3B4B34] shadow-2xs'
@@ -2947,7 +2947,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                         key={vNum}
                         type="button"
                         onClick={() => handleSelectVerseFromPicker(vNum)}
-                        className="h-11 sm:h-12 rounded-xl border border-[#1C1917]/10 dark:border-white/10 bg-white/80 dark:bg-zinc-800/60 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:hover:bg-emerald-600 dark:hover:text-white text-sm sm:text-base font-serif font-bold transition flex items-center justify-center shadow-2xs cursor-pointer active:scale-95"
+                        className="h-11 sm:h-12 rounded-xl border border-[#1C1917]/10 dark:border-white/10 bg-white/80 dark:bg-zinc-800/60 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:hover:bg-emerald-600 dark:hover:text-white text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums transition flex items-center justify-center shadow-2xs cursor-pointer active:scale-95"
                         title={`Ayat ${vNum}`}
                       >
                         {vNum}
