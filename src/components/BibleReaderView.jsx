@@ -33,7 +33,7 @@ const PARALLEL_TRANSLATIONS = [
 
 const getTranslationLabel = (lang) => {
   const found = PARALLEL_TRANSLATIONS.find(t => t.id === lang);
-  return found ? `${found.code} • ${found.name}` : (lang ? lang.toUpperCase() : 'ID');
+  return found ? `${found.code} — ${found.name}` : (lang ? lang.toUpperCase() : 'ID');
 };
 
 const BIBLE_ABBR_MAP = {
@@ -122,7 +122,7 @@ const SCOFIELD_DOCS = [
     titleId: 'Kata Pengantar Edisi Revisi 1917',
     desc: 'Penjelasan revisi Oxford 1917, komite konsultasi referensi, dan pengenalan sistem catatan rantai tematik (chain references).',
     descEn: 'Explanation of the 1917 Oxford revision, editorial board, and system of topical chain references.',
-    badge: 'Oxford 1917 • Hal. 8',
+    badge: 'Oxford 1917 — Hal. 8',
     icon: Scroll
   },
   {
@@ -131,7 +131,7 @@ const SCOFIELD_DOCS = [
     titleId: 'Pengantar 11 Fitur Utama',
     desc: '11 fitur mendasar Scofield Reference Bible, analisis komprehensif, pembagian dispensasi, dan panduan membaca teks Kitab Suci.',
     descEn: '11 distinctive features of the Scofield Bible, panoramic analysis, and guide to dispensational study.',
-    badge: 'Edisi 1909 • Hal. 7–8',
+    badge: 'Edisi 1909 — Hal. 7–8',
     icon: FileText
   },
   {
@@ -140,7 +140,7 @@ const SCOFIELD_DOCS = [
     titleId: 'Pandangan Panorama Alkitab',
     desc: 'Ikhtisar panorama terpadu seluruh Kitab Suci: Perjanjian Lama sebagai persiapan, dan Perjanjian Baru sebagai penggenapan Kristus.',
     descEn: 'Unified panoramic view of Scripture: Old Testament preparation and New Testament fulfillment in Christ.',
-    badge: 'Panorama Biblika • Hal. 9–10',
+    badge: 'Panorama Biblika — Hal. 9–10',
     icon: Eye
   },
   {
@@ -149,7 +149,7 @@ const SCOFIELD_DOCS = [
     titleId: 'Pengantar 5 Kitab Taurat',
     desc: 'Risalah pengantar khusus 5 Kitab Taurat Musa (Kejadian sampai Ulangan) sebagai fondasi progresif wahyu Allah.',
     descEn: 'Special introduction to the Five Books of Moses (Genesis–Deuteronomy) as progressive revelation foundation.',
-    badge: 'Taurat Musa • Hal. 12',
+    badge: 'Taurat Musa — Hal. 12',
     icon: Compass
   },
   {
@@ -158,7 +158,7 @@ const SCOFIELD_DOCS = [
     titleId: 'Dari Maleakhi ke Matius (Masa 400 Tahun)',
     desc: 'Jembatan sejarah & rohani masa 400 tahun keheningan profetik: era Persia, Yunani Alexander, Antiokhus Epifanes, kepahlawanan Makabe, hingga era Romawi & lahirnya Kristus.',
     descEn: 'The 400 silent years between the Testaments: Persian, Grecian, Maccabean, and Roman periods leading to Christ.',
-    badge: 'Antara PL & PB • Hal. 995–996',
+    badge: 'Antara PL & PB — Hal. 995–996',
     icon: Clock
   },
   {
@@ -167,7 +167,7 @@ const SCOFIELD_DOCS = [
     titleId: 'Pengantar Empat Injil',
     desc: 'Pengantar umum catatan Injil dan 7 prinsip esensial memahami empat wujud Kristus: Raja (Matius), Hamba (Markus), Manusia Sejati (Lukas), dan Anak Allah (Yohanes).',
     descEn: 'General introduction to the Evangelical record and the sevenfold united testimony of the Gospels.',
-    badge: 'Kanonik Injil • Hal. 999–1001',
+    badge: 'Kanonik Injil — Hal. 999–1001',
     icon: BookOpen
   }
 ];
@@ -845,52 +845,52 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     }
   };
 
-  // Theme Styles
+  // Theme Styles - Refined to match Landing Page Luxury Aesthetic
   const themeStyles = {
     light: {
-      bg: 'bg-slate-50',
+      bg: 'bg-[#FAF8F5]',
       contentBg: 'bg-white',
-      text: 'text-slate-900',
-      secondaryText: 'text-slate-500',
-      border: 'border-slate-200',
-      headerBg: 'bg-white/95 border-slate-200/80',
-      verseNum: 'text-blue-600 bg-blue-50/80 border-blue-200',
-      verseHover: 'hover:bg-blue-50/40',
-      outlineBadge: 'bg-blue-50 border-blue-200 text-blue-900',
-      outlineText: 'text-amber-950 dark:text-amber-100',
-      footnoteBg: 'bg-amber-50/80 border-amber-200/60',
-      footnoteText: 'text-amber-900',
-      footnoteBadge: 'bg-amber-100 text-amber-700 border-amber-300',
+      text: 'text-[#1C1917]',
+      secondaryText: 'text-[#78716C]',
+      border: 'border-[#1C1917]/10',
+      headerBg: 'bg-[#FAF8F5]/90 border-[#1C1917]/8',
+      verseNum: 'text-[#3B4B34] bg-[#8E9C75]/15 border-[#8E9C75]/25',
+      verseHover: 'hover:bg-[#3B4B34]/5',
+      outlineBadge: 'bg-[#8E9C75]/15 border-[#8E9C75]/25 text-[#3B4B34]',
+      outlineText: 'text-[#1C1917]',
+      footnoteBg: 'bg-[#FAF8F5] border-[#1C1917]/10',
+      footnoteText: 'text-[#1C1917]',
+      footnoteBadge: 'bg-[#3B4B34] text-[#F4EFE6] border-transparent',
     },
     sepia: {
-      bg: 'bg-[#f8f3e8]',
-      contentBg: 'bg-[#fcf8f0]',
-      text: 'text-[#3c2f21]',
-      secondaryText: 'text-[#7a6a56]',
-      border: 'border-[#e6dbcd]',
-      headerBg: 'bg-[#fcf8f0]/95 border-[#e6dbcd]/80',
-      verseNum: 'text-[#8c501e] bg-[#f2e6d5] border-[#dfceb7]',
-      verseHover: 'hover:bg-[#f4ebd9]',
-      outlineBadge: 'bg-[#f3e7d3] border-[#decbb2] text-[#5c3a16]',
-      outlineText: 'text-[#5c3a16]',
-      footnoteBg: 'bg-[#f0e8d6]/80 border-[#d9cbb3]/60',
-      footnoteText: 'text-[#5c3a16]',
-      footnoteBadge: 'bg-[#e8dbc4] text-[#7a5a2e] border-[#d4c3a6]',
+      bg: 'bg-[#F4EFE6]',
+      contentBg: 'bg-[#FAF7F2]',
+      text: 'text-[#1C1917]',
+      secondaryText: 'text-[#78716C]',
+      border: 'border-[#1C1917]/10',
+      headerBg: 'bg-[#F4EFE6]/90 border-[#1C1917]/8',
+      verseNum: 'text-[#3B4B34] bg-[#8E9C75]/15 border-[#8E9C75]/25',
+      verseHover: 'hover:bg-[#8E9C75]/10',
+      outlineBadge: 'bg-[#8E9C75]/15 border-[#8E9C75]/25 text-[#3B4B34]',
+      outlineText: 'text-[#3B4B34]',
+      footnoteBg: 'bg-[#FAF7F2] border-[#1C1917]/10',
+      footnoteText: 'text-[#1C1917]',
+      footnoteBadge: 'bg-[#3B4B34] text-[#F4EFE6] border-transparent',
     },
     dark: {
-      bg: 'bg-zinc-950',
-      contentBg: 'bg-zinc-900',
-      text: 'text-zinc-100',
+      bg: 'bg-[#0F0F11]',
+      contentBg: 'bg-[#18181B]',
+      text: 'text-[#F4EFE6]',
       secondaryText: 'text-zinc-400',
-      border: 'border-zinc-800',
-      headerBg: 'bg-zinc-900/95 border-zinc-800/80',
-      verseNum: 'text-amber-400 bg-zinc-800 border-zinc-700',
-      verseHover: 'hover:bg-zinc-800/50',
-      outlineBadge: 'bg-zinc-800/80 border-zinc-700 text-amber-300',
-      outlineText: 'text-amber-300',
-      footnoteBg: 'bg-zinc-800/60 border-zinc-700/60',
-      footnoteText: 'text-amber-200/90',
-      footnoteBadge: 'bg-zinc-700 text-amber-400 border-zinc-600',
+      border: 'border-white/10',
+      headerBg: 'bg-[#18181B]/90 border-white/8',
+      verseNum: 'text-emerald-400 bg-emerald-950/40 border-emerald-800/50',
+      verseHover: 'hover:bg-white/5',
+      outlineBadge: 'bg-zinc-800/80 border-white/10 text-emerald-300',
+      outlineText: 'text-emerald-300',
+      footnoteBg: 'bg-[#18181B] border-white/10',
+      footnoteText: 'text-zinc-200',
+      footnoteBadge: 'bg-emerald-600 text-white border-transparent',
     }
   }[theme];
 
@@ -1004,43 +1004,28 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           {/* ========================================================= */}
           <div className="hidden md:flex items-center justify-between px-3 lg:px-6 py-2.5 gap-2 w-full">
             {/* Kiri: Tombol Beranda & Selector Kitab */}
-            <div className="flex items-center gap-1.5 lg:gap-2 min-w-0">
-              <Button
-                variant="outline"
-                size="sm"
+            <div className="flex items-center gap-2 min-w-0">
+              <button
+                type="button"
                 onClick={onBackToHome}
-                className={`shrink-0 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2.5 text-xs font-semibold`}
+                className={`w-8 h-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition flex items-center justify-center shadow-2xs shrink-0 cursor-pointer`}
                 title={isEnBible ? 'Back to Home' : 'Kembali ke Beranda'}
               >
-                <ArrowLeft className="w-3.5 h-3.5 mr-1" />
-                <span className="hidden xl:inline">{isEnBible ? 'Home' : 'Beranda'}</span>
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onOpenLibrary}
-                className="shrink-0 rounded-xl text-xs font-semibold text-slate-500 hover:text-amber-700 transition hidden xl:flex items-center gap-1.5 h-8 px-2.5"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>{isEnBible ? 'Book Catalog' : 'Katalog Buku'}</span>
-              </Button>
-
-              <div className="h-5 w-px bg-slate-300 dark:bg-zinc-700 mx-0.5 shrink-0 hidden sm:block" />
+                <ArrowLeft className="w-4 h-4" />
+              </button>
 
               {/* Minimalist Unified Book & Chapter Selector */}
               <div className="flex items-center gap-1.5 min-w-0">
                 {/* Unified Capsule Control */}
-                <div className={`flex items-center h-8 rounded-full border ${themeStyles.border} bg-black/[0.03] dark:bg-white/[0.05] p-0.5 shadow-2xs backdrop-blur-xs`}>
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                <div className={`flex items-center h-8 rounded-full border border-[#1C1917]/12 dark:border-white/12 bg-white/80 dark:bg-zinc-800/80 p-0.5 shadow-2xs backdrop-blur-md`}>
+                  <button
+                    type="button"
                     onClick={handlePrevChapter}
-                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-50 hover:opacity-100 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0 cursor-pointer`}
                     title={isEnBible ? 'Previous Chapter (ArrowLeft)' : 'Pasal Sebelumnya (ArrowLeft)'}
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
-                  </Button>
+                  </button>
 
                   <button
                     type="button"
@@ -1050,43 +1035,42 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-2.5 h-7 rounded-full text-xs font-semibold flex items-center gap-1 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer`}
+                    className={`px-3 h-7 rounded-full text-xs font-serif font-bold tracking-tight flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
                     title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
                   >
-                    <span className="truncate max-w-[95px] lg:max-w-[140px] xl:max-w-[180px]">
+                    <span className="truncate max-w-[110px] lg:max-w-[150px] xl:max-w-[190px]">
                       {currentBookInfo.name}
                     </span>
                     <ChevronDown className="w-3 h-3 opacity-40 shrink-0" />
                   </button>
 
-                  <div className="w-px h-3.5 bg-black/10 dark:bg-white/10 mx-0.5 shrink-0" />
+                  <div className="w-px h-3.5 bg-[#1C1917]/12 dark:bg-white/12 mx-0.5 shrink-0" />
 
                   <button
                     type="button"
                     onClick={() => setIsChapterPickerOpen(true)}
-                    className={`px-2 h-7 rounded-full text-xs font-medium font-mono flex items-center gap-0.5 cursor-pointer ${themeStyles.text} opacity-85 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 transition`}
+                    className={`px-2.5 h-7 rounded-full text-xs font-serif font-semibold flex items-center gap-1 cursor-pointer ${themeStyles.text} hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition`}
                     title={isEnBible ? 'Select Chapter' : 'Pilih Pasal'}
                   >
                     <span>{selectedChapter}</span>
-                    <span className="opacity-40 text-[11px]">/{totalChapters}</span>
+                    <span className="opacity-35 text-[10px] font-sans">/{totalChapters}</span>
                   </button>
 
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                  <button
+                    type="button"
                     onClick={handleNextChapter}
-                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-50 hover:opacity-100 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0 cursor-pointer`}
                     title={isEnBible ? 'Next Chapter (ArrowRight)' : 'Pasal Berikutnya (ArrowRight)'}
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </Button>
+                  </button>
                 </div>
 
                 {/* Jump to Verse */}
                 <button
                   type="button"
                   onClick={() => setIsVersePickerOpen(true)}
-                  className={`h-8 px-2.5 rounded-full border ${themeStyles.border} bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/5 dark:hover:bg-white/10 ${themeStyles.text} text-xs font-medium transition hidden lg:flex items-center gap-1 cursor-pointer`}
+                  className={`h-8 px-3 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-700 ${themeStyles.text} text-xs font-serif font-medium transition hidden lg:flex items-center gap-1.5 cursor-pointer shadow-2xs`}
                   title={isEnBible ? 'Jump to Verse Number' : 'Loncat ke Nomor Ayat'}
                 >
                   <Hash className="w-3 h-3 opacity-50" />
@@ -1098,7 +1082,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-8 w-8 rounded-full border ${themeStyles.border} bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/5 dark:hover:bg-white/10 ${themeStyles.text} opacity-70 hover:opacity-100 transition hidden xl:flex items-center justify-center cursor-pointer`}
+                    className={`h-8 w-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-700 ${themeStyles.text} opacity-70 hover:opacity-100 transition hidden xl:flex items-center justify-center cursor-pointer shadow-2xs`}
                     title={isEnBible ? 'Book Introduction & Background' : 'Pengantar & Pokok Kitab'}
                   >
                     <Info className="w-3.5 h-3.5" />
@@ -1110,50 +1094,47 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             {/* Kanan: Navigasi Cepat, Search, Mode Paralel & Settings */}
             <div className="flex items-center gap-1.5 lg:gap-2 shrink-0">
               {/* Global Search Button */}
-              <Button
-                variant="outline"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setIsGlobalSearchOpen(true)}
-                className={`h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
+                className={`h-8 w-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
                 title={isEnBible ? 'Search 66 Books (Ctrl+K)' : 'Pencarian Firman 66 Kitab (Ctrl+K)'}
               >
-                <Search className="w-4 h-4" />
-              </Button>
+                <Search className="w-3.5 h-3.5" />
+              </button>
 
               {/* Bookmarks Modal Button */}
-              <Button
-                variant="outline"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setIsBookmarksModalOpen(true)}
-                className={`h-8 w-8 rounded-xl relative border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
+                className={`h-8 w-8 rounded-full relative border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
                 title={isEnBible ? 'Saved Verses & Bookmarks' : 'Ayat Tersimpan & Bookmark'}
               >
-                <Bookmark className="w-4 h-4" />
+                <Bookmark className="w-3.5 h-3.5" />
                 {bookmarks.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-500 text-white font-mono text-[9px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#3B4B34] text-[#F4EFE6] font-mono text-[9px] font-bold flex items-center justify-center shadow-xs">
                     {bookmarks.length}
                   </span>
                 )}
-              </Button>
+              </button>
 
               {/* Personal Notes Modal Button */}
-              <Button
-                variant="outline"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setIsNotesListModalOpen(true)}
-                className={`h-8 w-8 rounded-xl relative border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
+                className={`h-8 w-8 rounded-full relative border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
                 title={isEnBible ? 'My Reflection Notes' : 'Catatan Renungan Pribadi'}
               >
-                <BookMarked className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                <BookMarked className="w-3.5 h-3.5 text-[#3B4B34] dark:text-emerald-400" />
                 {Object.keys(personalNotes).length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-600 text-white font-mono text-[9px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#8E9C75] text-[#1C1917] font-mono text-[9px] font-bold flex items-center justify-center shadow-xs">
                     {Object.keys(personalNotes).length}
                   </span>
                 )}
-              </Button>
+              </button>
 
               {/* Language & Parallel View Selector */}
-              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0 max-w-[210px] sm:max-w-[280px] xl:max-w-none overflow-x-auto no-scrollbar`}>
+              <div className={`flex items-center p-0.5 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md shadow-2xs shrink-0 max-w-[240px] sm:max-w-[320px] xl:max-w-none overflow-x-auto no-scrollbar`}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1161,9 +1142,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('id');
                     localStorage.setItem('bible_language', 'id');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'id'
-                      ? 'bg-[#3B4B34] text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Alkitab Versi Pemulihan (AVP)"
@@ -1177,9 +1158,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('tb');
                     localStorage.setItem('bible_language', 'tb');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'tb'
-                      ? 'bg-emerald-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Alkitab Terjemahan Baru LAI (TB)"
@@ -1193,9 +1174,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('en');
                     localStorage.setItem('bible_language', 'en');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'en'
-                      ? 'bg-[#3B4B34] text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Holy Bible Recovery Version (RCV)"
@@ -1209,9 +1190,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('kjv');
                     localStorage.setItem('bible_language', 'kjv');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'kjv'
-                      ? 'bg-indigo-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="King James Version (KJV 1769)"
@@ -1225,9 +1206,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('asv');
                     localStorage.setItem('bible_language', 'asv');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'asv'
-                      ? 'bg-teal-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="American Standard Version (ASV 1901)"
@@ -1241,9 +1222,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('net');
                     localStorage.setItem('bible_language', 'net');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'net'
-                      ? 'bg-sky-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="New English Translation (NET Bible)"
@@ -1257,9 +1238,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('scofield');
                     localStorage.setItem('bible_language', 'scofield');
                   }}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'scofield'
-                      ? 'bg-amber-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="The Scofield Reference Bible 1917"
@@ -1269,9 +1250,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button
                   type="button"
                   onClick={() => setViewMode(prev => prev === 'parallel' ? 'single' : 'parallel')}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-serif font-bold transition-all flex items-center gap-1 ${
                     viewMode === 'parallel'
-                      ? 'bg-amber-600 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title={isEnBible ? 'Parallel View (ID & EN)' : 'Mode Berdampingan (ID & EN Paralel)'}
@@ -1282,26 +1263,24 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </div>
 
               {/* Fullscreen / Distraction-Free Toggle */}
-              <Button
-                variant="outline"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setIsDistractionFree(true)}
-                className={`shrink-0 h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs hidden xl:flex`}
+                className={`shrink-0 h-8 w-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition hidden xl:flex items-center justify-center cursor-pointer shadow-2xs`}
                 title={isEnBible ? 'Fullscreen (Focus Mode)' : 'Layar Penuh (Fokus Membaca)'}
               >
-                <Maximize2 className="w-4 h-4" />
-              </Button>
+                <Maximize2 className="w-3.5 h-3.5" />
+              </button>
 
               {/* Settings Popover */}
-              <Button
-                variant="outline"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                className={`shrink-0 h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition shadow-xs`}
+                className={`shrink-0 h-8 w-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
                 title={isEnBible ? 'Display Settings' : 'Pengaturan Tampilan'}
               >
-                <Settings className="w-4 h-4" />
-              </Button>
+                <Settings className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
 
@@ -1312,27 +1291,25 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             {/* Baris 1: Tombol Beranda, Kitab + Pasal, Prev/Next, Pengaturan */}
             <div className="flex items-center justify-between gap-1 w-full">
               <div className="flex items-center gap-1.5 min-w-0">
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
+                  type="button"
                   onClick={onBackToHome}
-                  className={`shrink-0 rounded-xl border ${themeStyles.border} ${themeStyles.text} h-8 w-8 p-0 flex items-center justify-center`}
+                  className={`shrink-0 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition h-8 w-8 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
                   title={isEnBible ? 'Back' : 'Kembali'}
                 >
                   <ArrowLeft className="w-4 h-4" />
-                </Button>
+                </button>
 
                 {/* Minimalist Unified Book & Chapter Selector on Mobile */}
-                <div className={`flex items-center h-8 rounded-full border ${themeStyles.border} bg-black/[0.03] dark:bg-white/[0.05] p-0.5 shadow-2xs min-w-0`}>
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                <div className={`flex items-center h-8 rounded-full border border-[#1C1917]/12 dark:border-white/12 bg-white/80 dark:bg-zinc-800/80 p-0.5 shadow-2xs backdrop-blur-md min-w-0`}>
+                  <button
+                    type="button"
                     onClick={handlePrevChapter}
-                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 p-0 flex items-center justify-center shrink-0`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-50 hover:opacity-100 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0 cursor-pointer`}
                     title="Pasal Sebelumnya"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
-                  </Button>
+                  </button>
 
                   <button
                     type="button"
@@ -1342,65 +1319,62 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-2 h-7 rounded-full text-xs font-semibold flex items-center gap-1 ${themeStyles.text} truncate min-w-0`}
+                    className={`px-2 h-7 rounded-full text-xs font-serif font-bold tracking-tight flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
                   >
                     <span className="truncate max-w-[85px] sm:max-w-[110px]">{currentBookInfo.name}</span>
                     <ChevronDown className="w-3 h-3 opacity-40 shrink-0" />
                   </button>
 
-                  <div className="w-px h-3.5 bg-black/10 dark:bg-white/10 shrink-0 mx-0.5" />
+                  <div className="w-px h-3.5 bg-[#1C1917]/12 dark:bg-white/12 shrink-0 mx-0.5" />
 
                   <button
                     type="button"
                     onClick={() => setIsChapterPickerOpen(true)}
-                    className={`px-1.5 h-7 rounded-full text-xs font-medium font-mono ${themeStyles.text} opacity-85 shrink-0`}
+                    className={`px-1.5 h-7 rounded-full text-xs font-serif font-semibold ${themeStyles.text} shrink-0 cursor-pointer`}
                     title="Pilih Pasal"
                   >
                     <span>{selectedChapter}</span>
                   </button>
 
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                  <button
+                    type="button"
                     onClick={handleNextChapter}
-                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 p-0 flex items-center justify-center shrink-0`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-50 hover:opacity-100 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0 cursor-pointer`}
                     title="Pasal Berikutnya"
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </Button>
+                  </button>
                 </div>
               </div>
 
               {/* Settings & Info on Mobile */}
               <div className="flex items-center gap-1 shrink-0">
                 {bookData?.intro && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                  <button
+                    type="button"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-8 w-8 rounded-full border ${themeStyles.border} ${themeStyles.text} opacity-70 p-0 flex items-center justify-center`}
+                    className={`h-8 w-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} opacity-70 hover:opacity-100 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
                     title="Pengantar Kitab"
                   >
                     <Info className="w-3.5 h-3.5" />
-                  </Button>
+                  </button>
                 )}
 
-                <Button
-                  variant="outline"
-                  size="icon"
+                <button
+                  type="button"
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                  className={`shrink-0 h-8 w-8 rounded-full border ${themeStyles.border} ${themeStyles.text} p-0 flex items-center justify-center`}
+                  className={`shrink-0 h-8 w-8 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
                   title="Pengaturan Tampilan"
                 >
                   <Settings className="w-4 h-4" />
-                </Button>
+                </button>
               </div>
             </div>
 
             {/* Baris 2: Versi Alkitab (ID/EN/Scofield) & Toolbar Cepat (Scrollable Halus Tanpa Wrap) */}
             <div className="flex items-center justify-between gap-1.5 w-full overflow-x-auto no-scrollbar py-0.5 flex-nowrap">
               {/* Language Switcher */}
-              <div className={`flex items-center p-0.5 rounded-xl border ${themeStyles.border} bg-black/5 dark:bg-white/5 shrink-0 overflow-x-auto max-w-[280px] xs:max-w-xs sm:max-w-none scrollbar-none`}>
+              <div className={`flex items-center p-0.5 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md shadow-2xs shrink-0 overflow-x-auto max-w-[280px] xs:max-w-xs sm:max-w-none scrollbar-none`}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1408,9 +1382,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('id');
                     localStorage.setItem('bible_language', 'id');
                   }}
-                  className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'id'
-                      ? 'bg-[#3B4B34] text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Alkitab Versi Pemulihan (AVP)"
@@ -1424,9 +1398,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('tb');
                     localStorage.setItem('bible_language', 'tb');
                   }}
-                  className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'tb'
-                      ? 'bg-emerald-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Alkitab Terjemahan Baru LAI (TB)"
@@ -1440,9 +1414,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('en');
                     localStorage.setItem('bible_language', 'en');
                   }}
-                  className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'en'
-                      ? 'bg-[#3B4B34] text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Holy Bible Recovery Version (RCV)"
@@ -1456,9 +1430,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('kjv');
                     localStorage.setItem('bible_language', 'kjv');
                   }}
-                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'kjv'
-                      ? 'bg-indigo-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="King James Version (KJV 1769)"
@@ -1472,9 +1446,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('asv');
                     localStorage.setItem('bible_language', 'asv');
                   }}
-                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'asv'
-                      ? 'bg-teal-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="American Standard Version (ASV 1901)"
@@ -1488,9 +1462,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('net');
                     localStorage.setItem('bible_language', 'net');
                   }}
-                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'net'
-                      ? 'bg-sky-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="New English Translation (NET Bible)"
@@ -1504,9 +1478,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('scofield');
                     localStorage.setItem('bible_language', 'scofield');
                   }}
-                  className={`px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
                     viewMode === 'single' && bibleLang === 'scofield'
-                      ? 'bg-amber-800 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                 >
@@ -1515,9 +1489,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button
                   type="button"
                   onClick={() => setViewMode(prev => prev === 'parallel' ? 'single' : 'parallel')}
-                  className={`px-1.5 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-0.5 ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all flex items-center gap-0.5 ${
                     viewMode === 'parallel'
-                      ? 'bg-amber-600 text-white shadow-xs'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
                   }`}
                   title="Paralel"
@@ -1787,15 +1761,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           
           {/* Header Judul Kitab & Pasal (Artistic Biblical Typography) */}
           <div className="text-center space-y-3 pb-6 border-b border-amber-500/20 dark:border-zinc-800">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 dark:bg-amber-400/10 text-amber-900 dark:text-amber-300 border border-amber-500/25 dark:border-amber-400/20 shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80"></span>
-              <span className="text-[11px] font-bold tracking-[0.22em] uppercase font-serif">
+            <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#8E9C75]/15 text-[#3B4B34] dark:bg-emerald-500/10 dark:text-emerald-300 border border-[#8E9C75]/25 dark:border-emerald-500/20 shadow-2xs">
+              <span className="text-[10px] font-bold tracking-[0.22em] uppercase font-serif">
                 {isEnBible
                   ? (currentBookInfo.testament === 'PL' ? 'Old Testament' : 'New Testament')
                   : (currentBookInfo.testament === 'PL' ? 'Perjanjian Lama' : 'Perjanjian Baru')}
-                {viewMode === 'parallel' && (isEnBible ? ' • Parallel Mode' : ' • Mode Paralel')}
+                {viewMode === 'parallel' && (isEnBible ? ' — Parallel Mode' : ' — Mode Paralel')}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80"></span>
             </div>
 
             <h1 
@@ -2420,8 +2392,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <h4 className="font-extrabold text-sm text-amber-950 dark:text-amber-200">
                     {isEnBible ? 'End of the Old Testament' : 'Akhir Perjanjian Lama'}
                   </h4>
-                  <span className="text-[11px] text-amber-800/80 dark:text-amber-400 font-mono">
-                    From Malachi to Matthew • Masa 400 Tahun Keheningan Profetik
+                  <span className="text-[11px] text-[#3B4B34] dark:text-emerald-400 font-serif">
+                    From Malachi to Matthew — Masa 400 Tahun Keheningan Profetik
                   </span>
                 </div>
               </div>
@@ -2492,66 +2464,66 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           onClick={() => setIsBookPickerOpen(false)}
         >
           <div 
-            className="bg-white dark:bg-zinc-900 rounded-3xl max-w-3xl w-full p-5 sm:p-7 shadow-2xl border border-slate-100 dark:border-zinc-800 my-6 space-y-4 max-h-[85vh] flex flex-col animate-modal-card-in"
+            className="bg-[#FAF7F2] dark:bg-[#18181B] rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-[#1C1917]/10 dark:border-white/10 my-6 space-y-4 max-h-[85vh] flex flex-col animate-modal-card-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center">
-                  <BookOpen className="w-4 h-4" />
-                </div>
-                <h3 className="font-extrabold text-base text-slate-800 dark:text-zinc-100">
-                  {isEnBible ? 'Select Book (66 Books)' : 'Pilih Kitab (66 Kitab Lengkap)'}
+            <div className="flex items-start justify-between pb-3 border-b border-[#1C1917]/8 dark:border-white/8">
+              <div>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[#8E9C75] dark:text-emerald-400 uppercase block">
+                  {isEnBible ? 'Canon of Scripture' : 'Katalog Kitab Suci'}
+                </span>
+                <h3 className="font-serif font-bold text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight mt-0.5">
+                  {isEnBible ? '66 Complete Books' : '66 Kitab Lengkap'}
                 </h3>
               </div>
               <button 
                 onClick={() => setIsBookPickerOpen(false)}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200"
+                className="w-8 h-8 rounded-full border border-[#1C1917]/10 dark:border-white/10 flex items-center justify-center text-[#78716C] hover:text-[#1C1917] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Tab PL, PB, Scofield & Search */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-              <div className="flex p-1 bg-slate-100 dark:bg-zinc-800 rounded-2xl overflow-x-auto scrollbar-none">
+              <div className="flex p-1 bg-[#1C1917]/5 dark:bg-white/5 rounded-full border border-[#1C1917]/8 dark:border-white/8 overflow-x-auto scrollbar-none">
                 <button
                   onClick={() => setBookPickerTab('PL')}
-                  className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
-                    bookPickerTab === 'PL' ? 'bg-white dark:bg-zinc-700 text-blue-700 dark:text-blue-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
+                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-serif font-semibold transition whitespace-nowrap cursor-pointer ${
+                    bookPickerTab === 'PL' ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs' : 'text-[#78716C] dark:text-zinc-400 hover:text-[#1C1917]'
                   }`}
                 >
                   {isEnBible ? 'Old Testament (39)' : 'Perjanjian Lama (39)'}
                 </button>
                 <button
                   onClick={() => setBookPickerTab('PB')}
-                  className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer ${
-                    bookPickerTab === 'PB' ? 'bg-white dark:bg-zinc-700 text-amber-700 dark:text-amber-300 shadow-2xs' : 'text-slate-500 dark:text-zinc-400'
+                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-serif font-semibold transition whitespace-nowrap cursor-pointer ${
+                    bookPickerTab === 'PB' ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs' : 'text-[#78716C] dark:text-zinc-400 hover:text-[#1C1917]'
                   }`}
                 >
                   {isEnBible ? 'New Testament (27)' : 'Perjanjian Baru (27)'}
                 </button>
                 <button
                   onClick={() => setBookPickerTab('SCOFIELD')}
-                  className={`flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                  className={`flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-serif font-semibold transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer ${
                     bookPickerTab === 'SCOFIELD'
-                      ? 'bg-amber-600 text-white shadow-2xs'
-                      : 'text-amber-800 dark:text-amber-400 hover:text-amber-600'
+                      ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
+                      : 'text-[#78716C] dark:text-zinc-400 hover:text-[#1C1917]'
                   }`}
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>{isEnBible ? 'Scofield Docs (6)' : 'Dokumen Scofield (6)'}</span>
+                  <span>{isEnBible ? 'Scofield (6)' : 'Scofield (6)'}</span>
                 </button>
                 <button
                   onClick={() => {
                     setIsBookPickerOpen(false);
                     setIsTruthChartsOpen(true);
                   }}
-                  className="flex-1 sm:flex-none px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer text-amber-900 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-950/40 border border-amber-300/60 dark:border-amber-700/60 bg-amber-50/60 dark:bg-amber-950/20"
+                  className="flex-1 sm:flex-none px-4 py-1.5 rounded-full text-xs font-serif font-semibold transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer text-[#78716C] dark:text-zinc-400 hover:text-[#3B4B34] hover:bg-[#3B4B34]/10"
                   title="22 Bagan Kebenaran Ilahi (LSM Truth Charts)"
                 >
-                  <Compass className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                  <span>{isEnBible ? 'Truth Charts (22)' : 'Bagan Kebenaran (22)'}</span>
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>{isEnBible ? 'Truth Charts (22)' : 'Bagan (22)'}</span>
                 </button>
               </div>
 
@@ -2562,7 +2534,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   value={bookSearchQuery}
                   onChange={(e) => setBookSearchQuery(e.target.value)}
                   placeholder={isEnBible ? "Search book or doc..." : "Cari kitab atau dokumen..."}
-                  className="w-full pl-8 pr-3 py-1.5 bg-slate-50 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-xl text-xs text-slate-800 dark:text-zinc-100 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20"
+                  className="w-full pl-8 pr-3 py-1.5 bg-white/80 dark:bg-zinc-800 border border-[#1C1917]/10 dark:border-white/10 rounded-full text-xs text-[#1C1917] dark:text-[#F4EFE6] focus:outline-hidden focus:ring-2 focus:ring-[#3B4B34]/20"
                 />
               </div>
             </div>
@@ -2755,20 +2727,20 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                             setSelectedChapter(1);
                             setIsBookPickerOpen(false);
                           }}
-                          className={`p-3 rounded-2xl border text-left transition flex items-center justify-between ${
+                          className={`p-3 rounded-2xl border text-left transition flex items-center justify-between cursor-pointer ${
                             selectedBookId === b.id
-                              ? 'border-amber-500 bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 font-bold shadow-2xs'
-                              : 'border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:border-amber-400 hover:bg-slate-50 dark:hover:bg-zinc-800/60'
+                              ? 'border-[#3B4B34] bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-700 dark:border-emerald-600 font-bold shadow-md shadow-[#3B4B34]/20'
+                              : 'border-[#1C1917]/10 dark:border-white/10 bg-white/70 dark:bg-zinc-800/60 text-[#1C1917] dark:text-[#F4EFE6] hover:border-[#3B4B34]/30 hover:bg-[#3B4B34]/5 shadow-2xs'
                           }`}
                         >
                           <div>
-                            <h5 className="text-xs font-bold leading-tight">{b.name}</h5>
+                            <h5 className="text-xs font-serif font-bold leading-tight">{b.name}</h5>
                             {b.name_id && isEnBible && (
-                              <span className="text-[10px] text-amber-700/80 dark:text-amber-300/80 font-medium block">
+                              <span className="text-[10px] text-[#8E9C75] dark:text-emerald-400 font-medium block">
                                 {b.name_id}
                               </span>
                             )}
-                            <span className="text-[10px] text-slate-400 dark:text-zinc-500">{b.chapters_count} {isEnBible ? 'chs' : 'pasal'}</span>
+                            <span className="text-[10px] opacity-50">{b.chapters_count} {isEnBible ? 'chs' : 'pasal'}</span>
                           </div>
                           <ChevronRight className="w-3.5 h-3.5 opacity-40" />
                         </button>
@@ -2821,26 +2793,31 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       {/* MODAL 2: PEMILIH PASAL CEPAT */}
       {isChapterPickerOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-modal-backdrop-in"
+          className="fixed inset-0 z-50 bg-[#1C1917]/50 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-modal-backdrop-in"
           onClick={() => setIsChapterPickerOpen(false)}
         >
           <div 
-            className="bg-white dark:bg-zinc-900 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-100 dark:border-zinc-800 my-6 space-y-4 max-h-[80vh] flex flex-col animate-modal-card-in"
+            className="bg-[#FAF7F2] dark:bg-[#18181B] rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-[#1C1917]/10 dark:border-white/10 my-6 space-y-4 max-h-[80vh] flex flex-col animate-modal-card-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
-              <h3 className="font-extrabold text-base text-slate-800 dark:text-zinc-100">
-                {bibleLang === 'en' ? 'Select Chapter' : 'Pilih Pasal'} • {currentBookInfo.name}
-              </h3>
+            <div className="flex items-start justify-between pb-3 border-b border-[#1C1917]/8 dark:border-white/8">
+              <div>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-[#8E9C75] dark:text-emerald-400 uppercase block">
+                  {bibleLang === 'en' ? 'Select Chapter' : 'Pilih Pasal'}
+                </span>
+                <h3 className="font-serif font-bold text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight mt-0.5">
+                  {currentBookInfo.name}
+                </h3>
+              </div>
               <button 
                 onClick={() => setIsChapterPickerOpen(false)}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200"
+                className="w-8 h-8 rounded-full border border-[#1C1917]/10 dark:border-white/10 flex items-center justify-center text-[#78716C] hover:text-[#1C1917] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="overflow-y-auto pr-1 flex-1">
+            <div className="overflow-y-auto pr-1 flex-1 no-scrollbar">
               <div className="grid grid-cols-5 sm:grid-cols-6 gap-2">
                 {Array.from({ length: totalChapters }, (_, i) => i + 1).map(chapNum => (
                   <button
@@ -2851,10 +2828,10 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       setSelectedChapter(chapNum);
                       setIsChapterPickerOpen(false);
                     }}
-                    className={`py-2.5 rounded-xl text-xs font-mono font-bold transition flex items-center justify-center ${
+                    className={`py-2.5 rounded-xl text-xs font-serif font-bold transition flex items-center justify-center cursor-pointer ${
                       selectedChapter === chapNum
-                        ? 'bg-amber-600 text-white shadow-md'
-                        : 'border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-amber-50 dark:hover:bg-zinc-800 hover:border-amber-400'
+                        ? 'bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-md shadow-[#3B4B34]/25 scale-105'
+                        : 'border border-[#1C1917]/10 dark:border-white/10 bg-white/70 dark:bg-zinc-800/60 text-[#1C1917] dark:text-zinc-200 hover:bg-[#3B4B34]/10 hover:border-[#3B4B34]/30 hover:text-[#3B4B34] shadow-2xs'
                     }`}
                   >
                     {chapNum}
