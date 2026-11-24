@@ -8,6 +8,8 @@ export const isSupabaseConfigured = () => {
     Boolean(supabaseUrl) &&
     Boolean(supabaseAnonKey) &&
     !supabaseUrl.includes('your-project') &&
+    !supabaseUrl.includes('placeholder') &&
+    !supabaseUrl.includes('ygzibwfnjsmeeohjqwua') && // Project lama yang sudah nonaktif / expired
     supabaseUrl.startsWith('https://')
   );
 };

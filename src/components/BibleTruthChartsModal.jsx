@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   X, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight, 
-  BookOpen, Compass, Info, Check
+  BookOpen, Compass, Info, Check, Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

@@ -3,7 +3,7 @@ import {
   BookOpen, Search, CheckCircle2, 
   ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, 
   User, ChevronDown, LogIn, Settings, Users, Lock, Music,
-  Menu, Home
+  Menu, Home, Utensils, ShieldCheck, Sparkles, Smartphone, Play, Info
 } from 'lucide-react';
 import { 
   DropdownMenu, 
