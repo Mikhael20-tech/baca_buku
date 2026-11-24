@@ -18,7 +18,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
-        serif: ['"Cormorant Garamond"', 'Merriweather', 'Literata', 'Lora', 'serif'],
+        serif: ['"Playfair Display"', 'Merriweather', 'Literata', 'Lora', '"Cormorant Garamond"', 'serif'],
+        cinzel: ['Cinzel', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
