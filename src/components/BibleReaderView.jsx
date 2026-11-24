@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { 
-  BookOpen, ChevronLeft, ChevronRight, Search, Sparkles, 
+  BookOpen, ChevronLeft, ChevronRight, ChevronDown, Search, Sparkles, 
   Settings, Sun, Moon, Coffee, ArrowLeft, Bookmark, Copy, 
   Check, Share2, ZoomIn, ZoomOut, Compass, List, X,
   Info, Maximize2, Minimize2,
@@ -1028,76 +1028,81 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
               <div className="h-5 w-px bg-slate-300 dark:bg-zinc-700 mx-0.5 shrink-0 hidden sm:block" />
 
-              {/* Quick Picker: Kitab, Pasal, Ayat & Info Kitab */}
+              {/* Minimalist Unified Book & Chapter Selector */}
               <div className="flex items-center gap-1.5 min-w-0">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    if (currentBookInfo?.testament) {
-                      setBookPickerTab(currentBookInfo.testament);
-                    }
-                    setIsBookPickerOpen(true);
-                  }}
-                  className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 hover:bg-amber-500/25 transition h-8 px-2.5 min-w-0 shrink-0`}
-                  title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
-                >
-                  <span className="truncate max-w-[95px] lg:max-w-[140px] xl:max-w-[180px]">📖 {currentBookInfo.name}</span>
-                  <Compass className="w-3.5 h-3.5 ml-1 opacity-70 shrink-0" />
-                </Button>
-
-                {/* Unified Chapter Navigator: [ ◂ ] Ch. 1/28 [ ▸ ] */}
-                <div className="flex items-center border rounded-xl overflow-hidden shadow-xs border-slate-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-800/60 shrink-0">
+                {/* Unified Capsule Control */}
+                <div className={`flex items-center h-8 rounded-full border ${themeStyles.border} bg-black/[0.03] dark:bg-white/[0.05] p-0.5 shadow-2xs backdrop-blur-xs`}>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={handlePrevChapter}
-                    className={`h-8 w-7 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition p-0 flex items-center justify-center`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0`}
                     title={isEnBible ? 'Previous Chapter (ArrowLeft)' : 'Pasal Sebelumnya (ArrowLeft)'}
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
                   </Button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (currentBookInfo?.testament) {
+                        setBookPickerTab(currentBookInfo.testament);
+                      }
+                      setIsBookPickerOpen(true);
+                    }}
+                    className={`px-2.5 h-7 rounded-full text-xs font-semibold flex items-center gap-1 ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer`}
+                    title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
+                  >
+                    <span className="truncate max-w-[95px] lg:max-w-[140px] xl:max-w-[180px]">
+                      {currentBookInfo.name}
+                    </span>
+                    <ChevronDown className="w-3 h-3 opacity-40 shrink-0" />
+                  </button>
+
+                  <div className="w-px h-3.5 bg-black/10 dark:bg-white/10 mx-0.5 shrink-0" />
+
                   <button
                     type="button"
                     onClick={() => setIsChapterPickerOpen(true)}
-                    className={`px-2 h-8 text-xs font-bold font-mono hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center gap-1 cursor-pointer ${themeStyles.text}`}
+                    className={`px-2 h-7 rounded-full text-xs font-medium font-mono flex items-center gap-0.5 cursor-pointer ${themeStyles.text} opacity-85 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 transition`}
                     title={isEnBible ? 'Select Chapter' : 'Pilih Pasal'}
                   >
-                    <span>{isEnBible ? 'Ch' : 'Ps'} {selectedChapter}/{totalChapters}</span>
-                    <List className="w-3 h-3 opacity-60 shrink-0" />
+                    <span>{selectedChapter}</span>
+                    <span className="opacity-40 text-[11px]">/{totalChapters}</span>
                   </button>
+
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={handleNextChapter}
-                    className={`h-8 w-7 rounded-none ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition p-0 flex items-center justify-center`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/10 transition p-0 flex items-center justify-center shrink-0`}
                     title={isEnBible ? 'Next Chapter (ArrowRight)' : 'Pasal Berikutnya (ArrowRight)'}
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </div>
 
-                <Button
-                  variant="outline"
-                  size="sm"
+                {/* Jump to Verse */}
+                <button
+                  type="button"
                   onClick={() => setIsVersePickerOpen(true)}
-                  className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} hover:opacity-80 transition h-8 px-2 hidden lg:flex items-center`}
+                  className={`h-8 px-2.5 rounded-full border ${themeStyles.border} bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/5 dark:hover:bg-white/10 ${themeStyles.text} text-xs font-medium transition hidden lg:flex items-center gap-1 cursor-pointer`}
                   title={isEnBible ? 'Jump to Verse Number' : 'Loncat ke Nomor Ayat'}
                 >
-                  <Hash className="w-3.5 h-3.5 mr-0.5 text-amber-600 dark:text-amber-400" />
+                  <Hash className="w-3 h-3 opacity-50" />
                   <span className="hidden xl:inline">{isEnBible ? 'Verse' : 'Ayat'}</span>
-                </Button>
+                </button>
 
+                {/* Book Info / Intro */}
                 {bookData?.intro && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
+                  <button
+                    type="button"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-8 w-8 rounded-xl ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 transition shrink-0 hidden xl:flex`}
+                    className={`h-8 w-8 rounded-full border ${themeStyles.border} bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/5 dark:hover:bg-white/10 ${themeStyles.text} opacity-70 hover:opacity-100 transition hidden xl:flex items-center justify-center cursor-pointer`}
                     title={isEnBible ? 'Book Introduction & Background' : 'Pengantar & Pokok Kitab'}
                   >
-                    <Info className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                  </Button>
+                    <Info className="w-3.5 h-3.5" />
+                  </button>
                 )}
               </div>
             </div>
@@ -1317,63 +1322,74 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
 
-                {/* Combined / Compact Book & Chapter Selector */}
-                <div className="flex items-center gap-1 min-w-0">
+                {/* Minimalist Unified Book & Chapter Selector on Mobile */}
+                <div className={`flex items-center h-8 rounded-full border ${themeStyles.border} bg-black/[0.03] dark:bg-white/[0.05] p-0.5 shadow-2xs min-w-0`}>
                   <Button
-                    variant="outline"
-                    size="sm"
+                    variant="ghost"
+                    size="icon"
+                    onClick={handlePrevChapter}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 p-0 flex items-center justify-center shrink-0`}
+                    title="Pasal Sebelumnya"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                  </Button>
+
+                  <button
+                    type="button"
                     onClick={() => {
                       if (currentBookInfo?.testament) {
                         setBookPickerTab(currentBookInfo.testament);
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`rounded-xl font-bold text-xs border ${themeStyles.border} bg-amber-500/15 text-amber-800 dark:text-amber-300 h-8 px-2 min-w-0`}
+                    className={`px-2 h-7 rounded-full text-xs font-semibold flex items-center gap-1 ${themeStyles.text} truncate min-w-0`}
                   >
-                    <span className="truncate max-w-[85px] sm:max-w-[110px]">📖 {currentBookInfo.name}</span>
-                    <Compass className="w-3 h-3 ml-1 opacity-70 shrink-0" />
-                  </Button>
+                    <span className="truncate max-w-[85px] sm:max-w-[110px]">{currentBookInfo.name}</span>
+                    <ChevronDown className="w-3 h-3 opacity-40 shrink-0" />
+                  </button>
 
-                  <Button
-                    variant="outline"
-                    size="sm"
+                  <div className="w-px h-3.5 bg-black/10 dark:bg-white/10 shrink-0 mx-0.5" />
+
+                  <button
+                    type="button"
                     onClick={() => setIsChapterPickerOpen(true)}
-                    className={`shrink-0 rounded-xl font-bold text-xs border ${themeStyles.border} ${themeStyles.text} h-8 px-2`}
+                    className={`px-1.5 h-7 rounded-full text-xs font-medium font-mono ${themeStyles.text} opacity-85 shrink-0`}
+                    title="Pilih Pasal"
                   >
-                    <span>{isEnBible ? 'Ch' : 'Ps'} {selectedChapter}</span>
-                    <List className="w-3 h-3 ml-1 opacity-70" />
-                  </Button>
-                </div>
-              </div>
+                    <span>{selectedChapter}</span>
+                  </button>
 
-              {/* Prev / Next & Settings */}
-              <div className="flex items-center gap-1 shrink-0">
-                <div className="flex items-center border rounded-xl overflow-hidden border-slate-300 dark:border-zinc-700 bg-white/60 dark:bg-zinc-800/60">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handlePrevChapter}
-                    className={`h-8 w-7 rounded-none ${themeStyles.text} p-0 flex items-center justify-center`}
-                    title="Pasal Sebelumnya"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </Button>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={handleNextChapter}
-                    className={`h-8 w-7 rounded-none ${themeStyles.text} p-0 flex items-center justify-center`}
+                    className={`h-7 w-7 rounded-full ${themeStyles.text} opacity-60 hover:opacity-100 p-0 flex items-center justify-center shrink-0`}
                     title="Pasal Berikutnya"
                   >
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </Button>
                 </div>
+              </div>
+
+              {/* Settings & Info on Mobile */}
+              <div className="flex items-center gap-1 shrink-0">
+                {bookData?.intro && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsIntroModalOpen(true)}
+                    className={`h-8 w-8 rounded-full border ${themeStyles.border} ${themeStyles.text} opacity-70 p-0 flex items-center justify-center`}
+                    title="Pengantar Kitab"
+                  >
+                    <Info className="w-3.5 h-3.5" />
+                  </Button>
+                )}
 
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                  className={`shrink-0 h-8 w-8 rounded-xl border ${themeStyles.border} ${themeStyles.text} p-0 flex items-center justify-center`}
+                  className={`shrink-0 h-8 w-8 rounded-full border ${themeStyles.border} ${themeStyles.text} p-0 flex items-center justify-center`}
                   title="Pengaturan Tampilan"
                 >
                   <Settings className="w-4 h-4" />
