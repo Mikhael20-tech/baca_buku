@@ -4,6 +4,8 @@ const CORE_URLS = [
   '/',
   '/manifest.webmanifest',
   '/favicon.svg',
+  '/icon-192.png',
+  '/icon-512.png',
   '/bible/books.json',
   '/bible/en/books.json'
 ];

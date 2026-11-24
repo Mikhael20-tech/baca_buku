@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { getStoredUsers } from '../lib/userManagement';
-import { LogIn, Loader2, AlertCircle, CheckCircle2, User, Lock, Phone } from 'lucide-react';
+import { LogIn, Loader2, AlertCircle, CheckCircle2, User, Lock, Phone, Info } from 'lucide-react';
 import {
   Dialog,
   DialogContent,

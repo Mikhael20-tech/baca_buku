@@ -393,6 +393,24 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     }
   }, [selectedChapter]);
 
+  // Pulihkan posisi scroll ke ayat terakhir yang dibaca
+  useEffect(() => {
+    if (!isLoading && bookData) {
+      const savedVerse = localStorage.getItem('last_bible_verse');
+      const savedBook = localStorage.getItem('last_bible_book');
+      const savedChap = Number(localStorage.getItem('last_bible_chapter'));
+      if (savedVerse && savedBook === selectedBookId && savedChap === selectedChapter) {
+        const timer = setTimeout(() => {
+          const el = document.getElementById(`verse-${savedVerse}`);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 350);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isLoading, bookData, selectedBookId, selectedChapter]);
+
   // Simpan Highlights & Bookmarks
   useEffect(() => {
     localStorage.setItem('bible_highlights', JSON.stringify(highlights));
@@ -613,7 +631,103 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
     localStorage.setItem('bible_theme', theme);
     localStorage.setItem('bible_font', fontFamily);
     localStorage.setItem('bible_font_size', fontSize);
+
+    // Sinkronisasi status bar Android jika berjalan di Capacitor APK
+    import('@capacitor/status-bar').then(({ StatusBar, Style }) => {
+      if (theme === 'dark') {
+        StatusBar.setStyle({ style: Style.Dark }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#16191E' }).catch(() => {});
+      } else if (theme === 'sepia') {
+        StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#F4ECD8' }).catch(() => {});
+      } else {
+        StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#FAF7F2' }).catch(() => {});
+      }
+    }).catch(() => {});
   }, [theme, fontFamily, fontSize]);
+
+  // Handle hardware / gesture back button di Android APK
+  useEffect(() => {
+    const handleAppBack = (e) => {
+      if (activeFootnotePopup) {
+        setActiveFootnotePopup(null);
+        e.preventDefault();
+        return;
+      }
+      if (activeVerseMenu) {
+        setActiveVerseMenu(null);
+        e.preventDefault();
+        return;
+      }
+      if (isGlobalSearchOpen) {
+        setIsGlobalSearchOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isBookmarksModalOpen) {
+        setIsBookmarksModalOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isNotesListModalOpen) {
+        setIsNotesListModalOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isIntroModalOpen) {
+        setIsIntroModalOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isScofieldIndexOpen) {
+        setIsScofieldIndexOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isTruthChartsOpen) {
+        setIsTruthChartsOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isVersePickerOpen) {
+        setIsVersePickerOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isChapterPickerOpen) {
+        setIsChapterPickerOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isBookPickerOpen) {
+        setIsBookPickerOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isSettingsOpen) {
+        setIsSettingsOpen(false);
+        e.preventDefault();
+        return;
+      }
+    };
+
+    window.addEventListener('app:back', handleAppBack);
+    return () => window.removeEventListener('app:back', handleAppBack);
+  }, [
+    activeFootnotePopup,
+    activeVerseMenu,
+    isGlobalSearchOpen,
+    isBookmarksModalOpen,
+    isNotesListModalOpen,
+    isIntroModalOpen,
+    isScofieldIndexOpen,
+    isTruthChartsOpen,
+    isVersePickerOpen,
+    isChapterPickerOpen,
+    isBookPickerOpen,
+    isSettingsOpen
+  ]);
 
   // Highlights & Bookmarks Actions
   const handleSetHighlight = (vNum, color) => {
@@ -1988,7 +2102,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     {/* Verse Row */}
                     <div
                       id={`verse-${item.verse}`}
-                      onClick={() => setActiveVerseMenu(activeVerseMenu === item.verse ? null : item.verse)}
+                      onClick={() => {
+                        const next = activeVerseMenu === item.verse ? null : item.verse;
+                        setActiveVerseMenu(next);
+                        if (next) {
+                          localStorage.setItem('last_bible_verse', String(next));
+                        }
+                      }}
                       className={`group relative p-2 sm:p-2.5 rounded-xl transition-all duration-300 ease-out cursor-pointer ${
                         highlightedVerse === item.verse
                           ? 'bg-amber-500/20 ring-2 ring-amber-400/80 shadow-md scale-[1.006]'

@@ -62,6 +62,8 @@ const BibleReaderView = lazyWithRetry(() => import('./components/BibleReaderView
 const KidungReaderView = lazyWithRetry(() => import('./components/KidungReaderView'), 'KidungReaderView');
 const UserDashboard = lazyWithRetry(() => import('./components/UserDashboard'), 'UserDashboard');
 const AdminDashboard = lazyWithRetry(() => import('./components/AdminDashboard'), 'AdminDashboard');
+const PresenterConsole = lazyWithRetry(() => import('./pages/PresenterConsole'), 'PresenterConsole');
+const LiveOutput = lazyWithRetry(() => import('./pages/LiveOutput'), 'LiveOutput');
 
 const ViewLoadingFallback = ({ text = 'Memuat...' }) => (
   <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-[#3B4B34]">
@@ -418,7 +420,14 @@ const INITIAL_DEMO_BOOKS = [
 export default function App() {
   // All state hooks at the top
   const [currentBook, setCurrentBook] = useState(null);
-  const [viewMode, setViewMode] = useState('landing'); // 'landing' | 'library' | 'bible' | 'user-dashboard' | 'admin-dashboard'
+  const [viewMode, setViewMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const p = window.location.pathname;
+      if (p === '/presenter' || p.startsWith('/presenter')) return 'presenter';
+      if (p === '/live' || p.startsWith('/live')) return 'live';
+    }
+    return 'landing';
+  }); // 'landing' | 'library' | 'bible' | 'kidung' | 'presenter' | 'live' | 'user-dashboard' | 'admin-dashboard'
   const [books, setBooks] = useState([]);
   const [isLoadingBooks, setIsLoadingBooks] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -520,7 +529,14 @@ export default function App() {
         const { App: CapApp } = await import('@capacitor/app');
 
         const listener = await CapApp.addListener('backButton', () => {
-          // 1. Tutup modal/dialog yang sedang terbuka
+          // 0. Cek apakah ada modal / popup di view aktif (BibleReaderView, KidungReaderView, CloudEpubReader) yang menangani Back
+          const backEvt = new CustomEvent('app:back', { cancelable: true });
+          const wasCancelled = !window.dispatchEvent(backEvt);
+          if (wasCancelled) {
+            return;
+          }
+
+          // 1. Tutup modal/dialog yang sedang terbuka di level root
           if (isUploadModalOpen) {
             setIsUploadModalOpen(false);
             return;
@@ -1167,6 +1183,36 @@ export default function App() {
   }
 
   // ----------------------------------------------------
+  // Live Stage Presenter Console (/presenter)
+  // ----------------------------------------------------
+  if (viewMode === 'presenter') {
+    return (
+      <div className="fixed inset-0 z-50 bg-zinc-950">
+        <ErrorBoundary>
+          <React.Suspense fallback={<ViewLoadingFallback text="Memuat Presenter Console..." />}>
+            <PresenterConsole onBackToApp={() => setViewMode('landing')} />
+          </React.Suspense>
+        </ErrorBoundary>
+      </div>
+    );
+  }
+
+  // ----------------------------------------------------
+  // Live Stage Output Screen (/live)
+  // ----------------------------------------------------
+  if (viewMode === 'live') {
+    return (
+      <div className="fixed inset-0 z-50 bg-black">
+        <ErrorBoundary>
+          <React.Suspense fallback={<ViewLoadingFallback text="Menghubungkan Layar Proyektor..." />}>
+            <LiveOutput />
+          </React.Suspense>
+        </ErrorBoundary>
+      </div>
+    );
+  }
+
+  // ----------------------------------------------------
   // Jika sedang membaca Kidung Rohani & Suplemen (RHV 2019)
   // ----------------------------------------------------
   if (!currentBook && viewMode === 'kidung') {
@@ -1180,6 +1226,7 @@ export default function App() {
               onBackToHome={() => setViewMode('landing')} 
               onOpenLibrary={() => setViewMode('library')} 
               onOpenBible={() => setViewMode('bible')}
+              onOpenPresenter={() => setViewMode('presenter')}
             />
           </React.Suspense>
         </ErrorBoundary>
@@ -2191,8 +2238,8 @@ export default function App() {
         onNavigateToVerse={handleNavigateToVerse}
       />
 
-      {/* Floating Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-xl border-t border-[#1C1917]/10 px-3 py-1.5 flex items-center justify-around shadow-lg">
+      {/* Floating Mobile Bottom Navigation Bar (dengan dukungan Safe Area Inset Android & iOS) */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-xl border-t border-[#1C1917]/10 px-3 pt-1.5 pb-safe flex items-center justify-around shadow-lg">
         <button
           onClick={() => setViewMode('landing')}
           className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition ${

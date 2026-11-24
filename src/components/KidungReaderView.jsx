@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   Music, ChevronLeft, ChevronRight, Search, Copy, Check, 
   Share2, ArrowLeft, ZoomIn, ZoomOut, Hash, BookOpen, 
-  X, Sparkles, Sliders, Moon, Sun, Coffee, List, ChevronDown, Globe
+  X, Sparkles, Sliders, Moon, Sun, Coffee, List, ChevronDown, Globe, Tv
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -37,7 +37,8 @@ export default function KidungReaderView({
   initialSongId = null,
   onBackToHome, 
   onOpenLibrary,
-  onOpenBible 
+  onOpenBible,
+  onOpenPresenter
 }) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -76,6 +77,19 @@ export default function KidungReaderView({
 
   useEffect(() => {
     localStorage.setItem('kidung_theme', themeId);
+    // Sinkronisasi status bar Android jika berjalan di Capacitor APK
+    import('@capacitor/status-bar').then(({ StatusBar, Style }) => {
+      if (themeId === 'dark') {
+        StatusBar.setStyle({ style: Style.Dark }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#121417' }).catch(() => {});
+      } else if (themeId === 'sepia') {
+        StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#F4ECD8' }).catch(() => {});
+      } else {
+        StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#FAF7F2' }).catch(() => {});
+      }
+    }).catch(() => {});
   }, [themeId]);
 
   useEffect(() => {
@@ -83,10 +97,10 @@ export default function KidungReaderView({
     localStorage.setItem('kidung_show_pinyin', showPhonetic);
   }, [showPhonetic]);
 
-  // Load data JSON (dengan cache buster)
+  // Load data JSON (menggunakan cache statis, bukan Date.now() agar tidak download ulang 15MB tiap buka tab)
   useEffect(() => {
     setIsLoading(true);
-    fetch('/kidung/kidung_data.json?v=' + Date.now())
+    fetch('/kidung/kidung_data.json?v=2')
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}: Gagal memuat data kidung`);
         return res.json();
@@ -117,6 +131,35 @@ export default function KidungReaderView({
       readerScrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [selectedSong]);
+
+  // Handle hardware / gesture back button di Android APK
+  useEffect(() => {
+    const handleAppBack = (e) => {
+      if (isLangModalOpen) {
+        setIsLangModalOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (selectedSong) {
+        setSelectedSong(null);
+        e.preventDefault();
+        return;
+      }
+      if (selectedCategory) {
+        setSelectedCategory(null);
+        e.preventDefault();
+        return;
+      }
+      if (searchQuery) {
+        setSearchQuery('');
+        e.preventDefault();
+        return;
+      }
+    };
+
+    window.addEventListener('app:back', handleAppBack);
+    return () => window.removeEventListener('app:back', handleAppBack);
+  }, [isLangModalOpen, selectedSong, selectedCategory, searchQuery]);
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -438,6 +481,18 @@ export default function KidungReaderView({
               {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
               <span className="hidden md:inline font-medium">Salin</span>
             </button>
+
+            {/* Live Stage Presenter Console */}
+            {onOpenPresenter && (
+              <button
+                onClick={onOpenPresenter}
+                className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition text-xs flex items-center gap-1 border border-amber-600/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 font-semibold"
+                title="Buka Live Stage Presenter Console untuk Proyektor"
+              >
+                <Tv className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                <span className="hidden md:inline">Live Stage</span>
+              </button>
+            )}
           </div>
         </header>
 

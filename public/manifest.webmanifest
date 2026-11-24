@@ -1,18 +1,47 @@
 {
-  "name": "Baca - Alkitab Versi Pemulihan & Cloud EPUB",
+  "name": "Baca - Alkitab Versi Pemulihan, Kidung & Cloud EPUB",
   "short_name": "Baca",
-  "description": "Aplikasi Web Pembaca Alkitab Versi Pemulihan (Recovery Version) & Cloud EPUB Reader",
+  "description": "Aplikasi Web & Mobile Pembaca Alkitab Versi Pemulihan, Replika Scofield 1917, 786 Kidung Rohani, dan Cloud EPUB Reader",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F4ED",
+  "background_color": "#FAF7F2",
   "theme_color": "#3B4B34",
   "orientation": "any",
   "icons": [
     {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Alkitab",
+      "url": "/?view=bible",
+      "description": "Buka Alkitab Versi Pemulihan"
+    },
+    {
+      "name": "Kidung Rohani",
+      "url": "/?view=kidung",
+      "description": "Buka Kidung Rohani & Suplemen"
+    },
+    {
+      "name": "Live Stage Presenter",
+      "url": "/presenter",
+      "description": "Buka Konsol Operator Proyektor"
     }
   ]
 }

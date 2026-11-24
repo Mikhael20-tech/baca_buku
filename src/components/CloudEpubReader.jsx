@@ -525,6 +525,58 @@ export default function CloudEpubReader({
     }
   }, [handleAnnotationClick]);
 
+  // Handle hardware / gesture back button di Android APK
+  useEffect(() => {
+    const handleAppBack = (e) => {
+      if (activeFootnote) {
+        setActiveFootnote(null);
+        e.preventDefault();
+        return;
+      }
+      if (selectedAnnoPopup) {
+        setSelectedAnnoPopup(null);
+        e.preventDefault();
+        return;
+      }
+      if (isTocOpen) {
+        setIsTocOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isSidebarOpen) {
+        setIsSidebarOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isSettingsOpen) {
+        setIsSettingsOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isNoteInputOpen) {
+        setIsNoteInputOpen(false);
+        e.preventDefault();
+        return;
+      }
+      if (isProgressPopoverOpen) {
+        setIsProgressPopoverOpen(false);
+        e.preventDefault();
+        return;
+      }
+    };
+
+    window.addEventListener('app:back', handleAppBack);
+    return () => window.removeEventListener('app:back', handleAppBack);
+  }, [
+    activeFootnote,
+    selectedAnnoPopup,
+    isTocOpen,
+    isSidebarOpen,
+    isSettingsOpen,
+    isNoteInputOpen,
+    isProgressPopoverOpen
+  ]);
+
   // 2. Fetch data anotasi dari Supabase (atau LocalStorage jika Demo Mode)
   const loadAnnotations = useCallback(async () => {
     try {

@@ -64,55 +64,59 @@ export default function BibleGlobalSearchModal({
 
     const matches = [];
     const maxResults = 100;
+    const CHUNK_SIZE = 6;
 
-    for (let i = 0; i < targetBooks.length; i++) {
-      if (searchAbortRef.current) break;
-      const b = targetBooks[i];
-      setProgressText(`${isEn ? 'Searching in' : 'Memeriksa'} ${b.name} (${i + 1}/${targetBooks.length})...`);
+    for (let i = 0; i < targetBooks.length; i += CHUNK_SIZE) {
+      if (searchAbortRef.current || matches.length >= maxResults) break;
+      const chunk = targetBooks.slice(i, i + CHUNK_SIZE);
+      setProgressText(`${isEn ? 'Searching in' : 'Memeriksa'} ${chunk[0].name} (${Math.min(i + CHUNK_SIZE, targetBooks.length)}/${targetBooks.length})...`);
 
-      try {
-        const cacheKey = `${searchLang}-${b.id}`;
-        let bookData = BOOK_CACHE[cacheKey];
+      await Promise.all(chunk.map(async (b) => {
+        if (searchAbortRef.current || matches.length >= maxResults) return;
+        try {
+          const cacheKey = `${searchLang}-${b.id}`;
+          let bookData = BOOK_CACHE[cacheKey];
 
-        if (!bookData) {
-          const url = ['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(searchLang)
-            ? `/bible/${searchLang}/${b.id}.json`
-            : `/bible/${b.id}.json`;
+          if (!bookData) {
+            const url = ['tb', 'kjv', 'asv', 'net', 'scofield', 'en'].includes(searchLang)
+              ? `/bible/${searchLang}/${b.id}.json`
+              : `/bible/${b.id}.json`;
 
-          const res = await fetch(url);
-          if (res.ok) {
-            bookData = await res.json();
-            BOOK_CACHE[cacheKey] = bookData;
+            const res = await fetch(url);
+            if (res.ok) {
+              bookData = await res.json();
+              BOOK_CACHE[cacheKey] = bookData;
+            }
           }
-        }
 
-        if (bookData && bookData.chapters) {
-          for (const chapKey of Object.keys(bookData.chapters)) {
-            if (matches.length >= maxResults) break;
-            const chap = bookData.chapters[chapKey];
-            if (chap && chap.verses) {
-              for (const v of chap.verses) {
-                if (matches.length >= maxResults) break;
-                if (v.text && v.text.toLowerCase().includes(cleanQuery)) {
-                  matches.push({
-                    bookId: b.id,
-                    bookName: b.name,
-                    chapter: Number(chapKey),
-                    verse: v.verse,
-                    text: v.text,
-                    lang: searchLang
-                  });
+          if (bookData && bookData.chapters) {
+            for (const chapKey of Object.keys(bookData.chapters)) {
+              if (matches.length >= maxResults || searchAbortRef.current) break;
+              const chap = bookData.chapters[chapKey];
+              if (chap && chap.verses) {
+                for (const v of chap.verses) {
+                  if (matches.length >= maxResults || searchAbortRef.current) break;
+                  if (v.text && v.text.toLowerCase().includes(cleanQuery)) {
+                    matches.push({
+                      bookId: b.id,
+                      bookName: b.name,
+                      chapter: Number(chapKey),
+                      verse: v.verse,
+                      text: v.text,
+                      lang: searchLang
+                    });
+                  }
                 }
               }
             }
           }
+        } catch (err) {
+          console.warn('Error reading book for search:', b.id, err);
         }
-      } catch (err) {
-        console.warn('Error reading book for search:', b.id, err);
-      }
+      }));
 
-      // Periodically update UI with matches found so far
-      if (matches.length > 0 && i % 3 === 0) {
+      // Update UI dengan hasil sementara setelah tiap batch
+      if (matches.length > 0) {
         setResults([...matches]);
       }
     }
