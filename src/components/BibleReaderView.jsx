@@ -106,13 +106,15 @@ const BIBLE_ABBR_MAP = {
 };
 
 const FONTS = [
-  { id: 'Cinzel', name: 'Cinzel (Artistik)', font: "'Cinzel', Georgia, serif" },
+  { id: 'Cinzel', name: 'Cinzel (Imperial Klasik)', font: "'Cinzel', Georgia, serif" },
+  { id: 'Bodoni Moda', name: 'Bodoni Moda (Haute Luxury)', font: "'Bodoni Moda', Georgia, serif" },
+  { id: 'Marcellus', name: 'Marcellus (Romawi Anggun)', font: "'Marcellus', Georgia, serif" },
+  { id: 'Cormorant Garamond', name: 'Cormorant (Kemewahan Eropa)', font: "'Cormorant Garamond', Georgia, serif" },
   { id: 'Playfair Display', name: 'Playfair (Elegan)', font: "'Playfair Display', Georgia, serif" },
-  { id: 'Cormorant Garamond', name: 'Cormorant (Klasik)', font: "'Cormorant Garamond', Georgia, serif" },
-  { id: 'Lora', name: 'Lora', font: "'Lora', Georgia, serif" },
+  { id: 'Literata', name: 'Literata (Editorial Modern)', font: "'Literata', Georgia, serif" },
+  { id: 'Lora', name: 'Lora (Hangat & Nyaman)', font: "'Lora', Georgia, serif" },
   { id: 'Merriweather', name: 'Merriweather', font: "'Merriweather', Georgia, serif" },
-  { id: 'Literata', name: 'Literata', font: "'Literata', Georgia, serif" },
-  { id: 'Inter', name: 'Inter', font: "'Inter', sans-serif" },
+  { id: 'Inter', name: 'SF Pro / Inter (Clean Modern)', font: "'-apple-system', 'BlinkMacSystemFont', 'Plus Jakarta Sans', 'Inter', sans-serif" },
 ];
 
 const SCOFIELD_DOCS = [
@@ -1089,7 +1091,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-3.5 h-8 rounded-full text-sm sm:text-base font-serif font-bold tracking-tight flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
+                    className={`px-3.5 h-8 rounded-full text-sm sm:text-base font-cinzel font-bold tracking-[0.04em] flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
                     title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
                   >
                     <span className="truncate max-w-[120px] lg:max-w-[170px] xl:max-w-[210px]">
@@ -1185,7 +1187,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('id');
                     localStorage.setItem('bible_language', 'id');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'id'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1201,7 +1203,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('tb');
                     localStorage.setItem('bible_language', 'tb');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'tb'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1217,7 +1219,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('en');
                     localStorage.setItem('bible_language', 'en');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'en'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1233,7 +1235,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('kjv');
                     localStorage.setItem('bible_language', 'kjv');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'kjv'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1249,7 +1251,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('asv');
                     localStorage.setItem('bible_language', 'asv');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'asv'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1265,7 +1267,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('net');
                     localStorage.setItem('bible_language', 'net');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'net'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1281,7 +1283,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('scofield');
                     localStorage.setItem('bible_language', 'scofield');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'scofield'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1293,7 +1295,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button
                   type="button"
                   onClick={() => setViewMode(prev => prev === 'parallel' ? 'single' : 'parallel')}
-                  className={`px-3 py-1 rounded-full text-xs sm:text-sm font-serif font-bold transition-all flex items-center gap-1 ${
+                  className={`px-3 py-1 rounded-full text-xs sm:text-[13px] font-sans font-semibold tracking-wider transition-all flex items-center gap-1 ${
                     viewMode === 'parallel'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1309,7 +1311,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               <button
                 type="button"
                 onClick={() => setIsDistractionFree(true)}
-                className={`shrink-0 h-9 sm:h-10 w-9 sm:w-10 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition hidden xl:flex items-center justify-center cursor-pointer shadow-2xs`}
+                className={`shrink-0 h-9 sm:h-10 w-9 sm:w-10 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition hidden xl:flex items-center justify-center cursor-pointer shadow-2xs`}
                 title={isEnBible ? 'Fullscreen (Focus Mode)' : 'Layar Penuh (Fokus Membaca)'}
               >
                 <Maximize2 className="w-4 h-4" />
@@ -1362,7 +1364,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-2.5 h-7.5 rounded-full text-xs sm:text-sm font-serif font-bold tracking-tight flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
+                    className={`px-2.5 h-7.5 rounded-full text-xs sm:text-sm font-cinzel font-bold tracking-[0.04em] flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
                   >
                     <span className="truncate max-w-[90px] sm:max-w-[120px]">{currentBookInfo.name}</span>
                     <ChevronDown className="w-3.5 h-3.5 opacity-40 shrink-0" />
@@ -1425,7 +1427,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('id');
                     localStorage.setItem('bible_language', 'id');
                   }}
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'id'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1441,7 +1443,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('tb');
                     localStorage.setItem('bible_language', 'tb');
                   }}
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'tb'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1457,7 +1459,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('en');
                     localStorage.setItem('bible_language', 'en');
                   }}
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'en'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1473,7 +1475,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('kjv');
                     localStorage.setItem('bible_language', 'kjv');
                   }}
-                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'kjv'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1489,7 +1491,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('asv');
                     localStorage.setItem('bible_language', 'asv');
                   }}
-                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'asv'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1505,7 +1507,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('net');
                     localStorage.setItem('bible_language', 'net');
                   }}
-                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'net'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1521,7 +1523,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     setBibleLang('scofield');
                     localStorage.setItem('bible_language', 'scofield');
                   }}
-                  className={`px-2 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all ${
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all ${
                     viewMode === 'single' && bibleLang === 'scofield'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`
@@ -1532,7 +1534,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button
                   type="button"
                   onClick={() => setViewMode(prev => prev === 'parallel' ? 'single' : 'parallel')}
-                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-serif font-bold transition-all flex items-center gap-0.5 ${
+                  className={`px-1.5 py-0.5 rounded-full text-[10px] font-sans font-semibold tracking-wider transition-all flex items-center gap-0.5 ${
                     viewMode === 'parallel'
                       ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
                       : `${themeStyles.text} opacity-60 hover:opacity-100`

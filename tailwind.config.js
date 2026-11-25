@@ -19,8 +19,11 @@ export default {
       fontFamily: {
         sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
         ios: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
-        serif: ['"Playfair Display"', 'Merriweather', 'Literata', 'Lora', '"Cormorant Garamond"', 'serif'],
+        serif: ['"Cormorant Garamond"', '"Playfair Display"', 'Merriweather', 'Literata', 'Lora', 'serif'],
         cinzel: ['Cinzel', 'serif'],
+        cormorant: ['"Cormorant Garamond"', 'serif'],
+        marcellus: ['Marcellus', 'serif'],
+        bodoni: ['"Bodoni Moda"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
