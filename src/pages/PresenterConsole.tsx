@@ -454,6 +454,33 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     [broadcastState, roomId, stageTheme, contentFontSize, badgeFontSize, state.tickerActive, state.tickerText, state.tickerSpeed]
   );
 
+  const projectFootnote = useCallback(
+    (song: SongSetItem, index: number, fn: { verse: number; keyword?: string; text: string }, supLabel: string) => {
+      setSelectedSong(song);
+      setActiveSlideIdx(index);
+      const fnContent = fn.keyword ? `${supLabel} ${fn.keyword} — ${fn.text}` : `${supLabel} ${fn.text}`;
+      broadcastState({
+        roomId,
+        activeSongId: song.id,
+        title: `${song.title} • Catatan Kaki ${supLabel}`,
+        subtitle: song.subtitle,
+        content: fnContent,
+        imageUrl: undefined,
+        slideIndex: index,
+        totalSlides: song.slides.length,
+        mode: 'LIVE',
+        theme: stageTheme,
+        fontSize: contentFontSize,
+        badgeFontSize: badgeFontSize,
+        tickerActive: state.tickerActive,
+        tickerText: state.tickerText,
+        tickerSpeed: state.tickerSpeed,
+        updatedAt: Date.now(),
+      });
+    },
+    [broadcastState, roomId, stageTheme, contentFontSize, badgeFontSize, state.tickerActive, state.tickerText, state.tickerSpeed]
+  );
+
   const setDisplayMode = useCallback(
     (mode: DisplayMode) => {
       broadcastState({
@@ -1004,14 +1031,35 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                             const superscripts = ['¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'];
                             const fnGroup = slide.footnotes!.filter((f) => f.verse === fn.verse);
                             const idxInVerse = fnGroup.indexOf(fn);
+                            const supLabel = superscripts[idxInVerse] ?? `(${idxInVerse + 1})`;
                             return (
-                              <div key={fIdx} className="text-[11px] text-zinc-400 leading-snug flex gap-1.5">
+                              <div
+                                key={fIdx}
+                                role="button"
+                                tabIndex={0}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  projectFootnote(selectedSong, idx, fn, supLabel);
+                                }}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    projectFootnote(selectedSong, idx, fn, supLabel);
+                                  }
+                                }}
+                                title="Klik untuk tayangkan catatan kaki ini ke proyektor"
+                                className="text-[11px] text-zinc-400 hover:text-white hover:bg-white/10 rounded-lg px-2 py-1 -mx-2 leading-snug flex items-start gap-1.5 transition cursor-pointer group/fn"
+                              >
                                 <span className="text-amber-400 font-bold shrink-0">
-                                  {superscripts[idxInVerse] ?? (idxInVerse + 1)}
+                                  {supLabel}
                                 </span>
-                                <span className="line-clamp-2">
+                                <span className="line-clamp-2 flex-1">
                                   {fn.keyword ? <><em className="text-zinc-300 not-italic font-medium">{fn.keyword}</em> — </> : null}
                                   {fn.text}
+                                </span>
+                                <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400 opacity-0 group-hover/fn:opacity-100 shrink-0 self-center transition">
+                                  Tayangkan
                                 </span>
                               </div>
                             );
