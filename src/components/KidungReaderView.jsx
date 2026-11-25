@@ -414,27 +414,27 @@ export default function KidungReaderView({
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               onClick={() => setSelectedSong(null)}
-              className="p-2 -ml-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition flex items-center gap-1.5 text-sm font-semibold shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/80 dark:border-white/10 hover:bg-white text-[#1C1917] dark:text-[#F4EFE6] flex items-center gap-1.5 text-xs font-sans font-semibold shadow-xs transition active:scale-95 cursor-pointer shrink-0"
               title="Kembali ke Daftar Kidung"
             >
-              <ChevronLeft className="w-5 h-5" />
-              <span className="hidden sm:inline">Daftar</span>
+              <ChevronLeft className="w-4 h-4" />
+              <span>Daftar</span>
             </button>
 
-            <div className="flex items-center gap-2 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 border border-[#3B4B34]/20 text-[#3B4B34] dark:text-emerald-400 flex items-center justify-center shrink-0">
                 <Music className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-extrabold font-serif truncate">
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-bold font-bodoni text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
                     {selectedSong.type === 'suplemen' ? 'Suplemen' : 'Kidung'}
                   </span>
-                  <span className="text-[11px] font-bold px-2 py-0.2 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/25">
+                  <span className="text-xs font-bold font-sans px-2.5 py-0.5 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20">
                     {selectedSong.formattedNumber}
                   </span>
                 </div>
-                <p className="text-[10px] text-[#78716C] truncate">{selectedSong.category}</p>
+                <p className="text-xs text-[#1C1917]/50 dark:text-white/50 font-sans truncate">{selectedSong.category}</p>
               </div>
             </div>
           </div>
@@ -955,51 +955,52 @@ export default function KidungReaderView({
       : selectedCategory.name;
     const listSubtitle = isSearchActive
       ? `${searchResults.length} kidung ditemukan`
-      : `Rentang ${selectedCategory.range} • ${categorySongs.length} Kidung`;
+      : `Rentang ${selectedCategory.range} (${categorySongs.length} Kidung)`;
     const songsToDisplay = isSearchActive ? searchResults : categorySongs;
 
     return (
       <div className={`fixed inset-0 z-50 ${theme.bg} ${theme.text} flex flex-col font-sans select-none`}>
         
-        {/* Header Bar (Screenshot 4 style: < [icon] Kidung) */}
-        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-md border-b ${theme.border} px-4 sm:px-6 py-3 flex items-center justify-between gap-3 shadow-xs`}>
+        {/* Header Bar (Apple Frosted Glass Luxury Style) */}
+        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3 shadow-xs`}>
           <div className="flex items-center gap-3 min-w-0">
             <button
               onClick={() => {
                 if (isSearchActive) setSearchQuery('');
                 setSelectedCategory(null);
               }}
-              className="p-1.5 -ml-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition text-sm font-semibold flex items-center gap-1 shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/80 dark:border-white/10 hover:bg-white text-[#1C1917] dark:text-[#F4EFE6] flex items-center gap-1.5 text-xs font-sans font-semibold shadow-xs transition active:scale-95 cursor-pointer shrink-0"
+              title="Kembali ke Indeks"
             >
-              <ChevronLeft className="w-5 h-5" />
-              <span className="hidden sm:inline">Indeks</span>
+              <ChevronLeft className="w-4 h-4" />
+              <span>Indeks</span>
             </button>
 
-            <div className="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 border border-[#3B4B34]/20 text-[#3B4B34] dark:text-emerald-400 flex items-center justify-center shrink-0">
               <Music className="w-4 h-4" />
             </div>
 
             <div className="min-w-0">
-              <h2 className="text-sm sm:text-base font-extrabold font-serif truncate">
+              <h2 className="text-base sm:text-lg font-bold font-bodoni text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
                 {listTitle}
               </h2>
-              <p className="text-[11px] text-[#78716C] truncate">{listSubtitle}</p>
+              <p className="text-xs text-[#1C1917]/50 dark:text-white/50 font-sans truncate">{listSubtitle}</p>
             </div>
           </div>
 
           {/* Search box inline */}
-          <div className="relative w-40 sm:w-64 shrink-0">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#78716C]" />
+          <div className="relative w-44 sm:w-64 shrink-0">
+            <Search className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#1C1917]/40 dark:text-white/40" />
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari lirik, nomor..."
-              className="pl-8 pr-7 py-1 text-xs rounded-full bg-white/70 dark:bg-black/30 border-black/10 dark:border-white/10 h-8"
+              className="pl-9 pr-8 py-1.5 text-xs rounded-full bg-white/70 dark:bg-[#1A1D24]/70 backdrop-blur-xl border border-white/80 dark:border-white/10 shadow-xs h-9 font-sans"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-black dark:hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#1C1917]/40 hover:text-[#1C1917] dark:text-white/40 dark:hover:text-white transition cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -1007,35 +1008,35 @@ export default function KidungReaderView({
           </div>
         </header>
 
-        {/* Songs List (Screenshot 4 style) */}
-        <div className="flex-1 overflow-y-auto px-3 sm:px-6 py-4">
-          <div className="max-w-[760px] mx-auto divide-y divide-black/5 dark:divide-white/5">
+        {/* Songs List (Apple Frosted Glass Luxury Cards) */}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6">
+          <div className="max-w-[760px] mx-auto rounded-[32px] bg-white/70 dark:bg-[#1A1D24]/70 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.05)] divide-y divide-black/5 dark:divide-white/5 overflow-hidden transition-all">
             {songsToDisplay.length > 0 ? (
               songsToDisplay.map((song) => (
                 <div
                   key={song.id}
                   onClick={() => setSelectedSong(song)}
-                  className="py-3.5 px-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/5 transition cursor-pointer group flex items-start gap-3 sm:gap-4"
+                  className="py-4 px-5 sm:px-6 hover:bg-white/90 dark:hover:bg-white/10 transition cursor-pointer group flex items-start gap-4"
                 >
-                  {/* Nomor Kidung di Kiri (S. 2024 atau No. 001) */}
-                  <div className="font-bold text-xs sm:text-sm text-amber-700 dark:text-amber-400 font-serif shrink-0 w-16 sm:w-20 pt-0.5">
+                  {/* Nomor Kidung di Kiri */}
+                  <div className="px-2.5 py-1 rounded-xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 font-sans font-bold text-xs tracking-wider shrink-0 select-none shadow-2xs mt-0.5">
                     {song.formattedNumber}
                   </div>
 
-                  {/* Lirik Baris Pertama & Koor (Screenshot 4) */}
+                  {/* Lirik Baris Pertama & Koor */}
                   <div className="flex-1 min-w-0 space-y-1">
-                    <p className="text-xs sm:text-sm text-[#1C1917] dark:text-[#E2E8F0] font-medium leading-relaxed group-hover:text-amber-800 dark:group-hover:text-amber-300 transition line-clamp-2">
+                    <p className="font-bodoni font-medium text-base sm:text-lg text-[#1C1917] dark:text-[#F4EFE6] group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 transition leading-snug line-clamp-2">
                       {song.firstLine || song.title}
                     </p>
 
                     {song.chorusSnippet && (
-                      <p className="text-[11px] sm:text-xs text-[#78716C] leading-relaxed line-clamp-1">
-                        <span className="font-bold text-amber-700/90 dark:text-amber-400/90">Koor:</span> "{song.chorusSnippet}"
+                      <p className="text-xs sm:text-[13px] text-[#1C1917]/60 dark:text-white/60 font-sans leading-relaxed line-clamp-1">
+                        <span className="font-semibold text-[#3B4B34] dark:text-emerald-400 mr-1">Koor:</span> "{song.chorusSnippet}"
                       </p>
                     )}
                   </div>
 
-                  <ChevronRight className="w-4 h-4 text-[#78716C] shrink-0 opacity-0 group-hover:opacity-100 transition self-center" />
+                  <ChevronRight className="w-4 h-4 text-[#1C1917]/30 dark:text-white/30 group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 group-hover:translate-x-0.5 transition self-center shrink-0" />
                 </div>
               ))
             ) : (
