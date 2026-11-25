@@ -551,12 +551,16 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${startV}-${endV}-combined`,
               label: startV === endV ? `Ayat ${startV}` : `Ayat ${startV}–${endV}`,
               content: picked.map((v) => `${v.verse}. ${v.text}`).join('\n'),
+              markedContent: picked.map((v) => `${v.verse}. ${v.marked_text || v.text}`).join('\n'),
+              footnotes: bibleChapterFootnotes.filter((fn) => fn.verse >= startV && fn.verse <= endV),
             },
           ]
         : picked.map((v, idx) => ({
             id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${v.verse}-${idx}`,
             label: `Ayat ${v.verse}`,
             content: `${v.verse}. ${v.text}`,
+            markedContent: `${v.verse}. ${v.marked_text || v.text}`,
+            footnotes: bibleChapterFootnotes.filter((fn) => fn.verse === v.verse),
           }));
 
     const item: SongSetItem = {
@@ -979,9 +983,42 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                       <img src={slide.imageUrl} alt={slide.label} className="w-full h-full object-contain" />
                     </div>
                   ) : (
-                    <p className="text-sm sm:text-base whitespace-pre-line leading-relaxed text-zinc-200 font-medium font-sans">
-                      {slide.content}
-                    </p>
+                    <>
+                      <p className="text-sm sm:text-base whitespace-pre-line leading-relaxed text-zinc-200 font-medium font-sans">
+                        {slide.markedContent && slide.markedContent.includes('<fn n=')
+                          ? slide.markedContent.split(/<fn n="(\d+)"\/>/).map((part, i) => {
+                              if (i % 2 === 0) return <span key={i}>{part}</span>;
+                              const superscripts = ['¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'];
+                              const idxNum = parseInt(part, 10) - 1;
+                              return (
+                                <sup key={i} className="text-amber-400 font-bold text-[10px] mx-0.5">
+                                  {superscripts[idxNum] ?? `(${part})`}
+                                </sup>
+                              );
+                            })
+                          : slide.content}
+                      </p>
+                      {slide.footnotes && slide.footnotes.length > 0 && (
+                        <div className="mt-3 pt-2.5 border-t border-white/10 space-y-1 text-left w-full">
+                          {slide.footnotes.map((fn, fIdx) => {
+                            const superscripts = ['¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'];
+                            const fnGroup = slide.footnotes!.filter((f) => f.verse === fn.verse);
+                            const idxInVerse = fnGroup.indexOf(fn);
+                            return (
+                              <div key={fIdx} className="text-[11px] text-zinc-400 leading-snug flex gap-1.5">
+                                <span className="text-amber-400 font-bold shrink-0">
+                                  {superscripts[idxInVerse] ?? (idxInVerse + 1)}
+                                </span>
+                                <span className="line-clamp-2">
+                                  {fn.keyword ? <><em className="text-zinc-300 not-italic font-medium">{fn.keyword}</em> — </> : null}
+                                  {fn.text}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </>
                   )}
                 </button>
               );

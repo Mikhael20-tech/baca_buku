@@ -1,10 +1,19 @@
 export type DisplayMode = 'LIVE' | 'CLEAR' | 'BLACKOUT';
 
+export interface SlideFootnote {
+  verse: number;
+  note_idx: number;
+  keyword: string;
+  text: string;
+}
+
 export interface SlideItem {
   id: string;
   label: string;
   content: string;
   imageUrl?: string;
+  markedContent?: string;
+  footnotes?: SlideFootnote[];
 }
 
 export interface SongSetItem {
