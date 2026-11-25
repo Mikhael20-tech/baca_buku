@@ -15,6 +15,8 @@ const INITIAL_STATE: StageState = {
   tickerText: '',
   tickerActive: false,
   tickerSpeed: 28,
+  fontSize: 56,
+  badgeFontSize: 16,
   updatedAt: Date.now(),
 };
 

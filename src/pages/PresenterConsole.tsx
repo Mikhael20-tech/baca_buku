@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useStageSync } from '../hooks/useStageSync';
 import { chunkTextToSlides } from '../utils/chunkLyrics';
-import { SongSetItem, DisplayMode } from '../types/stage';
-import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone } from 'lucide-react';
+import { SongSetItem, DisplayMode, SlideItem } from '../types/stage';
+import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone, Type, Sliders, Monitor } from 'lucide-react';
 
 const QUICK_TICKER_PRESETS = [
   'Selamat datang dalam persekutuan & ibadah hari ini. Tuhan Yesus memberkati.',
@@ -139,6 +139,45 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     });
   };
 
+  // Kontrol Ukuran Font Lirik & Badge Judul di Layar Proyektor
+  const [contentFontSize, setContentFontSize] = useState<number>(() => {
+    try {
+      return Number(localStorage.getItem('stage_content_font_size')) || 56;
+    } catch {
+      return 56;
+    }
+  });
+
+  const [badgeFontSize, setBadgeFontSize] = useState<number>(() => {
+    try {
+      return Number(localStorage.getItem('stage_badge_font_size')) || 16;
+    } catch {
+      return 16;
+    }
+  });
+
+  const [isFontSizeModalOpen, setIsFontSizeModalOpen] = useState(false);
+  const [activeConsoleTab, setActiveConsoleTab] = useState<'queue' | 'slides' | 'controls'>('slides');
+
+  const updateFontSizes = (newContentSize?: number, newBadgeSize?: number) => {
+    const cSize = newContentSize ?? contentFontSize;
+    const bSize = newBadgeSize ?? badgeFontSize;
+    setContentFontSize(cSize);
+    setBadgeFontSize(bSize);
+    try {
+      localStorage.setItem('stage_content_font_size', String(cSize));
+      localStorage.setItem('stage_badge_font_size', String(bSize));
+    } catch {
+      // ignore
+    }
+    broadcastState({
+      ...state,
+      fontSize: cSize,
+      badgeFontSize: bSize,
+      updatedAt: Date.now(),
+    });
+  };
+
   // Simpan setlist ke localStorage agar persiapan operator tidak hilang saat refresh
   useEffect(() => {
     try {
@@ -261,6 +300,11 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       totalSlides: newSong.slides.length,
       mode: 'LIVE',
       theme: stageTheme,
+      fontSize: contentFontSize,
+      badgeFontSize: badgeFontSize,
+      tickerActive: state.tickerActive,
+      tickerText: state.tickerText,
+      tickerSpeed: state.tickerSpeed,
       updatedAt: Date.now(),
     });
   };
@@ -295,10 +339,15 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
         totalSlides: song.slides.length,
         mode,
         theme: stageTheme,
+        fontSize: contentFontSize,
+        badgeFontSize: badgeFontSize,
+        tickerActive: state.tickerActive,
+        tickerText: state.tickerText,
+        tickerSpeed: state.tickerSpeed,
         updatedAt: Date.now(),
       });
     },
-    [broadcastState, roomId, stageTheme]
+    [broadcastState, roomId, stageTheme, contentFontSize, badgeFontSize, state.tickerActive, state.tickerText, state.tickerSpeed]
   );
 
   const setDisplayMode = useCallback(
@@ -307,10 +356,12 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
         ...state,
         mode,
         theme: stageTheme,
+        fontSize: contentFontSize,
+        badgeFontSize: badgeFontSize,
         updatedAt: Date.now(),
       });
     },
-    [broadcastState, state, stageTheme]
+    [broadcastState, state, stageTheme, contentFontSize, badgeFontSize]
   );
 
   const handleThemeChange = (newTheme: 'default' | 'lower-third' | 'amber-gold') => {
@@ -382,34 +433,50 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans select-none">
       {/* Top Bar */}
-      <header className="h-14 border-b border-zinc-800 px-4 flex items-center justify-between bg-zinc-900/90 backdrop-blur z-20">
-        <div className="flex items-center gap-3">
+      <header className="h-14 border-b border-white/10 px-3 sm:px-4 flex items-center justify-between bg-zinc-950/85 backdrop-blur-xl z-20">
+        <div className="flex items-center gap-2.5 min-w-0">
           {onBackToApp && (
             <button
               onClick={onBackToApp}
-              className="p-1.5 rounded-lg border border-zinc-700 hover:bg-zinc-800 text-zinc-300 transition"
+              className="p-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white transition shrink-0"
               title="Kembali ke Aplikasi Utama"
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
           )}
-          <span className="font-semibold tracking-tight text-sm sm:text-base flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            Live Stage — Presenter Console
-          </span>
-          <div className="hidden sm:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
-            <span className="text-zinc-500">Room:</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] shrink-0 animate-pulse" />
+            <h1 className="font-bold tracking-tight text-xs sm:text-sm text-white truncate">
+              Presenter Console
+            </h1>
+          </div>
+          <div className="hidden md:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-white/5 text-zinc-300 border border-white/10 shrink-0">
+            <span className="text-zinc-500 font-medium">Room:</span>
             <input
               type="text"
               value={roomId}
               onChange={(e) => setRoomId(e.target.value)}
-              className="bg-transparent border-none outline-none text-emerald-400 font-mono w-24 text-xs font-semibold"
+              className="bg-transparent border-none outline-none text-emerald-400 font-mono w-20 text-xs font-semibold"
             />
           </div>
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Tombol Pengatur Ukuran Teks */}
+          <button
+            onClick={() => setIsFontSizeModalOpen(true)}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-amber-300 text-xs font-semibold border border-white/10 transition shadow-sm"
+            title="Sesuaikan ukuran font lirik dan judul proyektor"
+          >
+            <Type className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline">Ukuran Teks</span>
+            <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-mono font-bold">
+              {contentFontSize}px
+            </span>
+          </button>
+
           {/* Pilihan Tema Layar Output */}
-          <div className="hidden lg:flex items-center gap-1.5 bg-zinc-800 border border-zinc-700 px-2.5 py-1 rounded text-xs">
+          <div className="hidden xl:flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-xl text-xs">
             <Palette className="w-3.5 h-3.5 text-zinc-400" />
             <span className="text-zinc-400">Tema:</span>
             <select
@@ -417,62 +484,107 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               onChange={(e) => handleThemeChange(e.target.value as any)}
               className="bg-transparent border-none outline-none text-zinc-200 text-xs font-semibold cursor-pointer"
             >
-              <option value="default" className="bg-zinc-800 text-white">Default (Tengah)</option>
-              <option value="amber-gold" className="bg-zinc-800 text-amber-300">Emas Elegan</option>
-              <option value="lower-third" className="bg-zinc-800 text-cyan-300">Lower-Third (Stream)</option>
+              <option value="default" className="bg-zinc-900 text-white">Default (Tengah)</option>
+              <option value="amber-gold" className="bg-zinc-900 text-amber-300">Emas Elegan</option>
+              <option value="lower-third" className="bg-zinc-900 text-cyan-300">Lower-Third</option>
             </select>
           </div>
 
           <button
-            onClick={() => setIsQuickTextOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-amber-300 text-xs font-medium border border-zinc-700 transition"
-            title="Ketik pengumuman atau ayat cepat untuk langsung ditayangkan"
-          >
-            <MessageSquarePlus className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden sm:inline">Teks Spontan</span>
-          </button>
-
-          <button
             onClick={() => setIsTickerModalOpen(true)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border transition ${
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold border transition ${
               state.tickerActive
                 ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 ring-1 ring-amber-500/30'
-                : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 border-white/10'
             }`}
             title="Buka pengatur teks berjalan (running text)"
           >
             <Radio className={`w-3.5 h-3.5 ${state.tickerActive ? 'text-amber-400 animate-pulse' : 'text-zinc-400'}`} />
-            <span className="hidden sm:inline">Teks Berjalan</span>
+            <span className="hidden md:inline">Teks Berjalan</span>
             {state.tickerActive && (
               <span className="text-[10px] bg-amber-500 text-black px-1.5 py-0.2 rounded font-extrabold">ON</span>
             )}
           </button>
 
           <button
-            onClick={() => setIsSearchOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium border border-zinc-700 transition"
+            onClick={() => setIsQuickTextOpen(true)}
+            className="hidden sm:flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-medium border border-white/10 transition"
+            title="Ketik teks langsung untuk ditayangkan"
           >
-            <Plus className="w-3.5 h-3.5 text-emerald-400" />
-            Tambah Kidung
+            <MessageSquarePlus className="w-3.5 h-3.5 text-amber-400" />
+            <span>Spontan</span>
           </button>
+
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#3B4B34] hover:bg-[#475b3e] text-white text-xs font-semibold border border-white/15 transition shadow-sm"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Tambah Kidung</span>
+            <span className="sm:hidden">Kidung</span>
+          </button>
+
           <button
             onClick={openLiveWindow}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-sm transition"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md transition"
+            title="Buka layar proyeksi di jendela baru"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Buka Layar Proyektor (/live)
+            <span className="hidden md:inline">Layar Proyektor</span>
           </button>
         </div>
       </header>
 
+      {/* Responsive Segmented Tabs for Split-Screen & Mobile (< lg) */}
+      <div className="lg:hidden flex items-center justify-around border-b border-white/10 bg-zinc-950/90 backdrop-blur px-2 py-2 gap-1.5 z-10 shrink-0">
+        <button
+          onClick={() => setActiveConsoleTab('queue')}
+          className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 ${
+            activeConsoleTab === 'queue'
+              ? 'bg-white/20 text-white shadow-sm ring-1 ring-white/20'
+              : 'text-zinc-400 hover:text-white bg-white/5'
+          }`}
+        >
+          <span>Antrean</span>
+          <span className="text-[10px] px-1.5 py-0.2 bg-black/40 rounded-full font-mono">{setlist.length}</span>
+        </button>
+        <button
+          onClick={() => setActiveConsoleTab('slides')}
+          className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 ${
+            activeConsoleTab === 'slides'
+              ? 'bg-[#3B4B34] text-white shadow-sm ring-1 ring-[#3B4B34]'
+              : 'text-zinc-400 hover:text-white bg-white/5'
+          }`}
+        >
+          <span>Slide Lirik</span>
+          <span className="text-[10px] px-1.5 py-0.2 bg-black/40 rounded-full font-mono">{selectedSong.slides.length}</span>
+        </button>
+        <button
+          onClick={() => setActiveConsoleTab('controls')}
+          className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 ${
+            activeConsoleTab === 'controls'
+              ? 'bg-amber-600/40 text-amber-200 border border-amber-500/40 shadow-sm'
+              : 'text-zinc-400 hover:text-white bg-white/5'
+          }`}
+        >
+          <span>Preview & Kontrol</span>
+        </button>
+      </div>
+
       {/* 3-Column Workspace */}
       <div className="flex-1 grid grid-cols-12 overflow-hidden h-[calc(100vh-3.5rem)]">
         {/* Panel 1: Setlist */}
-        <aside className="col-span-12 md:col-span-3 border-r border-zinc-800 p-4 overflow-y-auto bg-zinc-900/50 flex flex-col justify-between">
+        <aside
+          className={`border-r border-zinc-800 p-4 overflow-y-auto bg-zinc-900/50 flex-col justify-between ${
+            activeConsoleTab === 'queue' ? 'flex col-span-12 h-full' : 'hidden lg:flex lg:col-span-3'
+          }`}
+        >
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Setlist Antrean</h2>
-              <span className="text-[10px] text-zinc-500 font-mono">{setlist.length} Item</span>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Setlist Antrean</h2>
+              <span className="text-[10px] text-zinc-400 font-mono bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+                {setlist.length} Lagu
+              </span>
             </div>
             <div className="space-y-2">
               {setlist.map((song) => {
@@ -480,22 +592,25 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 return (
                   <div
                     key={song.id}
-                    onClick={() => goToSlide(song, 0, 'LIVE')}
-                    className={`w-full text-left p-3 rounded-lg border transition cursor-pointer relative group flex items-start justify-between ${
+                    onClick={() => {
+                      goToSlide(song, 0, 'LIVE');
+                      setActiveConsoleTab('slides');
+                    }}
+                    className={`w-full text-left p-3.5 rounded-2xl border transition cursor-pointer relative group flex items-start justify-between ${
                       isSelected
-                        ? 'bg-blue-600/20 border-blue-500 text-white shadow-sm'
-                        : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
+                        ? 'bg-[#3B4B34]/30 border-[#3B4B34] text-white shadow-lg ring-1 ring-[#3B4B34]/50'
+                        : 'bg-white/[0.03] border-white/10 text-zinc-300 hover:border-white/20 hover:bg-white/[0.06]'
                     }`}
                   >
                     <div className="min-w-0 pr-2">
                       <div className="font-semibold text-sm truncate">{song.title}</div>
                       {song.subtitle && <div className="text-xs text-zinc-400 mt-0.5 truncate">{song.subtitle}</div>}
-                      <div className="text-[10px] text-zinc-500 mt-1 font-mono">{song.slides.length} Slide</div>
+                      <div className="text-[10px] text-zinc-500 mt-1.5 font-mono">{song.slides.length} Slide</div>
                     </div>
                     {setlist.length > 1 && (
                       <button
                         onClick={(e) => removeSongFromSetlist(e, song.id)}
-                        className="opacity-0 group-hover:opacity-100 p-1 text-zinc-500 hover:text-red-400 transition"
+                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition"
                         title="Hapus dari Setlist"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -508,69 +623,134 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
           </div>
 
           <div className="pt-4 border-t border-zinc-800/80 mt-4 text-[11px] text-zinc-500 space-y-1">
-            <div>💡 Tips Operator:</div>
+            <div className="font-semibold text-zinc-400">💡 Tips Operator:</div>
             <div>• BroadcastChannel aktif (~0ms lokal).</div>
-            <div>• Sinkronisasi otomatis ke proyektor.</div>
+            <div>• Klik salah satu slide untuk langsung ditayangkan.</div>
           </div>
         </aside>
 
         {/* Panel 2: Slide Grid */}
-        <main className="col-span-12 md:col-span-6 p-6 overflow-y-auto bg-zinc-950">
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800">
-            <div>
-              <h1 className="text-lg font-bold text-white flex items-center gap-2">
+        <main
+          className={`p-4 sm:p-6 overflow-y-auto bg-zinc-950 flex-col ${
+            activeConsoleTab === 'slides' ? 'flex col-span-12 h-full' : 'hidden lg:block lg:col-span-6'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800/80 gap-3">
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-lg font-bold text-white tracking-wide truncate">
                 {selectedSong.title}
               </h1>
-              {selectedSong.subtitle && <p className="text-xs text-zinc-400 mt-0.5">{selectedSong.subtitle}</p>}
+              {selectedSong.subtitle && <p className="text-xs text-zinc-400 mt-0.5 truncate">{selectedSong.subtitle}</p>}
             </div>
-            <span className="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
-              Slide {activeSlideIdx + 1} dari {selectedSong.slides.length}
-            </span>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-xs px-2.5 py-1 rounded-full bg-white/10 text-zinc-300 border border-white/10 font-mono font-medium">
+                Slide {activeSlideIdx + 1} dari {selectedSong.slides.length}
+              </span>
+              <button
+                onClick={() => setIsFontSizeModalOpen(true)}
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-400 hover:text-amber-300 transition"
+                title="Sesuaikan ukuran font proyektor"
+              >
+                <Type className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-16 lg:pb-8">
             {selectedSong.slides.map((slide, idx) => {
               const isLive = state.activeSongId === selectedSong.id && state.slideIndex === idx && state.mode === 'LIVE';
               return (
                 <button
                   key={slide.id}
                   onClick={() => goToSlide(selectedSong, idx, 'LIVE')}
-                  className={`p-4 rounded-xl border text-left transition flex flex-col justify-between min-h-[140px] relative ${
+                  className={`p-5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between min-h-[140px] relative cursor-pointer ${
                     isLive
-                      ? 'bg-blue-950/50 border-blue-500 ring-2 ring-blue-500/40 shadow-md'
-                      : 'bg-zinc-900 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-850'
+                      ? 'bg-[#3B4B34]/35 border-[#3B4B34] ring-2 ring-[#3B4B34]/60 shadow-xl'
+                      : 'bg-white/[0.03] hover:bg-white/[0.07] border-white/10 hover:border-white/20'
                   }`}
                 >
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <span className="text-xs font-semibold text-zinc-400">{slide.label}</span>
+                  <div className="flex items-center justify-between w-full mb-3">
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-white/10 text-zinc-300 border border-white/10">
+                      {slide.label}
+                    </span>
                     {isLive && (
-                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-600 text-white animate-pulse">
+                      <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-red-600 text-white animate-pulse shadow-md tracking-wider">
                         LIVE
                       </span>
                     )}
                   </div>
-                  <p className="text-sm whitespace-pre-line leading-relaxed text-zinc-200 font-medium">
+                  <p className="text-sm sm:text-base whitespace-pre-line leading-relaxed text-zinc-200 font-medium font-sans">
                     {slide.content}
                   </p>
                 </button>
               );
             })}
           </div>
+
+          {/* Floating Operator Bar on Split-Screen / Mobile (< lg) */}
+          <div className="lg:hidden sticky bottom-2 inset-x-0 bg-zinc-950/95 backdrop-blur-xl border border-white/15 rounded-2xl p-2.5 shadow-2xl flex items-center justify-between gap-2 z-20 mt-auto">
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => goToSlide(selectedSong, activeSlideIdx - 1, 'LIVE')}
+                disabled={activeSlideIdx <= 0}
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 disabled:opacity-30 text-xs font-bold transition"
+              >
+                ← Prev
+              </button>
+              <button
+                onClick={() => goToSlide(selectedSong, activeSlideIdx + 1, 'LIVE')}
+                disabled={activeSlideIdx >= selectedSong.slides.length - 1}
+                className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 disabled:opacity-30 text-xs font-bold transition"
+              >
+                Next →
+              </button>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setDisplayMode('LIVE')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                  state.mode === 'LIVE' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-zinc-800 text-zinc-300'
+                }`}
+              >
+                LIVE
+              </button>
+              <button
+                onClick={() => setDisplayMode('CLEAR')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                  state.mode === 'CLEAR' ? 'bg-amber-600 text-white shadow-sm' : 'bg-zinc-800 text-zinc-300'
+                }`}
+              >
+                CLEAR
+              </button>
+              <button
+                onClick={() => setDisplayMode('BLACKOUT')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                  state.mode === 'BLACKOUT' ? 'bg-red-600 text-white shadow-sm' : 'bg-zinc-800 text-zinc-300'
+                }`}
+              >
+                BLACK
+              </button>
+            </div>
+          </div>
         </main>
 
         {/* Panel 3: Live Preview & Quick Controls */}
-        <aside className="col-span-12 md:col-span-3 border-l border-zinc-800 p-4 bg-zinc-900/50 flex flex-col justify-between">
+        <aside
+          className={`border-l border-zinc-800 p-4 bg-zinc-900/50 flex-col justify-between overflow-y-auto ${
+            activeConsoleTab === 'controls' ? 'flex col-span-12 h-full' : 'hidden lg:flex lg:col-span-3'
+          }`}
+        >
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400">Pratinjau Layar (Live Preview)</h2>
-              <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+              <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Pratinjau Layar (Live Preview)</h2>
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                 state.mode === 'LIVE' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-zinc-800 text-zinc-500'
               }`}>
                 {state.mode}
               </span>
             </div>
 
-            <div className="aspect-video w-full rounded-lg bg-black border border-zinc-800 p-4 flex items-center justify-center text-center overflow-hidden relative shadow-inner">
+            <div className="aspect-video w-full rounded-2xl bg-black border border-white/10 p-4 flex flex-col items-center justify-center text-center overflow-hidden relative shadow-inner">
               {state.mode === 'BLACKOUT' && (
                 <span className="text-xs text-zinc-600 font-mono">[Layar Hitam / Blackout]</span>
               )}
@@ -578,10 +758,18 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 <span className="text-xs text-zinc-500 font-mono">[Teks Disembunyikan (Clear)]</span>
               )}
               {state.mode === 'LIVE' && (
-                <p className="text-xs whitespace-pre-line text-white font-semibold leading-relaxed">
+                <p className="text-xs sm:text-sm whitespace-pre-line text-white font-semibold leading-relaxed">
                   {state.content || 'Belum ada slide yang aktif'}
                 </p>
               )}
+
+              {/* Mini centered badge in preview */}
+              {state.mode === 'LIVE' && state.title && (
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/80 px-2 py-0.5 rounded-full border border-white/10 text-[9px] text-zinc-300 truncate max-w-[85%] font-medium">
+                  {state.title} • {state.slideIndex + 1}/{state.totalSlides}
+                </div>
+              )}
+
               {state.tickerActive && state.tickerText && state.mode !== 'BLACKOUT' && (
                 <div className="absolute bottom-0 inset-x-0 bg-black/95 border-t border-amber-500/30 px-2 py-0.5 text-[10px] text-amber-300 flex items-center gap-1.5 overflow-hidden z-10">
                   <span className="font-bold shrink-0 uppercase text-[8px] bg-amber-500/30 text-amber-300 px-1 rounded">TICKER</span>
@@ -594,7 +782,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
             <div className="grid grid-cols-3 gap-2 mt-4">
               <button
                 onClick={() => setDisplayMode('LIVE')}
-                className={`py-2 rounded-lg text-xs font-bold border transition ${
+                className={`py-2 rounded-xl text-xs font-bold border transition ${
                   state.mode === 'LIVE'
                     ? 'bg-emerald-600 border-emerald-500 text-white shadow-sm'
                     : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
@@ -604,7 +792,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </button>
               <button
                 onClick={() => setDisplayMode('CLEAR')}
-                className={`py-2 rounded-lg text-xs font-bold border transition ${
+                className={`py-2 rounded-xl text-xs font-bold border transition ${
                   state.mode === 'CLEAR'
                     ? 'bg-amber-600 border-amber-500 text-white shadow-sm'
                     : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
@@ -614,7 +802,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </button>
               <button
                 onClick={() => setDisplayMode('BLACKOUT')}
-                className={`py-2 rounded-lg text-xs font-bold border transition ${
+                className={`py-2 rounded-xl text-xs font-bold border transition ${
                   state.mode === 'BLACKOUT'
                     ? 'bg-red-600 border-red-500 text-white shadow-sm'
                     : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
@@ -624,8 +812,62 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </button>
             </div>
 
+            {/* Kontrol Cepat Ukuran Font Proyektor */}
+            <div className="mt-4 p-3 rounded-2xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5 tracking-wide">
+                  <Type className="w-3.5 h-3.5 text-amber-400" />
+                  Ukuran Teks Proyektor
+                </span>
+                <button
+                  onClick={() => setIsFontSizeModalOpen(true)}
+                  className="text-[10px] text-amber-400 hover:text-amber-300 font-semibold"
+                >
+                  Pengaturan →
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800">
+                  <div className="text-[10px] text-zinc-400">Teks Lirik:</div>
+                  <div className="flex items-center justify-between mt-1">
+                    <button
+                      onClick={() => updateFontSizes(Math.max(28, contentFontSize - 4), undefined)}
+                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
+                    >
+                      -
+                    </button>
+                    <span className="font-mono font-bold text-white text-xs">{contentFontSize}px</span>
+                    <button
+                      onClick={() => updateFontSizes(Math.min(96, contentFontSize + 4), undefined)}
+                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800">
+                  <div className="text-[10px] text-zinc-400">Judul Bawah:</div>
+                  <div className="flex items-center justify-between mt-1">
+                    <button
+                      onClick={() => updateFontSizes(undefined, Math.max(10, badgeFontSize - 2))}
+                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
+                    >
+                      -
+                    </button>
+                    <span className="font-mono font-bold text-white text-xs">{badgeFontSize}px</span>
+                    <button
+                      onClick={() => updateFontSizes(undefined, Math.min(32, badgeFontSize + 2))}
+                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Panel Kontrol Cepat Teks Berjalan (Ticker) */}
-            <div className="mt-4 p-3 rounded-xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-2">
+            <div className="mt-4 p-3 rounded-2xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5 tracking-wide">
                   <span className={`w-2 h-2 rounded-full ${state.tickerActive ? 'bg-amber-400 animate-pulse' : 'bg-zinc-600'}`} />
@@ -633,7 +875,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 </span>
                 <button
                   onClick={toggleTicker}
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded transition ${
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-lg transition ${
                     state.tickerActive
                       ? 'bg-amber-500 text-black font-extrabold shadow-sm'
                       : 'bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-700'
@@ -650,11 +892,11 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   onChange={(e) => setTickerInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && applyTickerText()}
                   placeholder="Ketik pengumuman berjalan..."
-                  className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-200 placeholder-zinc-500 outline-none focus:border-amber-500"
+                  className="w-full px-2.5 py-1.5 text-xs rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 placeholder-zinc-500 outline-none focus:border-amber-500"
                 />
                 <button
                   onClick={() => applyTickerText()}
-                  className="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-amber-600 hover:bg-amber-500 text-white shrink-0 transition"
+                  className="px-2.5 py-1.5 text-xs font-bold rounded-xl bg-amber-600 hover:bg-amber-500 text-white shrink-0 transition"
                   title="Tayangkan ke layar proyektor"
                 >
                   Kirim
@@ -670,7 +912,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                       setTickerInput(preset);
                       applyTickerText(preset);
                     }}
-                    className="text-[10px] text-zinc-400 hover:text-amber-300 bg-zinc-900/90 px-2 py-1 rounded border border-zinc-800/80 hover:border-zinc-700 transition truncate text-left"
+                    className="text-[10px] text-zinc-400 hover:text-amber-300 bg-zinc-900/90 px-2 py-1 rounded-lg border border-zinc-800/80 hover:border-zinc-700 transition truncate text-left"
                     title={preset}
                   >
                     + {preset}
@@ -680,7 +922,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
             </div>
           </div>
 
-          <div className="text-xs text-zinc-500 border-t border-zinc-800/80 pt-3 space-y-1 font-mono">
+          <div className="text-xs text-zinc-500 border-t border-zinc-800/80 pt-3 space-y-1 font-mono mt-4">
             <div className="text-zinc-400 font-semibold mb-1">Pintasan Keyboard:</div>
             <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">Spasi</kbd> / <kbd className="px-1 py-0.5 bg-zinc-800 rounded">→</kbd> : Slide Selanjutnya</div>
             <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">←</kbd> : Slide Sebelumnya</div>
@@ -923,6 +1165,113 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   Tayangkan ke Proyektor
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Pengaturan Ukuran Teks Proyektor */}
+      {isFontSizeModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-zinc-900/95 border border-white/15 rounded-3xl w-full max-w-lg p-6 shadow-2xl flex flex-col animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Type className="w-5 h-5 text-amber-400" />
+                Ukuran Teks Layar Proyektor
+              </h3>
+              <button
+                onClick={() => setIsFontSizeModalOpen(false)}
+                className="text-zinc-400 hover:text-white text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mt-5 space-y-6">
+              {/* Ukuran Lirik Utama */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-300">
+                    Ukuran Teks Lirik Lagu (Tengah)
+                  </label>
+                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    {contentFontSize} px
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min={28}
+                  max={88}
+                  step={2}
+                  value={contentFontSize}
+                  onChange={(e) => updateFontSizes(Number(e.target.value), undefined)}
+                  className="w-full accent-amber-500 cursor-pointer"
+                />
+                <div className="flex justify-between text-[11px] text-zinc-500 mt-1">
+                  <span>Kecil (28px)</span>
+                  <span>Standar (56px)</span>
+                  <span>Ekstra Besar (88px)</span>
+                </div>
+              </div>
+
+              {/* Ukuran Judul / Badge di Bawah */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-zinc-300">
+                    Ukuran Teks Judul & Nomor (Bawah Tengah)
+                  </label>
+                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    {badgeFontSize} px
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min={12}
+                  max={28}
+                  step={1}
+                  value={badgeFontSize}
+                  onChange={(e) => updateFontSizes(undefined, Number(e.target.value))}
+                  className="w-full accent-emerald-500 cursor-pointer"
+                />
+                <div className="flex justify-between text-[11px] text-zinc-500 mt-1">
+                  <span>Kecil (12px)</span>
+                  <span>Standar (16px)</span>
+                  <span>Besar (28px)</span>
+                </div>
+              </div>
+
+              {/* Live Preview Box */}
+              <div className="p-4 rounded-2xl bg-black border border-white/10 flex flex-col items-center justify-center text-center min-h-[140px] relative overflow-hidden">
+                <p
+                  style={{ fontSize: `${Math.min(contentFontSize, 38)}px` }}
+                  className="text-white font-bold leading-tight line-clamp-2"
+                >
+                  Sa-at pandang karya agung dari hikmat-Mu,
+                </p>
+                <div
+                  style={{ fontSize: `${badgeFontSize}px` }}
+                  className="mt-4 px-3.5 py-1 rounded-full bg-black/80 border border-white/20 text-zinc-200 font-medium"
+                >
+                  Kidung 1 - Memuji Allah Tritunggal • 1/6
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-3 border-t border-white/10 flex items-center justify-between gap-2.5">
+              <button
+                onClick={() => {
+                  updateFontSizes(56, 16);
+                }}
+                className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition"
+              >
+                Reset Default
+              </button>
+              <button
+                onClick={() => setIsFontSizeModalOpen(false)}
+                className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm"
+              >
+                Simpan & Tutup
+              </button>
             </div>
           </div>
         </div>

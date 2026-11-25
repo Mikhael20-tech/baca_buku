@@ -27,6 +27,8 @@ export interface StageState {
   tickerText?: string;
   tickerActive?: boolean;
   tickerSpeed?: number;
+  fontSize?: number;
+  badgeFontSize?: number;
   updatedAt: number;
 }
 

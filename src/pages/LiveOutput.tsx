@@ -46,10 +46,15 @@ export default function LiveOutput() {
             )}
           </div>
         ) : (
-          <div className="max-w-6xl w-full text-center transition-all duration-300 animate-in fade-in zoom-in-95">
-            <p className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold whitespace-pre-line leading-snug md:leading-tight tracking-tight drop-shadow-md ${
-              isGold ? 'text-amber-300 drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]' : 'text-white'
-            }`}>
+          <div className="max-w-6xl w-full text-center transition-all duration-300 animate-in fade-in zoom-in-95 px-4">
+            <p 
+              style={{ fontSize: state.fontSize ? `${state.fontSize}px` : undefined }}
+              className={`font-bold whitespace-pre-line leading-snug md:leading-tight tracking-tight drop-shadow-md ${
+                !state.fontSize ? 'text-3xl sm:text-5xl md:text-6xl lg:text-7xl' : ''
+              } ${
+                isGold ? 'text-amber-300 drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]' : 'text-white'
+              }`}
+            >
               {state.content}
             </p>
           </div>
@@ -66,15 +71,22 @@ export default function LiveOutput() {
         <div className="w-full h-full bg-black select-none fixed inset-0 z-50" />
       )}
 
-      {/* Pill Badge Lagu & Nomor Slide */}
+      {/* Pill Badge Lagu & Nomor Slide - Ditampilkan DI BAWAH & DI TENGAH */}
       {state.mode === 'LIVE' && state.title && !isLowerThird && (
-        <div className={`fixed right-8 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide bg-black/75 backdrop-blur-xl px-4 py-1.5 rounded-full border border-white/10 shadow-2xl flex items-center gap-2 transition-all duration-300 ${
-          isTickerVisible ? 'bottom-16' : 'bottom-6'
-        }`}>
-          <span>{state.title}</span>
-          {state.subtitle && <span className="text-zinc-400">({state.subtitle})</span>}
-          <span className="text-zinc-600">•</span>
-          <span className="text-zinc-400 tabular-nums font-mono">{state.slideIndex + 1}/{state.totalSlides}</span>
+        <div 
+          style={{ fontSize: state.badgeFontSize ? `${state.badgeFontSize}px` : undefined }}
+          className={`fixed left-1/2 -translate-x-1/2 text-center text-zinc-100 font-medium tracking-wide bg-black/80 backdrop-blur-2xl px-5 py-2 rounded-full border border-white/15 shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-300 z-30 max-w-[90vw] whitespace-nowrap overflow-hidden text-ellipsis ${
+            !state.badgeFontSize ? 'text-xs sm:text-sm' : ''
+          } ${
+            isTickerVisible ? 'bottom-16' : 'bottom-6'
+          }`}
+        >
+          <span className="font-semibold tracking-wide drop-shadow-sm">{state.title}</span>
+          {state.subtitle && <span className="text-zinc-400 font-normal">({state.subtitle})</span>}
+          <span className="text-zinc-500">•</span>
+          <span className="text-zinc-300 tabular-nums font-mono font-normal drop-shadow-sm">
+            {state.slideIndex + 1}/{state.totalSlides}
+          </span>
         </div>
       )}
 
