@@ -328,7 +328,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     }
 
     const newSong: SongSetItem = {
-      id: `kidung-${songData.id || songData.formattedNumber || Date.now()}`,
+      id: `kidung-${songData.id || songData.formattedNumber || 'item'}-${Date.now()}`,
       title: formattedTitle,
       subtitle: '', // Kosongkan agar tidak menduplikasi kategori di pill badge live
       rawText: rawTextParts.join('\n\n'),
@@ -721,11 +721,11 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </span>
             </div>
             <div className="space-y-2">
-              {setlist.map((song) => {
+              {setlist.map((song, idx) => {
                 const isSelected = song.id === selectedSong.id;
                 return (
                   <div
-                    key={song.id}
+                    key={`${song.id}-${idx}`}
                     onClick={() => {
                       goToSlide(song, 0, 'LIVE');
                       setActiveConsoleTab('slides');
