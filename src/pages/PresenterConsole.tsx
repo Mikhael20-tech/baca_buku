@@ -1286,7 +1286,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </button>
             </div>
 
-            {addModalTab === 'kidung' ? (
+            {addModalTab === 'kidung' && (
               <>
                 <div className="mt-4 flex flex-col sm:flex-row gap-2">
                   <div className="relative flex-1">
@@ -1351,7 +1351,9 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   )}
                 </div>
               </>
-            ) : (
+            )}
+
+            {addModalTab === 'bible' && (
               <div className="mt-4 flex-1 flex flex-col gap-3 overflow-visible">
                 {/* Pilih Terjemahan (Semua 7 Versi) */}
                 <div className="flex flex-col gap-1.5">
