@@ -2825,39 +2825,42 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
         </div>
       )}
 
-      {/* MODAL 2: PEMILIH PASAL & AYAT TUNGGAL (SEAMLESS 2-STEP) */}
+      {/* MODAL 2: PEMILIH PASAL & AYAT TUNGGAL (SEAMLESS 2-STEP — APPLE IOS SHEET SPEC) */}
       {isChapterPickerOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-[#1C1917]/50 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-modal-backdrop-in"
+          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xl flex items-end sm:items-center justify-center p-0 sm:p-5 overflow-y-auto animate-modal-backdrop-in"
           onClick={() => setIsChapterPickerOpen(false)}
         >
           <div 
-            className="bg-[#FAF7F2] dark:bg-[#18181B] rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-[#1C1917]/10 dark:border-white/10 my-6 space-y-5 max-h-[85vh] flex flex-col animate-modal-card-in"
+            className="bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl rounded-t-[32px] sm:rounded-[32px] max-w-lg w-full p-6 sm:p-7 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] border border-[#1C1917]/8 dark:border-white/10 my-0 sm:my-6 space-y-4 max-h-[88vh] flex flex-col animate-modal-card-in"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Apple iOS Drag Grabber Bar */}
+            <div className="w-10 h-1 rounded-full bg-[#1C1917]/20 dark:bg-white/25 mx-auto -mt-1 mb-1 shrink-0" />
+
             {/* Header Modal */}
-            <div className="flex items-start justify-between pb-3.5 border-b border-[#1C1917]/8 dark:border-white/8">
+            <div className="flex items-start justify-between pb-3 border-b border-[#1C1917]/8 dark:border-white/8">
               <div>
-                <span className="text-xs font-bold tracking-[0.25em] text-[#8E9C75] dark:text-emerald-400 uppercase block mb-1">
+                <span className="text-[11px] font-sans font-bold tracking-[0.25em] text-[#8E9C75] dark:text-emerald-400 uppercase block mb-1">
                   {chapterVersePickerStep === 'chapter'
                     ? (bibleLang === 'en' ? 'Step 1 — Select Chapter' : 'Langkah 1 — Pilih Pasal')
                     : (bibleLang === 'en' ? 'Step 2 — Select Verse' : 'Langkah 2 — Pilih Ayat')}
                 </span>
                 <h3 className="font-serif font-extrabold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
-                  {currentBookInfo.name} {chapterVersePickerStep === 'verse' ? `Pasal ${pickingChapter}` : ''}
+                  {currentBookInfo.name} {chapterVersePickerStep === 'verse' ? <span className="font-sans font-bold tracking-tight text-xl sm:text-2xl">Pasal {pickingChapter}</span> : ''}
                 </h3>
               </div>
               
               <div className="flex items-center gap-2">
-                {/* Segmented Switcher */}
-                <div className="flex items-center p-0.5 rounded-full bg-[#1C1917]/5 dark:bg-white/10 border border-[#1C1917]/10 dark:border-white/10">
+                {/* Apple iOS Segmented Control */}
+                <div className="flex items-center p-0.5 rounded-[10px] bg-[#767680]/12 dark:bg-[#767680]/24 border border-black/[0.04] dark:border-white/[0.06] shadow-inner">
                   <button
                     type="button"
                     onClick={() => setChapterVersePickerStep('chapter')}
-                    className={`px-3 py-1 rounded-full text-xs font-serif font-bold transition-all cursor-pointer ${
+                    className={`px-3.5 py-1 rounded-[8px] text-xs font-sans font-semibold transition-all duration-150 cursor-pointer ${
                       chapterVersePickerStep === 'chapter'
-                        ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
-                        : 'text-[#1C1917] dark:text-[#F4EFE6] opacity-60 hover:opacity-100'
+                        ? 'bg-white dark:bg-[#636366] text-[#1C1917] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)]'
+                        : 'text-[#1C1917]/70 dark:text-white/70 hover:text-[#1C1917] dark:hover:text-white'
                     }`}
                   >
                     {bibleLang === 'en' ? 'Chapter' : 'Pasal'}
@@ -2865,20 +2868,21 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setChapterVersePickerStep('verse')}
-                    className={`px-3 py-1 rounded-full text-xs font-serif font-bold transition-all cursor-pointer ${
+                    className={`px-3.5 py-1 rounded-[8px] text-xs font-sans font-semibold transition-all duration-150 cursor-pointer ${
                       chapterVersePickerStep === 'verse'
-                        ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-xs'
-                        : 'text-[#1C1917] dark:text-[#F4EFE6] opacity-60 hover:opacity-100'
+                        ? 'bg-white dark:bg-[#636366] text-[#1C1917] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)]'
+                        : 'text-[#1C1917]/70 dark:text-white/70 hover:text-[#1C1917] dark:hover:text-white'
                     }`}
                   >
                     {bibleLang === 'en' ? 'Verse' : 'Ayat'}
                   </button>
                 </div>
 
+                {/* Apple iOS Circular Close Button */}
                 <button 
                   type="button"
                   onClick={() => setIsChapterPickerOpen(false)}
-                  className="w-9 h-9 rounded-full border border-[#1C1917]/10 dark:border-white/10 flex items-center justify-center text-[#78716C] hover:text-[#1C1917] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-[#767680]/15 dark:bg-[#767680]/30 hover:bg-[#767680]/25 text-[#1C1917]/70 dark:text-white/70 flex items-center justify-center transition cursor-pointer active:scale-95 shrink-0"
                   title="Tutup"
                 >
                   <X className="w-4 h-4" />
@@ -2889,7 +2893,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             {/* Content: Step 1 Chapter */}
             {chapterVersePickerStep === 'chapter' ? (
               <div className="space-y-3 flex-1 flex flex-col min-h-0">
-                <p className="text-xs text-[#78716C] dark:text-zinc-400 font-serif">
+                <p className="text-xs text-[#78716C] dark:text-zinc-400 font-sans">
                   {bibleLang === 'en' 
                     ? 'Select a chapter to pick verse or read:' 
                     : 'Pilih nomor pasal untuk langsung memilih ayat:'}
@@ -2904,10 +2908,10 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                           setPickingChapter(chapNum);
                           setChapterVersePickerStep('verse');
                         }}
-                        className={`h-12 sm:h-13 rounded-2xl text-base sm:text-lg font-sans font-semibold tracking-tight tabular-nums transition flex items-center justify-center cursor-pointer active:scale-95 ${
+                        className={`h-12 sm:h-13 rounded-2xl text-base sm:text-lg font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center cursor-pointer active:scale-[0.93] ${
                           selectedChapter === chapNum
-                            ? 'bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-md shadow-[#3B4B34]/25 scale-105'
-                            : 'border border-[#1C1917]/10 dark:border-white/10 bg-white/80 dark:bg-zinc-800/60 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34]/10 hover:border-[#3B4B34]/30 hover:text-[#3B4B34] shadow-2xs'
+                            ? 'bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-[0_3px_10px_rgba(59,75,52,0.35)] scale-[1.03] font-bold'
+                            : 'border border-[#1C1917]/8 dark:border-white/8 bg-white/85 dark:bg-zinc-800/80 text-[#1C1917] dark:text-zinc-100 hover:bg-white dark:hover:bg-zinc-700 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:shadow-xs'
                         }`}
                         title={`Pasal ${chapNum}`}
                       >
@@ -2924,7 +2928,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setChapterVersePickerStep('chapter')}
-                    className="px-3.5 py-1.5 rounded-full border border-[#1C1917]/12 dark:border-white/12 hover:bg-[#1C1917]/5 dark:hover:bg-white/10 text-xs font-serif font-bold text-[#1C1917] dark:text-[#F4EFE6] flex items-center gap-1.5 transition cursor-pointer"
+                    className="h-8 px-3.5 rounded-full bg-[#1C1917]/6 dark:bg-white/10 hover:bg-[#1C1917]/10 dark:hover:bg-white/15 text-xs font-sans font-semibold text-[#1C1917] dark:text-[#F4EFE6] flex items-center gap-1.5 transition-all duration-150 cursor-pointer active:scale-95"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
                     <span>{bibleLang === 'en' ? 'Back to Chapters' : 'Ganti Pasal'}</span>
@@ -2933,7 +2937,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => handleSelectFullChapterFromPicker(pickingChapter)}
-                    className="px-3.5 py-1.5 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-serif font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    className="h-8 px-4 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold transition-all duration-150 flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
                   >
                     <span>{bibleLang === 'en' ? `Read Full Chapter ${pickingChapter}` : `Baca Seluruh Pasal ${pickingChapter}`}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -2947,7 +2951,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                         key={vNum}
                         type="button"
                         onClick={() => handleSelectVerseFromPicker(vNum)}
-                        className="h-11 sm:h-12 rounded-xl border border-[#1C1917]/10 dark:border-white/10 bg-white/80 dark:bg-zinc-800/60 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:hover:bg-emerald-600 dark:hover:text-white text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums transition flex items-center justify-center shadow-2xs cursor-pointer active:scale-95"
+                        className="h-11 sm:h-12 rounded-xl border border-[#1C1917]/8 dark:border-white/8 bg-white/85 dark:bg-zinc-800/80 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:hover:bg-emerald-600 dark:hover:text-white text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer active:scale-[0.93]"
                         title={`Ayat ${vNum}`}
                       >
                         {vNum}
