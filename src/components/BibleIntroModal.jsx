@@ -148,37 +148,40 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
 
   return (
     <div 
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 animate-modal-backdrop-in"
+      className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-5 animate-modal-backdrop-in"
       onClick={onClose}
     >
       <div 
-        className="bg-[#fcfaf5] dark:bg-zinc-900 rounded-3xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 max-h-[90vh] flex flex-col gap-3.5 animate-modal-card-in"
+        className="bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 rounded-[32px] max-w-4xl w-full p-6 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] border border-white/80 dark:border-white/15 max-h-[90vh] flex flex-col gap-3.5 animate-modal-card-in"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-amber-200/70 dark:border-zinc-800 shrink-0">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div className="min-w-0">
-              <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-zinc-100 font-serif truncate">
-                {isScofield 
-                  ? `The Scofield Reference Bible (1917)` 
-                  : isEn ? `Book Overview: ${bookData?.name}` : `Pengantar Kitab: ${bookData?.name}`}
-              </h3>
-              <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-mono truncate">
-                {isScofield 
-                  ? 'Expository Notes, Dispensations & Dokumen Otentik Oxford 1917' 
-                  : isEn ? 'Holy Bible Recovery Version • Footnotes & Outlines' : 'Alkitab Versi Pemulihan • Catatan Kaki & Garis Besar'}
-              </p>
-            </div>
+        {/* Apple Grabber Bar */}
+        <div className="w-10 h-1 rounded-full bg-[#1C1917]/20 dark:bg-white/25 mx-auto -mt-2 mb-1 shrink-0" />
+
+        {/* Minimalist Header */}
+        <div className="flex items-start justify-between pb-3 border-b border-black/5 dark:border-white/10 shrink-0 gap-3">
+          <div className="min-w-0 space-y-1">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20 font-sans font-semibold text-[10px] tracking-wider uppercase inline-flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3" />
+              {isScofield ? 'Scofield Reference' : isEn ? 'Book Overview' : 'Pengantar Kitab'}
+            </span>
+            <h3 className="font-bodoni font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
+              {isScofield 
+                ? `The Scofield Reference Bible (1917)` 
+                : bookData?.name}
+            </h3>
+            <p className="text-xs text-[#1C1917]/60 dark:text-zinc-400 font-sans truncate">
+              {isScofield 
+                ? 'Expository Notes, Dispensations & Dokumen Otentik Oxford 1917' 
+                : isEn ? 'Holy Bible Recovery Version • Footnotes & Outlines' : 'Alkitab Versi Pemulihan • Catatan Kaki & Garis Besar'}
+            </p>
           </div>
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition shrink-0 cursor-pointer"
+            className="w-8 h-8 rounded-full bg-white/60 dark:bg-white/15 backdrop-blur-md border border-white/80 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/20 text-[#1C1917]/70 dark:text-white/70 flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs shrink-0"
+            title="Tutup"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -227,11 +230,11 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
 
               {/* Pokok / Subject (Highlighted Card) */}
               {subject && (
-                <div className="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-950 dark:text-amber-200 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 block">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/60 dark:bg-white/5 border border-white/80 dark:border-white/10 space-y-1 shadow-2xs">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#1C1917]/40 dark:text-white/40 font-sans block">
                     {isEn ? 'Central Subject / Theme' : 'Pokok Utama Kitab'}
                   </span>
-                  <p className="font-serif italic font-bold leading-relaxed text-sm sm:text-base">
+                  <p className="font-bodoni italic font-bold leading-relaxed text-base sm:text-lg md:text-xl text-[#1C1917] dark:text-[#F4EFE6]">
                     "{subject}"
                   </p>
                 </div>
@@ -442,17 +445,16 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
         </div>
 
         {/* Footer */}
-        <div className="pt-3 border-t border-amber-200/60 dark:border-zinc-800 flex justify-between items-center shrink-0">
-          <span className="text-[11px] text-stone-500 dark:text-stone-400 font-mono">
+        <div className="pt-3 border-t border-black/5 dark:border-white/10 flex justify-between items-center shrink-0">
+          <span className="text-xs text-[#1C1917]/50 dark:text-white/50 font-sans">
             {isScofield ? 'The Scofield Reference Bible 1917 • Oxford University Press' : (bookData?.translation || (isEn ? 'Holy Bible' : 'Alkitab Versi Pemulihan'))}
           </span>
-          <Button
-            size="sm"
+          <button
             onClick={onClose}
-            className="rounded-xl px-5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs cursor-pointer shadow-xs"
+            className="px-5 py-2.5 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold shadow-md shadow-[#3B4B34]/20 transition cursor-pointer active:scale-95"
           >
             {isEn ? 'Close' : 'Tutup'}
-          </Button>
+          </button>
         </div>
       </div>
     </div>

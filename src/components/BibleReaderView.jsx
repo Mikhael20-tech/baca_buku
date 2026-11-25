@@ -1944,12 +1944,12 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
           {/* Pengantar Lengkap Kitab Scofield (Modern Mode Pada Pasal 1) */}
           {selectedChapter === 1 && bookData?.intro && bibleLang === 'scofield' && (
-            <div className="rounded-2xl border border-amber-300 dark:border-amber-700/80 p-5 sm:p-6 bg-amber-50/60 dark:bg-amber-950/30 text-stone-900 dark:text-zinc-100 font-serif space-y-3.5 shadow-xs">
-              <div className="border-b border-amber-200 dark:border-zinc-800 pb-2.5 text-center">
-                <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-amber-800 dark:text-amber-400 block mb-0.5">
+            <div className="rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-white/60 dark:border-white/10 p-5 sm:p-6 mb-6 shadow-2xs space-y-3.5 transition-all text-[#1C1917] dark:text-[#F4EFE6]">
+              <div className="border-b border-black/5 dark:border-white/10 pb-2.5 text-center">
+                <span className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#1C1917]/50 dark:text-white/50 block mb-0.5">
                   The Scofield Reference Bible (1917)
                 </span>
-                <h3 className="font-bold text-xl sm:text-2xl tracking-wide">
+                <h3 className="font-bodoni font-bold text-xl sm:text-2xl tracking-tight">
                   {bookData.name} — Book Introduction
                 </h3>
               </div>
@@ -1980,34 +1980,41 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
           {/* Pengantar & Pokok Kitab Lengkap (Versi Pemulihan Pada Pasal 1) */}
           {selectedChapter === 1 && bookData?.intro && bibleLang !== 'scofield' && (
-            <div className={`rounded-2xl border p-4 sm:p-6 transition-all shadow-xs ${themeStyles.outlineBadge}`}>
-              <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-black/10 dark:border-white/10">
-                <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                <h3 className="font-extrabold text-sm sm:text-base">
-                  {isEnBible ? `Introduction to ${bookData.name}` : `Pengantar Kitab ${bookData.name} (Versi Pemulihan)`}
-                </h3>
+            <div className="rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-white/60 dark:border-white/10 p-5 sm:p-6 mb-6 shadow-2xs space-y-3.5 transition-all">
+              <div className="flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20 font-sans font-semibold text-[10px] tracking-wider uppercase">
+                  {isEnBible ? `Introduction • ${bookData.name}` : `Pengantar Kitab • ${bookData.name}`}
+                </span>
               </div>
 
               {(bookData.intro.Pokok || bookData.intro.Subject) && (
-                <div className="mb-3.5 text-xs sm:text-sm font-semibold italic border-l-2 border-amber-500 pl-3 text-amber-950 dark:text-amber-200">
-                  <span className="font-bold not-italic text-amber-700 dark:text-amber-300">
-                    {bookData.intro.Subject ? 'Subject: ' : 'Pokok: '}
+                <div className="space-y-1.5">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#1C1917]/40 dark:text-white/40 font-sans block">
+                    {bookData.intro.Subject ? 'Subject' : 'Pokok'}
                   </span>
-                  {bookData.intro.Subject || bookData.intro.Pokok}
+                  <p className="font-bodoni font-bold italic text-base sm:text-lg md:text-xl text-[#1C1917] dark:text-[#F4EFE6] leading-relaxed">
+                    "{bookData.intro.Subject || bookData.intro.Pokok}"
+                  </p>
                 </div>
               )}
 
-              <div className="space-y-2.5 text-xs sm:text-sm">
-                {Object.entries(bookData.intro).map(([k, v]) => {
-                  if (k === 'Pokok' || k === 'Subject') return null;
-                  return (
-                    <div key={k} className="grid grid-cols-1 sm:grid-cols-4 gap-1 sm:gap-2">
-                      <span className="font-bold opacity-80 sm:col-span-1">{k}:</span>
-                      <span className="sm:col-span-3 leading-relaxed">{v}</span>
-                    </div>
-                  );
-                })}
-              </div>
+              {Object.keys(bookData.intro).some(k => k !== 'Pokok' && k !== 'Subject') && (
+                <div className="pt-3 border-t border-black/5 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+                  {Object.entries(bookData.intro).map(([k, v]) => {
+                    if (k === 'Pokok' || k === 'Subject') return null;
+                    return (
+                      <div key={k} className="p-3 rounded-2xl bg-white/40 dark:bg-white/5 border border-white/60 dark:border-white/10 space-y-0.5">
+                        <span className="text-[10px] uppercase font-semibold text-[#1C1917]/50 dark:text-white/50 tracking-wider font-sans block">
+                          {k}
+                        </span>
+                        <p className="text-xs sm:text-[13px] text-[#1C1917]/80 dark:text-white/80 font-sans leading-relaxed">
+                          {v}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
 
