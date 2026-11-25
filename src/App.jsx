@@ -1393,7 +1393,7 @@ export default function App() {
       )}
 
       {/* Top Navigation Bar with Role and Dashboard Switcher */}
-      <header className="sticky top-0 z-40 bg-[#F4EFE6]/90 backdrop-blur-md border-b border-[#1C1917]/8">
+      <header className="sticky top-0 z-40 bg-[#F4EFE6]/90 backdrop-blur-md border-b border-[#1C1917]/8 pt-safe">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* Logo & Brand */}

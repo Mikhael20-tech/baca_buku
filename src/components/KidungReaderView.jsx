@@ -79,6 +79,7 @@ export default function KidungReaderView({
     localStorage.setItem('kidung_theme', themeId);
     // Sinkronisasi status bar Android jika berjalan di Capacitor APK
     import('@capacitor/status-bar').then(({ StatusBar, Style }) => {
+      StatusBar.setOverlaysWebView({ overlay: false }).catch(() => {});
       if (themeId === 'dark') {
         StatusBar.setStyle({ style: Style.Dark }).catch(() => {});
         StatusBar.setBackgroundColor({ color: '#121417' }).catch(() => {});
@@ -410,7 +411,7 @@ export default function KidungReaderView({
         )}
 
         {/* Top Header Bar */}
-        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-md border-b ${theme.border} px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 shadow-xs`}>
+        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-md border-b ${theme.border} px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 shadow-xs pt-safe`}>
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               onClick={() => setSelectedSong(null)}
@@ -962,7 +963,7 @@ export default function KidungReaderView({
       <div className={`fixed inset-0 z-50 ${theme.bg} ${theme.text} flex flex-col font-sans select-none`}>
         
         {/* Header Bar (Apple Frosted Glass Luxury Style) */}
-        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3 shadow-xs`}>
+        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3 shadow-xs pt-safe`}>
           <div className="flex items-center gap-3 min-w-0">
             <button
               onClick={() => {
@@ -1067,7 +1068,7 @@ export default function KidungReaderView({
       )}
 
       {/* Top Header Navbar */}
-      <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 shadow-xs`}>
+      <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 shadow-xs pt-safe`}>
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToHome}

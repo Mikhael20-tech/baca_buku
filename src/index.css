@@ -71,7 +71,7 @@
   }
 
   .pt-safe {
-    padding-top: max(0.5rem, env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
   }
 
   #root {

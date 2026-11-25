@@ -230,15 +230,12 @@ export default function BibleIntroModal({ isOpen, onClose, bookData, bibleLang, 
 
               {/* Pokok / Subject (Highlighted Card) */}
               {subject && (
-                <div className="p-5 rounded-2xl bg-white/70 dark:bg-white/5 border border-white/80 dark:border-white/10 space-y-1 shadow-2xs">
-                  <span className="text-[9px] uppercase font-bold tracking-[0.25em] text-[#1C1917]/40 dark:text-white/40 font-sans block select-none">
+                <div className="p-5 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/5 dark:border-white/10 space-y-1.5 shadow-2xs">
+                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#1C1917]/50 dark:text-white/40 font-sans block select-none">
                     {isEn ? 'CENTRAL SUBJECT' : 'POKOK UTAMA KITAB'}
                   </span>
-                  <h3 
-                    className="font-bodoni italic font-medium leading-snug text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight"
-                    style={{ fontFamily: "'Bodoni Moda', 'Playfair Display', Georgia, serif" }}
-                  >
-                    {subject}
+                  <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] leading-snug tracking-tight">
+                    &ldquo;{subject}&rdquo;
                   </h3>
                 </div>
               )}

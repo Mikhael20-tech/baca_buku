@@ -691,6 +691,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
     // Sinkronisasi status bar Android jika berjalan di Capacitor APK
     import('@capacitor/status-bar').then(({ StatusBar, Style }) => {
+      StatusBar.setOverlaysWebView({ overlay: false }).catch(() => {});
       if (theme === 'dark') {
         StatusBar.setStyle({ style: Style.Dark }).catch(() => {});
         StatusBar.setBackgroundColor({ color: '#16191E' }).catch(() => {});
@@ -1053,7 +1054,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       
       {/* Top Header / App Bar (Hidden in Distraction-Free Fullscreen Mode) */}
       {!isDistractionFree ? (
-        <header className={`shrink-0 z-40 backdrop-blur-md border-b ${themeStyles.headerBg} transition-colors shadow-sm`}>
+        <header className={`shrink-0 z-40 backdrop-blur-md border-b ${themeStyles.headerBg} transition-colors shadow-sm pt-safe`}>
           
           {/* ========================================================= */}
           {/* DESKTOP HEADER (MD & LARGER): Satu Baris Lebar & Lega     */}
@@ -1980,23 +1981,20 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
           {/* Pengantar & Pokok Kitab Lengkap (Versi Pemulihan Pada Pasal 1) */}
           {selectedChapter === 1 && bookData?.intro && bibleLang !== 'scofield' && (
-            <div className="rounded-[28px] bg-[#FAF7F2]/90 dark:bg-[#1C1C1E]/90 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 p-6 sm:p-7 mb-7 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.05)] space-y-4 transition-all">
+            <div className="rounded-[28px] bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 border border-black/5 dark:border-white/10 p-6 sm:p-7 mb-7 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.05)] space-y-4 transition-all">
               <div>
-                <span className="text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.2em] text-[#3B4B34] dark:text-emerald-400 uppercase select-none block">
-                  {isEnBible ? `Pengantar ${bookData.name}` : `Pengantar Kitab ${bookData.name}`}
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.16em] text-[#1C1917]/70 dark:text-white/70 uppercase select-none border border-black/5 dark:border-white/10">
+                  {isEnBible ? `Pengantar Kitab • ${bookData.name}` : `Pengantar Kitab • ${bookData.name}`}
                 </span>
               </div>
 
               {(bookData.intro.Pokok || bookData.intro.Subject) && (
-                <div className="space-y-1">
-                  <span className="text-[9px] uppercase font-bold tracking-[0.25em] text-[#1C1917]/40 dark:text-white/40 font-sans block select-none">
+                <div className="space-y-1.5">
+                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#1C1917]/50 dark:text-white/40 font-sans block select-none">
                     {bookData.intro.Subject ? 'SUBJECT' : 'POKOK'}
                   </span>
-                  <h3 
-                    className="font-bodoni italic font-medium text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] leading-snug tracking-tight"
-                    style={{ fontFamily: "'Bodoni Moda', 'Playfair Display', Georgia, serif" }}
-                  >
-                    {bookData.intro.Subject || bookData.intro.Pokok}
+                  <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] leading-snug tracking-tight">
+                    &ldquo;{bookData.intro.Subject || bookData.intro.Pokok}&rdquo;
                   </h3>
                 </div>
               )}
@@ -2006,11 +2004,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   {Object.entries(bookData.intro).map(([k, v]) => {
                     if (k === 'Pokok' || k === 'Subject') return null;
                     return (
-                      <div key={k} className="p-4 rounded-2xl bg-white/70 dark:bg-white/5 border border-white/80 dark:border-white/10 space-y-1 shadow-2xs">
-                        <span className="text-[10px] uppercase font-bold text-[#3B4B34] dark:text-emerald-400 tracking-[0.15em] font-sans block select-none">
+                      <div key={k} className="p-4 sm:p-5 rounded-2xl bg-white/80 dark:bg-white/5 border border-black/5 dark:border-white/10 space-y-1.5 shadow-2xs">
+                        <span className="text-[10px] uppercase font-bold text-[#1C1917]/50 dark:text-white/50 tracking-[0.15em] font-sans block select-none">
                           {k}
                         </span>
-                        <p className="text-xs sm:text-[13px] text-[#1C1917]/85 dark:text-[#F4EFE6]/85 font-sans leading-relaxed">
+                        <p className="text-xs sm:text-[13px] text-[#1C1917]/90 dark:text-[#F4EFE6]/90 font-sans leading-relaxed">
                           {v}
                         </p>
                       </div>
