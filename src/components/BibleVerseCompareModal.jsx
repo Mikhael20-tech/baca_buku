@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Columns, Copy, Check, BookOpen } from 'lucide-react';
+import { X, Columns, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function BibleVerseCompareModal({
@@ -58,214 +58,123 @@ export default function BibleVerseCompareModal({
     setTimeout(() => setCopiedType(null), 2000);
   };
 
+  const translations = [
+    { id: 'id', label: 'Alkitab Versi Pemulihan (AVP)', short: 'AVP', text: idText, primary: true },
+    { id: 'tb', label: 'Terjemahan Baru (TB • LAI)', short: 'TB', text: tbText },
+    { id: 'en', label: 'Recovery Version (RCV)', short: 'RCV', text: enText },
+    { id: 'kjv', label: 'King James Version (KJV 1769)', short: 'KJV', text: kjvText },
+    { id: 'asv', label: 'American Standard Version (ASV 1901)', short: 'ASV', text: asvText },
+    { id: 'net', label: 'New English Translation (NET)', short: 'NET', text: netText },
+    { 
+      id: 'scofield', 
+      label: 'The Scofield Reference Bible (1917 KJV)', 
+      short: 'Scofield', 
+      text: scofieldText,
+      footnotes: scofieldVerse?.footnotes
+    }
+  ];
+
   return (
     <div 
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 animate-modal-backdrop-in"
+      className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-5 animate-modal-backdrop-in"
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-zinc-900 rounded-3xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 flex flex-col space-y-4 max-h-[90vh] animate-modal-card-in"
+        className="bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 rounded-[32px] max-w-2xl w-full p-6 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] border border-white/80 dark:border-white/15 flex flex-col space-y-4 max-h-[88vh] animate-modal-card-in"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center">
-              <Columns className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="font-extrabold text-base text-slate-900 dark:text-zinc-100">
-                {isEn ? 'Compare Translations' : 'Bandingkan Terjemahan'}
-              </h3>
-              <p className="text-[11px] font-mono font-bold text-amber-600 dark:text-amber-400">
-                {citation}
-              </p>
-            </div>
+        {/* Apple Grabber Bar */}
+        <div className="w-10 h-1 rounded-full bg-[#1C1917]/20 dark:bg-white/25 mx-auto -mt-2 mb-1 shrink-0" />
+
+        {/* Minimalist Header */}
+        <div className="flex items-start justify-between pb-3 border-b border-black/5 dark:border-white/10 gap-3">
+          <div className="space-y-1">
+            <span className="px-2.5 py-0.5 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20 font-sans font-semibold text-[10px] tracking-wider uppercase inline-flex items-center gap-1.5">
+              <Columns className="w-3 h-3" />
+              {isEn ? 'Parallel Comparison' : 'Bandingkan Terjemahan'}
+            </span>
+            <h3 className="font-bodoni font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+              {citation}
+            </h3>
           </div>
+
           <button 
             onClick={onClose}
-            className="p-1 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition"
+            className="w-8 h-8 rounded-full bg-white/60 dark:bg-white/15 backdrop-blur-md border border-white/80 dark:border-white/10 hover:bg-white/90 dark:hover:bg-white/20 text-[#1C1917]/70 dark:text-white/70 flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs"
+            title="Tutup"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Translation Cards */}
-        <div className="overflow-y-auto pr-1 flex-1 space-y-3.5 scrollbar-thin">
-          {/* 1. Alkitab Versi Pemulihan (AVP) */}
-          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700/80 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-800">
-                Alkitab Versi Pemulihan (AVP)
-              </span>
-              <button
-                onClick={() => handleCopy('id', idText, 'AVP')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'id' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'id' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
-              {idText || '—'}
-            </p>
-          </div>
-
-          {/* 2. Bahasa Indonesia: Terjemahan Baru LAI */}
-          <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/60 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-emerald-800 dark:text-emerald-300 bg-emerald-100/80 dark:bg-emerald-900/60 px-2 py-0.5 rounded-md border border-emerald-300/80 dark:border-emerald-700">
-                Terjemahan Baru (TB • LAI)
-              </span>
-              <button
-                onClick={() => handleCopy('tb', tbText, 'TB LAI')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'tb' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'tb' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
-              {tbText || '—'}
-            </p>
-          </div>
-
-          {/* 3. Recovery Version (RCV) */}
-          <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-amber-800 dark:text-amber-300 bg-amber-100/80 dark:bg-amber-900/60 px-2 py-0.5 rounded-md border border-amber-300/80 dark:border-amber-700">
-                Recovery Version (RCV)
-              </span>
-              <button
-                onClick={() => handleCopy('en', enText, 'RCV')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'en' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'en' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
-              {enText || '—'}
-            </p>
-          </div>
-
-          {/* 4. English: King James Version (KJV 1769) */}
-          <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200/80 dark:border-indigo-800/60 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-indigo-800 dark:text-indigo-300 bg-indigo-100/80 dark:bg-indigo-900/60 px-2 py-0.5 rounded-md border border-indigo-300/80 dark:border-indigo-700">
-                King James Version (KJV 1769)
-              </span>
-              <button
-                onClick={() => handleCopy('kjv', kjvText, 'KJV 1769')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'kjv' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'kjv' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
-              {kjvText || '—'}
-            </p>
-          </div>
-
-          {/* 5. English: American Standard Version (ASV 1901) */}
-          <div className="p-4 rounded-2xl bg-teal-50/60 dark:bg-teal-950/30 border border-teal-200/80 dark:border-teal-800/60 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-teal-800 dark:text-teal-300 bg-teal-100/80 dark:bg-teal-900/60 px-2 py-0.5 rounded-md border border-teal-300/80 dark:border-teal-700">
-                American Standard Version (ASV 1901)
-              </span>
-              <button
-                onClick={() => handleCopy('asv', asvText, 'ASV 1901')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'asv' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'asv' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
-              {asvText || '—'}
-            </p>
-          </div>
-
-          {/* 6. English: New English Translation (NET Bible) */}
-          <div className="p-4 rounded-2xl bg-sky-50/60 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-800/60 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-sky-800 dark:text-sky-300 bg-sky-100/80 dark:bg-sky-900/60 px-2 py-0.5 rounded-md border border-sky-300/80 dark:border-sky-700">
-                New English Translation (NET Bible)
-              </span>
-              <button
-                onClick={() => handleCopy('net', netText, 'NET Bible')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'net' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'net' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
-            </div>
-            <p className="text-sm sm:text-base leading-relaxed text-slate-800 dark:text-zinc-200 font-serif">
-              {netText || '—'}
-            </p>
-          </div>
-
-          {/* 7. English: Scofield Reference Bible 1917 (KJV) */}
-          <div className="p-4 rounded-2xl bg-[#fcfaf2] dark:bg-stone-900/80 border border-amber-300 dark:border-stone-700 space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase font-bold tracking-wider font-mono text-stone-900 dark:text-amber-200 bg-amber-200/80 dark:bg-stone-800 px-2 py-0.5 rounded-md border border-amber-400 dark:border-stone-600">
-                  The Scofield Reference Bible (1917 KJV)
+        <div className="overflow-y-auto pr-1 flex-1 space-y-3 scrollbar-thin">
+          {translations.map((item) => (
+            <div 
+              key={item.id}
+              className={`p-4 rounded-2xl border transition-all ${
+                item.primary
+                  ? 'bg-white/80 dark:bg-white/10 border-[#3B4B34]/30 dark:border-white/20 shadow-xs'
+                  : 'bg-white/40 dark:bg-white/5 border-white/60 dark:border-white/10 hover:bg-white/60 dark:hover:bg-white/10'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className={`text-[10px] uppercase font-bold tracking-wider font-sans px-2.5 py-0.5 rounded-full border ${
+                  item.primary
+                    ? 'bg-[#3B4B34] text-[#F4EFE6] border-[#3B4B34]'
+                    : 'bg-white/60 dark:bg-white/10 text-[#1C1917]/70 dark:text-white/70 border-white/60 dark:border-white/10'
+                }`}>
+                  {item.label}
                 </span>
-                {scofieldVerse?.footnotes && scofieldVerse.footnotes.length > 0 && (
-                  <span className="text-[10px] font-bold text-red-800 dark:text-red-400 bg-red-100 dark:bg-red-950/70 px-1.5 py-0.5 rounded border border-red-300 font-mono">
-                    {scofieldVerse.footnotes.length} Note{scofieldVerse.footnotes.length > 1 ? 's' : ''}
+
+                <button
+                  onClick={() => handleCopy(item.id, item.text, item.short)}
+                  className="text-xs font-sans font-medium text-[#1C1917]/60 dark:text-white/60 hover:text-[#1C1917] dark:hover:text-white flex items-center gap-1 transition cursor-pointer px-2 py-0.5 rounded-full hover:bg-white/60 dark:hover:bg-white/10"
+                >
+                  {copiedType === item.id ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedType === item.id ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
+                </button>
+              </div>
+
+              <p className="text-sm sm:text-base leading-relaxed text-[#1C1917] dark:text-[#F4EFE6] font-bodoni">
+                {item.text || '—'}
+              </p>
+
+              {/* Scofield commentary notes */}
+              {item.footnotes && item.footnotes.length > 0 && (
+                <div className="pt-2.5 mt-2.5 border-t border-black/5 dark:border-white/10 space-y-1.5">
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-[#1C1917]/50 dark:text-white/50 font-sans">
+                    Scofield Notes:
                   </span>
-                )}
-              </div>
-              <button
-                onClick={() => handleCopy('scofield', scofieldText, 'Scofield 1917')}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-zinc-200 flex items-center gap-1 transition"
-              >
-                {copiedType === 'scofield' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copiedType === 'scofield' ? (isEn ? 'Copied' : 'Tersalin') : (isEn ? 'Copy' : 'Salin')}</span>
-              </button>
+                  {item.footnotes.map((fn, fIdx) => (
+                    <div key={fIdx} className="text-xs text-[#1C1917]/80 dark:text-white/80 font-bodoni pl-2.5 border-l-2 border-[#3B4B34]/40">
+                      <span className="font-semibold text-[#3B4B34] dark:text-emerald-400 mr-1">[{fn.note_idx}]</span>
+                      {fn.keyword && <span className="font-semibold mr-1">{fn.keyword}:</span>}
+                      <span>{fn.text.slice(0, 180)}{fn.text.length > 180 ? '...' : ''}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="text-sm sm:text-base leading-relaxed text-stone-900 dark:text-zinc-200 font-serif">
-              {scofieldText || '—'}
-            </p>
-
-            {/* If Scofield footnotes exist on this verse */}
-            {scofieldVerse?.footnotes && scofieldVerse.footnotes.length > 0 && (
-              <div className="pt-2 border-t border-amber-200/80 dark:border-stone-700/80 space-y-1.5">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-stone-600 dark:text-stone-400 font-mono">
-                  Scofield Commentary:
-                </span>
-                {scofieldVerse.footnotes.map((fn, fIdx) => (
-                  <div key={fIdx} className="text-xs text-stone-700 dark:text-stone-300 font-serif pl-2 border-l-2 border-amber-400">
-                    <span className="font-bold text-red-900 dark:text-red-400 mr-1">[{fn.note_idx}]</span>
-                    {fn.keyword && <span className="font-bold mr-1">{fn.keyword}:</span>}
-                    <span>{fn.text.slice(0, 160)}{fn.text.length > 160 ? '...' : ''}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          ))}
         </div>
 
-        {/* Footer */}
-        <div className="pt-2 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between gap-2">
-          <Button
-            variant="outline"
+        {/* Minimalist Footer */}
+        <div className="pt-3 border-t border-black/5 dark:border-white/10 flex items-center justify-between gap-2">
+          <button
             onClick={handleCopyAll}
-            className="rounded-xl text-xs font-bold flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl hover:bg-white dark:hover:bg-zinc-700 text-xs font-sans font-semibold text-[#1C1917] dark:text-zinc-200 transition cursor-pointer shadow-2xs active:scale-95 flex items-center gap-1.5"
           >
             {copiedType === 'all' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copiedType === 'all' ? (isEn ? 'All Copied!' : 'Semua Versi Tersalin!') : (isEn ? 'Copy All Translations' : 'Salin Semua Terjemahan')}</span>
-          </Button>
+          </button>
 
-          <Button
+          <button
             onClick={onClose}
-            className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs"
+            className="px-5 py-2.5 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold shadow-md shadow-[#3B4B34]/20 transition cursor-pointer active:scale-95"
           >
             {isEn ? 'Close' : 'Tutup'}
-          </Button>
+          </button>
         </div>
       </div>
     </div>
