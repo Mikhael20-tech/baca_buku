@@ -1066,17 +1066,17 @@ export default function KidungReaderView({
       )}
 
       {/* Top Header Navbar */}
-      <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-md border-b ${theme.border} px-4 sm:px-8 py-3 flex items-center justify-between gap-4 shadow-xs`}>
+      <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 shadow-xs`}>
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToHome}
-            className="w-9 h-9 rounded-2xl bg-[#3B4B34] text-[#F4EFE6] flex items-center justify-center shadow-md shadow-[#3B4B34]/20 btn-lift"
+            className="w-9 h-9 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/80 dark:border-white/10 hover:bg-white text-[#1C1917] dark:text-[#F4EFE6] flex items-center justify-center shadow-xs transition active:scale-95 cursor-pointer"
             title="Kembali ke Beranda"
           >
-            <ArrowLeft className="w-4 h-4 text-amber-200" />
+            <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="font-extrabold text-xl font-serif tracking-tight">Kidung</h1>
+            <h1 className="font-bodoni font-bold text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">Kidung</h1>
           </div>
         </div>
 
@@ -1085,7 +1085,7 @@ export default function KidungReaderView({
           {onOpenBible && (
             <button
               onClick={onOpenBible}
-              className="px-3 py-1.5 rounded-full text-xs font-bold border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 transition hidden md:flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-full text-xs font-sans font-semibold border border-white/80 dark:border-white/10 bg-white/70 dark:bg-white/10 backdrop-blur-xl hover:bg-white text-[#1C1917] dark:text-zinc-200 transition shadow-2xs hidden md:flex items-center gap-1.5 cursor-pointer active:scale-95"
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>Alkitab</span>
@@ -1094,7 +1094,7 @@ export default function KidungReaderView({
           {onOpenLibrary && (
             <button
               onClick={onOpenLibrary}
-              className="px-3 py-1.5 rounded-full text-xs font-bold border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 transition hidden md:flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-full text-xs font-sans font-semibold border border-white/80 dark:border-white/10 bg-white/70 dark:bg-white/10 backdrop-blur-xl hover:bg-white text-[#1C1917] dark:text-zinc-200 transition shadow-2xs hidden md:flex items-center gap-1.5 cursor-pointer active:scale-95"
             >
               <List className="w-3.5 h-3.5" />
               <span>Katalog</span>
@@ -1102,7 +1102,7 @@ export default function KidungReaderView({
           )}
 
           {/* Ganti Tema */}
-          <div className="flex items-center border border-black/10 dark:border-white/10 rounded-full p-0.5 bg-white/60 dark:bg-black/30">
+          <div className="flex items-center border border-white/80 dark:border-white/10 rounded-full p-0.5 bg-white/60 dark:bg-black/30 backdrop-blur-md shadow-2xs">
             {THEMES.map(t => (
               <button
                 key={t.id}
@@ -1128,16 +1128,16 @@ export default function KidungReaderView({
             {/* Lompat Cepat ke Nomor */}
             <form onSubmit={handleQuickJump} className="sm:col-span-5 relative">
               <div className="relative">
-                <Hash className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-amber-600 dark:text-amber-400" />
+                <Hash className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#3B4B34] dark:text-emerald-400" />
                 <Input
                   value={quickNumQuery}
                   onChange={(e) => setQuickNumQuery(e.target.value)}
                   placeholder="Ketik nomor (cth. 2032, 53)..."
-                  className="pl-9 pr-14 py-2 text-xs rounded-2xl bg-white dark:bg-[#1A1D24] border-black/10 dark:border-white/10 shadow-xs h-10 font-mono"
+                  className="pl-9 pr-16 py-2 text-xs rounded-full bg-white/70 dark:bg-[#1A1D24]/70 backdrop-blur-xl border border-white/80 dark:border-white/10 shadow-xs h-11 font-sans"
                 />
                 <button
                   type="submit"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-xl bg-amber-600 text-white text-[11px] font-bold hover:bg-amber-700 transition"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold transition cursor-pointer active:scale-95 shadow-2xs"
                 >
                   Buka
                 </button>
@@ -1146,18 +1146,18 @@ export default function KidungReaderView({
 
             {/* Pencarian Lirik & Judul */}
             <div className="sm:col-span-7 relative">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
+              <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#1C1917]/40 dark:text-white/40" />
               <Input
                 ref={searchInputRef}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Cari lirik, judul, tema rohani..."
-                className="pl-10 pr-8 py-2 text-xs rounded-2xl bg-white dark:bg-[#1A1D24] border-black/10 dark:border-white/10 shadow-xs h-10"
+                className="pl-10 pr-9 py-2 text-xs rounded-full bg-white/70 dark:bg-[#1A1D24]/70 backdrop-blur-xl border border-white/80 dark:border-white/10 shadow-xs h-11 font-sans"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#78716C] hover:text-black dark:hover:text-white"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#1C1917]/40 hover:text-[#1C1917] dark:text-white/40 dark:hover:text-white transition cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1165,21 +1165,21 @@ export default function KidungReaderView({
             </div>
           </div>
 
-          {/* TAB BAR BERALIH: [ Kidung ] [ Suplemen ] (Screenshot 5 Style) */}
-          <div className="flex justify-center pt-2">
-            <div className="inline-flex p-1 rounded-2xl bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 w-full max-w-[460px]">
+          {/* TAB BAR BERALIH: [ Kidung ] [ Suplemen ] (Segmented Apple Style) */}
+          <div className="flex justify-center pt-1">
+            <div className="inline-flex p-1.5 rounded-full bg-white/60 dark:bg-black/30 backdrop-blur-xl border border-white/80 dark:border-white/10 shadow-inner w-full max-w-[480px] gap-1.5">
               <button
                 onClick={() => {
                   setActiveTab('kidung');
                   setSelectedCategory(null);
                 }}
-                className={`flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 ${
+                className={`flex-1 py-2 rounded-full text-xs sm:text-sm font-sans font-semibold transition flex items-center justify-center gap-2 cursor-pointer ${
                   activeTab === 'kidung'
-                    ? 'bg-white dark:bg-[#252830] text-[#1C1917] dark:text-white shadow-sm'
-                    : 'text-[#78716C] hover:text-[#1C1917] dark:hover:text-white'
+                    ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-sm'
+                    : 'text-[#1C1917]/60 dark:text-white/60 hover:text-[#1C1917] dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10'
                 }`}
               >
-                <Music className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <Music className="w-3.5 h-3.5" />
                 <span>Kidung (1 – 786)</span>
               </button>
 
@@ -1188,10 +1188,10 @@ export default function KidungReaderView({
                   setActiveTab('suplemen');
                   setSelectedCategory(null);
                 }}
-                className={`flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 ${
+                className={`flex-1 py-2 rounded-full text-xs sm:text-sm font-sans font-semibold transition flex items-center justify-center gap-2 cursor-pointer ${
                   activeTab === 'suplemen'
-                    ? 'bg-[#38BDF8] text-white shadow-sm'
-                    : 'text-[#78716C] hover:text-[#1C1917] dark:hover:text-white'
+                    ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-sm'
+                    : 'text-[#1C1917]/60 dark:text-white/60 hover:text-[#1C1917] dark:hover:text-white hover:bg-white/40 dark:hover:bg-white/10'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -1201,35 +1201,36 @@ export default function KidungReaderView({
           </div>
 
           {/* Banner Indeks Kategori Info */}
-          <div className="flex items-center justify-between text-xs px-2 text-[#78716C]">
-            <span className="font-semibold uppercase tracking-wider text-[11px]">
+          <div className="flex items-center justify-between text-xs px-3">
+            <span className="font-sans font-semibold uppercase tracking-[0.2em] text-[10px] text-[#3B4B34] dark:text-emerald-400 select-none">
               {activeTab === 'kidung' ? 'Daftar Indeks Kidung' : 'Daftar Isi Suplemen'}
             </span>
-            <span>{currentCategories.length} Kategori Utama</span>
+            <span className="font-sans text-xs text-[#1C1917]/50 dark:text-white/50 select-none">
+              {currentCategories.length} Kategori Utama
+            </span>
           </div>
 
-          {/* TABLE OF CONTENTS: DAFTAR KATEGORI (Screenshot 5 & 1 & 2 Style) */}
-          <div className="bg-white dark:bg-[#1A1D24] rounded-3xl border border-black/10 dark:border-white/10 shadow-xs divide-y divide-black/5 dark:divide-white/5 overflow-hidden">
+          {/* TABLE OF CONTENTS: DAFTAR KATEGORI (Ultra-Minimalist Bodoni Moda) */}
+          <div className="rounded-[32px] bg-white/70 dark:bg-[#1A1D24]/70 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.05)] divide-y divide-black/5 dark:divide-white/5 overflow-hidden transition-all">
             {currentCategories.map((cat) => (
               <div
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat)}
-                className="py-3.5 px-4 sm:px-6 hover:bg-amber-500/5 dark:hover:bg-white/5 transition cursor-pointer flex items-center justify-between gap-4 group"
+                className="py-4 px-5 sm:px-7 hover:bg-white/90 dark:hover:bg-white/10 transition cursor-pointer flex items-center justify-between gap-4 group"
               >
                 {/* Nama Kategori */}
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-2 h-2 rounded-full bg-amber-500/40 group-hover:bg-amber-500 transition shrink-0" />
-                  <span className="text-xs sm:text-sm font-semibold text-[#1C1917] dark:text-[#E2E8F0] group-hover:text-amber-700 dark:group-hover:text-amber-400 transition truncate">
+                <div className="flex items-center min-w-0">
+                  <span className="font-bodoni font-medium text-base sm:text-lg text-[#1C1917] dark:text-[#F4EFE6] group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 transition tracking-tight truncate">
                     {cat.name}
                   </span>
                 </div>
 
-                {/* Nomor Rentang di Kanan (Screenshot 5 style) */}
+                {/* Nomor Rentang di Kanan */}
                 <div className="flex items-center gap-3 shrink-0">
-                  <span className="text-xs sm:text-sm font-mono text-[#78716C] group-hover:text-[#1C1917] dark:group-hover:text-white transition">
+                  <span className="text-xs sm:text-sm font-sans font-medium text-[#1C1917]/50 dark:text-white/50 group-hover:text-[#1C1917] dark:group-hover:text-white tabular-nums tracking-wider transition">
                     {cat.range}
                   </span>
-                  <ChevronRight className="w-4 h-4 text-[#78716C] group-hover:translate-x-0.5 transition" />
+                  <ChevronRight className="w-4 h-4 text-[#1C1917]/30 dark:text-white/30 group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 group-hover:translate-x-0.5 transition" />
                 </div>
               </div>
             ))}
