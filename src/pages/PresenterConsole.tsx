@@ -200,7 +200,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
 
   // Bible Picker State for Live Stage
   const [bibleBooks, setBibleBooks] = useState<any[]>([]);
-  const [bibleVersion, setBibleVersion] = useState<'id' | 'tb' | 'en'>('id');
+  const [bibleVersion, setBibleVersion] = useState<'id' | 'tb' | 'en' | 'kjv' | 'asv' | 'net' | 'scofield'>('id');
   const [selectedBibleBookId, setSelectedBibleBookId] = useState<string>('yohanes');
   const [selectedBibleChapter, setSelectedBibleChapter] = useState<number>(3);
   const [bibleChapterVerses, setBibleChapterVerses] = useState<any[]>([]);
@@ -479,8 +479,16 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     if (picked.length === 0) return;
 
     const bookObj = bibleBooks.find((b) => b.id === selectedBibleBookId);
-    const bookLabel = bibleVersion === 'en' ? (bookObj?.nameEn || bookObj?.name || selectedBibleBookId) : (bookObj?.name || selectedBibleBookId);
-    const verCode = bibleVersion === 'id' ? 'AVP' : bibleVersion === 'tb' ? 'TB' : 'RCV';
+    const isEnVer = ['en', 'kjv', 'asv', 'net', 'scofield'].includes(bibleVersion);
+    const bookLabel = isEnVer ? (bookObj?.nameEn || bookObj?.name || selectedBibleBookId) : (bookObj?.name || selectedBibleBookId);
+    const verCode =
+      bibleVersion === 'id' ? 'AVP' :
+      bibleVersion === 'tb' ? 'TB' :
+      bibleVersion === 'en' ? 'RCV' :
+      bibleVersion === 'kjv' ? 'KJV' :
+      bibleVersion === 'asv' ? 'ASV' :
+      bibleVersion === 'net' ? 'NET' :
+      'Scofield';
     const refRange = startV === endV ? `${startV}` : `${startV}–${endV}`;
     const title = `${bookLabel} ${selectedBibleChapter}:${refRange} (${verCode})`;
 
@@ -1167,21 +1175,25 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </>
             ) : (
               <div className="mt-4 flex-1 flex flex-col gap-3 overflow-visible">
-                {/* Pilih Terjemahan */}
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Terjemahan</span>
-                  <div className="flex p-1 rounded-2xl bg-black/40 border border-white/10">
+                {/* Pilih Terjemahan (Semua 7 Versi) */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Terjemahan</span>
+                  <div className="flex flex-wrap p-1 rounded-2xl bg-black/40 border border-white/10 gap-1">
                     {[
                       { id: 'id', label: 'AVP' },
-                      { id: 'tb', label: 'TB (LAI)' },
+                      { id: 'tb', label: 'TB' },
                       { id: 'en', label: 'RCV' },
+                      { id: 'kjv', label: 'KJV' },
+                      { id: 'asv', label: 'ASV' },
+                      { id: 'net', label: 'NET' },
+                      { id: 'scofield', label: 'Scofield' },
                     ].map((ver) => (
                       <button
                         key={ver.id}
                         type="button"
                         onClick={() => setBibleVersion(ver.id as any)}
-                        className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
-                          bibleVersion === ver.id ? 'bg-[#3B4B34] text-white' : 'text-zinc-400 hover:text-white'
+                        className={`flex-1 min-w-[44px] px-2.5 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                          bibleVersion === ver.id ? 'bg-[#3B4B34] text-white shadow-sm' : 'text-zinc-400 hover:text-white'
                         }`}
                       >
                         {ver.label}
