@@ -14,8 +14,8 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Jangan biarkan konten aplikasi menembus ke bawah status bar dan punch hole kamera
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
+        // Pastikan padding hanya dihitung tepat sekali dari status bar + punch hole kamera
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         View contentView = findViewById(android.R.id.content);
         if (contentView != null) {

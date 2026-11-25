@@ -422,20 +422,17 @@ export default function KidungReaderView({
               <span>Daftar</span>
             </button>
 
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 border border-[#3B4B34]/20 text-[#3B4B34] dark:text-emerald-400 flex items-center justify-center shrink-0">
-                <Music className="w-4 h-4" />
-              </div>
+            <div className="flex items-center gap-2 min-w-0">
               <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-bold font-bodoni text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
-                    {selectedSong.type === 'suplemen' ? 'Suplemen' : 'Kidung'}
-                  </span>
-                  <span className="text-xs font-bold font-sans px-2.5 py-0.5 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs sm:text-sm font-bold font-sans px-2.5 py-0.5 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20 shrink-0">
                     {selectedSong.formattedNumber}
                   </span>
+                  <span className="text-xs sm:text-sm font-semibold font-sans text-[#1C1917]/85 dark:text-[#F4EFE6]/85 truncate max-w-[120px] sm:max-w-[200px]">
+                    {selectedSong.title}
+                  </span>
                 </div>
-                <p className="text-xs text-[#1C1917]/50 dark:text-white/50 font-sans truncate">{selectedSong.category}</p>
+                <p className="text-[11px] text-[#1C1917]/50 dark:text-white/50 font-sans truncate">{selectedSong.category}</p>
               </div>
             </div>
           </div>
@@ -743,12 +740,12 @@ export default function KidungReaderView({
               {isId ? (
                 <>
                   {/* Nomor Lagu Besar Indonesia */}
-                  <div className="text-xl sm:text-2xl font-extrabold text-amber-700 dark:text-amber-400 font-serif tracking-tight mb-1">
+                  <div className="text-xl sm:text-2xl font-bold text-amber-700 dark:text-amber-400 font-sans tabular-nums tracking-tight mb-1">
                     {selectedSong.formattedNumber}
                   </div>
 
                   {/* Judul Lagu */}
-                  <h1 className="text-2xl sm:text-3xl font-extrabold font-serif tracking-tight leading-snug mb-2">
+                  <h1 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight leading-snug mb-2 text-[#1C1917] dark:text-[#F4EFE6]">
                     {selectedSong.title}
                   </h1>
 
@@ -774,7 +771,7 @@ export default function KidungReaderView({
                 <>
                   {/* Tampilan Header Bahasa Lain */}
                   <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-lg sm:text-xl font-extrabold text-amber-700 dark:text-amber-400 font-serif tracking-tight">
+                    <span className="text-lg sm:text-xl font-bold text-amber-700 dark:text-amber-400 font-sans tabular-nums tracking-tight">
                       {selectedSong.formattedNumber}
                     </span>
                     <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30 font-mono">
@@ -783,7 +780,7 @@ export default function KidungReaderView({
                   </div>
 
                   {/* Judul Bahasa Lain */}
-                  <h1 className="text-2xl sm:text-3xl font-extrabold font-serif tracking-tight leading-snug mb-1">
+                  <h1 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight leading-snug mb-1 text-[#1C1917] dark:text-[#F4EFE6]">
                     {currentTitle}
                   </h1>
 
@@ -858,7 +855,7 @@ export default function KidungReaderView({
 
                             return (
                               <div key={lIdx} className="space-y-0.5">
-                                <p className="leading-relaxed font-normal">{cleanLine}</p>
+                                <p className="leading-relaxed font-sans font-medium text-stone-900 dark:text-stone-100">{cleanLine}</p>
                                 {phoneticLine && (
                                   <p className="text-xs sm:text-[13px] text-amber-700 dark:text-amber-400 font-sans tracking-wide opacity-90 select-text">
                                     {phoneticLine}
@@ -875,7 +872,7 @@ export default function KidungReaderView({
                   return (
                     <div key={idx} className="flex items-start gap-2.5 sm:gap-3.5 my-5">
                       {verseNum ? (
-                        <span className="font-bold text-stone-700 dark:text-stone-300 select-none shrink-0 font-serif w-6 text-right pt-0.5">
+                        <span className="font-bold text-amber-700 dark:text-amber-400 select-none shrink-0 font-sans tabular-nums w-6 text-right pt-0.5">
                           {verseNum}.
                         </span>
                       ) : (
@@ -892,7 +889,7 @@ export default function KidungReaderView({
 
                           return (
                             <div key={lIdx} className="space-y-0.5">
-                              <p className="leading-relaxed font-normal">{cleanLine}</p>
+                              <p className="leading-relaxed font-sans font-medium text-stone-900 dark:text-stone-100">{cleanLine}</p>
                               {phoneticLine && (
                                 <p className="text-xs sm:text-[13px] text-amber-700 dark:text-amber-400 font-sans tracking-wide opacity-90 select-text">
                                   {phoneticLine}
@@ -982,7 +979,7 @@ export default function KidungReaderView({
             </div>
 
             <div className="min-w-0">
-              <h2 className="text-base sm:text-lg font-bold font-bodoni text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
+              <h2 className="text-base sm:text-lg font-bold font-sans text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
                 {listTitle}
               </h2>
               <p className="text-xs text-[#1C1917]/50 dark:text-white/50 font-sans truncate">{listSubtitle}</p>
@@ -1026,12 +1023,12 @@ export default function KidungReaderView({
 
                   {/* Lirik Baris Pertama & Koor */}
                   <div className="flex-1 min-w-0 space-y-1">
-                    <p className="font-bodoni font-medium text-base sm:text-lg text-[#1C1917] dark:text-[#F4EFE6] group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 transition leading-snug line-clamp-2">
+                    <p className="font-sans font-semibold text-sm sm:text-base text-[#1C1917] dark:text-[#F4EFE6] group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 transition leading-snug line-clamp-2">
                       {song.firstLine || song.title}
                     </p>
 
                     {song.chorusSnippet && (
-                      <p className="text-xs sm:text-[13px] text-[#1C1917]/60 dark:text-white/60 font-sans leading-relaxed line-clamp-1">
+                      <p className="text-xs sm:text-[13px] text-[#1C1917]/75 dark:text-white/75 font-sans leading-relaxed line-clamp-1">
                         <span className="font-semibold text-[#3B4B34] dark:text-emerald-400 mr-1">Koor:</span> "{song.chorusSnippet}"
                       </p>
                     )}

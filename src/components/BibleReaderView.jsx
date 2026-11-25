@@ -1054,7 +1054,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       
       {/* Top Header / App Bar (Hidden in Distraction-Free Fullscreen Mode) */}
       {!isDistractionFree ? (
-        <header className={`shrink-0 z-40 backdrop-blur-md border-b ${themeStyles.headerBg} transition-colors shadow-sm pt-safe`}>
+        <header className={`shrink-0 z-40 backdrop-blur-md border-b ${themeStyles.headerBg} transition-colors shadow-sm`}>
           
           {/* ========================================================= */}
           {/* DESKTOP HEADER (MD & LARGER): Satu Baris Lebar & Lega     */}
@@ -2769,11 +2769,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                         <button
                           key={b.id}
                           onClick={() => {
-                            setTransitionAnim('animate-chapter-fade');
-                            if (contentRef.current) contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
                             setSelectedBookId(b.id);
-                            setSelectedChapter(1);
+                            setPickingChapter(1);
+                            setChapterVersePickerStep('chapter');
                             setIsBookPickerOpen(false);
+                            setTimeout(() => {
+                              setIsChapterPickerOpen(true);
+                            }, 120);
                           }}
                           className={`p-3.5 sm:p-4 rounded-2xl border text-left transition flex items-center justify-between cursor-pointer ${
                             selectedBookId === b.id
@@ -3034,9 +3036,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             {/* Footnote Text Content */}
             <div className="overflow-y-auto pr-1 flex-1 py-1">
               <div 
-                className="text-base sm:text-lg leading-relaxed text-[#1C1917] dark:text-[#F4EFE6] whitespace-pre-line font-bodoni selection:bg-[#3B4B34]/15"
+                className="text-sm sm:text-base leading-relaxed text-[#1C1917] dark:text-[#F4EFE6] whitespace-pre-line font-sans font-normal selection:bg-[#3B4B34]/15"
                 style={{ 
-                  lineHeight: 1.85 
+                  lineHeight: 1.75 
                 }}
               >
                 {renderFootnoteTextWithLinks(activeFootnotePopup.text, activeFootnotePopup.lang || bibleLang)}
