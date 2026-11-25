@@ -22,7 +22,11 @@ export default function LiveOutput() {
 
   // Skala penyesuaian otomatis berdasarkan kepadatan teks
   let densityScale = 1;
-  if (totalLength > 180 || lineCount > 6 || maxLineLength > 52) {
+  if (totalLength > 600) {
+    densityScale = 0.4;
+  } else if (totalLength > 350) {
+    densityScale = 0.5;
+  } else if (totalLength > 180 || lineCount > 6 || maxLineLength > 52) {
     densityScale = 0.65;
   } else if (totalLength > 120 || lineCount > 4 || maxLineLength > 40) {
     densityScale = 0.78;
@@ -31,8 +35,8 @@ export default function LiveOutput() {
   }
 
   // Batas maksimum responsif tinggi (vh) dan lebar (vw)
-  const maxVh = lineCount > 4 ? 5.2 : lineCount > 2 ? 6.5 : 8.0;
-  const maxVw = maxLineLength > 45 ? 5.0 : maxLineLength > 30 ? 6.0 : 7.5;
+  const maxVh = totalLength > 600 ? 3.2 : totalLength > 350 ? 4.0 : lineCount > 4 ? 5.2 : lineCount > 2 ? 6.5 : 8.0;
+  const maxVw = totalLength > 350 ? 4.2 : maxLineLength > 45 ? 5.0 : maxLineLength > 30 ? 6.0 : 7.5;
   const dynamicFontSize = `min(${Math.round(baseFontSize * densityScale)}px, ${maxVh}vh, ${maxVw}vw)`;
 
   return (

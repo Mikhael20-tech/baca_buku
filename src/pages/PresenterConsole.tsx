@@ -1147,7 +1147,9 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 state.imageUrl ? (
                   <img src={state.imageUrl} alt={state.title} className="w-full h-full object-contain" />
                 ) : (
-                  <p className="text-[11px] whitespace-pre-line text-white font-semibold leading-snug line-clamp-4">
+                  <p className={`whitespace-pre-line text-white font-semibold overflow-y-auto max-h-full pr-1 ${
+                    state.content.length > 220 ? 'text-[9px] leading-tight' : 'text-[11px] leading-snug'
+                  }`}>
                     {state.content || 'Belum ada slide yang aktif'}
                   </p>
                 )
