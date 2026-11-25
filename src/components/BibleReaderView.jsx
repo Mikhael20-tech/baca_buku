@@ -2970,47 +2970,57 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       {/* MODAL 3: POPOVER CATATAN KAKI CEPAT (DENGAN RUJUKAN SILANG INTERAKTIF) */}
       {activeFootnotePopup && (
         <div 
-          className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 ${
+          className={`fixed inset-0 z-50 bg-black/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-5 ${
             isClosingFootnote ? 'animate-modal-backdrop-out' : 'animate-modal-backdrop-in'
           }`}
           onClick={handleCloseFootnote}
         >
           <div 
-            className={`bg-white dark:bg-zinc-900 rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-amber-300/80 dark:border-amber-700/60 space-y-4 max-h-[85vh] flex flex-col ${
+            className={`bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 rounded-[32px] max-w-lg w-full p-6 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] border border-white/80 dark:border-white/15 space-y-4 max-h-[85vh] flex flex-col ${
               isClosingFootnote ? 'animate-modal-card-out' : 'animate-modal-card-in'
             }`}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded-lg bg-amber-500 text-white font-mono font-bold text-xs shadow-2xs">
+            {/* Apple Drag Grabber Bar */}
+            <div className="w-10 h-1 rounded-full bg-[#1C1917]/20 dark:bg-white/25 mx-auto -mt-1 mb-1 shrink-0" />
+
+            {/* Header Modal */}
+            <div className="flex items-center justify-between pb-3.5 border-b border-[#1C1917]/8 dark:border-white/8">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="px-3 py-1 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20 font-sans font-bold text-[11px] tracking-wider uppercase shrink-0">
                   {activeFootnotePopup.lang === 'en' ? `Note ${activeFootnotePopup.noteIdx}` : `Catatan ${activeFootnotePopup.noteIdx}`}
                 </span>
-                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-zinc-100">
+                <h3 className="font-bodoni font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight truncate">
                   {activeFootnotePopup.lang === 'en' ? (currentBookInfo.nameEn || currentBookInfo.name) : currentBookInfo.name} {selectedChapter}:{activeFootnotePopup.verse}
                 </h3>
               </div>
               <button 
+                type="button"
                 onClick={handleCloseFootnote}
-                className="p-1 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition-colors"
+                className="w-8 h-8 rounded-full bg-white/60 dark:bg-white/15 backdrop-blur-md border border-white/80 dark:border-white/10 hover:bg-white/90 text-[#1C1917]/70 dark:text-white/70 flex items-center justify-center transition cursor-pointer active:scale-95 shrink-0"
+                title="Tutup"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
+            {/* Keyword Banner */}
             {activeFootnotePopup.keyword && (
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-xs font-bold text-amber-900 dark:text-amber-200">
-                <span className="opacity-70">{activeFootnotePopup.lang === 'en' ? 'Word / Phrase:' : 'Kata / Frasa:'}</span>
-                <span className="underline decoration-amber-500 font-extrabold">{activeFootnotePopup.keyword}</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md border border-white/80 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-xs text-[#78716C] dark:text-zinc-300 font-sans self-start">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-[#8E9C75] dark:text-emerald-400">
+                  {activeFootnotePopup.lang === 'en' ? 'Word / Phrase:' : 'Kata / Frasa:'}
+                </span>
+                <span className="font-bodoni font-bold text-[#1C1917] dark:text-[#F4EFE6] text-sm">
+                  {activeFootnotePopup.keyword}
+                </span>
               </div>
             )}
 
-            <div className="overflow-y-auto pr-1 flex-1">
+            {/* Footnote Text Content */}
+            <div className="overflow-y-auto pr-1 flex-1 py-1">
               <div 
-                className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-zinc-200 whitespace-pre-line"
+                className="text-base sm:text-lg leading-relaxed text-[#1C1917] dark:text-[#F4EFE6] whitespace-pre-line font-bodoni selection:bg-[#3B4B34]/15"
                 style={{ 
-                  fontFamily: activeFontFamily,
-                  fontSize: `${Math.max(15, fontSize - 2)}px`,
                   lineHeight: 1.85 
                 }}
               >
@@ -3018,9 +3028,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-100 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-2">
+            {/* Footer Buttons */}
+            <div className="pt-3.5 border-t border-[#1C1917]/8 dark:border-white/8 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <button
+                  type="button"
                   onClick={() => {
                     const bookName = activeFootnotePopup.lang === 'en' ? (currentBookInfo.nameEn || currentBookInfo.name) : currentBookInfo.name;
                     const label = activeFootnotePopup.lang === 'en' ? 'Note' : 'Catatan';
@@ -3028,7 +3040,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     navigator.clipboard.writeText(copyText);
                     alert(activeFootnotePopup.lang === 'en' ? 'Footnote copied to clipboard!' : 'Catatan kaki berhasil disalin!');
                   }}
-                  className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-800 text-xs font-semibold flex items-center gap-1.5 text-slate-600 dark:text-zinc-300 transition cursor-pointer"
+                  className="px-4 py-2 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl hover:bg-white text-xs font-sans font-semibold flex items-center gap-1.5 text-[#1C1917] dark:text-zinc-200 transition cursor-pointer shadow-2xs"
                 >
                   <Copy className="w-3.5 h-3.5" />
                   <span>{activeFootnotePopup.lang === 'en' ? 'Copy Note' : 'Salin Catatan'}</span>
@@ -3036,12 +3048,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
                 {(activeFootnotePopup.keyword?.toLowerCase().includes('malachi to matthew') || activeFootnotePopup.text?.toLowerCase().includes('from malachi to matthew')) && (
                   <button
+                    type="button"
                     onClick={() => {
                       setIntroModalInitialTab('malachi_to_matthew');
                       setIsIntroModalOpen(true);
                       handleCloseFootnote();
                     }}
-                    className="px-3 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    className="px-4 py-2 rounded-full bg-[#3B4B34]/15 border border-[#3B4B34]/30 hover:bg-[#3B4B34]/25 text-[#3B4B34] dark:text-emerald-400 text-xs font-sans font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
                     <span>Buka Risalah Lengkap</span>
@@ -3050,8 +3063,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </div>
 
               <button
+                type="button"
                 onClick={handleCloseFootnote}
-                className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs cursor-pointer"
+                className="px-5 py-2 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold shadow-md shadow-[#3B4B34]/20 transition cursor-pointer active:scale-95"
               >
                 {activeFootnotePopup.lang === 'en' ? 'Close' : 'Tutup'}
               </button>
