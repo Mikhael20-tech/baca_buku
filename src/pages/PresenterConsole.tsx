@@ -142,9 +142,10 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   // Kontrol Ukuran Font Lirik & Badge Judul di Layar Proyektor
   const [contentFontSize, setContentFontSize] = useState<number>(() => {
     try {
-      return Number(localStorage.getItem('stage_content_font_size')) || 56;
+      const saved = Number(localStorage.getItem('stage_content_font_size'));
+      return saved && saved <= 72 ? saved : 48;
     } catch {
-      return 56;
+      return 48;
     }
   });
 

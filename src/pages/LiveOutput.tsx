@@ -12,11 +12,34 @@ export default function LiveOutput() {
   const isGold = theme === 'amber-gold';
   const isTickerVisible = Boolean(state.tickerActive && state.tickerText && state.mode !== 'BLACKOUT');
 
+  // Perhitungan cerdas font size adaptif agar teks lirik tidak pernah overflow atau menabrak badge bawah
+  const rawLines = state.content ? state.content.split('\n') : [];
+  const lineCount = rawLines.length;
+  const maxLineLength = rawLines.reduce((max, l) => Math.max(max, l.length), 0);
+  const totalLength = state.content ? state.content.length : 0;
+
+  const baseFontSize = state.fontSize || 48;
+
+  // Skala penyesuaian otomatis berdasarkan kepadatan teks
+  let densityScale = 1;
+  if (totalLength > 180 || lineCount > 6 || maxLineLength > 52) {
+    densityScale = 0.65;
+  } else if (totalLength > 120 || lineCount > 4 || maxLineLength > 40) {
+    densityScale = 0.78;
+  } else if (totalLength > 75 || lineCount > 3 || maxLineLength > 28) {
+    densityScale = 0.88;
+  }
+
+  // Batas maksimum responsif tinggi (vh) dan lebar (vw)
+  const maxVh = lineCount > 4 ? 5.2 : lineCount > 2 ? 6.5 : 8.0;
+  const maxVw = maxLineLength > 45 ? 5.0 : maxLineLength > 30 ? 6.0 : 7.5;
+  const dynamicFontSize = `min(${Math.round(baseFontSize * densityScale)}px, ${maxVh}vh, ${maxVw}vw)`;
+
   return (
     <div className={`w-screen h-screen select-none overflow-hidden relative flex flex-col ${
       isLowerThird 
-        ? 'bg-transparent justify-end p-8 md:p-12' 
-        : 'bg-black justify-center items-center p-8 md:p-14'
+        ? 'bg-transparent justify-end p-6 md:p-12' 
+        : 'bg-black justify-center items-center'
     }`}>
       {/* Keyframes Animasi Teks Berjalan */}
       <style>{`
@@ -34,7 +57,7 @@ export default function LiveOutput() {
 
       {state.mode === 'LIVE' && state.content && (
         isLowerThird ? (
-          <div className="max-w-5xl w-full mx-auto bg-black/85 backdrop-blur-md border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-in slide-in-from-bottom-6 duration-300">
+          <div className="max-w-5xl w-full mx-auto bg-black/85 backdrop-blur-md border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-in slide-in-from-bottom-6 duration-300 mb-4">
             <p className="text-2xl sm:text-4xl font-bold whitespace-pre-line leading-relaxed text-white drop-shadow-md">
               {state.content}
             </p>
@@ -46,12 +69,12 @@ export default function LiveOutput() {
             )}
           </div>
         ) : (
-          <div className="max-w-6xl w-full text-center transition-all duration-300 animate-in fade-in zoom-in-95 px-4">
+          <div className={`max-w-6xl w-full flex-1 flex flex-col justify-center items-center text-center transition-all duration-300 animate-in fade-in zoom-in-95 px-6 sm:px-12 pt-4 ${
+            isTickerVisible ? 'pb-28' : 'pb-20'
+          }`}>
             <p 
-              style={{ fontSize: state.fontSize ? `${state.fontSize}px` : undefined }}
-              className={`font-bold whitespace-pre-line leading-snug md:leading-tight tracking-tight drop-shadow-md ${
-                !state.fontSize ? 'text-3xl sm:text-5xl md:text-6xl lg:text-7xl' : ''
-              } ${
+              style={{ fontSize: dynamicFontSize }}
+              className={`font-bold whitespace-pre-line leading-snug tracking-tight drop-shadow-md transition-all duration-150 ${
                 isGold ? 'text-amber-300 drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]' : 'text-white'
               }`}
             >
@@ -75,10 +98,10 @@ export default function LiveOutput() {
       {state.mode === 'LIVE' && state.title && !isLowerThird && (
         <div 
           style={{ fontSize: state.badgeFontSize ? `${state.badgeFontSize}px` : undefined }}
-          className={`fixed left-1/2 -translate-x-1/2 text-center text-zinc-100 font-medium tracking-wide bg-black/80 backdrop-blur-2xl px-5 py-2 rounded-full border border-white/15 shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-300 z-30 max-w-[90vw] whitespace-nowrap overflow-hidden text-ellipsis ${
+          className={`fixed left-1/2 -translate-x-1/2 text-center text-zinc-100 font-medium tracking-wide bg-black/85 backdrop-blur-2xl px-5 py-2 rounded-full border border-white/15 shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-300 z-30 max-w-[90vw] whitespace-nowrap overflow-hidden text-ellipsis ${
             !state.badgeFontSize ? 'text-xs sm:text-sm' : ''
           } ${
-            isTickerVisible ? 'bottom-16' : 'bottom-6'
+            isTickerVisible ? 'bottom-16' : 'bottom-5'
           }`}
         >
           <span className="font-semibold tracking-wide drop-shadow-sm">{state.title}</span>
