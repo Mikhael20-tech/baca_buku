@@ -353,12 +353,19 @@ export default function KidungReaderView({
   // Loading indicator
   if (isLoading) {
     return (
-      <div className={`fixed inset-0 z-50 ${theme.bg} ${theme.text} flex flex-col items-center justify-center p-6`}>
-        <div className="w-16 h-16 rounded-3xl bg-[#3B4B34]/15 border border-[#3B4B34]/30 flex items-center justify-center animate-pulse mb-4">
-          <Music className="w-8 h-8 text-[#3B4B34]" />
+      <div className={`fixed inset-0 z-50 ${theme?.bg || 'bg-[#FAF7F2]'} ${theme?.text || 'text-[#1C1917]'} flex flex-col items-center justify-center p-6 select-none`}>
+        <div className="p-8 sm:p-10 rounded-[32px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.07)] flex flex-col items-center justify-center space-y-4 max-w-xs w-full text-center animate-modal-card-in">
+          <div className="w-14 h-14 rounded-2xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 border border-[#3B4B34]/20 dark:border-emerald-500/20 flex items-center justify-center text-[#3B4B34] dark:text-emerald-400 shadow-2xs">
+            <Music className="w-7 h-7" />
+          </div>
+          <h2 className="text-xl font-bold font-bodoni text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+            Kidung Rohani &amp; Suplemen
+          </h2>
+          <div className="relative w-6 h-6 pt-1">
+            <div className="w-6 h-6 rounded-full border-2 border-[#3B4B34]/15 dark:border-white/15"></div>
+            <div className="absolute inset-0 top-1 w-6 h-6 rounded-full border-2 border-transparent border-t-[#3B4B34] dark:border-t-emerald-400 animate-spin"></div>
+          </div>
         </div>
-        <h2 className="text-xl font-bold font-serif mb-1">Kidung Rohani &amp; Suplemen</h2>
-        <p className="text-xs text-[#78716C] animate-pulse">Memuat 1.158 kidung &amp; 8.800+ lirik multilingual...</p>
       </div>
     );
   }
