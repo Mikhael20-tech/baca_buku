@@ -207,6 +207,8 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const [bibleVerseStart, setBibleVerseStart] = useState<number>(16);
   const [bibleVerseEnd, setBibleVerseEnd] = useState<number>(16);
   const [isLoadingBible, setIsLoadingBible] = useState(false);
+  const [openBibleDropdown, setOpenBibleDropdown] = useState<'book' | 'chapter' | 'start' | 'end' | null>(null);
+  const [bibleBookSearch, setBibleBookSearch] = useState('');
 
   // Load Bible books metadata when modal opens on Bible tab
   useEffect(() => {
@@ -1164,7 +1166,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 </div>
               </>
             ) : (
-              <div className="mt-4 flex-1 flex flex-col gap-3 overflow-y-auto pr-1">
+              <div className="mt-4 flex-1 flex flex-col gap-3 overflow-visible">
                 {/* Pilih Terjemahan */}
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Terjemahan</span>
@@ -1188,86 +1190,195 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   </div>
                 </div>
 
-                {/* Pilih Kitab & Pasal */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  <div className="sm:col-span-2">
+                {openBibleDropdown && (
+                  <div className="fixed inset-0 z-30" onClick={() => setOpenBibleDropdown(null)} />
+                )}
+
+                {/* Pilih Kitab & Pasal (Custom Animated Frosted Dropdowns) */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 relative z-40">
+                  <div className="sm:col-span-2 relative">
                     <label className="text-[11px] font-bold text-zinc-400 block mb-1">Kitab</label>
-                    <select
-                      value={selectedBibleBookId}
-                      onChange={(e) => {
-                        setSelectedBibleBookId(e.target.value);
-                        setSelectedBibleChapter(1);
-                        setBibleVerseStart(1);
-                        setBibleVerseEnd(1);
-                      }}
-                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    <button
+                      type="button"
+                      onClick={() => setOpenBibleDropdown((prev) => prev === 'book' ? null : 'book')}
+                      className="w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-2xl bg-zinc-800/90 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-white transition cursor-pointer"
                     >
-                      {bibleBooks.map((b) => (
-                        <option key={b.id} value={b.id} className="bg-zinc-900 text-white">
-                          {bibleVersion === 'en' ? (b.nameEn || b.name) : b.name}
-                        </option>
-                      ))}
-                    </select>
+                      <span className="truncate">
+                        {(() => {
+                          const b = bibleBooks.find((x) => x.id === selectedBibleBookId);
+                          return b ? (bibleVersion === 'en' ? (b.nameEn || b.name) : b.name) : selectedBibleBookId;
+                        })()}
+                      </span>
+                      <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${openBibleDropdown === 'book' ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {openBibleDropdown === 'book' && (
+                      <div className="absolute left-0 top-full mt-2 w-72 sm:w-80 rounded-3xl bg-zinc-900/95 backdrop-blur-2xl border border-white/15 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.85)] p-2.5 space-y-2 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-left">
+                        <input
+                          type="text"
+                          value={bibleBookSearch}
+                          onChange={(e) => setBibleBookSearch(e.target.value)}
+                          placeholder="Cari nama kitab..."
+                          autoFocus
+                          className="w-full px-3 py-1.5 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-zinc-500 outline-none focus:border-emerald-500"
+                        />
+                        <div className="max-h-56 overflow-y-auto grid grid-cols-2 gap-1 pr-1">
+                          {bibleBooks
+                            .filter((b) => {
+                              if (!bibleBookSearch.trim()) return true;
+                              const q = bibleBookSearch.toLowerCase();
+                              return b.name.toLowerCase().includes(q) || (b.nameEn && b.nameEn.toLowerCase().includes(q));
+                            })
+                            .map((b) => {
+                              const active = selectedBibleBookId === b.id;
+                              return (
+                                <button
+                                  key={b.id}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedBibleBookId(b.id);
+                                    setSelectedBibleChapter(1);
+                                    setBibleVerseStart(1);
+                                    setBibleVerseEnd(1);
+                                    setBibleBookSearch('');
+                                    setOpenBibleDropdown('chapter');
+                                  }}
+                                  className={`px-2.5 py-2 rounded-xl text-left text-xs font-semibold truncate transition cursor-pointer ${
+                                    active ? 'bg-[#3B4B34] text-white shadow-sm' : 'text-zinc-300 hover:bg-white/10'
+                                  }`}
+                                >
+                                  {bibleVersion === 'en' ? (b.nameEn || b.name) : b.name}
+                                </button>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label className="text-[11px] font-bold text-zinc-400 block mb-1">Pasal</label>
-                    <select
-                      value={selectedBibleChapter}
-                      onChange={(e) => {
-                        setSelectedBibleChapter(Number(e.target.value));
-                        setBibleVerseStart(1);
-                        setBibleVerseEnd(1);
-                      }}
-                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    <button
+                      type="button"
+                      onClick={() => setOpenBibleDropdown((prev) => prev === 'chapter' ? null : 'chapter')}
+                      className="w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-2xl bg-zinc-800/90 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-white transition cursor-pointer"
                     >
-                      {Array.from(
-                        { length: bibleBooks.find((b) => b.id === selectedBibleBookId)?.chapters || 28 },
-                        (_, i) => i + 1
-                      ).map((c) => (
-                        <option key={c} value={c} className="bg-zinc-900 text-white">
-                          Pasal {c}
-                        </option>
-                      ))}
-                    </select>
+                      <span>Pasal {selectedBibleChapter}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${openBibleDropdown === 'chapter' ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {openBibleDropdown === 'chapter' && (
+                      <div className="absolute right-0 top-full mt-2 w-64 rounded-3xl bg-zinc-900/95 backdrop-blur-2xl border border-white/15 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.85)] p-2.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-right">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-1 pb-2">Pilih Pasal</div>
+                        <div className="max-h-56 overflow-y-auto grid grid-cols-5 gap-1.5 pr-1">
+                          {Array.from(
+                            { length: bibleBooks.find((b) => b.id === selectedBibleBookId)?.chapters || 28 },
+                            (_, i) => i + 1
+                          ).map((c) => {
+                            const active = selectedBibleChapter === c;
+                            return (
+                              <button
+                                key={c}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedBibleChapter(c);
+                                  setBibleVerseStart(1);
+                                  setBibleVerseEnd(1);
+                                  setOpenBibleDropdown('start');
+                                }}
+                                className={`h-9 rounded-xl text-xs font-bold tabular-nums transition cursor-pointer ${
+                                  active ? 'bg-[#3B4B34] text-white shadow-sm' : 'bg-white/5 text-zinc-300 hover:bg-white/15'
+                                }`}
+                              >
+                                {c}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Pilih Rentang Ayat */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  <div>
+                {/* Pilih Rentang Ayat (Custom Animated Number Grids) */}
+                <div className="grid grid-cols-2 gap-2.5 relative z-30">
+                  <div className="relative">
                     <label className="text-[11px] font-bold text-zinc-400 block mb-1">Dari Ayat</label>
-                    <select
-                      value={bibleVerseStart}
-                      onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setBibleVerseStart(val);
-                        if (bibleVerseEnd < val) setBibleVerseEnd(val);
-                      }}
-                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    <button
+                      type="button"
+                      onClick={() => setOpenBibleDropdown((prev) => prev === 'start' ? null : 'start')}
+                      className="w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-2xl bg-zinc-800/90 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-white transition cursor-pointer"
                     >
-                      {bibleChapterVerses.map((v) => (
-                        <option key={v.verse} value={v.verse} className="bg-zinc-900 text-white">
-                          Ayat {v.verse}
-                        </option>
-                      ))}
-                    </select>
+                      <span>Ayat {bibleVerseStart}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${openBibleDropdown === 'start' ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {openBibleDropdown === 'start' && (
+                      <div className="absolute left-0 top-full mt-2 w-64 rounded-3xl bg-zinc-900/95 backdrop-blur-2xl border border-white/15 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.85)] p-2.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-left">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-1 pb-2">Dari Ayat</div>
+                        <div className="max-h-52 overflow-y-auto grid grid-cols-5 gap-1.5 pr-1">
+                          {bibleChapterVerses.map((v) => {
+                            const active = bibleVerseStart === v.verse;
+                            return (
+                              <button
+                                key={v.verse}
+                                type="button"
+                                onClick={() => {
+                                  setBibleVerseStart(v.verse);
+                                  if (bibleVerseEnd < v.verse) setBibleVerseEnd(v.verse);
+                                  setOpenBibleDropdown('end');
+                                }}
+                                className={`h-9 rounded-xl text-xs font-bold tabular-nums transition cursor-pointer ${
+                                  active ? 'bg-[#3B4B34] text-white shadow-sm' : 'bg-white/5 text-zinc-300 hover:bg-white/15'
+                                }`}
+                              >
+                                {v.verse}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div>
+
+                  <div className="relative">
                     <label className="text-[11px] font-bold text-zinc-400 block mb-1">Sampai Ayat</label>
-                    <select
-                      value={bibleVerseEnd}
-                      onChange={(e) => setBibleVerseEnd(Number(e.target.value))}
-                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    <button
+                      type="button"
+                      onClick={() => setOpenBibleDropdown((prev) => prev === 'end' ? null : 'end')}
+                      className="w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-2xl bg-zinc-800/90 hover:bg-zinc-800 border border-white/10 text-xs font-bold text-white transition cursor-pointer"
                     >
-                      {bibleChapterVerses
-                        .filter((v) => v.verse >= bibleVerseStart)
-                        .map((v) => (
-                          <option key={v.verse} value={v.verse} className="bg-zinc-900 text-white">
-                            Ayat {v.verse}
-                          </option>
-                        ))}
-                    </select>
+                      <span>Ayat {bibleVerseEnd}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${openBibleDropdown === 'end' ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {openBibleDropdown === 'end' && (
+                      <div className="absolute right-0 top-full mt-2 w-64 rounded-3xl bg-zinc-900/95 backdrop-blur-2xl border border-white/15 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.85)] p-2.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-right">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-1 pb-2">Sampai Ayat</div>
+                        <div className="max-h-52 overflow-y-auto grid grid-cols-5 gap-1.5 pr-1">
+                          {bibleChapterVerses
+                            .filter((v) => v.verse >= bibleVerseStart)
+                            .map((v) => {
+                              const active = bibleVerseEnd === v.verse;
+                              return (
+                                <button
+                                  key={v.verse}
+                                  type="button"
+                                  onClick={() => {
+                                    setBibleVerseEnd(v.verse);
+                                    setOpenBibleDropdown(null);
+                                  }}
+                                  className={`h-9 rounded-xl text-xs font-bold tabular-nums transition cursor-pointer ${
+                                    active ? 'bg-[#3B4B34] text-white shadow-sm' : 'bg-white/5 text-zinc-300 hover:bg-white/15'
+                                  }`}
+                                >
+                                  {v.verse}
+                                </button>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
