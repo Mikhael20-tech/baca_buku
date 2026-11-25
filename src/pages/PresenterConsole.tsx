@@ -247,6 +247,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const [openBibleDropdown, setOpenBibleDropdown] = useState<'book' | 'chapter' | 'start' | 'end' | null>(null);
   const [bibleBookSearch, setBibleBookSearch] = useState('');
   const [bibleSlideMode, setBibleSlideMode] = useState<'per-verse' | 'combined'>('per-verse');
+  const [bibleChapterFootnotes, setBibleChapterFootnotes] = useState<any[]>([]);
 
   // Load Bible books metadata when modal opens on Bible tab
   useEffect(() => {
@@ -270,7 +271,9 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       .then((bookJson) => {
         const chap = bookJson?.chapters?.[selectedBibleChapter] || bookJson?.chapters?.[String(selectedBibleChapter)];
         const verses = Array.isArray(chap?.verses) ? chap.verses : [];
+        const footnotes = Array.isArray(chap?.footnotes) ? chap.footnotes : [];
         setBibleChapterVerses(verses);
+        setBibleChapterFootnotes(footnotes);
         if (verses.length > 0) {
           const maxV = verses[verses.length - 1].verse || verses.length;
           setBibleVerseStart((prev) => Math.min(prev, maxV));
@@ -1606,14 +1609,62 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   ) : bibleChapterVerses.length === 0 ? (
                     <div className="text-xs text-zinc-500 text-center py-4">Ayat tidak tersedia.</div>
                   ) : (
-                    bibleChapterVerses
-                      .filter((v) => v.verse >= Math.min(bibleVerseStart, bibleVerseEnd) && v.verse <= Math.max(bibleVerseStart, bibleVerseEnd))
-                      .map((v) => (
-                        <p key={v.verse} className="text-xs text-zinc-200 leading-relaxed">
-                          <span className="font-bold text-amber-400 mr-1.5">{v.verse}.</span>
-                          {v.text}
-                        </p>
-                      ))
+                    (() => {
+                      const startV = Math.min(bibleVerseStart, bibleVerseEnd);
+                      const endV = Math.max(bibleVerseStart, bibleVerseEnd);
+                      const pickedVerses = bibleChapterVerses.filter((v) => v.verse >= startV && v.verse <= endV);
+                      // Collect footnotes for selected range
+                      const relevantFn = bibleChapterFootnotes.filter((fn) => fn.verse >= startV && fn.verse <= endV);
+
+                      // Helper: render marked_text with <fn n="N"/> → superscript badge
+                      const renderMarkedText = (verse: number, markedText: string) => {
+                        if (!markedText) return null;
+                        // Build a lookup: noteIdx → superscript char for this verse
+                        const verseFootnotes = bibleChapterFootnotes.filter((fn) => fn.verse === verse);
+                        const superscripts = ['¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'];
+                        // Split on <fn n="N"/> tags
+                        const parts = markedText.split(/<fn n="(\d+)"\/>/);
+                        return parts.map((part, i) => {
+                          if (i % 2 === 0) return <span key={i}>{part}</span>;
+                          const idx = parseInt(part, 10) - 1;
+                          return (
+                            <sup key={i} className="text-amber-400 font-bold text-[9px] cursor-default" title={verseFootnotes[idx]?.text || ''}>
+                              {superscripts[idx] ?? `(${part})`}
+                            </sup>
+                          );
+                        });
+                      };
+
+                      return (
+                        <div className="space-y-2">
+                          {pickedVerses.map((v) => (
+                            <p key={v.verse} className="text-xs text-zinc-200 leading-relaxed">
+                              <span className="font-bold text-amber-400 mr-1.5">{v.verse}.</span>
+                              {bibleVersion === 'id' && v.marked_text
+                                ? renderMarkedText(v.verse, v.marked_text)
+                                : v.text}
+                            </p>
+                          ))}
+                          {/* Catatan Kaki */}
+                          {bibleVersion === 'id' && relevantFn.length > 0 && (
+                            <div className="mt-2 pt-2 border-t border-white/10 space-y-1">
+                              <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Catatan Kaki</div>
+                              {relevantFn.map((fn, i) => {
+                                const superscripts = ['¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'];
+                                const fnGroup = relevantFn.filter((f) => f.verse === fn.verse);
+                                const idxInVerse = fnGroup.indexOf(fn);
+                                return (
+                                  <div key={i} className="text-[10px] text-zinc-400 leading-relaxed flex gap-1.5">
+                                    <span className="text-amber-400 font-bold shrink-0">{superscripts[idxInVerse] ?? (idxInVerse + 1)} Ay.{fn.verse}</span>
+                                    <span>{fn.keyword ? <><em className="text-zinc-300">{fn.keyword}</em> — </> : null}{fn.text}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()
                   )}
                 </div>
 
