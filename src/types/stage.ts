@@ -24,6 +24,9 @@ export interface StageState {
   totalSlides: number;
   mode: DisplayMode;
   theme?: 'default' | 'lower-third' | 'amber-gold';
+  tickerText?: string;
+  tickerActive?: boolean;
+  tickerSpeed?: number;
   updatedAt: number;
 }
 

@@ -10,6 +10,7 @@ export default function LiveOutput() {
 
   const isLowerThird = theme === 'lower-third';
   const isGold = theme === 'amber-gold';
+  const isTickerVisible = Boolean(state.tickerActive && state.tickerText && state.mode !== 'BLACKOUT');
 
   return (
     <div className={`w-screen h-screen select-none overflow-hidden relative flex flex-col ${
@@ -17,6 +18,20 @@ export default function LiveOutput() {
         ? 'bg-transparent justify-end p-8 md:p-12' 
         : 'bg-black justify-center items-center p-8 md:p-14'
     }`}>
+      {/* Keyframes Animasi Teks Berjalan */}
+      <style>{`
+        @keyframes stageTickerMarquee {
+          0% { transform: translateX(100vw); }
+          100% { transform: translateX(-100%); }
+        }
+        .animate-stage-ticker {
+          display: inline-block;
+          white-space: nowrap;
+          will-change: transform;
+          animation: stageTickerMarquee ${state.tickerSpeed || 28}s linear infinite;
+        }
+      `}</style>
+
       {state.mode === 'LIVE' && state.content && (
         isLowerThird ? (
           <div className="max-w-5xl w-full mx-auto bg-black/85 backdrop-blur-md border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-in slide-in-from-bottom-6 duration-300">
@@ -51,12 +66,30 @@ export default function LiveOutput() {
         <div className="w-full h-full bg-black select-none fixed inset-0 z-50" />
       )}
 
+      {/* Pill Badge Lagu & Nomor Slide */}
       {state.mode === 'LIVE' && state.title && !isLowerThird && (
-        <div className="fixed bottom-6 right-8 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide bg-black/75 backdrop-blur-xl px-4 py-1.5 rounded-full border border-white/10 shadow-2xl flex items-center gap-2">
+        <div className={`fixed right-8 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide bg-black/75 backdrop-blur-xl px-4 py-1.5 rounded-full border border-white/10 shadow-2xl flex items-center gap-2 transition-all duration-300 ${
+          isTickerVisible ? 'bottom-16' : 'bottom-6'
+        }`}>
           <span>{state.title}</span>
           {state.subtitle && <span className="text-zinc-400">({state.subtitle})</span>}
           <span className="text-zinc-600">•</span>
           <span className="text-zinc-400 tabular-nums font-mono">{state.slideIndex + 1}/{state.totalSlides}</span>
+        </div>
+      )}
+
+      {/* Teks Berjalan (Running Text / Ticker) untuk Pengumuman */}
+      {isTickerVisible && (
+        <div className="fixed bottom-0 inset-x-0 z-40 bg-black/85 backdrop-blur-xl border-t border-white/10 px-4 py-2.5 flex items-center overflow-hidden shadow-2xl animate-in slide-in-from-bottom duration-300">
+          <div className="flex items-center gap-2 bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase shrink-0 mr-4 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            Pengumuman
+          </div>
+          <div className="overflow-hidden whitespace-nowrap flex-1 relative flex items-center">
+            <div className="animate-stage-ticker text-white text-base sm:text-lg md:text-xl font-medium tracking-wide drop-shadow-sm">
+              {state.tickerText}
+            </div>
+          </div>
         </div>
       )}
     </div>

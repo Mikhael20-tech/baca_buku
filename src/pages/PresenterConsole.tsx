@@ -2,7 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useStageSync } from '../hooks/useStageSync';
 import { chunkTextToSlides } from '../utils/chunkLyrics';
 import { SongSetItem, DisplayMode } from '../types/stage';
-import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette } from 'lucide-react';
+import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone } from 'lucide-react';
+
+const QUICK_TICKER_PRESETS = [
+  'Selamat datang dalam persekutuan & ibadah hari ini. Tuhan Yesus memberkati.',
+  'Pengumuman: Doa bersama diadakan setiap hari Selasa pukul 19:30 WIB.',
+  'Mohon mengheningkan atau menonaktifkan nada dering ponsel selama jalannya ibadah.',
+  'Perjamuan Kudus akan diadakan pada akhir ibadah hari ini.',
+];
 
 const SAMPLE_SETLIST: SongSetItem[] = [
   {
@@ -69,6 +76,54 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const [isQuickTextOpen, setIsQuickTextOpen] = useState(false);
   const [quickTitle, setQuickTitle] = useState('PENGUMUMAN');
   const [quickBody, setQuickBody] = useState('');
+
+  // Kontrol Teks Berjalan (Ticker) Pengumuman
+  const [tickerInput, setTickerInput] = useState(() => {
+    try {
+      return localStorage.getItem('stage_ticker_saved_text') || 'Selamat datang dalam persekutuan & ibadah hari ini. Tuhan Yesus memberkati.';
+    } catch (e) {
+      return 'Selamat datang dalam persekutuan & ibadah hari ini. Tuhan Yesus memberkati.';
+    }
+  });
+  const [tickerSpeed, setTickerSpeed] = useState<number>(28);
+  const [isTickerModalOpen, setIsTickerModalOpen] = useState(false);
+
+  const toggleTicker = () => {
+    const nextActive = !state.tickerActive;
+    const textToBroadcast = tickerInput.trim() || state.tickerText || 'Selamat datang dalam ibadah.';
+    broadcastState({
+      ...state,
+      tickerActive: nextActive,
+      tickerText: textToBroadcast,
+      tickerSpeed,
+      updatedAt: Date.now(),
+    });
+  };
+
+  const applyTickerText = (customText?: string) => {
+    const textToBroadcast = (customText !== undefined ? customText : tickerInput).trim();
+    if (!textToBroadcast) return;
+    try {
+      localStorage.setItem('stage_ticker_saved_text', textToBroadcast);
+    } catch (e) {
+      // ignore
+    }
+    broadcastState({
+      ...state,
+      tickerText: textToBroadcast,
+      tickerActive: true,
+      tickerSpeed,
+      updatedAt: Date.now(),
+    });
+  };
+
+  const stopTicker = () => {
+    broadcastState({
+      ...state,
+      tickerActive: false,
+      updatedAt: Date.now(),
+    });
+  };
 
   // Simpan setlist ke localStorage agar persiapan operator tidak hilang saat refresh
   useEffect(() => {
@@ -303,6 +358,22 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
           </button>
 
           <button
+            onClick={() => setIsTickerModalOpen(true)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border transition ${
+              state.tickerActive
+                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 ring-1 ring-amber-500/30'
+                : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
+            }`}
+            title="Buka pengatur teks berjalan (running text)"
+          >
+            <Radio className={`w-3.5 h-3.5 ${state.tickerActive ? 'text-amber-400 animate-pulse' : 'text-zinc-400'}`} />
+            <span className="hidden sm:inline">Teks Berjalan</span>
+            {state.tickerActive && (
+              <span className="text-[10px] bg-amber-500 text-black px-1.5 py-0.2 rounded font-extrabold">ON</span>
+            )}
+          </button>
+
+          <button
             onClick={() => setIsSearchOpen(true)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium border border-zinc-700 transition"
           >
@@ -436,6 +507,12 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   {state.content || 'Belum ada slide yang aktif'}
                 </p>
               )}
+              {state.tickerActive && state.tickerText && state.mode !== 'BLACKOUT' && (
+                <div className="absolute bottom-0 inset-x-0 bg-black/95 border-t border-amber-500/30 px-2 py-0.5 text-[10px] text-amber-300 flex items-center gap-1.5 overflow-hidden z-10">
+                  <span className="font-bold shrink-0 uppercase text-[8px] bg-amber-500/30 text-amber-300 px-1 rounded">TICKER</span>
+                  <div className="truncate text-zinc-300 text-[10px]">{state.tickerText}</div>
+                </div>
+              )}
             </div>
 
             {/* Quick Action Buttons */}
@@ -470,6 +547,61 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               >
                 BLACK (B)
               </button>
+            </div>
+
+            {/* Panel Kontrol Cepat Teks Berjalan (Ticker) */}
+            <div className="mt-4 p-3 rounded-xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5 tracking-wide">
+                  <span className={`w-2 h-2 rounded-full ${state.tickerActive ? 'bg-amber-400 animate-pulse' : 'bg-zinc-600'}`} />
+                  Teks Berjalan
+                </span>
+                <button
+                  onClick={toggleTicker}
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded transition ${
+                    state.tickerActive
+                      ? 'bg-amber-500 text-black font-extrabold shadow-sm'
+                      : 'bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-700'
+                  }`}
+                >
+                  {state.tickerActive ? 'TAYANG (ON)' : 'MATI (OFF)'}
+                </button>
+              </div>
+
+              <div className="flex gap-1.5">
+                <input
+                  type="text"
+                  value={tickerInput}
+                  onChange={(e) => setTickerInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && applyTickerText()}
+                  placeholder="Ketik pengumuman berjalan..."
+                  className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-200 placeholder-zinc-500 outline-none focus:border-amber-500"
+                />
+                <button
+                  onClick={() => applyTickerText()}
+                  className="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-amber-600 hover:bg-amber-500 text-white shrink-0 transition"
+                  title="Tayangkan ke layar proyektor"
+                >
+                  Kirim
+                </button>
+              </div>
+
+              {/* Tombol Preset Cepat */}
+              <div className="flex flex-col gap-1 mt-0.5">
+                {QUICK_TICKER_PRESETS.slice(0, 2).map((preset, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setTickerInput(preset);
+                      applyTickerText(preset);
+                    }}
+                    className="text-[10px] text-zinc-400 hover:text-amber-300 bg-zinc-900/90 px-2 py-1 rounded border border-zinc-800/80 hover:border-zinc-700 transition truncate text-left"
+                    title={preset}
+                  >
+                    + {preset}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -601,6 +733,121 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 <ExternalLink className="w-3.5 h-3.5" />
                 Tayangkan Langsung ke Proyektor
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Dialog Teks Berjalan (Ticker) Lengkap */}
+      {isTickerModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl flex flex-col">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Radio className="w-5 h-5 text-amber-500 animate-pulse" />
+                Pengatur Teks Berjalan (Running Text)
+              </h3>
+              <button
+                onClick={() => setIsTickerModalOpen(false)}
+                className="text-zinc-400 hover:text-white text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mt-4 space-y-4">
+              <div>
+                <label className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block mb-1">
+                  Isi Teks Pengumuman Berjalan
+                </label>
+                <textarea
+                  rows={3}
+                  value={tickerInput}
+                  onChange={(e) => setTickerInput(e.target.value)}
+                  placeholder="Ketik kalimat pengumuman yang akan berjalan terus-menerus di bagian bawah layar proyektor..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-sm text-white placeholder-zinc-500 outline-none focus:border-amber-500 leading-relaxed font-sans"
+                />
+              </div>
+
+              {/* Pilihan Kecepatan */}
+              <div>
+                <label className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block mb-1.5">
+                  Kecepatan Teks Berjalan
+                </label>
+                <div className="flex gap-2">
+                  {[
+                    { label: 'Cepat (18s)', val: 18 },
+                    { label: 'Normal (28s)', val: 28 },
+                    { label: 'Santai (38s)', val: 38 },
+                  ].map((spd) => (
+                    <button
+                      key={spd.val}
+                      onClick={() => setTickerSpeed(spd.val)}
+                      className={`flex-1 py-1.5 rounded-lg text-xs font-semibold border transition ${
+                        tickerSpeed === spd.val
+                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                          : 'bg-zinc-800 text-zinc-400 border-zinc-700 hover:text-white'
+                      }`}
+                    >
+                      {spd.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Template Cepat */}
+              <div>
+                <label className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block mb-1.5">
+                  Template Pengumuman Siap Pakai
+                </label>
+                <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+                  {QUICK_TICKER_PRESETS.map((preset, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setTickerInput(preset)}
+                      className="w-full text-left text-xs text-zinc-300 hover:text-amber-300 bg-zinc-800/80 hover:bg-zinc-800 p-2 rounded-lg border border-zinc-700 transition"
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-3 border-t border-zinc-800 flex items-center justify-between">
+              {state.tickerActive ? (
+                <button
+                  onClick={() => {
+                    stopTicker();
+                    setIsTickerModalOpen(false);
+                  }}
+                  className="px-4 py-2 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 text-xs font-bold transition"
+                >
+                  Hentikan Teks Berjalan (OFF)
+                </button>
+              ) : (
+                <span className="text-xs text-zinc-500">Status: Tidak Tayang</span>
+              )}
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsTickerModalOpen(false)}
+                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition"
+                >
+                  Tutup
+                </button>
+                <button
+                  onClick={() => {
+                    applyTickerText();
+                    setIsTickerModalOpen(false);
+                  }}
+                  disabled={!tickerInput.trim()}
+                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5"
+                >
+                  <Radio className="w-3.5 h-3.5" />
+                  Tayangkan ke Proyektor
+                </button>
+              </div>
             </div>
           </div>
         </div>

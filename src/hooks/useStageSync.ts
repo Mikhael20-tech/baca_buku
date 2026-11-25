@@ -12,6 +12,9 @@ const INITIAL_STATE: StageState = {
   slideIndex: 0,
   totalSlides: 0,
   mode: 'BLACKOUT',
+  tickerText: '',
+  tickerActive: false,
+  tickerSpeed: 28,
   updatedAt: Date.now(),
 };
 
