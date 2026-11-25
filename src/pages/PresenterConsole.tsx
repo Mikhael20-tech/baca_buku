@@ -7,16 +7,16 @@ import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus
 const SAMPLE_SETLIST: SongSetItem[] = [
   {
     id: 'kidung-154',
-    title: 'Kidung #154',
-    subtitle: 'Matius 12:23b',
-    rawText: `Kidung pujian besar, kidung pujian\nKemenangan-Nya di atas salib\nMembawa damai sejahtera kekal\nBagi setiap orang yang percaya\n\nHaleluya, terpujilah nama-Nya\nDari sekarang sampai selamanya\nSegala kemuliaan bagi Raja\nYang memerintah penuh kuasa`,
+    title: 'Kidung 154 - Memuji Tuhan: Kealmuhitan-Nya',
+    subtitle: '',
+    rawText: `Se-be-lum wak-tu ber-mu-la, se-be-lum za-man mu-lai;\nAl-lah dan Fir-man be-ser-ta, Fir-man itu Al-lah.\nAl-lah dan Fir-man ber-sa-tu, Al-lah dan Fir-man e-sa;\nDi da-lam Dia a-da ha-yat, ha-yat itu t'rang ma-nu-sia.\n\nFir-man te-lah men-ja-di da-ging, ber-ke-mah di an-ta-ra ki-ta;\nPe-nuh ka-sih ka-ru-nia dan re-a-li-tas, ki-ta pan-dang mu-lia-Nya.\nDia-lah Anak Tung-gal Ba-pa, me-nya-ta-kan Al-lah Ba-pa;\nDa-lam Dia ki-ta me-ne-ri-ma, ka-sih ka-ru-nia ber-lim-pah.`,
     slides: [],
   },
   {
     id: 'kidung-137',
-    title: 'Kidung #137',
-    subtitle: 'Matius 12:24b',
-    rawText: `Kasih setia-Mu tak berkesudahan\nSelalu baru setiap pagi\nBesar setia-Mu ya Tuhan\nSumber pengharapan hidup kami`,
+    title: 'Kidung 137 - Memuji Tuhan: Kasih Karunia-Nya',
+    subtitle: '',
+    rawText: `Mu-lia, hor-mat, Dia kor-ban-kan da-tang du-nia me-ren-dah,\nMen-ja-di ma-nu-sia se-ja-ti, me-nga-la-mi s'ga-la du-ka.\nSa-lib a-ib Dia tang-gung-kan, te-bus ki-ta da-ri do-sa,\nO, ka-sih-Nya tak ter-du-ga, ka-sih ka-ru-nia sem-pur-na.\n\nHal-le-lu-ya! Ter-pu-ji-lah, Kris-tus bang-kit me-me-nang-kan!\nDa-lam Roh Dia ma-suk ki-ta, ja-di ha-yat ser-ta t'rang.\nKi-ta me-nik-ma-ti Di-a, ber-se-ku-tu da-lam ka-sih,\nSam-pai Tu-han da-tang pu-la, ki-ta ma-suk mu-lia-Nya.`,
     slides: [],
   },
 ].map((item) => ({
@@ -31,10 +31,16 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const { state, broadcastState } = useStageSync(roomId, true);
   const [setlist, setSetlist] = useState<SongSetItem[]>(() => {
     try {
-      const saved = localStorage.getItem('stage_presenter_setlist');
+      const saved = localStorage.getItem('stage_presenter_setlist_v2') || localStorage.getItem('stage_presenter_setlist');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Reset jika masih berisi format lama dengan '#' atau subtitle 'Matius'
+          if (parsed[0]?.title?.includes('#') || parsed[0]?.subtitle?.includes('Matius')) {
+            return SAMPLE_SETLIST;
+          }
+          return parsed;
+        }
       }
     } catch (e) {
       // ignore
@@ -43,10 +49,15 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   });
   const [selectedSong, setSelectedSong] = useState<SongSetItem>(() => {
     try {
-      const saved = localStorage.getItem('stage_presenter_setlist');
+      const saved = localStorage.getItem('stage_presenter_setlist_v2') || localStorage.getItem('stage_presenter_setlist');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed[0];
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          if (parsed[0]?.title?.includes('#') || parsed[0]?.subtitle?.includes('Matius')) {
+            return SAMPLE_SETLIST[0];
+          }
+          return parsed[0];
+        }
       }
     } catch (e) {
       // ignore
@@ -62,6 +73,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   // Simpan setlist ke localStorage agar persiapan operator tidak hilang saat refresh
   useEffect(() => {
     try {
+      localStorage.setItem('stage_presenter_setlist_v2', JSON.stringify(setlist));
       localStorage.setItem('stage_presenter_setlist', JSON.stringify(setlist));
     } catch (e) {
       // ignore
@@ -102,9 +114,15 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       rawText = songData.text;
     }
 
+    const rawNum = songData.formattedNumber || songData.displayNumber || String(songData.number || songData.id || '');
+    const cleanNum = rawNum.replace(/^(No\.\s*|S\.\s*|#\s*)/i, '').replace(/^0+/, '') || rawNum;
+    const songType = songData.type === 'suplemen' ? 'Suplemen' : 'Kidung';
+    const songTitle = songData.title || songData.firstLine || '';
+    const formattedTitle = `${songType} ${cleanNum}${songTitle ? ` - ${songTitle}` : ''}`.trim();
+
     const newSong: SongSetItem = {
       id: `kidung-${songData.id || songData.formattedNumber || Date.now()}`,
-      title: `${songData.type === 'suplemen' ? 'Suplemen' : 'Kidung'} #${songData.formattedNumber || songData.id || ''} ${songData.title ? `- ${songData.title}` : ''}`.trim(),
+      title: formattedTitle,
       subtitle: songData.category || songData.theme || '',
       rawText: rawText || 'Bait lagu belum tersedia',
       slides: chunkTextToSlides(rawText || 'Bait lagu belum tersedia', 4),

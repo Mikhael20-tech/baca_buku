@@ -24,8 +24,9 @@ export default function LiveOutput() {
               {state.content}
             </p>
             {state.title && (
-              <div className="mt-3 text-xs sm:text-sm text-amber-400/90 font-medium tracking-wider uppercase font-mono">
-                {state.title} {state.subtitle ? `• ${state.subtitle}` : ''}
+              <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide">
+                <span>{state.title}</span>
+                {state.subtitle && <span className="text-zinc-400 opacity-80">({state.subtitle})</span>}
               </div>
             )}
           </div>
@@ -51,8 +52,11 @@ export default function LiveOutput() {
       )}
 
       {state.mode === 'LIVE' && state.title && !isLowerThird && (
-        <div className="fixed bottom-6 right-8 text-xs sm:text-sm text-zinc-500 font-medium tracking-wide bg-zinc-950/80 px-3 py-1 rounded-md border border-zinc-900">
-          {state.title} {state.subtitle ? `• ${state.subtitle}` : ''} • {state.slideIndex + 1}/{state.totalSlides}
+        <div className="fixed bottom-6 right-8 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide bg-black/75 backdrop-blur-xl px-4 py-1.5 rounded-full border border-white/10 shadow-2xl flex items-center gap-2">
+          <span>{state.title}</span>
+          {state.subtitle && <span className="text-zinc-400">({state.subtitle})</span>}
+          <span className="text-zinc-600">•</span>
+          <span className="text-zinc-400 tabular-nums font-mono">{state.slideIndex + 1}/{state.totalSlides}</span>
         </div>
       )}
     </div>
