@@ -361,16 +361,26 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     });
   };
 
-  const removeSongFromSetlist = (e: React.MouseEvent, id: string) => {
+  const removeSongFromSetlist = (e: React.MouseEvent, targetIdx: number) => {
     e.stopPropagation();
-    setSetlist((prev) => {
-      const filtered = prev.filter((s) => s.id !== id);
-      if (selectedSong.id === id && filtered.length > 0) {
+    const targetSong = setlist[targetIdx];
+    const filtered = setlist.filter((_, i) => i !== targetIdx);
+    setSetlist(filtered);
+    if (targetSong && selectedSong.id === targetSong.id) {
+      if (filtered.length > 0) {
         setSelectedSong(filtered[0]);
         setActiveSlideIdx(0);
+      } else {
+        setSelectedSong({
+          id: 'empty',
+          title: 'Setlist Kosong',
+          subtitle: 'Klik + Tambah Materi untuk menambahkan lagu atau ayat',
+          rawText: '',
+          slides: [],
+        });
+        setActiveSlideIdx(0);
       }
-      return filtered;
-    });
+    }
   };
 
   const goToSlide = useCallback(
@@ -741,15 +751,14 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                       {song.subtitle && <div className="text-xs text-zinc-400 mt-0.5 truncate">{song.subtitle}</div>}
                       <div className="text-[10px] text-zinc-500 mt-1.5 font-mono">{song.slides.length} Slide</div>
                     </div>
-                    {setlist.length > 1 && (
-                      <button
-                        onClick={(e) => removeSongFromSetlist(e, song.id)}
-                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-500/20 text-zinc-500 hover:text-red-400 transition"
-                        title="Hapus dari Setlist"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => removeSongFromSetlist(e, idx)}
+                      className="opacity-70 hover:opacity-100 p-1.5 rounded-lg hover:bg-red-500/20 text-zinc-400 hover:text-red-400 transition shrink-0 cursor-pointer"
+                      title="Hapus dari Setlist"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 );
               })}
