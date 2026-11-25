@@ -41,11 +41,21 @@ export default function LiveOutput() {
         ? 'bg-transparent justify-end p-6 md:p-12' 
         : 'bg-black justify-center items-center'
     }`}>
-      {/* Keyframes Animasi Teks Berjalan */}
+      {/* Keyframes Animasi Teks Berjalan & Transisi Slide */}
       <style>{`
         @keyframes stageTickerMarquee {
           0% { transform: translateX(100vw); }
           100% { transform: translateX(-100%); }
+        }
+        @keyframes stageSlideIn {
+          0% {
+            opacity: 0;
+            transform: translateY(10px) scale(0.985);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
         }
         .animate-stage-ticker {
           display: inline-block;
@@ -53,65 +63,85 @@ export default function LiveOutput() {
           will-change: transform;
           animation: stageTickerMarquee ${state.tickerSpeed || 28}s linear infinite;
         }
+        .animate-stage-slide {
+          animation: stageSlideIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
       `}</style>
 
-      {state.mode === 'LIVE' && state.imageUrl && (
-        <div className={`w-full h-full flex items-center justify-center bg-black animate-in fade-in duration-300 ${isTickerVisible ? 'pb-14' : ''}`}>
-          <img
-            src={state.imageUrl}
-            alt={state.title || 'Slide Presentasi'}
-            className="max-w-full max-h-full w-full h-full object-contain select-none"
-          />
-        </div>
-      )}
-
-      {state.mode === 'LIVE' && !state.imageUrl && state.content && (
-        isLowerThird ? (
-          <div className="max-w-5xl w-full mx-auto bg-black/85 backdrop-blur-md border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-in slide-in-from-bottom-6 duration-300 mb-4">
-            <p className="text-2xl sm:text-4xl font-bold whitespace-pre-line leading-relaxed text-white drop-shadow-md">
-              {state.content}
-            </p>
-            {state.title && (
-              <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide">
-                <span>{state.title}</span>
-                {state.subtitle && <span className="text-zinc-400 opacity-80">({state.subtitle})</span>}
-              </div>
-            )}
+      {/* Konten Utama (Dengan transisi halus untuk LIVE <-> CLEAR) */}
+      <div
+        className={`w-full flex-1 flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          state.mode === 'LIVE'
+            ? 'opacity-100 scale-100'
+            : 'opacity-0 scale-95 pointer-events-none'
+        }`}
+      >
+        {state.imageUrl ? (
+          <div
+            key={`img-${state.activeSongId}-${state.slideIndex}`}
+            className={`w-full h-full flex items-center justify-center bg-black animate-stage-slide transition-all duration-500 ${
+              isTickerVisible ? 'pb-14' : ''
+            }`}
+          >
+            <img
+              src={state.imageUrl}
+              alt={state.title || 'Slide Presentasi'}
+              className="max-w-full max-h-full w-full h-full object-contain select-none"
+            />
           </div>
-        ) : (
-          <div className={`max-w-6xl w-full flex-1 flex flex-col justify-center items-center text-center transition-all duration-300 animate-in fade-in zoom-in-95 px-6 sm:px-12 pt-4 ${
-            isTickerVisible ? 'pb-28' : 'pb-20'
-          }`}>
-            <p 
-              style={{ fontSize: dynamicFontSize }}
-              className={`font-bold whitespace-pre-line leading-snug tracking-tight drop-shadow-md transition-all duration-150 ${
-                isGold ? 'text-amber-300 drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]' : 'text-white'
+        ) : state.content ? (
+          isLowerThird ? (
+            <div
+              key={`lt-${state.activeSongId}-${state.slideIndex}`}
+              className="max-w-5xl w-full mx-auto bg-black/85 backdrop-blur-md border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-stage-slide mb-4"
+            >
+              <p className="text-2xl sm:text-4xl font-bold whitespace-pre-line leading-relaxed text-white drop-shadow-md">
+                {state.content}
+              </p>
+              {state.title && (
+                <div className="mt-3 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs sm:text-sm text-zinc-200 font-medium tracking-wide">
+                  <span>{state.title}</span>
+                  {state.subtitle && <span className="text-zinc-400 opacity-80">({state.subtitle})</span>}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div
+              key={`txt-${state.activeSongId}-${state.slideIndex}`}
+              className={`max-w-6xl w-full flex-1 flex flex-col justify-center items-center text-center animate-stage-slide transition-all duration-500 px-6 sm:px-12 pt-4 ${
+                isTickerVisible ? 'pb-28' : 'pb-20'
               }`}
             >
-              {state.content}
-            </p>
-          </div>
-        )
-      )}
+              <p
+                style={{ fontSize: dynamicFontSize }}
+                className={`font-bold whitespace-pre-line leading-snug tracking-tight drop-shadow-md transition-all duration-300 ${
+                  isGold ? 'text-amber-300 drop-shadow-[0_4px_24px_rgba(251,191,36,0.35)]' : 'text-white'
+                }`}
+              >
+                {state.content}
+              </p>
+            </div>
+          )
+        ) : null}
+      </div>
 
-      {state.mode === 'CLEAR' && (
-        <div className="text-zinc-800 text-sm italic select-none">
-          {/* Layar siap (Clear Teks) */}
-        </div>
-      )}
+      {/* Blackout Overlay (Fade In/Out Smooth) */}
+      <div
+        className={`w-full h-full bg-black select-none fixed inset-0 z-50 transition-opacity duration-500 ease-in-out ${
+          state.mode === 'BLACKOUT' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
 
-      {state.mode === 'BLACKOUT' && (
-        <div className="w-full h-full bg-black select-none fixed inset-0 z-50" />
-      )}
-
-      {/* Pill Badge Lagu & Nomor Slide - Ditampilkan DI BAWAH & DI TENGAH */}
-      {state.mode === 'LIVE' && state.title && !isLowerThird && !state.imageUrl && (
-        <div 
+      {/* Pill Badge Lagu & Nomor Slide - Transisi Halus */}
+      {state.title && !isLowerThird && !state.imageUrl && (
+        <div
           style={{ fontSize: state.badgeFontSize ? `${state.badgeFontSize}px` : undefined }}
-          className={`fixed left-1/2 -translate-x-1/2 text-center text-zinc-100 font-medium tracking-wide bg-black/85 backdrop-blur-2xl px-5 py-2 rounded-full border border-white/15 shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-300 z-30 max-w-[90vw] whitespace-nowrap overflow-hidden text-ellipsis ${
+          className={`fixed left-1/2 -translate-x-1/2 text-center text-zinc-100 font-medium tracking-wide bg-black/85 backdrop-blur-2xl px-5 py-2 rounded-full border border-white/15 shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-30 max-w-[90vw] whitespace-nowrap overflow-hidden text-ellipsis ${
             !state.badgeFontSize ? 'text-xs sm:text-sm' : ''
           } ${
             isTickerVisible ? 'bottom-16' : 'bottom-5'
+          } ${
+            state.mode === 'LIVE' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
           }`}
         >
           <span className="font-semibold tracking-wide drop-shadow-sm">{state.title}</span>
@@ -127,20 +157,22 @@ export default function LiveOutput() {
         </div>
       )}
 
-      {/* Teks Berjalan (Running Text / Ticker) untuk Pengumuman */}
-      {isTickerVisible && (
-        <div className="fixed bottom-0 inset-x-0 z-40 bg-black/85 backdrop-blur-xl border-t border-white/10 px-4 py-2.5 flex items-center overflow-hidden shadow-2xl animate-in slide-in-from-bottom duration-300">
-          <div className="flex items-center gap-2 bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase shrink-0 mr-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            Pengumuman
-          </div>
-          <div className="overflow-hidden whitespace-nowrap flex-1 relative flex items-center">
-            <div className="animate-stage-ticker text-white text-base sm:text-lg md:text-xl font-medium tracking-wide drop-shadow-sm">
-              {state.tickerText}
-            </div>
+      {/* Teks Berjalan (Running Text / Ticker) - Slide Up/Down Smooth */}
+      <div
+        className={`fixed bottom-0 inset-x-0 z-40 bg-black/85 backdrop-blur-xl border-t border-white/10 px-4 py-2.5 flex items-center overflow-hidden shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isTickerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full pointer-events-none'
+        }`}
+      >
+        <div className="flex items-center gap-2 bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase shrink-0 mr-4 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          Pengumuman
+        </div>
+        <div className="overflow-hidden whitespace-nowrap flex-1 relative flex items-center">
+          <div className="animate-stage-ticker text-white text-base sm:text-lg md:text-xl font-medium tracking-wide drop-shadow-sm">
+            {state.tickerText}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
