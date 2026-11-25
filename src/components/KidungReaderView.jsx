@@ -9,9 +9,9 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 
 const THEMES = [
-  { id: 'light', name: 'Kertas Terang', bg: 'bg-[#FBF8F3]', text: 'text-[#1C1917]', cardBg: 'bg-white', border: 'border-[#1C1917]/10', subtext: 'text-[#78716C]', headerBg: 'bg-[#F4EFE6]/95', accent: '#3B4B34' },
-  { id: 'sepia', name: 'Sepia Hangat', bg: 'bg-[#F4ECD8]', text: 'text-[#433422]', cardBg: 'bg-[#EFE5CD]', border: 'border-[#433422]/15', subtext: 'text-[#7D6B55]', headerBg: 'bg-[#EBDDC0]/95', accent: '#8C532B' },
-  { id: 'dark', name: 'Gelap Malam', bg: 'bg-[#121417]', text: 'text-[#E2E8F0]', cardBg: 'bg-[#1A1D24]', border: 'border-white/10', subtext: 'text-[#94A3B8]', headerBg: 'bg-[#16191E]/95', accent: '#38BDF8' }
+  { id: 'light', name: 'Kertas Terang', bg: 'bg-[#FBF8F3]', text: 'text-[#1C1917]', cardBg: 'bg-white', border: 'border-[#1C1917]/10', subtext: 'text-[#78716C]', headerBg: 'bg-[#F4EFE6]', accent: '#3B4B34' },
+  { id: 'sepia', name: 'Sepia Hangat', bg: 'bg-[#F4ECD8]', text: 'text-[#433422]', cardBg: 'bg-[#EFE5CD]', border: 'border-[#433422]/15', subtext: 'text-[#7D6B55]', headerBg: 'bg-[#F4ECD8]', accent: '#8C532B' },
+  { id: 'dark', name: 'Gelap Malam', bg: 'bg-[#121417]', text: 'text-[#E2E8F0]', cardBg: 'bg-[#1A1D24]', border: 'border-white/10', subtext: 'text-[#94A3B8]', headerBg: 'bg-[#121417]', accent: '#38BDF8' }
 ];
 
 export const LANG_LABELS = {
@@ -88,7 +88,7 @@ export default function KidungReaderView({
         StatusBar.setBackgroundColor({ color: '#F4ECD8' }).catch(() => {});
       } else {
         StatusBar.setStyle({ style: Style.Light }).catch(() => {});
-        StatusBar.setBackgroundColor({ color: '#FAF7F2' }).catch(() => {});
+        StatusBar.setBackgroundColor({ color: '#F4EFE6' }).catch(() => {});
       }
     }).catch(() => {});
   }, [themeId]);
@@ -411,7 +411,7 @@ export default function KidungReaderView({
         )}
 
         {/* Top Header Bar */}
-        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-md border-b ${theme.border} px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 shadow-xs pt-safe`}>
+        <header className={`sticky top-0 z-30 ${theme.headerBg} border-b ${theme.border} px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 shadow-xs`}>
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               onClick={() => setSelectedSong(null)}
@@ -960,7 +960,7 @@ export default function KidungReaderView({
       <div className={`fixed inset-0 z-50 ${theme.bg} ${theme.text} flex flex-col font-sans select-none`}>
         
         {/* Header Bar (Apple Frosted Glass Luxury Style) */}
-        <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3 shadow-xs pt-safe`}>
+        <header className={`sticky top-0 z-30 ${theme.headerBg} border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-3 shadow-xs`}>
           <div className="flex items-center gap-3 min-w-0">
             <button
               onClick={() => {
@@ -1065,7 +1065,7 @@ export default function KidungReaderView({
       )}
 
       {/* Top Header Navbar */}
-      <header className={`sticky top-0 z-30 ${theme.headerBg} backdrop-blur-2xl border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 shadow-xs pt-safe`}>
+      <header className={`sticky top-0 z-30 ${theme.headerBg} border-b ${theme.border} px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 shadow-xs`}>
         <div className="flex items-center gap-3">
           <button
             onClick={onBackToHome}
