@@ -907,7 +907,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       text: 'text-[#1C1917]',
       secondaryText: 'text-[#78716C]',
       border: 'border-[#1C1917]/10',
-      headerBg: 'bg-[#FAF8F5]/90 border-[#1C1917]/8',
+      headerBg: 'bg-[#FAF8F5]/80 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.05] dark:border-white/[0.08] shadow-[0_4px_20px_rgba(28,25,23,0.03)]',
       verseNum: 'text-[#3B4B34] bg-[#8E9C75]/15 border-[#8E9C75]/25',
       verseHover: 'hover:bg-[#3B4B34]/5',
       outlineBadge: 'bg-[#8E9C75]/15 border-[#8E9C75]/25 text-[#3B4B34]',
@@ -922,7 +922,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       text: 'text-[#1C1917]',
       secondaryText: 'text-[#78716C]',
       border: 'border-[#1C1917]/10',
-      headerBg: 'bg-[#F4EFE6]/90 border-[#1C1917]/8',
+      headerBg: 'bg-[#F4EFE6]/80 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.05] dark:border-white/[0.08] shadow-[0_4px_20px_rgba(28,25,23,0.03)]',
       verseNum: 'text-[#3B4B34] bg-[#8E9C75]/15 border-[#8E9C75]/25',
       verseHover: 'hover:bg-[#8E9C75]/10',
       outlineBadge: 'bg-[#8E9C75]/15 border-[#8E9C75]/25 text-[#3B4B34]',
@@ -937,7 +937,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       text: 'text-[#F4EFE6]',
       secondaryText: 'text-zinc-400',
       border: 'border-white/10',
-      headerBg: 'bg-[#18181B]/90 border-white/8',
+      headerBg: 'bg-[#18181B]/80 backdrop-blur-xl backdrop-saturate-150 border-b border-white/10 shadow-sm',
       verseNum: 'text-emerald-400 bg-emerald-950/40 border-emerald-800/50',
       verseHover: 'hover:bg-white/5',
       outlineBadge: 'bg-zinc-800/80 border-white/10 text-emerald-300',
@@ -1062,7 +1062,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               <button
                 type="button"
                 onClick={onBackToHome}
-                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition flex items-center justify-center shadow-2xs shrink-0 cursor-pointer`}
+                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/70 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition flex items-center justify-center shadow-2xs shrink-0 cursor-pointer`}
                 title={isEnBible ? 'Back to Home' : 'Kembali ke Beranda'}
               >
                 <ArrowLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
@@ -1071,7 +1071,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               {/* Minimalist Unified Book & Chapter Selector */}
               <div className="flex items-center gap-2 min-w-0">
                 {/* Unified Capsule Control */}
-                <div className={`flex items-center h-9 sm:h-10 rounded-full border border-[#1C1917]/12 dark:border-white/12 bg-white/80 dark:bg-zinc-800/80 px-1 py-0.5 shadow-2xs backdrop-blur-md`}>
+                <div className={`flex items-center h-9 sm:h-10 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 px-1 py-0.5 shadow-[0_2px_12px_rgba(0,0,0,0.03)] backdrop-blur-xl`}>
                   <button
                     type="button"
                     onClick={handlePrevChapter}
@@ -1125,7 +1125,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 hover:bg-white dark:hover:bg-zinc-700 ${themeStyles.text} opacity-70 hover:opacity-100 transition hidden xl:flex items-center justify-center cursor-pointer shadow-2xs`}
+                    className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 hover:bg-white dark:hover:bg-zinc-700 ${themeStyles.text} opacity-70 hover:opacity-100 transition hidden xl:flex items-center justify-center cursor-pointer shadow-2xs backdrop-blur-xl`}
                     title={isEnBible ? 'Book Introduction & Background' : 'Pengantar & Pokok Kitab'}
                   >
                     <Info className="w-4 h-4" />
@@ -1140,7 +1140,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               <button
                 type="button"
                 onClick={() => setIsGlobalSearchOpen(true)}
-                className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
+                className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs backdrop-blur-xl`}
                 title={isEnBible ? 'Search 66 Books (Ctrl+K)' : 'Pencarian Firman 66 Kitab (Ctrl+K)'}
               >
                 <Search className="w-4 h-4" />
@@ -1150,7 +1150,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               <button
                 type="button"
                 onClick={() => setIsBookmarksModalOpen(true)}
-                className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full relative border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
+                className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full relative border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs backdrop-blur-xl`}
                 title={isEnBible ? 'Saved Verses & Bookmarks' : 'Ayat Tersimpan & Bookmark'}
               >
                 <Bookmark className="w-4 h-4" />
@@ -1165,7 +1165,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               <button
                 type="button"
                 onClick={() => setIsNotesListModalOpen(true)}
-                className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full relative border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs`}
+                className={`h-9 sm:h-10 w-9 sm:w-10 rounded-full relative border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 hover:shadow-xs transition flex items-center justify-center cursor-pointer shadow-2xs backdrop-blur-xl`}
                 title={isEnBible ? 'My Reflection Notes' : 'Catatan Renungan Pribadi'}
               >
                 <BookMarked className="w-4 h-4 text-[#3B4B34] dark:text-emerald-400" />
@@ -1177,7 +1177,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </button>
 
               {/* Language & Parallel View Selector */}
-              <div className={`flex items-center p-1 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 backdrop-blur-md shadow-2xs shrink-0 max-w-[260px] sm:max-w-[340px] xl:max-w-none overflow-x-auto no-scrollbar`}>
+              <div className={`flex items-center p-1 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl shadow-2xs shrink-0 max-w-[260px] sm:max-w-[340px] xl:max-w-none overflow-x-auto no-scrollbar`}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1337,14 +1337,14 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button
                   type="button"
                   onClick={onBackToHome}
-                  className={`shrink-0 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition h-9 w-9 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
+                  className={`shrink-0 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition h-9 w-9 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
                   title={isEnBible ? 'Back' : 'Kembali'}
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </button>
 
                 {/* Minimalist Unified Book & Chapter Selector on Mobile */}
-                <div className={`flex items-center h-9 rounded-full border border-[#1C1917]/12 dark:border-white/12 bg-white/80 dark:bg-zinc-800/80 px-1 py-0.5 shadow-2xs backdrop-blur-md min-w-0`}>
+                <div className={`flex items-center h-9 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 px-1 py-0.5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] backdrop-blur-xl min-w-0`}>
                   <button
                     type="button"
                     onClick={handlePrevChapter}
@@ -1396,7 +1396,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-9 w-9 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} opacity-70 hover:opacity-100 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
+                    className={`h-9 w-9 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} opacity-70 hover:opacity-100 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
                     title="Pengantar Kitab"
                   >
                     <Info className="w-4 h-4" />
@@ -1406,7 +1406,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button
                   type="button"
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                  className={`shrink-0 h-9 w-9 rounded-full border ${themeStyles.border} bg-white/80 dark:bg-zinc-800/80 ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
+                  className={`shrink-0 h-9 w-9 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} hover:bg-white dark:hover:bg-zinc-700 p-0 flex items-center justify-center shadow-2xs cursor-pointer`}
                   title="Pengaturan Tampilan"
                 >
                   <Settings className="w-4 h-4" />
@@ -1417,7 +1417,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             {/* Baris 2: Versi Alkitab (ID/EN/Scofield) & Toolbar Cepat (Scrollable Halus Tanpa Wrap) */}
             <div className="flex items-center justify-between gap-1.5 w-full overflow-x-auto no-scrollbar py-0.5 flex-nowrap">
               {/* Language Switcher */}
-              <div className={`flex items-center p-0.5 rounded-full border ${themeStyles.border} bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md shadow-2xs shrink-0 overflow-x-auto max-w-[280px] xs:max-w-xs sm:max-w-none scrollbar-none`}>
+              <div className={`flex items-center p-0.5 rounded-full border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl shadow-2xs shrink-0 overflow-x-auto max-w-[280px] xs:max-w-xs sm:max-w-none scrollbar-none`}>
                 <button
                   type="button"
                   onClick={() => {
@@ -1551,7 +1551,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   variant="outline"
                   size="sm"
                   onClick={() => setIsTruthChartsOpen(true)}
-                  className="shrink-0 rounded-xl font-bold text-[10px] border border-amber-400 bg-amber-50/90 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 h-7 px-2 flex items-center gap-1 shadow-2xs hover:bg-amber-100 dark:hover:bg-amber-900/50 cursor-pointer"
+                  className="shrink-0 rounded-xl font-bold text-[10px] border border-amber-400/80 bg-white/70 dark:bg-amber-950/60 backdrop-blur-xl text-amber-900 dark:text-amber-200 h-7 px-2 flex items-center gap-1 shadow-2xs hover:bg-amber-100 dark:hover:bg-amber-900/50 cursor-pointer"
                   title="22 Bagan Kebenaran Ilahi (LSM Truth Charts)"
                 >
                   <Compass className="w-3 h-3 text-amber-700 dark:text-amber-300" />
@@ -1563,7 +1563,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   variant="outline"
                   size="icon"
                   onClick={() => setIsGlobalSearchOpen(true)}
-                  className={`h-7 w-7 rounded-xl border ${themeStyles.border} ${themeStyles.text} shrink-0 flex items-center justify-center`}
+                  className={`h-7 w-7 rounded-xl border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} shrink-0 flex items-center justify-center`}
                   title="Cari Firman"
                 >
                   <Search className="w-3.5 h-3.5" />
@@ -1574,7 +1574,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   variant="outline"
                   size="icon"
                   onClick={() => setIsBookmarksModalOpen(true)}
-                  className={`h-7 w-7 rounded-xl relative border ${themeStyles.border} ${themeStyles.text} shrink-0 flex items-center justify-center`}
+                  className={`h-7 w-7 rounded-xl relative border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} shrink-0 flex items-center justify-center`}
                   title="Bookmark"
                 >
                   <Bookmark className="w-3.5 h-3.5" />
@@ -1590,7 +1590,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   variant="outline"
                   size="icon"
                   onClick={() => setIsNotesListModalOpen(true)}
-                  className={`h-7 w-7 rounded-xl relative border ${themeStyles.border} ${themeStyles.text} shrink-0 flex items-center justify-center`}
+                  className={`h-7 w-7 rounded-xl relative border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} shrink-0 flex items-center justify-center`}
                   title="Catatan"
                 >
                   <BookMarked className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
@@ -1607,7 +1607,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsIntroModalOpen(true)}
-                    className={`h-7 w-7 rounded-xl ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 shrink-0 flex items-center justify-center`}
+                    className={`h-7 w-7 rounded-xl border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} hover:bg-black/5 dark:hover:bg-white/5 shrink-0 flex items-center justify-center`}
                     title="Pengantar Kitab"
                   >
                     <Info className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
@@ -2461,23 +2461,23 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           )}
 
           {/* Navigasi Bawah Pasal */}
-          <div className="pt-6 border-t border-slate-200/80 dark:border-zinc-800 flex items-center justify-between gap-3">
+          <div className="pt-6 border-t border-[#1C1917]/8 dark:border-white/8 flex items-center justify-between gap-3">
             <button
               onClick={handlePrevChapter}
-              className={`px-4 py-2.5 rounded-2xl border ${themeStyles.border} ${themeStyles.text} font-bold text-xs hover:opacity-80 transition flex items-center gap-2 shadow-2xs cursor-pointer`}
+              className={`px-4 py-2.5 rounded-2xl border border-white/80 dark:border-white/10 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-xl ${themeStyles.text} font-bold text-xs hover:bg-[#3B4B34] hover:text-[#F4EFE6] hover:border-transparent transition flex items-center gap-2 shadow-2xs cursor-pointer`}
             >
               <ChevronLeft className="w-4 h-4" />
               <span className="hidden sm:inline">{isEnBible ? 'Previous Chapter' : 'Pasal Sebelumnya'}</span>
               <span className="sm:hidden">{isEnBible ? 'Prev' : 'Sblm'}</span>
             </button>
 
-            <span className={`text-xs ${themeStyles.secondaryText} font-mono hidden sm:inline`}>
+            <span className={`text-xs ${themeStyles.secondaryText} font-sans font-semibold tracking-tight tabular-nums hidden sm:inline`}>
               {currentBookInfo.name} {selectedChapter} / {totalChapters}
             </span>
 
             <button
               onClick={handleNextChapter}
-              className="px-4 py-2.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2.5 rounded-2xl bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] font-bold text-xs shadow-md shadow-[#3B4B34]/20 transition flex items-center gap-2 cursor-pointer"
             >
               <span className="hidden sm:inline">{isEnBible ? 'Next Chapter' : 'Pasal Berikutnya'}</span>
               <span className="sm:hidden">{isEnBible ? 'Next' : 'Lanjut'}</span>
@@ -2491,11 +2491,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       {/* MODAL 1: PEMILIH KITAB (66 KITAB) */}
       {isBookPickerOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-modal-backdrop-in"
+          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-modal-backdrop-in"
           onClick={() => setIsBookPickerOpen(false)}
         >
           <div 
-            className="bg-[#FAF7F2] dark:bg-[#18181B] rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl border border-[#1C1917]/10 dark:border-white/10 my-6 space-y-5 max-h-[85vh] flex flex-col animate-modal-card-in"
+            className="bg-[#FAF7F2]/85 dark:bg-[#1C1C1E]/85 backdrop-blur-2xl backdrop-saturate-180 rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] border border-white/80 dark:border-white/15 my-6 space-y-5 max-h-[85vh] flex flex-col animate-modal-card-in"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between pb-3 border-b border-[#1C1917]/8 dark:border-white/8">
@@ -2509,7 +2509,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               </div>
               <button 
                 onClick={() => setIsBookPickerOpen(false)}
-                className="w-9 h-9 rounded-full border border-[#1C1917]/10 dark:border-white/10 flex items-center justify-center text-[#78716C] hover:text-[#1C1917] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition cursor-pointer"
+                className="w-9 h-9 rounded-full bg-white/60 dark:bg-white/15 backdrop-blur-md border border-white/80 dark:border-white/10 hover:bg-white/90 text-[#78716C] hover:text-[#1C1917] dark:hover:text-white transition cursor-pointer flex items-center justify-center"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -2517,7 +2517,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
             {/* Tab PL, PB, Scofield & Search */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-              <div className="flex p-1 bg-[#1C1917]/5 dark:bg-white/5 rounded-full border border-[#1C1917]/8 dark:border-white/8 overflow-x-auto scrollbar-none">
+              <div className="flex p-1 bg-white/40 dark:bg-black/30 backdrop-blur-md rounded-full border border-white/60 dark:border-white/10 overflow-x-auto scrollbar-none shadow-inner">
                 <button
                   onClick={() => setBookPickerTab('PL')}
                   className={`flex-1 sm:flex-none px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-serif font-bold transition whitespace-nowrap cursor-pointer ${
@@ -2565,7 +2565,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   value={bookSearchQuery}
                   onChange={(e) => setBookSearchQuery(e.target.value)}
                   placeholder={isEnBible ? "Search book or doc..." : "Cari kitab atau dokumen..."}
-                  className="w-full pl-9 pr-4 py-2 bg-white/80 dark:bg-zinc-800 border border-[#1C1917]/10 dark:border-white/10 rounded-full text-xs sm:text-sm text-[#1C1917] dark:text-[#F4EFE6] focus:outline-hidden focus:ring-2 focus:ring-[#3B4B34]/20"
+                  className="w-full pl-9 pr-4 py-2 bg-white/70 dark:bg-zinc-800/70 backdrop-blur-md border border-white/80 dark:border-white/10 rounded-full text-xs sm:text-sm text-[#1C1917] dark:text-[#F4EFE6] focus:outline-hidden focus:ring-2 focus:ring-[#3B4B34]/20 shadow-2xs"
                 />
               </div>
             </div>
@@ -2760,8 +2760,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                           }}
                           className={`p-3.5 sm:p-4 rounded-2xl border text-left transition flex items-center justify-between cursor-pointer ${
                             selectedBookId === b.id
-                              ? 'border-[#3B4B34] bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-700 dark:border-emerald-600 font-bold shadow-md shadow-[#3B4B34]/20'
-                              : 'border-[#1C1917]/10 dark:border-white/10 bg-white/80 dark:bg-zinc-800/80 text-[#1C1917] dark:text-[#F4EFE6] hover:border-[#3B4B34]/40 hover:bg-[#3B4B34]/5 shadow-2xs'
+                              ? 'border-transparent bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-700 font-bold shadow-md shadow-[#3B4B34]/20'
+                              : 'border border-white/80 dark:border-white/10 bg-white/70 hover:bg-white/95 dark:bg-white/5 dark:hover:bg-white/15 backdrop-blur-md text-[#1C1917] dark:text-[#F4EFE6] shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-xs'
                           }`}
                         >
                           <div className="min-w-0 pr-1">
@@ -2832,7 +2832,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           onClick={() => setIsChapterPickerOpen(false)}
         >
           <div 
-            className="bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl rounded-t-[32px] sm:rounded-[32px] max-w-lg w-full p-6 sm:p-7 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] border border-[#1C1917]/8 dark:border-white/10 my-0 sm:my-6 space-y-4 max-h-[88vh] flex flex-col animate-modal-card-in"
+            className="bg-[#FAF7F2]/85 dark:bg-[#1C1C1E]/85 backdrop-blur-2xl backdrop-saturate-180 rounded-t-[32px] sm:rounded-[32px] max-w-lg w-full p-6 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] border border-white/80 dark:border-white/15 my-0 sm:my-6 space-y-4 max-h-[88vh] flex flex-col animate-modal-card-in"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Apple iOS Drag Grabber Bar */}
@@ -2853,13 +2853,13 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               
               <div className="flex items-center gap-2">
                 {/* Apple iOS Segmented Control */}
-                <div className="flex items-center p-0.5 rounded-[10px] bg-[#767680]/12 dark:bg-[#767680]/24 border border-black/[0.04] dark:border-white/[0.06] shadow-inner">
+                <div className="flex items-center p-0.5 rounded-[12px] bg-white/40 dark:bg-black/30 backdrop-blur-md border border-white/60 dark:border-white/10 shadow-inner">
                   <button
                     type="button"
                     onClick={() => setChapterVersePickerStep('chapter')}
-                    className={`px-3.5 py-1 rounded-[8px] text-xs font-sans font-semibold transition-all duration-150 cursor-pointer ${
+                    className={`px-3.5 py-1 rounded-[10px] text-xs font-sans font-semibold transition-all duration-150 cursor-pointer ${
                       chapterVersePickerStep === 'chapter'
-                        ? 'bg-white dark:bg-[#636366] text-[#1C1917] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)]'
+                        ? 'bg-white/90 dark:bg-white/20 text-[#1C1917] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.08)] font-bold'
                         : 'text-[#1C1917]/70 dark:text-white/70 hover:text-[#1C1917] dark:hover:text-white'
                     }`}
                   >
@@ -2868,9 +2868,9 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setChapterVersePickerStep('verse')}
-                    className={`px-3.5 py-1 rounded-[8px] text-xs font-sans font-semibold transition-all duration-150 cursor-pointer ${
+                    className={`px-3.5 py-1 rounded-[10px] text-xs font-sans font-semibold transition-all duration-150 cursor-pointer ${
                       chapterVersePickerStep === 'verse'
-                        ? 'bg-white dark:bg-[#636366] text-[#1C1917] dark:text-white shadow-[0_1px_3px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)]'
+                        ? 'bg-white/90 dark:bg-white/20 text-[#1C1917] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.08)] font-bold'
                         : 'text-[#1C1917]/70 dark:text-white/70 hover:text-[#1C1917] dark:hover:text-white'
                     }`}
                   >
@@ -2882,7 +2882,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <button 
                   type="button"
                   onClick={() => setIsChapterPickerOpen(false)}
-                  className="w-8 h-8 rounded-full bg-[#767680]/15 dark:bg-[#767680]/30 hover:bg-[#767680]/25 text-[#1C1917]/70 dark:text-white/70 flex items-center justify-center transition cursor-pointer active:scale-95 shrink-0"
+                  className="w-8 h-8 rounded-full bg-white/60 dark:bg-white/15 backdrop-blur-md border border-white/80 dark:border-white/10 hover:bg-white/90 text-[#1C1917]/70 dark:text-white/70 flex items-center justify-center transition cursor-pointer active:scale-95 shrink-0"
                   title="Tutup"
                 >
                   <X className="w-4 h-4" />
@@ -2910,8 +2910,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                         }}
                         className={`h-12 sm:h-13 rounded-2xl text-base sm:text-lg font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center cursor-pointer active:scale-[0.93] ${
                           selectedChapter === chapNum
-                            ? 'bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-[0_3px_10px_rgba(59,75,52,0.35)] scale-[1.03] font-bold'
-                            : 'border border-[#1C1917]/8 dark:border-white/8 bg-white/85 dark:bg-zinc-800/80 text-[#1C1917] dark:text-zinc-100 hover:bg-white dark:hover:bg-zinc-700 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:shadow-xs'
+                            ? 'border-transparent bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-[0_4px_14px_rgba(59,75,52,0.4)] scale-[1.03] font-bold'
+                            : 'border border-white/80 dark:border-white/10 bg-white/70 hover:bg-white/95 dark:bg-white/5 dark:hover:bg-white/15 backdrop-blur-md text-[#1C1917] dark:text-zinc-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-xs'
                         }`}
                         title={`Pasal ${chapNum}`}
                       >
@@ -2928,7 +2928,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => setChapterVersePickerStep('chapter')}
-                    className="h-8 px-3.5 rounded-full bg-[#1C1917]/6 dark:bg-white/10 hover:bg-[#1C1917]/10 dark:hover:bg-white/15 text-xs font-sans font-semibold text-[#1C1917] dark:text-[#F4EFE6] flex items-center gap-1.5 transition-all duration-150 cursor-pointer active:scale-95"
+                    className="h-8 px-3.5 rounded-full bg-white/60 dark:bg-white/10 hover:bg-white/90 dark:hover:bg-white/20 backdrop-blur-md border border-white/80 dark:border-white/10 text-xs font-sans font-semibold text-[#1C1917] dark:text-[#F4EFE6] flex items-center gap-1.5 transition-all duration-150 cursor-pointer active:scale-95 shadow-2xs"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
                     <span>{bibleLang === 'en' ? 'Back to Chapters' : 'Ganti Pasal'}</span>
@@ -2937,7 +2937,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   <button
                     type="button"
                     onClick={() => handleSelectFullChapterFromPicker(pickingChapter)}
-                    className="h-8 px-4 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold transition-all duration-150 flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
+                    className="h-8 px-4 rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-[#F4EFE6] text-xs font-sans font-semibold transition-all duration-150 flex items-center gap-1.5 cursor-pointer shadow-[0_2px_10px_rgba(59,75,52,0.3)] active:scale-95"
                   >
                     <span>{bibleLang === 'en' ? `Read Full Chapter ${pickingChapter}` : `Baca Seluruh Pasal ${pickingChapter}`}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -2951,7 +2951,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                         key={vNum}
                         type="button"
                         onClick={() => handleSelectVerseFromPicker(vNum)}
-                        className="h-11 sm:h-12 rounded-xl border border-[#1C1917]/8 dark:border-white/8 bg-white/85 dark:bg-zinc-800/80 text-[#1C1917] dark:text-zinc-100 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:hover:bg-emerald-600 dark:hover:text-white text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer active:scale-[0.93]"
+                        className="h-11 sm:h-12 rounded-xl border border-white/80 dark:border-white/10 bg-white/70 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:bg-white/5 dark:hover:bg-emerald-600 dark:hover:text-white backdrop-blur-md text-[#1C1917] dark:text-zinc-100 text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center shadow-[0_2px_6px_rgba(0,0,0,0.03)] cursor-pointer active:scale-[0.93]"
                         title={`Ayat ${vNum}`}
                       >
                         {vNum}
