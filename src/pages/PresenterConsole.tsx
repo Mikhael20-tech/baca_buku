@@ -1522,114 +1522,105 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
         </div>
       )}
 
-      {/* Modal Dialog Teks Berjalan (Ticker) Lengkap */}
+      {/* Modal Dialog Teks Berjalan (Minimalis) */}
       {isTickerModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl flex flex-col">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Radio className="w-5 h-5 text-amber-500 animate-pulse" />
-                Pengatur Teks Berjalan (Running Text)
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150">
+          <div className="bg-zinc-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl w-full max-w-md p-5 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.8)] flex flex-col gap-4 animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Radio className={`w-4 h-4 ${state.tickerActive ? 'text-amber-400 animate-pulse' : 'text-zinc-400'}`} />
+                <span>Teks Berjalan</span>
               </h3>
               <button
                 onClick={() => setIsTickerModalOpen(false)}
-                className="text-zinc-400 hover:text-white text-sm"
+                className="w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 text-zinc-400 hover:text-white flex items-center justify-center text-xs transition cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="mt-4 space-y-4">
-              <div>
-                <label className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block mb-1">
-                  Isi Teks Pengumuman Berjalan
-                </label>
-                <textarea
-                  rows={3}
-                  value={tickerInput}
-                  onChange={(e) => setTickerInput(e.target.value)}
-                  placeholder="Ketik kalimat pengumuman yang akan berjalan terus-menerus di bagian bawah layar proyektor..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-sm text-white placeholder-zinc-500 outline-none focus:border-amber-500 leading-relaxed font-sans"
-                />
-              </div>
+            <textarea
+              rows={2}
+              value={tickerInput}
+              onChange={(e) => setTickerInput(e.target.value)}
+              placeholder="Ketik pengumuman berjalan..."
+              autoFocus
+              className="w-full px-3.5 py-2.5 rounded-2xl bg-black/40 border border-white/10 text-sm text-white placeholder-zinc-500 outline-none focus:border-amber-500 leading-relaxed font-sans resize-none"
+            />
 
-              {/* Pilihan Kecepatan */}
-              <div>
-                <label className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block mb-1.5">
-                  Kecepatan Teks Berjalan
-                </label>
-                <div className="flex gap-2">
-                  {[
-                    { label: 'Cepat (18s)', val: 18 },
-                    { label: 'Normal (28s)', val: 28 },
-                    { label: 'Santai (38s)', val: 38 },
-                  ].map((spd) => (
-                    <button
-                      key={spd.val}
-                      onClick={() => setTickerSpeed(spd.val)}
-                      className={`flex-1 py-1.5 rounded-lg text-xs font-semibold border transition ${
-                        tickerSpeed === spd.val
-                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                          : 'bg-zinc-800 text-zinc-400 border-zinc-700 hover:text-white'
-                      }`}
-                    >
-                      {spd.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Template Cepat */}
-              <div>
-                <label className="text-xs text-zinc-400 font-semibold uppercase tracking-wider block mb-1.5">
-                  Template Pengumuman Siap Pakai
-                </label>
-                <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-                  {QUICK_TICKER_PRESETS.map((preset, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setTickerInput(preset)}
-                      className="w-full text-left text-xs text-zinc-300 hover:text-amber-300 bg-zinc-800/80 hover:bg-zinc-800 p-2 rounded-lg border border-zinc-700 transition"
-                    >
-                      {preset}
-                    </button>
-                  ))}
-                </div>
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-[11px] font-semibold text-zinc-400">Kecepatan</span>
+              <div className="flex p-1 rounded-2xl bg-black/40 border border-white/10 gap-1">
+                {[
+                  { label: 'Cepat', val: 18 },
+                  { label: 'Normal', val: 28 },
+                  { label: 'Santai', val: 38 },
+                ].map((spd) => (
+                  <button
+                    key={spd.val}
+                    type="button"
+                    onClick={() => setTickerSpeed(spd.val)}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                      tickerSpeed === spd.val
+                        ? 'bg-amber-500 text-black shadow-sm'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    {spd.label}
+                  </button>
+                ))}
               </div>
             </div>
 
-            <div className="mt-6 pt-3 border-t border-zinc-800 flex items-center justify-between">
+            <div className="flex flex-wrap gap-1.5">
+              {QUICK_TICKER_PRESETS.slice(0, 3).map((preset, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setTickerInput(preset)}
+                  className="max-w-full text-left text-[11px] text-zinc-400 hover:text-amber-300 bg-white/[0.04] hover:bg-white/[0.08] px-2.5 py-1 rounded-full border border-white/10 transition truncate cursor-pointer"
+                  title={preset}
+                >
+                  + {preset}
+                </button>
+              ))}
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
               {state.tickerActive ? (
                 <button
+                  type="button"
                   onClick={() => {
                     stopTicker();
                     setIsTickerModalOpen(false);
                   }}
-                  className="px-4 py-2 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 text-xs font-bold transition"
+                  className="px-3.5 py-2 rounded-xl bg-red-500/15 text-red-400 border border-red-500/30 hover:bg-red-500/25 text-xs font-bold transition whitespace-nowrap cursor-pointer"
                 >
-                  Hentikan Teks Berjalan (OFF)
+                  Matikan
                 </button>
               ) : (
-                <span className="text-xs text-zinc-500">Status: Tidak Tayang</span>
+                <span className="text-[11px] text-zinc-500">Status: Nonaktif</span>
               )}
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <button
+                  type="button"
                   onClick={() => setIsTickerModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition"
+                  className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 text-xs font-semibold transition cursor-pointer"
                 >
                   Tutup
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     applyTickerText();
                     setIsTickerModalOpen(false);
                   }}
                   disabled={!tickerInput.trim()}
-                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-40 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
                 >
                   <Radio className="w-3.5 h-3.5" />
-                  Tayangkan ke Proyektor
+                  <span>Tayangkan</span>
                 </button>
               </div>
             </div>
