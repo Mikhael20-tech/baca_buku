@@ -816,7 +816,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 <button
                   key={slide.id}
                   onClick={() => goToSlide(selectedSong, idx, 'LIVE')}
-                  className={`p-5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between min-h-[140px] relative cursor-pointer ${
+                  className={`p-5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-start min-h-[140px] relative cursor-pointer ${
                     isLive
                       ? 'bg-[#3B4B34]/35 border-[#3B4B34] ring-2 ring-[#3B4B34]/60 shadow-xl'
                       : 'bg-white/[0.03] hover:bg-white/[0.07] border-white/10 hover:border-white/20'
