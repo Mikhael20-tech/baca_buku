@@ -55,7 +55,17 @@ export default function LiveOutput() {
         }
       `}</style>
 
-      {state.mode === 'LIVE' && state.content && (
+      {state.mode === 'LIVE' && state.imageUrl && (
+        <div className={`w-full h-full flex items-center justify-center bg-black animate-in fade-in duration-300 ${isTickerVisible ? 'pb-14' : ''}`}>
+          <img
+            src={state.imageUrl}
+            alt={state.title || 'Slide Presentasi'}
+            className="max-w-full max-h-full w-full h-full object-contain select-none"
+          />
+        </div>
+      )}
+
+      {state.mode === 'LIVE' && !state.imageUrl && state.content && (
         isLowerThird ? (
           <div className="max-w-5xl w-full mx-auto bg-black/85 backdrop-blur-md border border-zinc-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-in slide-in-from-bottom-6 duration-300 mb-4">
             <p className="text-2xl sm:text-4xl font-bold whitespace-pre-line leading-relaxed text-white drop-shadow-md">
@@ -95,7 +105,7 @@ export default function LiveOutput() {
       )}
 
       {/* Pill Badge Lagu & Nomor Slide - Ditampilkan DI BAWAH & DI TENGAH */}
-      {state.mode === 'LIVE' && state.title && !isLowerThird && (
+      {state.mode === 'LIVE' && state.title && !isLowerThird && !state.imageUrl && (
         <div 
           style={{ fontSize: state.badgeFontSize ? `${state.badgeFontSize}px` : undefined }}
           className={`fixed left-1/2 -translate-x-1/2 text-center text-zinc-100 font-medium tracking-wide bg-black/85 backdrop-blur-2xl px-5 py-2 rounded-full border border-white/15 shadow-2xl flex items-center justify-center gap-2.5 transition-all duration-300 z-30 max-w-[90vw] whitespace-nowrap overflow-hidden text-ellipsis ${

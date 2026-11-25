@@ -4,6 +4,7 @@ export interface SlideItem {
   id: string;
   label: string;
   content: string;
+  imageUrl?: string;
 }
 
 export interface SongSetItem {
@@ -20,6 +21,7 @@ export interface StageState {
   title: string;
   subtitle?: string;
   content: string;
+  imageUrl?: string;
   slideIndex: number;
   totalSlides: number;
   mode: DisplayMode;

@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useStageSync } from '../hooks/useStageSync';
 import { chunkTextToSlides } from '../utils/chunkLyrics';
 import { SongSetItem, DisplayMode, SlideItem } from '../types/stage';
-import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone, Type, Sliders, Monitor, BookOpen, ChevronDown, Check } from 'lucide-react';
+import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone, Type, Sliders, Monitor, BookOpen, ChevronDown, Check, FileText, Image as ImageIcon, Upload } from 'lucide-react';
+import { parseImageFiles, parsePdfFile, parseWordFile, parsePptxFile } from '../utils/importPresentation';
 
 const QUICK_TICKER_PRESETS = [
   'Selamat datang dalam persekutuan & ibadah hari ini. Tuhan Yesus memberkati.',
@@ -179,13 +180,22 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     });
   };
 
-  // Simpan setlist ke localStorage agar persiapan operator tidak hilang saat refresh
+  // Simpan setlist ke localStorage (fallback tanpa imageUrl jika melebihi kuota 5MB browser)
   useEffect(() => {
     try {
-      localStorage.setItem('stage_presenter_setlist_v2', JSON.stringify(setlist));
-      localStorage.setItem('stage_presenter_setlist', JSON.stringify(setlist));
-    } catch (e) {
-      // ignore
+      const serialized = JSON.stringify(setlist);
+      localStorage.setItem('stage_presenter_setlist_v2', serialized);
+      localStorage.setItem('stage_presenter_setlist', serialized);
+    } catch {
+      try {
+        const lightweight = setlist.map((item) => ({
+          ...item,
+          slides: item.slides.map(({ imageUrl, ...rest }) => rest),
+        }));
+        localStorage.setItem('stage_presenter_setlist_v2', JSON.stringify(lightweight));
+      } catch {
+        // ignore
+      }
     }
   }, [setlist]);
 
@@ -195,8 +205,35 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const [allKidungData, setAllKidungData] = useState<any[]>([]);
   const [isLoadingKidung, setIsLoadingKidung] = useState(false);
   const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
-  const [addModalTab, setAddModalTab] = useState<'kidung' | 'bible'>('kidung');
+  const [addModalTab, setAddModalTab] = useState<'kidung' | 'bible' | 'custom' | 'file'>('kidung');
   const [kidungFilter, setKidungFilter] = useState<'all' | 'kidung' | 'suplemen'>('all');
+
+  // Lagu Kustom / Denominasi Lain (disimpan permanen di localStorage)
+  const [customSongs, setCustomSongs] = useState<SongSetItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('stage_custom_songs');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [customSongTitle, setCustomSongTitle] = useState('');
+  const [customSongSource, setCustomSongSource] = useState('');
+  const [customSongLyrics, setCustomSongLyrics] = useState('');
+  const [customSongSearch, setCustomSongSearch] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('stage_custom_songs', JSON.stringify(customSongs));
+    } catch {
+      // ignore
+    }
+  }, [customSongs]);
+
+  // State Import File Presentasi (PDF, PPTX, DOCX, Gambar)
+  const [isImportingFile, setIsImportingFile] = useState(false);
+  const [importStatus, setImportStatus] = useState('');
+  const [importError, setImportError] = useState('');
 
   // Bible Picker State for Live Stage
   const [bibleBooks, setBibleBooks] = useState<any[]>([]);
@@ -398,6 +435,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
         title: song.title,
         subtitle: song.subtitle,
         content: slide ? slide.content : '',
+        imageUrl: slide?.imageUrl,
         slideIndex: clampedIdx,
         totalSlides: song.slides.length,
         mode,
@@ -529,6 +567,107 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     setSetlist((prev) => [...prev, item]);
     goToSlide(item, 0, 'LIVE');
     setIsSearchOpen(false);
+  };
+
+  const handleSaveCustomSong = () => {
+    if (!customSongTitle.trim() || !customSongLyrics.trim()) return;
+    const sourcePrefix = customSongSource.trim() ? `${customSongSource.trim()} - ` : '';
+    const fullTitle = `${sourcePrefix}${customSongTitle.trim()}`;
+    const slides = chunkTextToSlides(customSongLyrics, 4);
+    const newItem: SongSetItem = {
+      id: `custom-${Date.now()}`,
+      title: fullTitle,
+      subtitle: customSongSource.trim() || 'Lagu Kustom',
+      rawText: customSongLyrics,
+      slides,
+    };
+    setCustomSongs((prev) => [newItem, ...prev]);
+    setSetlist((prev) => [...prev, newItem]);
+    goToSlide(newItem, 0, 'LIVE');
+    setCustomSongTitle('');
+    setCustomSongSource('');
+    setCustomSongLyrics('');
+    setIsSearchOpen(false);
+  };
+
+  const handleImportPresentationFiles = async (fileList: FileList | null) => {
+    if (!fileList || fileList.length === 0) return;
+    const files = Array.from(fileList);
+    setIsImportingFile(true);
+    setImportError('');
+    setImportStatus('Memproses file...');
+
+    try {
+      const imageFiles = files.filter((f) => /\.(jpe?g|png|webp|gif|bmp)$/i.test(f.name));
+      if (imageFiles.length > 0 && imageFiles.length === files.length) {
+        setImportStatus(`Mengoptimalkan ${imageFiles.length} gambar...`);
+        const slides = await parseImageFiles(imageFiles);
+        const item: SongSetItem = {
+          id: `imgset-${Date.now()}`,
+          title: imageFiles.length === 1 ? imageFiles[0].name.replace(/\.[^.]+$/, '') : `Slide Gambar (${imageFiles.length} file)`,
+          subtitle: '',
+          rawText: '',
+          slides,
+        };
+        setSetlist((prev) => [...prev, item]);
+        goToSlide(item, 0, 'LIVE');
+        setIsSearchOpen(false);
+        return;
+      }
+
+      const file = files[0];
+      const ext = file.name.split('.').pop()?.toLowerCase() || '';
+      const cleanName = file.name.replace(/\.[^.]+$/, '');
+
+      if (ext === 'pdf') {
+        const slides = await parsePdfFile(file, (p, total) => {
+          setImportStatus(`Merender PDF halaman ${p} dari ${total}...`);
+        });
+        const item: SongSetItem = {
+          id: `pdf-${Date.now()}`,
+          title: cleanName,
+          subtitle: '',
+          rawText: '',
+          slides,
+        };
+        setSetlist((prev) => [...prev, item]);
+        goToSlide(item, 0, 'LIVE');
+        setIsSearchOpen(false);
+      } else if (ext === 'docx') {
+        setImportStatus('Membaca dokumen Word (.docx)...');
+        const { slides, rawText } = await parseWordFile(file);
+        const item: SongSetItem = {
+          id: `docx-${Date.now()}`,
+          title: cleanName,
+          subtitle: '',
+          rawText,
+          slides,
+        };
+        setSetlist((prev) => [...prev, item]);
+        goToSlide(item, 0, 'LIVE');
+        setIsSearchOpen(false);
+      } else if (ext === 'pptx') {
+        setImportStatus('Mengekstrak slide PowerPoint (.pptx)...');
+        const { slides, rawText } = await parsePptxFile(file);
+        const item: SongSetItem = {
+          id: `pptx-${Date.now()}`,
+          title: cleanName,
+          subtitle: '',
+          rawText,
+          slides,
+        };
+        setSetlist((prev) => [...prev, item]);
+        goToSlide(item, 0, 'LIVE');
+        setIsSearchOpen(false);
+      } else {
+        setImportError('Format belum didukung. Gunakan file PDF, PPTX, DOCX, atau Gambar (JPG/PNG/WebP).');
+      }
+    } catch (err: any) {
+      setImportError(err?.message || 'Gagal memproses file.');
+    } finally {
+      setIsImportingFile(false);
+      setImportStatus('');
+    }
   };
 
   const filteredKidung = allKidungData.filter((k) => {
@@ -832,9 +971,15 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                       </span>
                     )}
                   </div>
-                  <p className="text-sm sm:text-base whitespace-pre-line leading-relaxed text-zinc-200 font-medium font-sans">
-                    {slide.content}
-                  </p>
+                  {slide.imageUrl ? (
+                    <div className="w-full aspect-video rounded-xl overflow-hidden bg-black/80 border border-white/10">
+                      <img src={slide.imageUrl} alt={slide.label} className="w-full h-full object-contain" />
+                    </div>
+                  ) : (
+                    <p className="text-sm sm:text-base whitespace-pre-line leading-relaxed text-zinc-200 font-medium font-sans">
+                      {slide.content}
+                    </p>
+                  )}
                 </button>
               );
             })}
@@ -911,12 +1056,16 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                 <span className="text-[11px] text-zinc-500 font-mono">[Teks Disembunyikan (Clear)]</span>
               )}
               {state.mode === 'LIVE' && (
-                <p className="text-[11px] whitespace-pre-line text-white font-semibold leading-snug line-clamp-4">
-                  {state.content || 'Belum ada slide yang aktif'}
-                </p>
+                state.imageUrl ? (
+                  <img src={state.imageUrl} alt={state.title} className="w-full h-full object-contain" />
+                ) : (
+                  <p className="text-[11px] whitespace-pre-line text-white font-semibold leading-snug line-clamp-4">
+                    {state.content || 'Belum ada slide yang aktif'}
+                  </p>
+                )
               )}
 
-              {state.mode === 'LIVE' && state.title && (
+              {state.mode === 'LIVE' && state.title && !state.imageUrl && (
                 <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-black/80 px-2 py-0.5 rounded-full border border-white/10 text-[9px] text-zinc-300 truncate max-w-[88%] font-medium">
                   {state.title} • {state.slideIndex + 1}/{state.totalSlides}
                 </div>
@@ -1079,30 +1228,54 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150">
           <div className="bg-zinc-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl w-full max-w-xl p-5 sm:p-6 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.8)] flex flex-col max-h-[88vh] animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <div className="flex items-center gap-2 p-1 rounded-2xl bg-black/40 border border-white/10">
+              <div className="flex flex-wrap items-center gap-1 p-1 rounded-2xl bg-black/40 border border-white/10">
                 <button
                   type="button"
                   onClick={() => setAddModalTab('kidung')}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
                     addModalTab === 'kidung'
                       ? 'bg-[#3B4B34] text-white shadow-sm'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <Music className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Kidung &amp; Suplemen</span>
+                  <span>Kidung</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setAddModalTab('bible')}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
                     addModalTab === 'bible'
                       ? 'bg-[#3B4B34] text-white shadow-sm'
                       : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Ayat Alkitab</span>
+                  <span>Alkitab</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAddModalTab('custom')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                    addModalTab === 'custom'
+                      ? 'bg-[#3B4B34] text-white shadow-sm'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Plus className="w-3.5 h-3.5 text-amber-300" />
+                  <span>Lagu Kustom</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAddModalTab('file')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                    addModalTab === 'file'
+                      ? 'bg-[#3B4B34] text-white shadow-sm'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>File / Gambar</span>
                 </button>
               </div>
               <button
@@ -1451,6 +1624,138 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   <Plus className="w-4 h-4" />
                   <span>Tambahkan Ayat ke Setlist &amp; Tayangkan</span>
                 </button>
+              </div>
+            )}
+
+            {addModalTab === 'custom' && (
+              <div className="mt-4 flex-1 flex flex-col gap-3 overflow-y-auto pr-1">
+                <div className="p-3.5 rounded-2xl bg-black/30 border border-white/10 space-y-2.5">
+                  <div className="text-xs font-bold text-amber-300">Simpan Lagu Baru / Denominasi Lain (KJ, NKB, PKJ, dll.)</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <input
+                      type="text"
+                      value={customSongSource}
+                      onChange={(e) => setCustomSongSource(e.target.value)}
+                      placeholder="Sumber (misal: KJ 64)"
+                      className="px-3 py-2 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white placeholder-zinc-500 outline-none focus:border-amber-500"
+                    />
+                    <input
+                      type="text"
+                      value={customSongTitle}
+                      onChange={(e) => setCustomSongTitle(e.target.value)}
+                      placeholder="Judul lagu (misal: Bila Kulihat Bintang)..."
+                      className="sm:col-span-2 px-3 py-2 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white placeholder-zinc-500 outline-none focus:border-amber-500"
+                    />
+                  </div>
+                  <textarea
+                    rows={4}
+                    value={customSongLyrics}
+                    onChange={(e) => setCustomSongLyrics(e.target.value)}
+                    placeholder="Ketik atau paste lirik lagu di sini. Pisahkan tiap bait dengan 1 baris kosong (Enter 2x)..."
+                    className="w-full px-3 py-2 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white placeholder-zinc-500 outline-none focus:border-amber-500 resize-none leading-relaxed"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSaveCustomSong}
+                    disabled={!customSongTitle.trim() || !customSongLyrics.trim()}
+                    className="w-full py-2 rounded-xl bg-[#3B4B34] hover:bg-[#495d40] disabled:opacity-40 text-white text-xs font-bold transition cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Simpan Lagu &amp; Tayangkan ke Setlist</span>
+                  </button>
+                </div>
+
+                {customSongs.length > 0 && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+                        Koleksi Lagu Kustom ({customSongs.length})
+                      </span>
+                      <input
+                        type="text"
+                        value={customSongSearch}
+                        onChange={(e) => setCustomSongSearch(e.target.value)}
+                        placeholder="Cari lagu kustom..."
+                        className="px-2.5 py-1 rounded-xl bg-zinc-800/80 border border-white/10 text-xs text-white placeholder-zinc-500 outline-none w-40"
+                      />
+                    </div>
+                    <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+                      {customSongs
+                        .filter((s) => !customSongSearch.trim() || s.title.toLowerCase().includes(customSongSearch.toLowerCase()))
+                        .map((cs) => (
+                          <div
+                            key={cs.id}
+                            className="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 flex items-center justify-between gap-2"
+                          >
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const cloned = { ...cs, id: `${cs.id}-${Date.now()}` };
+                                setSetlist((prev) => [...prev, cloned]);
+                                goToSlide(cloned, 0, 'LIVE');
+                                setIsSearchOpen(false);
+                              }}
+                              className="flex-1 text-left min-w-0 cursor-pointer"
+                            >
+                              <div className="text-xs font-semibold text-white truncate">{cs.title}</div>
+                              <div className="text-[10px] text-zinc-400">{cs.slides.length} Slide</div>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setCustomSongs((prev) => prev.filter((x) => x.id !== cs.id))}
+                              className="p-1.5 rounded-lg hover:bg-red-500/20 text-zinc-400 hover:text-red-400 transition cursor-pointer"
+                              title="Hapus dari koleksi"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {addModalTab === 'file' && (
+              <div className="mt-4 flex-1 flex flex-col gap-3">
+                <label className="flex-1 min-h-[180px] rounded-3xl border-2 border-dashed border-white/20 hover:border-cyan-400/60 bg-black/30 hover:bg-black/40 transition flex flex-col items-center justify-center p-6 text-center cursor-pointer group">
+                  <input
+                    type="file"
+                    multiple
+                    accept=".pdf,.pptx,.docx,image/*"
+                    disabled={isImportingFile}
+                    onChange={(e) => {
+                      handleImportPresentationFiles(e.target.files);
+                      e.target.value = '';
+                    }}
+                    className="hidden"
+                  />
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center mb-3 group-hover:scale-105 transition">
+                    <Upload className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <div className="text-sm font-bold text-white mb-1">
+                    {isImportingFile ? (importStatus || 'Memproses file...') : 'Pilih File Presentasi atau Gambar'}
+                  </div>
+                  <p className="text-xs text-zinc-400 max-w-sm leading-relaxed">
+                    Mendukung <strong className="text-zinc-200">PDF</strong> (render slide HD), <strong className="text-zinc-200">Gambar</strong> (JPG/PNG/WebP), <strong className="text-zinc-200">Word (.docx)</strong>, dan <strong className="text-zinc-200">PowerPoint (.pptx)</strong>.
+                  </p>
+                  <div className="mt-3 flex flex-wrap justify-center gap-1.5 text-[10px] font-bold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-red-500/15 text-red-300 border border-red-500/20">PDF</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/20">PPTX</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/20">DOCX</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/20">JPG / PNG</span>
+                  </div>
+                </label>
+
+                {importError && (
+                  <div className="p-3 rounded-2xl bg-red-500/15 border border-red-500/30 text-xs text-red-300">
+                    {importError}
+                  </div>
+                )}
+
+                <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/10 text-[11px] text-zinc-400 leading-relaxed">
+                  <strong className="text-zinc-200">Tips PowerPoint:</strong> File <code className="text-amber-300">.pptx</code> mengekstrak teks tiap slide. Jika slide Anda memiliki desain, font, atau gambar latar khusus, simpan sebagai <strong className="text-zinc-200">PDF</strong> dari PowerPoint lalu unggah di sini agar tampil 100% persis sama.
+                </div>
               </div>
             )}
           </div>
