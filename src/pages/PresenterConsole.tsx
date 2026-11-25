@@ -42,8 +42,15 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Reset jika masih berisi format lama dengan '#' atau subtitle 'Matius'
-          if (parsed[0]?.title?.includes('#') || parsed[0]?.subtitle?.includes('Matius')) {
+          // Reset jika masih berisi format lama dengan '#' atau subtitle 'Matius' atau lirik rusak
+          const hasBrokenSong = parsed.some(
+            (s: any) =>
+              s?.title?.includes('#') ||
+              s?.subtitle?.includes('Matius') ||
+              s?.rawText === 'Bait lagu belum tersedia' ||
+              s?.slides?.[0]?.content === 'Bait lagu belum tersedia'
+          );
+          if (hasBrokenSong) {
             return SAMPLE_SETLIST;
           }
           return parsed;
@@ -60,7 +67,14 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          if (parsed[0]?.title?.includes('#') || parsed[0]?.subtitle?.includes('Matius')) {
+          const hasBrokenSong = parsed.some(
+            (s: any) =>
+              s?.title?.includes('#') ||
+              s?.subtitle?.includes('Matius') ||
+              s?.rawText === 'Bait lagu belum tersedia' ||
+              s?.slides?.[0]?.content === 'Bait lagu belum tersedia'
+          );
+          if (hasBrokenSong) {
             return SAMPLE_SETLIST[0];
           }
           return parsed[0];
@@ -160,27 +174,74 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   }, [isSearchOpen, allKidungData.length]);
 
   const addSongToSetlist = (songData: any) => {
-    let rawText = '';
-    if (songData.lyrics && Array.isArray(songData.lyrics)) {
-      rawText = songData.lyrics
-        .map((st: any) => (Array.isArray(st.lines) ? st.lines.join('\n') : String(st.text || '')))
-        .join('\n\n');
-    } else if (typeof songData.text === 'string') {
-      rawText = songData.text;
-    }
-
     const rawNum = songData.formattedNumber || songData.displayNumber || String(songData.number || songData.id || '');
     const cleanNum = rawNum.replace(/^(No\.\s*|S\.\s*|#\s*)/i, '').replace(/^0+/, '') || rawNum;
     const songType = songData.type === 'suplemen' ? 'Suplemen' : 'Kidung';
     const songTitle = songData.title || songData.firstLine || '';
     const formattedTitle = `${songType} ${cleanNum}${songTitle ? ` - ${songTitle}` : ''}`.trim();
 
+    // Ambil bait lirik baik dari 'stanzas' (format database kidung) maupun 'lyrics'
+    const stanzaList: any[] = songData.stanzas || songData.lyrics || [];
+    let slides: SlideItem[] = [];
+    let rawTextParts: string[] = [];
+
+    if (Array.isArray(stanzaList) && stanzaList.length > 0) {
+      let verseCounter = 1;
+      stanzaList.forEach((st: any, idx: number) => {
+        const lines: string[] = Array.isArray(st.lines)
+          ? st.lines.filter((l: string) => typeof l === 'string' && l.trim().length > 0)
+          : (typeof st.text === 'string' ? st.text.split('\n') : []);
+
+        if (lines.length === 0) return;
+        // Lewati catatan kaki seperti "1 = Allah Tritunggal"
+        if (lines.length === 1 && /^\d+\s*=\s*/.test(lines[0].trim())) return;
+
+        const isChorus = Boolean(st.isChorus || st.type === 'chorus');
+        const label = isChorus ? 'Koor' : `Bait ${st.num || verseCounter++}`;
+        const content = lines.join('\n');
+
+        rawTextParts.push(content);
+
+        // Jika satu bait panjang (> 4 baris), pecah per 4 baris
+        if (lines.length > 4) {
+          for (let i = 0; i < lines.length; i += 4) {
+            const chunk = lines.slice(i, i + 4);
+            const part = Math.floor(i / 4) + 1;
+            slides.push({
+              id: `slide-${idx}-${part}`,
+              label: `${label} (${part})`,
+              content: chunk.join('\n'),
+            });
+          }
+        } else {
+          slides.push({
+            id: `slide-${idx}-0`,
+            label,
+            content,
+          });
+        }
+      });
+    }
+
+    if (slides.length === 0) {
+      let fallback = '';
+      if (typeof songData.text === 'string' && songData.text.trim()) {
+        fallback = songData.text;
+      } else if (typeof songData.firstLine === 'string' && songData.firstLine.trim()) {
+        fallback = songData.firstLine;
+      } else {
+        fallback = 'Bait lagu belum tersedia';
+      }
+      slides = chunkTextToSlides(fallback, 4);
+      rawTextParts = [fallback];
+    }
+
     const newSong: SongSetItem = {
       id: `kidung-${songData.id || songData.formattedNumber || Date.now()}`,
       title: formattedTitle,
-      subtitle: songData.category || songData.theme || '',
-      rawText: rawText || 'Bait lagu belum tersedia',
-      slides: chunkTextToSlides(rawText || 'Bait lagu belum tersedia', 4),
+      subtitle: '', // Kosongkan agar tidak menduplikasi kategori di pill badge live
+      rawText: rawTextParts.join('\n\n'),
+      slides,
     };
 
     setSetlist((prev) => [...prev, newSong]);
@@ -188,6 +249,20 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     setActiveSlideIdx(0);
     setIsSearchOpen(false);
     setSearchKidungQuery('');
+
+    // Langsung siarkan bait 1 ke layar proyektor
+    broadcastState({
+      roomId,
+      activeSongId: newSong.id,
+      title: newSong.title,
+      subtitle: newSong.subtitle,
+      content: newSong.slides[0]?.content || '',
+      slideIndex: 0,
+      totalSlides: newSong.slides.length,
+      mode: 'LIVE',
+      theme: stageTheme,
+      updatedAt: Date.now(),
+    });
   };
 
   const removeSongFromSetlist = (e: React.MouseEvent, id: string) => {
