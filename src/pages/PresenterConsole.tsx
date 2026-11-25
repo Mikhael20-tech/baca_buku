@@ -576,8 +576,8 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       <div className="flex-1 grid grid-cols-12 overflow-hidden h-[calc(100vh-3.5rem)]">
         {/* Panel 1: Setlist */}
         <aside
-          className={`border-r border-zinc-800 p-4 overflow-y-auto bg-zinc-900/50 flex-col justify-between ${
-            activeConsoleTab === 'queue' ? 'flex col-span-12 h-full' : 'hidden lg:flex lg:col-span-3'
+          className={`border-r border-zinc-800 p-4 overflow-y-auto bg-zinc-900/50 flex-col justify-between lg:flex lg:col-span-3 lg:h-full ${
+            activeConsoleTab === 'queue' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
           <div>
@@ -632,8 +632,8 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
 
         {/* Panel 2: Slide Grid */}
         <main
-          className={`p-4 sm:p-6 overflow-y-auto bg-zinc-950 flex-col ${
-            activeConsoleTab === 'slides' ? 'flex col-span-12 h-full' : 'hidden lg:block lg:col-span-6'
+          className={`p-4 sm:p-6 overflow-y-auto bg-zinc-950 flex-col lg:block lg:col-span-6 lg:h-full ${
+            activeConsoleTab === 'slides' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800/80 gap-3">
@@ -737,8 +737,8 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
 
         {/* Panel 3: Live Preview & Quick Controls */}
         <aside
-          className={`border-l border-zinc-800 p-4 bg-zinc-900/50 flex-col justify-between overflow-y-auto ${
-            activeConsoleTab === 'controls' ? 'flex col-span-12 h-full' : 'hidden lg:flex lg:col-span-3'
+          className={`border-l border-zinc-800 p-4 bg-zinc-900/50 flex-col justify-between overflow-y-auto lg:flex lg:col-span-3 lg:h-full ${
+            activeConsoleTab === 'controls' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
           <div>
