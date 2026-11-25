@@ -1980,34 +1980,37 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
           {/* Pengantar & Pokok Kitab Lengkap (Versi Pemulihan Pada Pasal 1) */}
           {selectedChapter === 1 && bookData?.intro && bibleLang !== 'scofield' && (
-            <div className="rounded-3xl bg-white/40 dark:bg-white/5 backdrop-blur-md border border-white/60 dark:border-white/10 p-5 sm:p-6 mb-6 shadow-2xs space-y-3.5 transition-all">
-              <div className="flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-400 border border-[#3B4B34]/20 font-sans font-semibold text-[10px] tracking-wider uppercase">
-                  {isEnBible ? `Introduction • ${bookData.name}` : `Pengantar Kitab • ${bookData.name}`}
+            <div className="rounded-[28px] bg-[#FAF7F2]/90 dark:bg-[#1C1C1E]/90 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 p-6 sm:p-7 mb-7 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.05)] space-y-4 transition-all">
+              <div>
+                <span className="text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.2em] text-[#3B4B34] dark:text-emerald-400 uppercase select-none block">
+                  {isEnBible ? `Pengantar ${bookData.name}` : `Pengantar Kitab ${bookData.name}`}
                 </span>
               </div>
 
               {(bookData.intro.Pokok || bookData.intro.Subject) && (
-                <div className="space-y-1.5">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#1C1917]/40 dark:text-white/40 font-sans block">
-                    {bookData.intro.Subject ? 'Subject' : 'Pokok'}
+                <div className="space-y-1">
+                  <span className="text-[9px] uppercase font-bold tracking-[0.25em] text-[#1C1917]/40 dark:text-white/40 font-sans block select-none">
+                    {bookData.intro.Subject ? 'SUBJECT' : 'POKOK'}
                   </span>
-                  <p className="font-bodoni font-bold italic text-base sm:text-lg md:text-xl text-[#1C1917] dark:text-[#F4EFE6] leading-relaxed">
-                    "{bookData.intro.Subject || bookData.intro.Pokok}"
-                  </p>
+                  <h3 
+                    className="font-bodoni italic font-medium text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] leading-snug tracking-tight"
+                    style={{ fontFamily: "'Bodoni Moda', 'Playfair Display', Georgia, serif" }}
+                  >
+                    {bookData.intro.Subject || bookData.intro.Pokok}
+                  </h3>
                 </div>
               )}
 
               {Object.keys(bookData.intro).some(k => k !== 'Pokok' && k !== 'Subject') && (
-                <div className="pt-3 border-t border-black/5 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+                <div className="pt-4 border-t border-black/5 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
                   {Object.entries(bookData.intro).map(([k, v]) => {
                     if (k === 'Pokok' || k === 'Subject') return null;
                     return (
-                      <div key={k} className="p-3 rounded-2xl bg-white/40 dark:bg-white/5 border border-white/60 dark:border-white/10 space-y-0.5">
-                        <span className="text-[10px] uppercase font-semibold text-[#1C1917]/50 dark:text-white/50 tracking-wider font-sans block">
+                      <div key={k} className="p-4 rounded-2xl bg-white/70 dark:bg-white/5 border border-white/80 dark:border-white/10 space-y-1 shadow-2xs">
+                        <span className="text-[10px] uppercase font-bold text-[#3B4B34] dark:text-emerald-400 tracking-[0.15em] font-sans block select-none">
                           {k}
                         </span>
-                        <p className="text-xs sm:text-[13px] text-[#1C1917]/80 dark:text-white/80 font-sans leading-relaxed">
+                        <p className="text-xs sm:text-[13px] text-[#1C1917]/85 dark:text-[#F4EFE6]/85 font-sans leading-relaxed">
                           {v}
                         </p>
                       </div>
