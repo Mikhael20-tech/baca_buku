@@ -209,6 +209,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const [isLoadingBible, setIsLoadingBible] = useState(false);
   const [openBibleDropdown, setOpenBibleDropdown] = useState<'book' | 'chapter' | 'start' | 'end' | null>(null);
   const [bibleBookSearch, setBibleBookSearch] = useState('');
+  const [bibleSlideMode, setBibleSlideMode] = useState<'per-verse' | 'combined'>('per-verse');
 
   // Load Bible books metadata when modal opens on Bible tab
   useEffect(() => {
@@ -502,16 +503,25 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     const refRange = startV === endV ? `${startV}` : `${startV}–${endV}`;
     const title = `${bookLabel} ${selectedBibleChapter}:${refRange} (${verCode})`;
 
-    const slides: SlideItem[] = picked.map((v, idx) => ({
-      id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${v.verse}-${idx}`,
-      label: `Ayat ${v.verse}`,
-      content: `${v.verse}. ${v.text}`,
-    }));
+    const slides: SlideItem[] =
+      bibleSlideMode === 'combined'
+        ? [
+            {
+              id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${startV}-${endV}-combined`,
+              label: startV === endV ? `Ayat ${startV}` : `Ayat ${startV}–${endV}`,
+              content: picked.map((v) => `${v.verse}. ${v.text}`).join('\n'),
+            },
+          ]
+        : picked.map((v, idx) => ({
+            id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${v.verse}-${idx}`,
+            label: `Ayat ${v.verse}`,
+            content: `${v.verse}. ${v.text}`,
+          }));
 
     const item: SongSetItem = {
       id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${startV}-${endV}-${Date.now()}`,
       title,
-      subtitle: 'Ayat Alkitab',
+      subtitle: '',
       rawText: picked.map((v) => `${v.verse}. ${v.text}`).join('\n\n'),
       slides,
     };
@@ -1386,6 +1396,31 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                         </div>
                       </div>
                     )}
+                  </div>
+                </div>
+
+                {/* Mode Tampilan Rentang Ayat (Per Ayat vs Gabung) */}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Mode Slide</span>
+                  <div className="flex p-1 rounded-2xl bg-black/40 border border-white/10 gap-1">
+                    <button
+                      type="button"
+                      onClick={() => setBibleSlideMode('per-verse')}
+                      className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                        bibleSlideMode === 'per-verse' ? 'bg-[#3B4B34] text-white shadow-sm' : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      Per Ayat (1 slide/ayat)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBibleSlideMode('combined')}
+                      className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                        bibleSlideMode === 'combined' ? 'bg-[#3B4B34] text-white shadow-sm' : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      Gabung (1 Slide)
+                    </button>
                   </div>
                 </div>
 

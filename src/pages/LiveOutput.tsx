@@ -106,10 +106,14 @@ export default function LiveOutput() {
         >
           <span className="font-semibold tracking-wide drop-shadow-sm">{state.title}</span>
           {state.subtitle && <span className="text-zinc-400 font-normal">({state.subtitle})</span>}
-          <span className="text-zinc-500">•</span>
-          <span className="text-zinc-300 tabular-nums font-mono font-normal drop-shadow-sm">
-            {state.slideIndex + 1}/{state.totalSlides}
-          </span>
+          {state.totalSlides > 1 && (
+            <>
+              <span className="text-zinc-500">•</span>
+              <span className="text-zinc-300 tabular-nums font-mono font-normal drop-shadow-sm">
+                {state.slideIndex + 1}/{state.totalSlides}
+              </span>
+            </>
+          )}
         </div>
       )}
 
