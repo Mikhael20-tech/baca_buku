@@ -244,7 +244,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
   // Reader Settings & Mode
   const [theme, setTheme] = useState(() => localStorage.getItem('bible_theme') || 'sepia'); // 'light' | 'sepia' | 'dark'
-  const [fontFamily, setFontFamily] = useState(() => localStorage.getItem('bible_font') || 'Lora');
+  const [fontFamily, setFontFamily] = useState(() => localStorage.getItem('bible_font') || 'Bodoni Moda');
   const [fontSize, setFontSize] = useState(() => Number(localStorage.getItem('bible_font_size')) || 20);
   const [contentWidth, setContentWidth] = useState(() => localStorage.getItem('bible_content_width') || 'wide'); // 'normal' | 'wide'
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -1091,7 +1091,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-3.5 h-8 rounded-full text-sm sm:text-base font-cinzel font-bold tracking-[0.04em] flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
+                    className={`px-3.5 h-8 rounded-full text-base sm:text-lg font-bodoni font-bold tracking-[0.02em] flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
                     title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
                   >
                     <span className="truncate max-w-[120px] lg:max-w-[170px] xl:max-w-[210px]">
@@ -1364,7 +1364,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-2.5 h-7.5 rounded-full text-xs sm:text-sm font-cinzel font-bold tracking-[0.04em] flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
+                    className={`px-2.5 h-7.5 rounded-full text-sm sm:text-base font-bodoni font-bold tracking-[0.02em] flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
                   >
                     <span className="truncate max-w-[90px] sm:max-w-[120px]">{currentBookInfo.name}</span>
                     <ChevronDown className="w-3.5 h-3.5 opacity-40 shrink-0" />
@@ -2505,7 +2505,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                 <span className="text-xs sm:text-sm font-bold tracking-[0.25em] text-[#8E9C75] dark:text-emerald-400 uppercase block mb-1">
                   {isEnBible ? 'Canon of Scripture' : 'Katalog Kitab Suci'}
                 </span>
-                <h3 className="font-serif font-extrabold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+                <h3 className="font-bodoni font-bold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
                   {isEnBible ? '66 Complete Books' : '66 Kitab Lengkap'}
                 </h3>
               </div>
@@ -2848,7 +2848,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     ? (bibleLang === 'en' ? 'Step 1 — Select Chapter' : 'Langkah 1 — Pilih Pasal')
                     : (bibleLang === 'en' ? 'Step 2 — Select Verse' : 'Langkah 2 — Pilih Ayat')}
                 </span>
-                <h3 className="font-serif font-extrabold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+                <h3 className="font-bodoni font-bold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
                   {currentBookInfo.name} {chapterVersePickerStep === 'verse' ? <span className="font-sans font-bold tracking-tight text-xl sm:text-2xl">Pasal {pickingChapter}</span> : ''}
                 </h3>
               </div>
