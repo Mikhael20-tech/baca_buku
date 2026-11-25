@@ -649,26 +649,12 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
           </button>
 
           <button
-            onClick={() => {
-              setAddModalTab('bible');
-              setIsSearchOpen(true);
-            }}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-semibold border border-white/10 transition"
-            title="Tambah Ayat Alkitab ke Setlist"
-          >
-            <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden sm:inline">+ Alkitab</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setAddModalTab('kidung');
-              setIsSearchOpen(true);
-            }}
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#3B4B34] hover:bg-[#475b3e] text-white text-xs font-semibold border border-white/15 transition shadow-sm"
+            onClick={() => setIsSearchOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#3B4B34] hover:bg-[#475b3e] text-white text-xs font-semibold border border-white/15 transition shadow-sm cursor-pointer"
+            title="Tambah Kidung, Suplemen, atau Ayat Alkitab ke Setlist"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Tambah Kidung</span>
+            <span className="hidden sm:inline">Tambah Materi</span>
             <span className="sm:hidden">Materi</span>
           </button>
 
