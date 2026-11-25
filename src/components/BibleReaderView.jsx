@@ -2098,9 +2098,16 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
 
           {/* Isi Ayat-Ayat */}
           {isLoading ? (
-            <div className="py-24 text-center space-y-3">
-              <div className="w-10 h-10 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
-              <p className="text-xs text-slate-500 font-medium">Memuat firman Tuhan...</p>
+            <div className="py-20 text-center space-y-4 flex flex-col items-center justify-center">
+              <div className="p-6 rounded-[28px] bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/80 dark:border-white/10 shadow-sm flex flex-col items-center space-y-3">
+                <div className="relative w-7 h-7">
+                  <div className="w-7 h-7 rounded-full border-2 border-[#3B4B34]/15 dark:border-white/15"></div>
+                  <div className="absolute inset-0 w-7 h-7 rounded-full border-2 border-transparent border-t-[#3B4B34] dark:border-t-emerald-400 animate-spin"></div>
+                </div>
+                <p className="text-xs font-sans font-medium text-[#1C1917]/60 dark:text-zinc-400 tracking-wide">
+                  {isEnBible ? 'Preparing scripture passage...' : 'Menyiapkan firman Tuhan...'}
+                </p>
+              </div>
             </div>
           ) : filteredVerses.length === 0 ? (
             <div className="py-16 text-center text-slate-400 text-xs">

@@ -66,9 +66,26 @@ const PresenterConsole = lazyWithRetry(() => import('./pages/PresenterConsole'),
 const LiveOutput = lazyWithRetry(() => import('./pages/LiveOutput'), 'LiveOutput');
 
 const ViewLoadingFallback = ({ text = 'Memuat...' }) => (
-  <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-[#3B4B34]">
-    <div className="w-9 h-9 border-3 border-[#3B4B34]/25 border-t-[#3B4B34] rounded-full animate-spin mb-2.5"></div>
-    <p className="text-xs font-semibold tracking-wider uppercase font-mono text-stone-600">{text}</p>
+  <div className="min-h-screen w-full flex flex-col items-center justify-center p-6 bg-[#FAF7F2] dark:bg-[#121214] text-[#1C1917] dark:text-[#F4EFE6] select-none transition-colors">
+    <div className="p-8 sm:p-10 rounded-[32px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.07)] flex flex-col items-center justify-center space-y-4 max-w-xs w-full text-center animate-modal-card-in">
+      <div className="w-14 h-14 rounded-2xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 border border-[#3B4B34]/20 dark:border-emerald-500/20 flex items-center justify-center text-[#3B4B34] dark:text-emerald-400 shadow-2xs">
+        <BookOpen className="w-7 h-7" />
+      </div>
+      
+      <div className="space-y-1">
+        <h3 className="font-bodoni font-bold text-xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+          Baca
+        </h3>
+        <p className="text-xs font-sans font-medium text-[#1C1917]/60 dark:text-zinc-400 tracking-wide">
+          {text}
+        </p>
+      </div>
+
+      <div className="relative w-6 h-6 pt-1">
+        <div className="w-6 h-6 rounded-full border-2 border-[#3B4B34]/15 dark:border-white/15"></div>
+        <div className="absolute inset-0 top-1 w-6 h-6 rounded-full border-2 border-transparent border-t-[#3B4B34] dark:border-t-emerald-400 animate-spin"></div>
+      </div>
+    </div>
   </div>
 );
 
