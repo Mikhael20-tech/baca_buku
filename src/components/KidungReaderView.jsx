@@ -359,7 +359,7 @@ export default function KidungReaderView({
           <div className="w-14 h-14 rounded-2xl bg-[#3B4B34]/10 dark:bg-emerald-500/15 border border-[#3B4B34]/20 dark:border-emerald-500/20 flex items-center justify-center text-[#3B4B34] dark:text-emerald-400 shadow-2xs">
             <Music className="w-7 h-7" />
           </div>
-          <h2 className="text-xl font-bold font-bodoni text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+          <h2 className="text-xl font-bold font-sans text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
             Kidung Rohani &amp; Suplemen
           </h2>
           <div className="relative w-6 h-6 pt-1">
@@ -486,18 +486,6 @@ export default function KidungReaderView({
               {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
               <span className="hidden md:inline font-medium">Salin</span>
             </button>
-
-            {/* Live Stage Presenter Console */}
-            {onOpenPresenter && (
-              <button
-                onClick={onOpenPresenter}
-                className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition text-xs flex items-center gap-1 border border-amber-600/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 font-semibold"
-                title="Buka Live Stage Presenter Console untuk Proyektor"
-              >
-                <Tv className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                <span className="hidden md:inline">Live Stage</span>
-              </button>
-            )}
           </div>
         </header>
 
@@ -1075,7 +1063,7 @@ export default function KidungReaderView({
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="font-bodoni font-bold text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">Kidung</h1>
+            <h1 className="font-sans font-bold text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">Kidung</h1>
           </div>
         </div>
 
@@ -1219,7 +1207,7 @@ export default function KidungReaderView({
               >
                 {/* Nama Kategori */}
                 <div className="flex items-center min-w-0">
-                  <span className="font-bodoni font-medium text-base sm:text-lg text-[#1C1917] dark:text-[#F4EFE6] group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 transition tracking-tight truncate">
+                  <span className="font-sans font-semibold text-base sm:text-lg text-[#1C1917] dark:text-[#F4EFE6] group-hover:text-[#3B4B34] dark:group-hover:text-emerald-400 transition tracking-tight truncate">
                     {cat.name}
                   </span>
                 </div>

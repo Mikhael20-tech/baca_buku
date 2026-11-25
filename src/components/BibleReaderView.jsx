@@ -249,6 +249,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
   const [contentWidth, setContentWidth] = useState(() => localStorage.getItem('bible_content_width') || 'wide'); // 'normal' | 'wide'
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isVersionMenuOpen, setIsVersionMenuOpen] = useState(false);
+  const [openParallelDropdown, setOpenParallelDropdown] = useState(null); // 'left' | 'right' | null
   const [isDistractionFree, setIsDistractionFree] = useState(false);
   const [copiedVerse, setCopiedVerse] = useState(null);
 
@@ -978,7 +979,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
               e.stopPropagation();
               setPreviewReference({ text: part, lang: footnoteLang });
             }}
-            className="inline-flex items-center px-2 py-0.5 mx-0.5 rounded-lg font-mono text-xs sm:text-sm font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-900 border border-amber-300/80 dark:border-amber-700/80 underline decoration-amber-500 hover:decoration-amber-700 transition select-none cursor-pointer shadow-2xs"
+            className="inline-flex items-center px-2.5 py-0.5 mx-0.5 rounded-full font-sans text-xs sm:text-[13px] font-bold bg-[#3B4B34]/10 dark:bg-emerald-500/15 text-[#3B4B34] dark:text-emerald-300 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:hover:bg-emerald-500/30 border border-[#3B4B34]/20 dark:border-emerald-500/30 transition-all duration-150 select-none cursor-pointer shadow-2xs"
             title={`Lihat ayat rujukan: ${part}`}
           >
             {part}
@@ -1093,7 +1094,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                       }
                       setIsBookPickerOpen(true);
                     }}
-                    className={`px-3.5 h-8 rounded-full text-base sm:text-lg font-bodoni font-bold tracking-[0.02em] flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
+                    className={`px-3.5 h-8 rounded-full text-sm sm:text-base font-sans font-bold tracking-tight flex items-center gap-1.5 ${themeStyles.text} hover:text-[#3B4B34] dark:hover:text-emerald-400 hover:bg-black/[0.03] dark:hover:bg-white/[0.06] transition cursor-pointer`}
                     title={isEnBible ? 'Select Book' : 'Pilih Kitab'}
                   >
                     <span className="truncate max-w-[120px] lg:max-w-[170px] xl:max-w-[210px]">
@@ -1365,7 +1366,7 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     }
                     setIsBookPickerOpen(true);
                   }}
-                  className={`px-2 h-7 rounded-full text-sm font-bodoni font-bold tracking-[0.01em] flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
+                  className={`px-2 h-7 rounded-full text-sm font-sans font-bold tracking-tight flex items-center gap-1 ${themeStyles.text} truncate min-w-0 cursor-pointer`}
                 >
                   <span className="truncate max-w-[78px] xs:max-w-[100px]">{currentBookInfo.name}</span>
                   <ChevronDown className="w-3 h-3 opacity-45 shrink-0" />
@@ -1476,11 +1477,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
       {isVersionMenuOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsVersionMenuOpen(false)} />
-          <div className="fixed top-14 right-3 z-50 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl p-3 shadow-2xl w-64 space-y-2">
-            <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 dark:border-zinc-800">
-              <span className="text-xs font-bold text-slate-700 dark:text-zinc-200">Pilih Terjemahan</span>
-              <button onClick={() => setIsVersionMenuOpen(false)} className="text-slate-400 hover:text-slate-600">
-                <X className="w-4 h-4" />
+          <div className="fixed top-14 right-3 z-50 bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 rounded-3xl p-3.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] w-68 space-y-2.5 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-right">
+            <div className="flex items-center justify-between pb-2 border-b border-black/8 dark:border-white/10 px-1">
+              <span className="text-xs font-bold tracking-wide text-[#1C1917] dark:text-[#F4EFE6]">Pilih Terjemahan Alkitab</span>
+              <button onClick={() => setIsVersionMenuOpen(false)} className="w-6 h-6 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-slate-500 hover:text-slate-800 dark:text-zinc-400 transition">
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
             <div className="grid grid-cols-2 gap-1.5">
@@ -1963,26 +1964,63 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
             );
           })()}
 
-          {/* Bar Kontrol Mode Paralel (Pilih Terjemahan Kiri & Kanan) */}
+          {/* Bar Kontrol Mode Paralel (Pilih Terjemahan Kiri & Kanan - Artistic Animated Dropdown) */}
           {viewMode === 'parallel' && (
-            <div className="mb-4 p-2.5 sm:p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 backdrop-blur-xs flex flex-wrap items-center justify-between gap-2 shadow-2xs">
-              <div className="flex items-center gap-2 flex-1 min-w-[130px]">
-                <span className="text-[10px] font-bold uppercase text-slate-500 dark:text-zinc-400 tracking-wider">Kiri:</span>
-                <select
-                  value={parallelLeftLang}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setParallelLeftLang(val);
-                    localStorage.setItem('bible_parallel_left', val);
-                  }}
-                  className="px-2.5 py-1 text-xs font-bold rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-800 dark:text-zinc-100 shadow-2xs focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
+            <div className="mb-5 p-2.5 sm:p-3 rounded-3xl bg-[#3B4B34]/[0.06] dark:bg-white/[0.04] border border-[#3B4B34]/15 dark:border-white/10 backdrop-blur-xl flex flex-wrap items-center justify-between gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-30">
+              {openParallelDropdown && (
+                <div className="fixed inset-0 z-30" onClick={() => setOpenParallelDropdown(null)} />
+              )}
+
+              {/* Dropdown Kiri */}
+              <div className="relative flex items-center gap-2 flex-1 min-w-[140px] z-40">
+                <span className="text-[10px] font-bold uppercase text-[#1C1917]/55 dark:text-zinc-400 tracking-widest shrink-0">Kiri</span>
+                <button
+                  type="button"
+                  onClick={() => setOpenParallelDropdown(prev => prev === 'left' ? null : 'left')}
+                  className="flex-1 flex items-center justify-between gap-2 px-3.5 py-2 text-xs font-sans font-bold rounded-2xl border border-white/80 dark:border-white/15 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-xl text-[#1C1917] dark:text-[#F4EFE6] shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.98]"
                 >
-                  {PARALLEL_TRANSLATIONS.map(t => (
-                    <option key={t.id} value={t.id}>{t.code} - {t.name}</option>
-                  ))}
-                </select>
+                  <span className="truncate">
+                    {PARALLEL_TRANSLATIONS.find(t => t.id === parallelLeftLang)?.code} – {PARALLEL_TRANSLATIONS.find(t => t.id === parallelLeftLang)?.name}
+                  </span>
+                  <ChevronDown className={`w-3.5 h-3.5 opacity-60 shrink-0 transition-transform duration-200 ${openParallelDropdown === 'left' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {openParallelDropdown === 'left' && (
+                  <div className="absolute left-0 top-full mt-2 w-64 sm:w-72 rounded-3xl bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] p-1.5 space-y-0.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-left">
+                    {PARALLEL_TRANSLATIONS.map(t => {
+                      const isSelected = parallelLeftLang === t.id;
+                      return (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => {
+                            setParallelLeftLang(t.id);
+                            localStorage.setItem('bible_parallel_left', t.id);
+                            setOpenParallelDropdown(null);
+                          }}
+                          className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-2xl text-left text-xs font-sans transition-all duration-150 cursor-pointer ${
+                            isSelected
+                              ? 'bg-[#3B4B34] text-[#F4EFE6] font-bold shadow-sm'
+                              : 'text-[#1C1917] dark:text-[#F4EFE6] hover:bg-[#3B4B34]/10 dark:hover:bg-white/10 font-medium'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold tracking-wider shrink-0 ${
+                              isSelected ? 'bg-white/20 text-white' : 'bg-[#3B4B34]/10 dark:bg-white/10 text-[#3B4B34] dark:text-emerald-300'
+                            }`}>
+                              {t.code}
+                            </span>
+                            <span className="truncate">{t.name}</span>
+                          </div>
+                          {isSelected && <Check className="w-3.5 h-3.5 shrink-0" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
+              {/* Tombol Tukar */}
               <button
                 type="button"
                 onClick={() => {
@@ -1991,29 +2029,62 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                   setParallelRightLang(temp);
                   localStorage.setItem('bible_parallel_left', parallelRightLang);
                   localStorage.setItem('bible_parallel_right', temp);
+                  setOpenParallelDropdown(null);
                 }}
-                className="p-1.5 rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-amber-500/15 text-slate-600 dark:text-zinc-300 transition shadow-2xs cursor-pointer active:scale-95 flex items-center gap-1 text-[11px] font-bold"
+                className="px-3 py-2 rounded-2xl border border-white/80 dark:border-white/15 bg-white/85 dark:bg-zinc-800/85 hover:bg-[#3B4B34] hover:text-[#F4EFE6] text-[#3B4B34] dark:text-emerald-300 transition-all duration-200 shadow-xs cursor-pointer active:scale-95 flex items-center gap-1.5 text-xs font-bold z-40 group"
                 title="Tukar Posisi Terjemahan"
               >
-                <ArrowLeftRight className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <ArrowLeftRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
                 <span className="hidden sm:inline">Tukar</span>
               </button>
 
-              <div className="flex items-center gap-2 flex-1 min-w-[130px] justify-end">
-                <span className="text-[10px] font-bold uppercase text-slate-500 dark:text-zinc-400 tracking-wider">Kanan:</span>
-                <select
-                  value={parallelRightLang}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setParallelRightLang(val);
-                    localStorage.setItem('bible_parallel_right', val);
-                  }}
-                  className="px-2.5 py-1 text-xs font-bold rounded-xl border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-slate-800 dark:text-zinc-100 shadow-2xs focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
+              {/* Dropdown Kanan */}
+              <div className="relative flex items-center gap-2 flex-1 min-w-[140px] justify-end z-40">
+                <span className="text-[10px] font-bold uppercase text-[#1C1917]/55 dark:text-zinc-400 tracking-widest shrink-0">Kanan</span>
+                <button
+                  type="button"
+                  onClick={() => setOpenParallelDropdown(prev => prev === 'right' ? null : 'right')}
+                  className="flex-1 flex items-center justify-between gap-2 px-3.5 py-2 text-xs font-sans font-bold rounded-2xl border border-white/80 dark:border-white/15 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-xl text-[#1C1917] dark:text-[#F4EFE6] shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer active:scale-[0.98]"
                 >
-                  {PARALLEL_TRANSLATIONS.map(t => (
-                    <option key={t.id} value={t.id}>{t.code} - {t.name}</option>
-                  ))}
-                </select>
+                  <span className="truncate">
+                    {PARALLEL_TRANSLATIONS.find(t => t.id === parallelRightLang)?.code} – {PARALLEL_TRANSLATIONS.find(t => t.id === parallelRightLang)?.name}
+                  </span>
+                  <ChevronDown className={`w-3.5 h-3.5 opacity-60 shrink-0 transition-transform duration-200 ${openParallelDropdown === 'right' ? 'rotate-180' : ''}`} />
+                </button>
+
+                {openParallelDropdown === 'right' && (
+                  <div className="absolute right-0 top-full mt-2 w-64 sm:w-72 rounded-3xl bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 border border-white/80 dark:border-white/15 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] p-1.5 space-y-0.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-right">
+                    {PARALLEL_TRANSLATIONS.map(t => {
+                      const isSelected = parallelRightLang === t.id;
+                      return (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => {
+                            setParallelRightLang(t.id);
+                            localStorage.setItem('bible_parallel_right', t.id);
+                            setOpenParallelDropdown(null);
+                          }}
+                          className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-2xl text-left text-xs font-sans transition-all duration-150 cursor-pointer ${
+                            isSelected
+                              ? 'bg-[#3B4B34] text-[#F4EFE6] font-bold shadow-sm'
+                              : 'text-[#1C1917] dark:text-[#F4EFE6] hover:bg-[#3B4B34]/10 dark:hover:bg-white/10 font-medium'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold tracking-wider shrink-0 ${
+                              isSelected ? 'bg-white/20 text-white' : 'bg-[#3B4B34]/10 dark:bg-white/10 text-[#3B4B34] dark:text-emerald-300'
+                            }`}>
+                              {t.code}
+                            </span>
+                            <span className="truncate">{t.name}</span>
+                          </div>
+                          {isSelected && <Check className="w-3.5 h-3.5 shrink-0" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           )}
