@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useStageSync } from '../hooks/useStageSync';
 import { chunkTextToSlides } from '../utils/chunkLyrics';
 import { SongSetItem, DisplayMode, SlideItem } from '../types/stage';
-import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone, Type, Sliders, Monitor } from 'lucide-react';
+import { Plus, Search, ExternalLink, ArrowLeft, Trash2, Music, MessageSquarePlus, Palette, Radio, Megaphone, Type, Sliders, Monitor, BookOpen, ChevronDown, Check } from 'lucide-react';
 
 const QUICK_TICKER_PRESETS = [
   'Selamat datang dalam persekutuan & ibadah hari ini. Tuhan Yesus memberkati.',
@@ -194,6 +194,55 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   const [searchKidungQuery, setSearchKidungQuery] = useState('');
   const [allKidungData, setAllKidungData] = useState<any[]>([]);
   const [isLoadingKidung, setIsLoadingKidung] = useState(false);
+  const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
+  const [addModalTab, setAddModalTab] = useState<'kidung' | 'bible'>('kidung');
+  const [kidungFilter, setKidungFilter] = useState<'all' | 'kidung' | 'suplemen'>('all');
+
+  // Bible Picker State for Live Stage
+  const [bibleBooks, setBibleBooks] = useState<any[]>([]);
+  const [bibleVersion, setBibleVersion] = useState<'id' | 'tb' | 'en'>('id');
+  const [selectedBibleBookId, setSelectedBibleBookId] = useState<string>('yohanes');
+  const [selectedBibleChapter, setSelectedBibleChapter] = useState<number>(3);
+  const [bibleChapterVerses, setBibleChapterVerses] = useState<any[]>([]);
+  const [bibleVerseStart, setBibleVerseStart] = useState<number>(16);
+  const [bibleVerseEnd, setBibleVerseEnd] = useState<number>(16);
+  const [isLoadingBible, setIsLoadingBible] = useState(false);
+
+  // Load Bible books metadata when modal opens on Bible tab
+  useEffect(() => {
+    if (isSearchOpen && addModalTab === 'bible' && bibleBooks.length === 0) {
+      fetch('/bible/books.json')
+        .then((r) => r.json())
+        .then((data) => {
+          if (Array.isArray(data)) setBibleBooks(data);
+        })
+        .catch(() => {});
+    }
+  }, [isSearchOpen, addModalTab, bibleBooks.length]);
+
+  // Load selected Bible book & chapter verses
+  useEffect(() => {
+    if (!isSearchOpen || addModalTab !== 'bible' || !selectedBibleBookId) return;
+    setIsLoadingBible(true);
+    const prefix = bibleVersion === 'id' ? '/bible' : `/bible/${bibleVersion}`;
+    fetch(`${prefix}/${selectedBibleBookId}.json`)
+      .then((r) => r.json())
+      .then((bookJson) => {
+        const chap = bookJson?.chapters?.[selectedBibleChapter] || bookJson?.chapters?.[String(selectedBibleChapter)];
+        const verses = Array.isArray(chap?.verses) ? chap.verses : [];
+        setBibleChapterVerses(verses);
+        if (verses.length > 0) {
+          const maxV = verses[verses.length - 1].verse || verses.length;
+          setBibleVerseStart((prev) => Math.min(prev, maxV));
+          setBibleVerseEnd((prev) => Math.min(Math.max(prev, 1), maxV));
+        }
+        setIsLoadingBible(false);
+      })
+      .catch(() => {
+        setBibleChapterVerses([]);
+        setIsLoadingBible(false);
+      });
+  }, [isSearchOpen, addModalTab, selectedBibleBookId, selectedBibleChapter, bibleVersion]);
 
   // Ambil data kidung saat modal pencarian dibuka
   useEffect(() => {
@@ -421,15 +470,50 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
     window.open(targetUrl, 'LiveStageWindow', 'width=1280,height=720,menubar=no,toolbar=no');
   };
 
+  const addBibleToSetlist = () => {
+    const startV = Math.min(bibleVerseStart, bibleVerseEnd);
+    const endV = Math.max(bibleVerseStart, bibleVerseEnd);
+    const picked = bibleChapterVerses.filter((v) => v.verse >= startV && v.verse <= endV);
+    if (picked.length === 0) return;
+
+    const bookObj = bibleBooks.find((b) => b.id === selectedBibleBookId);
+    const bookLabel = bibleVersion === 'en' ? (bookObj?.nameEn || bookObj?.name || selectedBibleBookId) : (bookObj?.name || selectedBibleBookId);
+    const verCode = bibleVersion === 'id' ? 'AVP' : bibleVersion === 'tb' ? 'TB' : 'RCV';
+    const refRange = startV === endV ? `${startV}` : `${startV}–${endV}`;
+    const title = `${bookLabel} ${selectedBibleChapter}:${refRange} (${verCode})`;
+
+    const slides: SlideItem[] = picked.map((v, idx) => ({
+      id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${v.verse}-${idx}`,
+      label: `Ayat ${v.verse}`,
+      content: `${v.verse}. ${v.text}`,
+    }));
+
+    const item: SongSetItem = {
+      id: `bible-${selectedBibleBookId}-${selectedBibleChapter}-${startV}-${endV}-${Date.now()}`,
+      title,
+      subtitle: 'Ayat Alkitab',
+      rawText: picked.map((v) => `${v.verse}. ${v.text}`).join('\n\n'),
+      slides,
+    };
+
+    setSetlist((prev) => [...prev, item]);
+    goToSlide(item, 0, 'LIVE');
+    setIsSearchOpen(false);
+  };
+
   const filteredKidung = allKidungData.filter((k) => {
+    if (kidungFilter !== 'all' && (k.type || 'kidung') !== kidungFilter) return false;
     if (!searchKidungQuery.trim()) return true;
-    const q = searchKidungQuery.toLowerCase();
+    const q = searchKidungQuery.trim().toLowerCase();
+    const typeLabel = k.type === 'suplemen' ? 'suplemen' : 'kidung';
     return (
-      String(k.formattedNumber || k.id).includes(q) ||
+      typeLabel.includes(q) ||
+      String(k.formattedNumber || k.id || '').toLowerCase().includes(q) ||
       (k.title && k.title.toLowerCase().includes(q)) ||
+      (k.firstLine && k.firstLine.toLowerCase().includes(q)) ||
       (k.category && k.category.toLowerCase().includes(q))
     );
-  }).slice(0, 30);
+  }).slice(0, 40);
 
   return (
     <div className="min-h-screen md:h-screen md:overflow-hidden bg-zinc-950 text-zinc-100 flex flex-col font-sans select-none">
@@ -476,19 +560,57 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
             </span>
           </button>
 
-          {/* Pilihan Tema Layar Output */}
-          <div className="hidden xl:flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-xl text-xs">
-            <Palette className="w-3.5 h-3.5 text-zinc-400" />
-            <span className="text-zinc-400">Tema:</span>
-            <select
-              value={stageTheme}
-              onChange={(e) => handleThemeChange(e.target.value as any)}
-              className="bg-transparent border-none outline-none text-zinc-200 text-xs font-semibold cursor-pointer"
+          {/* Pilihan Tema Layar Output (Artistic Animated Dropdown) */}
+          <div className="relative hidden md:block">
+            {isThemeDropdownOpen && (
+              <div className="fixed inset-0 z-30" onClick={() => setIsThemeDropdownOpen(false)} />
+            )}
+            <button
+              type="button"
+              onClick={() => setIsThemeDropdownOpen((prev) => !prev)}
+              className="relative z-40 flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-xl text-xs font-semibold text-zinc-200 transition-all cursor-pointer active:scale-95"
             >
-              <option value="default" className="bg-zinc-900 text-white">Default (Tengah)</option>
-              <option value="amber-gold" className="bg-zinc-900 text-amber-300">Emas Elegan</option>
-              <option value="lower-third" className="bg-zinc-900 text-cyan-300">Lower-Third</option>
-            </select>
+              <Palette className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-zinc-400 hidden lg:inline">Tema:</span>
+              <span className={stageTheme === 'amber-gold' ? 'text-amber-300' : stageTheme === 'lower-third' ? 'text-cyan-300' : 'text-white'}>
+                {stageTheme === 'amber-gold' ? 'Emas Elegan' : stageTheme === 'lower-third' ? 'Lower-Third' : 'Default (Tengah)'}
+              </span>
+              <ChevronDown className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${isThemeDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isThemeDropdownOpen && (
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-zinc-900/95 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.7)] p-1.5 space-y-0.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-200 origin-top-right">
+                {[
+                  { id: 'default', label: 'Default (Tengah)', desc: 'Latar hitam teks putih', dot: 'bg-white' },
+                  { id: 'amber-gold', label: 'Emas Elegan', desc: 'Nuansa emas hangat', dot: 'bg-amber-400' },
+                  { id: 'lower-third', label: 'Lower-Third', desc: 'Overlay bawah transparan', dot: 'bg-cyan-400' },
+                ].map((item) => {
+                  const active = stageTheme === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        handleThemeChange(item.id as any);
+                        setIsThemeDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl text-left transition-all cursor-pointer ${
+                        active ? 'bg-[#3B4B34]/70 text-white shadow-sm ring-1 ring-[#3B4B34]' : 'hover:bg-white/10 text-zinc-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${item.dot}`} />
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold truncate">{item.label}</div>
+                          <div className="text-[10px] text-zinc-400 truncate">{item.desc}</div>
+                        </div>
+                      </div>
+                      {active && <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <button
@@ -517,12 +639,27 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
           </button>
 
           <button
-            onClick={() => setIsSearchOpen(true)}
+            onClick={() => {
+              setAddModalTab('bible');
+              setIsSearchOpen(true);
+            }}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-semibold border border-white/10 transition"
+            title="Tambah Ayat Alkitab ke Setlist"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden sm:inline">+ Alkitab</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setAddModalTab('kidung');
+              setIsSearchOpen(true);
+            }}
             className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#3B4B34] hover:bg-[#475b3e] text-white text-xs font-semibold border border-white/15 transition shadow-sm"
           >
             <Plus className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Tambah Kidung</span>
-            <span className="sm:hidden">Kidung</span>
+            <span className="sm:hidden">Materi</span>
           </button>
 
           <button
@@ -735,15 +872,15 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
           </div>
         </main>
 
-        {/* Panel 3: Live Preview & Quick Controls */}
+        {/* Panel 3: Live Preview & Quick Controls (Zero-Scroll Compact Fit) */}
         <aside
-          className={`border-l border-zinc-800 p-3 md:p-4 bg-zinc-900/50 flex-col justify-between overflow-y-auto md:flex md:col-span-3 md:h-full ${
+          className={`border-l border-zinc-800 p-3 bg-zinc-900/50 flex-col justify-between overflow-y-auto md:overflow-hidden md:flex md:col-span-3 md:h-full ${
             activeConsoleTab === 'controls' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Pratinjau Layar (Live Preview)</h2>
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Pratinjau Layar</h2>
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                 state.mode === 'LIVE' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-zinc-800 text-zinc-500'
               }`}>
@@ -751,39 +888,38 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </span>
             </div>
 
-            <div className="aspect-video w-full rounded-2xl bg-black border border-white/10 p-4 flex flex-col items-center justify-center text-center overflow-hidden relative shadow-inner">
+            <div className="aspect-[16/8.2] w-full rounded-2xl bg-black border border-white/10 p-3 flex flex-col items-center justify-center text-center overflow-hidden relative shadow-inner">
               {state.mode === 'BLACKOUT' && (
-                <span className="text-xs text-zinc-600 font-mono">[Layar Hitam / Blackout]</span>
+                <span className="text-[11px] text-zinc-600 font-mono">[Layar Hitam / Blackout]</span>
               )}
               {state.mode === 'CLEAR' && (
-                <span className="text-xs text-zinc-500 font-mono">[Teks Disembunyikan (Clear)]</span>
+                <span className="text-[11px] text-zinc-500 font-mono">[Teks Disembunyikan (Clear)]</span>
               )}
               {state.mode === 'LIVE' && (
-                <p className="text-xs sm:text-sm whitespace-pre-line text-white font-semibold leading-relaxed">
+                <p className="text-[11px] whitespace-pre-line text-white font-semibold leading-snug line-clamp-4">
                   {state.content || 'Belum ada slide yang aktif'}
                 </p>
               )}
 
-              {/* Mini centered badge in preview */}
               {state.mode === 'LIVE' && state.title && (
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/80 px-2 py-0.5 rounded-full border border-white/10 text-[9px] text-zinc-300 truncate max-w-[85%] font-medium">
+                <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-black/80 px-2 py-0.5 rounded-full border border-white/10 text-[9px] text-zinc-300 truncate max-w-[88%] font-medium">
                   {state.title} • {state.slideIndex + 1}/{state.totalSlides}
                 </div>
               )}
 
               {state.tickerActive && state.tickerText && state.mode !== 'BLACKOUT' && (
-                <div className="absolute bottom-0 inset-x-0 bg-black/95 border-t border-amber-500/30 px-2 py-0.5 text-[10px] text-amber-300 flex items-center gap-1.5 overflow-hidden z-10">
+                <div className="absolute bottom-0 inset-x-0 bg-black/95 border-t border-amber-500/30 px-2 py-0.5 text-[9px] text-amber-300 flex items-center gap-1.5 overflow-hidden z-10">
                   <span className="font-bold shrink-0 uppercase text-[8px] bg-amber-500/30 text-amber-300 px-1 rounded">TICKER</span>
-                  <div className="truncate text-zinc-300 text-[10px]">{state.tickerText}</div>
+                  <div className="truncate text-zinc-300">{state.tickerText}</div>
                 </div>
               )}
             </div>
 
             {/* Quick Action Buttons */}
-            <div className="grid grid-cols-3 gap-2 mt-4">
+            <div className="grid grid-cols-3 gap-1.5">
               <button
                 onClick={() => setDisplayMode('LIVE')}
-                className={`py-2 rounded-xl text-xs font-bold border transition ${
+                className={`py-1.5 rounded-xl text-[11px] font-bold border transition ${
                   state.mode === 'LIVE'
                     ? 'bg-emerald-600 border-emerald-500 text-white shadow-sm'
                     : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
@@ -793,7 +929,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </button>
               <button
                 onClick={() => setDisplayMode('CLEAR')}
-                className={`py-2 rounded-xl text-xs font-bold border transition ${
+                className={`py-1.5 rounded-xl text-[11px] font-bold border transition ${
                   state.mode === 'CLEAR'
                     ? 'bg-amber-600 border-amber-500 text-white shadow-sm'
                     : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
@@ -803,7 +939,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
               </button>
               <button
                 onClick={() => setDisplayMode('BLACKOUT')}
-                className={`py-2 rounded-xl text-xs font-bold border transition ${
+                className={`py-1.5 rounded-xl text-[11px] font-bold border transition ${
                   state.mode === 'BLACKOUT'
                     ? 'bg-red-600 border-red-500 text-white shadow-sm'
                     : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:border-zinc-700'
@@ -814,63 +950,57 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
             </div>
 
             {/* Kontrol Cepat Ukuran Font Proyektor */}
-            <div className="mt-4 p-3 rounded-2xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-2">
+            <div className="p-2.5 rounded-2xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5 tracking-wide">
+                <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5">
                   <Type className="w-3.5 h-3.5 text-amber-400" />
-                  Ukuran Teks Proyektor
+                  Ukuran Teks
                 </span>
                 <button
                   onClick={() => setIsFontSizeModalOpen(true)}
                   className="text-[10px] text-amber-400 hover:text-amber-300 font-semibold"
                 >
-                  Pengaturan →
+                  Atur →
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800">
-                  <div className="text-[10px] text-zinc-400">Teks Lirik:</div>
-                  <div className="flex items-center justify-between mt-1">
-                    <button
-                      onClick={() => updateFontSizes(Math.max(28, contentFontSize - 4), undefined)}
-                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
-                    >
-                      -
-                    </button>
-                    <span className="font-mono font-bold text-white text-xs">{contentFontSize}px</span>
-                    <button
-                      onClick={() => updateFontSizes(Math.min(96, contentFontSize + 4), undefined)}
-                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
-                    >
-                      +
-                    </button>
-                  </div>
+              <div className="grid grid-cols-2 gap-1.5 text-xs">
+                <div className="px-2 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between">
+                  <button
+                    onClick={() => updateFontSizes(Math.max(28, contentFontSize - 4), undefined)}
+                    className="px-1.5 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 font-bold text-[11px]"
+                  >
+                    -
+                  </button>
+                  <span className="font-mono font-bold text-white text-[11px]">{contentFontSize}px</span>
+                  <button
+                    onClick={() => updateFontSizes(Math.min(96, contentFontSize + 4), undefined)}
+                    className="px-1.5 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 font-bold text-[11px]"
+                  >
+                    +
+                  </button>
                 </div>
-                <div className="p-2 rounded-xl bg-zinc-900 border border-zinc-800">
-                  <div className="text-[10px] text-zinc-400">Judul Bawah:</div>
-                  <div className="flex items-center justify-between mt-1">
-                    <button
-                      onClick={() => updateFontSizes(undefined, Math.max(10, badgeFontSize - 2))}
-                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
-                    >
-                      -
-                    </button>
-                    <span className="font-mono font-bold text-white text-xs">{badgeFontSize}px</span>
-                    <button
-                      onClick={() => updateFontSizes(undefined, Math.min(32, badgeFontSize + 2))}
-                      className="px-2 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 font-bold"
-                    >
-                      +
-                    </button>
-                  </div>
+                <div className="px-2 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between">
+                  <button
+                    onClick={() => updateFontSizes(undefined, Math.max(10, badgeFontSize - 2))}
+                    className="px-1.5 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 font-bold text-[11px]"
+                  >
+                    -
+                  </button>
+                  <span className="font-mono font-bold text-white text-[11px]">{badgeFontSize}px</span>
+                  <button
+                    onClick={() => updateFontSizes(undefined, Math.min(32, badgeFontSize + 2))}
+                    className="px-1.5 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 font-bold text-[11px]"
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>
 
             {/* Panel Kontrol Cepat Teks Berjalan (Ticker) */}
-            <div className="mt-4 p-3 rounded-2xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-2">
+            <div className="p-2.5 rounded-2xl bg-zinc-950/70 border border-zinc-800 flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5 tracking-wide">
+                <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1.5">
                   <span className={`w-2 h-2 rounded-full ${state.tickerActive ? 'bg-amber-400 animate-pulse' : 'bg-zinc-600'}`} />
                   Teks Berjalan
                 </span>
@@ -882,7 +1012,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                       : 'bg-zinc-800 text-zinc-400 hover:text-white border border-zinc-700'
                   }`}
                 >
-                  {state.tickerActive ? 'TAYANG (ON)' : 'MATI (OFF)'}
+                  {state.tickerActive ? 'ON' : 'OFF'}
                 </button>
               </div>
 
@@ -892,101 +1022,284 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                   value={tickerInput}
                   onChange={(e) => setTickerInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && applyTickerText()}
-                  placeholder="Ketik pengumuman berjalan..."
-                  className="w-full px-2.5 py-1.5 text-xs rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 placeholder-zinc-500 outline-none focus:border-amber-500"
+                  placeholder="Ketik pengumuman..."
+                  className="w-full px-2.5 py-1 text-xs rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 placeholder-zinc-500 outline-none focus:border-amber-500"
                 />
                 <button
                   onClick={() => applyTickerText()}
-                  className="px-2.5 py-1.5 text-xs font-bold rounded-xl bg-amber-600 hover:bg-amber-500 text-white shrink-0 transition"
-                  title="Tayangkan ke layar proyektor"
+                  className="px-2.5 py-1 text-[11px] font-bold rounded-xl bg-amber-600 hover:bg-amber-500 text-white shrink-0 transition"
                 >
                   Kirim
                 </button>
               </div>
 
-              {/* Tombol Preset Cepat */}
-              <div className="flex flex-col gap-1 mt-0.5">
-                {QUICK_TICKER_PRESETS.slice(0, 2).map((preset, i) => (
-                  <button
-                    key={i}
-                    onClick={() => {
-                      setTickerInput(preset);
-                      applyTickerText(preset);
-                    }}
-                    className="text-[10px] text-zinc-400 hover:text-amber-300 bg-zinc-900/90 px-2 py-1 rounded-lg border border-zinc-800/80 hover:border-zinc-700 transition truncate text-left"
-                    title={preset}
-                  >
-                    + {preset}
-                  </button>
-                ))}
-              </div>
+              <button
+                onClick={() => {
+                  const preset = QUICK_TICKER_PRESETS[0];
+                  setTickerInput(preset);
+                  applyTickerText(preset);
+                }}
+                className="text-[10px] text-zinc-400 hover:text-amber-300 bg-zinc-900/90 px-2 py-1 rounded-lg border border-zinc-800/80 hover:border-zinc-700 transition truncate text-left"
+                title={QUICK_TICKER_PRESETS[0]}
+              >
+                + {QUICK_TICKER_PRESETS[0]}
+              </button>
             </div>
           </div>
 
-          <div className="text-xs text-zinc-500 border-t border-zinc-800/80 pt-3 space-y-1 font-mono mt-4">
+          <div className="text-[10px] text-zinc-500 border-t border-zinc-800/80 pt-2 font-mono">
             <div className="text-zinc-400 font-semibold mb-1">Pintasan Keyboard:</div>
-            <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">Spasi</kbd> / <kbd className="px-1 py-0.5 bg-zinc-800 rounded">→</kbd> : Slide Selanjutnya</div>
-            <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">←</kbd> : Slide Sebelumnya</div>
-            <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">B</kbd> : Toggle Blackout</div>
-            <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">C</kbd> : Toggle Clear Teks</div>
-            <div>• <kbd className="px-1 py-0.5 bg-zinc-800 rounded">L</kbd> : Tampilkan Live</div>
+            <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+              <div><kbd className="px-1 bg-zinc-800 rounded">Spasi</kbd>/<kbd className="px-1 bg-zinc-800 rounded">→</kbd> Next</div>
+              <div><kbd className="px-1 bg-zinc-800 rounded">←</kbd> Prev</div>
+              <div><kbd className="px-1 bg-zinc-800 rounded">B</kbd> Blackout</div>
+              <div><kbd className="px-1 bg-zinc-800 rounded">C</kbd> Clear • <kbd className="px-1 bg-zinc-800 rounded">L</kbd> Live</div>
+            </div>
           </div>
         </aside>
       </div>
 
-      {/* Modal Dialog Cari & Tambah Kidung */}
+      {/* Modal Dialog Cari & Tambah Materi (Kidung, Suplemen & Ayat Alkitab) */}
       {isSearchOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl flex flex-col max-h-[85vh]">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Music className="w-5 h-5 text-amber-500" />
-                Tambah Kidung ke Setlist
-              </h3>
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150">
+          <div className="bg-zinc-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl w-full max-w-xl p-5 sm:p-6 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.8)] flex flex-col max-h-[88vh] animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2 p-1 rounded-2xl bg-black/40 border border-white/10">
+                <button
+                  type="button"
+                  onClick={() => setAddModalTab('kidung')}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                    addModalTab === 'kidung'
+                      ? 'bg-[#3B4B34] text-white shadow-sm'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <Music className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Kidung &amp; Suplemen</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAddModalTab('bible')}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                    addModalTab === 'bible'
+                      ? 'bg-[#3B4B34] text-white shadow-sm'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Ayat Alkitab</span>
+                </button>
+              </div>
               <button
                 onClick={() => setIsSearchOpen(false)}
-                className="text-zinc-400 hover:text-white text-sm"
+                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 text-zinc-400 hover:text-white flex items-center justify-center transition cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="mt-4 relative">
-              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3" />
-              <input
-                type="text"
-                placeholder="Cari nomor atau judul kidung (misal: 154, kasih, batu karang)..."
-                value={searchKidungQuery}
-                onChange={(e) => setSearchKidungQuery(e.target.value)}
-                autoFocus
-                className="w-full pl-10 pr-4 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-sm text-white placeholder-zinc-500 outline-none focus:border-blue-500"
-              />
-            </div>
+            {addModalTab === 'kidung' ? (
+              <>
+                <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-1">
+                    <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3" />
+                    <input
+                      type="text"
+                      placeholder="Cari nomor, judul, atau kata 'Suplemen'..."
+                      value={searchKidungQuery}
+                      onChange={(e) => setSearchKidungQuery(e.target.value)}
+                      autoFocus
+                      className="w-full pl-10 pr-4 py-2 rounded-2xl bg-zinc-800/80 border border-white/10 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500"
+                    />
+                  </div>
+                  <div className="flex p-1 rounded-2xl bg-black/40 border border-white/10 shrink-0">
+                    {[
+                      { id: 'all', label: 'Semua' },
+                      { id: 'kidung', label: 'Kidung' },
+                      { id: 'suplemen', label: 'Suplemen' },
+                    ].map((f) => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        onClick={() => setKidungFilter(f.id as any)}
+                        className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                          kidungFilter === f.id ? 'bg-amber-500 text-black' : 'text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        {f.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            <div className="mt-4 flex-1 overflow-y-auto space-y-2 pr-1">
-              {isLoadingKidung ? (
-                <div className="p-8 text-center text-xs text-zinc-500">Memuat basis data kidung...</div>
-              ) : filteredKidung.length === 0 ? (
-                <div className="p-8 text-center text-xs text-zinc-500">Kidung tidak ditemukan.</div>
-              ) : (
-                filteredKidung.map((k) => (
-                  <button
-                    key={`${k.type || 'kidung'}-${k.id}`}
-                    onClick={() => addSongToSetlist(k)}
-                    className="w-full text-left p-3 rounded-xl bg-zinc-850 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition flex items-center justify-between"
-                  >
-                    <div>
-                      <div className="text-sm font-semibold text-white">
-                        {k.type === 'suplemen' ? 'Suplemen' : 'Kidung'} #{k.formattedNumber || k.id}
-                        {k.title ? ` — ${k.title}` : ''}
-                      </div>
-                      {k.category && <div className="text-xs text-zinc-400 mt-0.5">{k.category}</div>}
-                    </div>
-                    <Plus className="w-4 h-4 text-emerald-400 shrink-0" />
-                  </button>
-                ))
-              )}
-            </div>
+                <div className="mt-4 flex-1 overflow-y-auto space-y-2 pr-1">
+                  {isLoadingKidung ? (
+                    <div className="p-8 text-center text-xs text-zinc-500">Memuat basis data kidung...</div>
+                  ) : filteredKidung.length === 0 ? (
+                    <div className="p-8 text-center text-xs text-zinc-500">Kidung atau Suplemen tidak ditemukan.</div>
+                  ) : (
+                    filteredKidung.map((k) => (
+                      <button
+                        key={`${k.type || 'kidung'}-${k.id}`}
+                        onClick={() => addSongToSetlist(k)}
+                        className="w-full text-left p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-emerald-500/40 transition flex items-center justify-between gap-3 cursor-pointer"
+                      >
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                              k.type === 'suplemen' ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'
+                            }`}>
+                              {k.type === 'suplemen' ? 'Suplemen' : 'Kidung'} {k.formattedNumber || k.id}
+                            </span>
+                            <span className="text-sm font-semibold text-white truncate">
+                              {k.title || k.firstLine || ''}
+                            </span>
+                          </div>
+                          {k.category && <div className="text-xs text-zinc-400 mt-1 truncate">{k.category}</div>}
+                        </div>
+                        <Plus className="w-4 h-4 text-emerald-400 shrink-0" />
+                      </button>
+                    ))
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="mt-4 flex-1 flex flex-col gap-3 overflow-y-auto pr-1">
+                {/* Pilih Terjemahan */}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Terjemahan</span>
+                  <div className="flex p-1 rounded-2xl bg-black/40 border border-white/10">
+                    {[
+                      { id: 'id', label: 'AVP' },
+                      { id: 'tb', label: 'TB (LAI)' },
+                      { id: 'en', label: 'RCV' },
+                    ].map((ver) => (
+                      <button
+                        key={ver.id}
+                        type="button"
+                        onClick={() => setBibleVersion(ver.id as any)}
+                        className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                          bibleVersion === ver.id ? 'bg-[#3B4B34] text-white' : 'text-zinc-400 hover:text-white'
+                        }`}
+                      >
+                        {ver.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pilih Kitab & Pasal */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div className="sm:col-span-2">
+                    <label className="text-[11px] font-bold text-zinc-400 block mb-1">Kitab</label>
+                    <select
+                      value={selectedBibleBookId}
+                      onChange={(e) => {
+                        setSelectedBibleBookId(e.target.value);
+                        setSelectedBibleChapter(1);
+                        setBibleVerseStart(1);
+                        setBibleVerseEnd(1);
+                      }}
+                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    >
+                      {bibleBooks.map((b) => (
+                        <option key={b.id} value={b.id} className="bg-zinc-900 text-white">
+                          {bibleVersion === 'en' ? (b.nameEn || b.name) : b.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-bold text-zinc-400 block mb-1">Pasal</label>
+                    <select
+                      value={selectedBibleChapter}
+                      onChange={(e) => {
+                        setSelectedBibleChapter(Number(e.target.value));
+                        setBibleVerseStart(1);
+                        setBibleVerseEnd(1);
+                      }}
+                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    >
+                      {Array.from(
+                        { length: bibleBooks.find((b) => b.id === selectedBibleBookId)?.chapters || 28 },
+                        (_, i) => i + 1
+                      ).map((c) => (
+                        <option key={c} value={c} className="bg-zinc-900 text-white">
+                          Pasal {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Pilih Rentang Ayat */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <div>
+                    <label className="text-[11px] font-bold text-zinc-400 block mb-1">Dari Ayat</label>
+                    <select
+                      value={bibleVerseStart}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setBibleVerseStart(val);
+                        if (bibleVerseEnd < val) setBibleVerseEnd(val);
+                      }}
+                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    >
+                      {bibleChapterVerses.map((v) => (
+                        <option key={v.verse} value={v.verse} className="bg-zinc-900 text-white">
+                          Ayat {v.verse}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-bold text-zinc-400 block mb-1">Sampai Ayat</label>
+                    <select
+                      value={bibleVerseEnd}
+                      onChange={(e) => setBibleVerseEnd(Number(e.target.value))}
+                      className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs font-semibold text-white outline-none focus:border-emerald-500 cursor-pointer"
+                    >
+                      {bibleChapterVerses
+                        .filter((v) => v.verse >= bibleVerseStart)
+                        .map((v) => (
+                          <option key={v.verse} value={v.verse} className="bg-zinc-900 text-white">
+                            Ayat {v.verse}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Pratinjau Ayat Terpilih */}
+                <div className="flex-1 min-h-[110px] max-h-48 overflow-y-auto p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                  {isLoadingBible ? (
+                    <div className="text-xs text-zinc-500 text-center py-4">Memuat ayat...</div>
+                  ) : bibleChapterVerses.length === 0 ? (
+                    <div className="text-xs text-zinc-500 text-center py-4">Ayat tidak tersedia.</div>
+                  ) : (
+                    bibleChapterVerses
+                      .filter((v) => v.verse >= Math.min(bibleVerseStart, bibleVerseEnd) && v.verse <= Math.max(bibleVerseStart, bibleVerseEnd))
+                      .map((v) => (
+                        <p key={v.verse} className="text-xs text-zinc-200 leading-relaxed">
+                          <span className="font-bold text-amber-400 mr-1.5">{v.verse}.</span>
+                          {v.text}
+                        </p>
+                      ))
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={addBibleToSetlist}
+                  disabled={isLoadingBible || bibleChapterVerses.length === 0}
+                  className="w-full py-2.5 rounded-2xl bg-[#3B4B34] hover:bg-[#495d40] disabled:opacity-40 text-white text-xs font-bold transition shadow-md cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Tambahkan Ayat ke Setlist &amp; Tayangkan</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
