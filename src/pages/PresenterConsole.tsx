@@ -432,7 +432,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
   }).slice(0, 30);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans select-none">
+    <div className="min-h-screen md:h-screen md:overflow-hidden bg-zinc-950 text-zinc-100 flex flex-col font-sans select-none">
       {/* Top Bar */}
       <header className="h-14 border-b border-white/10 px-3 sm:px-4 flex items-center justify-between bg-zinc-950/85 backdrop-blur-xl z-20">
         <div className="flex items-center gap-2.5 min-w-0">
@@ -536,8 +536,8 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
         </div>
       </header>
 
-      {/* Responsive Segmented Tabs for Split-Screen & Mobile (< lg) */}
-      <div className="lg:hidden flex items-center justify-around border-b border-white/10 bg-zinc-950/90 backdrop-blur px-2 py-2 gap-1.5 z-10 shrink-0">
+      {/* Responsive Segmented Tabs for Mobile (< md) */}
+      <div className="md:hidden flex items-center justify-around border-b border-white/10 bg-zinc-950/90 backdrop-blur px-2 py-2 gap-1.5 z-10 shrink-0">
         <button
           onClick={() => setActiveConsoleTab('queue')}
           className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 ${
@@ -576,7 +576,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
       <div className="flex-1 grid grid-cols-12 overflow-hidden h-[calc(100vh-3.5rem)]">
         {/* Panel 1: Setlist */}
         <aside
-          className={`border-r border-zinc-800 p-4 overflow-y-auto bg-zinc-900/50 flex-col justify-between lg:flex lg:col-span-3 lg:h-full ${
+          className={`border-r border-zinc-800 p-3 md:p-4 overflow-y-auto bg-zinc-900/50 flex-col justify-between md:flex md:col-span-3 md:h-full ${
             activeConsoleTab === 'queue' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
@@ -632,7 +632,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
 
         {/* Panel 2: Slide Grid */}
         <main
-          className={`p-4 sm:p-6 overflow-y-auto bg-zinc-950 flex-col lg:block lg:col-span-6 lg:h-full ${
+          className={`p-4 sm:p-5 overflow-y-auto bg-zinc-950 flex-col md:block md:col-span-6 md:h-full ${
             activeConsoleTab === 'slides' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
@@ -688,8 +688,8 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
             })}
           </div>
 
-          {/* Floating Operator Bar on Split-Screen / Mobile (< lg) */}
-          <div className="lg:hidden sticky bottom-2 inset-x-0 bg-zinc-950/95 backdrop-blur-xl border border-white/15 rounded-2xl p-2.5 shadow-2xl flex items-center justify-between gap-2 z-20 mt-auto">
+          {/* Floating Operator Bar on Mobile (< md) */}
+          <div className="md:hidden sticky bottom-2 inset-x-0 bg-zinc-950/95 backdrop-blur-xl border border-white/15 rounded-2xl p-2.5 shadow-2xl flex items-center justify-between gap-2 z-20 mt-auto">
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => goToSlide(selectedSong, activeSlideIdx - 1, 'LIVE')}
@@ -737,7 +737,7 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
 
         {/* Panel 3: Live Preview & Quick Controls */}
         <aside
-          className={`border-l border-zinc-800 p-4 bg-zinc-900/50 flex-col justify-between overflow-y-auto lg:flex lg:col-span-3 lg:h-full ${
+          className={`border-l border-zinc-800 p-3 md:p-4 bg-zinc-900/50 flex-col justify-between overflow-y-auto md:flex md:col-span-3 md:h-full ${
             activeConsoleTab === 'controls' ? 'flex col-span-12 h-full' : 'hidden'
           }`}
         >
