@@ -1640,15 +1640,17 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
                           {pickedVerses.map((v) => (
                             <p key={v.verse} className="text-xs text-zinc-200 leading-relaxed">
                               <span className="font-bold text-amber-400 mr-1.5">{v.verse}.</span>
-                              {bibleVersion === 'id' && v.marked_text
+                              {v.marked_text
                                 ? renderMarkedText(v.verse, v.marked_text)
                                 : v.text}
                             </p>
                           ))}
-                          {/* Catatan Kaki */}
-                          {bibleVersion === 'id' && relevantFn.length > 0 && (
+                          {/* Catatan Kaki / Footnotes */}
+                          {relevantFn.length > 0 && (
                             <div className="mt-2 pt-2 border-t border-white/10 space-y-1">
-                              <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Catatan Kaki</div>
+                              <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">
+                                {['id','tb'].includes(bibleVersion) ? 'Catatan Kaki' : 'Footnotes'}
+                              </div>
                               {relevantFn.map((fn, i) => {
                                 const superscripts = ['¹','²','³','⁴','⁵','⁶','⁷','⁸','⁹'];
                                 const fnGroup = relevantFn.filter((f) => f.verse === fn.verse);
