@@ -3,7 +3,7 @@ import {
   BookOpen, Search, CheckCircle2, 
   ExternalLink, X, BookmarkCheck, ArrowRight, BookMarked, 
   User, ChevronDown, LogIn, Settings, Users, Lock, Music,
-  Menu, Home, Utensils, ShieldCheck, Sparkles, Smartphone, Play, Info
+  Menu, Home, Utensils, ShieldCheck, Sparkles, Smartphone, Play, Info, Tv
 } from 'lucide-react';
 import { 
   DropdownMenu, 
@@ -1279,6 +1279,7 @@ export default function App() {
             setKidungInitialSongId(targetSongId);
             setViewMode('kidung');
           }}
+          onOpenPresenter={() => setViewMode('presenter')}
           onOpenQuickScripture={() => {
             if (!isLoggedIn) {
               openAuthModal('reader');
@@ -1456,6 +1457,19 @@ export default function App() {
             >
               <Music className="w-3.5 h-3.5 text-amber-400" />
               <span>Kidung</span>
+            </button>
+
+            <button
+              onClick={() => setViewMode('presenter')}
+              className={`px-2.5 lg:px-3 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 whitespace-nowrap ${
+                viewMode === 'presenter'
+                  ? 'bg-[#3B4B34] text-white shadow-xs'
+                  : 'text-[#78716C] hover:text-[#1C1917] hover:bg-stone-100'
+              }`}
+              title="Buka Live Stage Presenter Console (Proyektor)"
+            >
+              <Tv className="w-3.5 h-3.5 text-[#3B4B34]" />
+              <span>Live Stage</span>
             </button>
 
             {/* HANYA MUNCUL JIKA USER PEMBACA */}

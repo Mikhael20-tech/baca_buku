@@ -5,7 +5,7 @@ import {
   CheckCircle2, Utensils, MessageSquare, Quote, Layers,
   ChevronDown, BookMarked, Play, Star, Smartphone, RefreshCw,
   Send, User, Volume2, ChevronLeft, LogIn, Settings, Users, Search, Music,
-  Menu, X, Home
+  Menu, X, Home, Tv
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -89,6 +89,7 @@ export default function LandingPage({
   onEnterLibrary, 
   onOpenBible, 
   onOpenKidung,
+  onOpenPresenter,
   onOpenQuickScripture,
   onOpenLogin, 
   isLoggedIn, 
@@ -281,6 +282,20 @@ export default function LandingPage({
               <Music className="w-3.5 h-3.5 mr-1 text-amber-700" />
               <span>Kidung</span>
             </Button>
+
+            {/* Live Stage Presenter Button (lg+) */}
+            {onOpenPresenter && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onOpenPresenter}
+                className="hidden lg:inline-flex rounded-full text-xs font-bold border-[#3B4B34]/30 text-[#3B4B34] hover:bg-[#3B4B34]/10 bg-white/70 h-8 sm:h-9 px-3 sm:px-3.5 shadow-xs btn-lift whitespace-nowrap"
+                title="Buka Live Stage Presenter Console untuk Proyektor"
+              >
+                <Tv className="w-3.5 h-3.5 mr-1 text-[#3B4B34]" />
+                <span>Live Stage</span>
+              </Button>
+            )}
 
             {/* Katalog Buku Button (sm+: on mobile < sm, available in bottom nav & hamburger) */}
             <Button
@@ -514,6 +529,19 @@ export default function LandingPage({
                 <Music className="w-4 h-4 text-amber-700" />
                 <span>Kidung &amp; Suplemen</span>
               </button>
+
+              {onOpenPresenter && (
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenPresenter();
+                  }}
+                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#3B4B34]/10 border border-[#3B4B34]/20 text-[#3B4B34] shadow-xs active:scale-95 transition"
+                >
+                  <Tv className="w-4 h-4 text-[#3B4B34]" />
+                  <span>Live Stage (Proyektor)</span>
+                </button>
+              )}
 
               {isLoggedIn ? (
                 <button
