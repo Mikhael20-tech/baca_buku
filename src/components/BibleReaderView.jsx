@@ -2966,7 +2966,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                         key={vNum}
                         type="button"
                         onClick={() => handleSelectVerseFromPicker(vNum)}
-                        className="h-11 sm:h-12 rounded-xl border border-white/80 dark:border-white/10 bg-white/70 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:bg-white/5 dark:hover:bg-emerald-600 dark:hover:text-white backdrop-blur-md text-[#1C1917] dark:text-zinc-100 text-sm sm:text-base font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center shadow-[0_2px_6px_rgba(0,0,0,0.03)] cursor-pointer active:scale-[0.93]"
+                        style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
+                        className="h-11 sm:h-12 rounded-xl border border-white/80 dark:border-white/10 bg-white/70 hover:bg-[#3B4B34] hover:text-[#F4EFE6] dark:bg-white/5 dark:hover:bg-emerald-600 dark:hover:text-white backdrop-blur-md text-[#1C1917] dark:text-zinc-100 text-base sm:text-lg font-serif font-semibold tracking-normal tabular-nums transition-all duration-300 flex items-center justify-center shadow-[0_2px_6px_rgba(0,0,0,0.03)] hover:shadow-sm hover:-translate-y-0.5 cursor-pointer active:scale-[0.94]"
                         title={`Ayat ${vNum}`}
                       >
                         {vNum}
