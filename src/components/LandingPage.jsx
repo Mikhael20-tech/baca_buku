@@ -1219,10 +1219,10 @@ export default function LandingPage({
           <div className="reveal-item space-y-3">
             <span className="text-xs font-bold tracking-widest uppercase text-[#8E9C75]">Katalog Terpadu</span>
             <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#1C1917] tracking-tight">
-              Empat Hidangan Santapan Rohani
+              Ekosistem Pelayanan &amp; Santapan Rohani
             </h2>
             <p className="max-w-xl mx-auto text-sm sm:text-base text-[#57534E] leading-relaxed">
-              Disediakan khusus untuk menolong setiap orang beriman bertumbuh dalam hayat, mengenal kebenaran murni, dan melayani Tuhan.
+              Disediakan untuk menolong pribadi, persekutuan BFY, kelompok sel, hingga ibadah gereja bertumbuh dalam firman dan melayani bersama.
             </p>
           </div>
 
@@ -1458,7 +1458,7 @@ export default function LandingPage({
             <span className="italic font-light text-amber-200">Kecaplah dan Nikmatilah Kebaikan-Nya.</span>
           </h2>
           <p className="max-w-xl mx-auto text-sm text-[#A8A29E] leading-relaxed">
-            Tersedia paket Standart (Gratis), Premium, dan Ultimate untuk mendukung pertumbuhan rohani harian Anda.
+            Mulai dari studi firman pribadi, persekutuan BFY, hingga proyektor ibadah (Live Stage) dalam satu platform ringan.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -1468,7 +1468,7 @@ export default function LandingPage({
               className="w-full sm:w-auto rounded-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-8 py-6 shadow-xl text-sm btn-lift"
             >
               <BookOpen className="w-4 h-4 mr-2" />
-              Buka Alkitab Versi Pemulihan
+              Buka Alkitab (7 Terjemahan)
             </Button>
             <Button
               variant="outline"
@@ -1487,10 +1487,10 @@ export default function LandingPage({
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-serif font-bold text-sm text-[#1C1917]">Baca</span>
-            <span>• Pusat Pembacaan Firman &amp; Perpustakaan Hayat Digital</span>
+            <span>— Digital Ministry &amp; Worship Presenter Suite</span>
           </div>
           <div className="flex items-center gap-6">
-            <button onClick={onOpenBible} className="hover:text-[#1C1917] transition-colors">Alkitab (66 Kitab)</button>
+            <button onClick={onOpenBible} className="hover:text-[#1C1917] transition-colors">Alkitab (7 Terjemahan)</button>
             <button onClick={onEnterLibrary} className="hover:text-[#1C1917] transition-colors">Katalog Buku</button>
             {isLoggedIn && userRole === 'reader' && (
               <button onClick={onOpenUserDashboard} className="hover:text-[#1C1917] transition-colors font-bold text-[#3B4B34]">Dashboard Saya</button>
