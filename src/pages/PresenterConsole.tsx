@@ -907,11 +907,58 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
           }`}
         >
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-3 gap-1.5">
               <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Setlist Antrean</h2>
-              <span className="text-[10px] text-zinc-400 font-mono bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
-                {setlist.length} Lagu
-              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(setlist, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `setlist-ibadah-${new Date().toISOString().slice(0, 10)}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  title="Simpan / Export Setlist ke file JSON"
+                  className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-zinc-300 border border-white/10 transition cursor-pointer"
+                >
+                  Simpan
+                </button>
+                <label
+                  title="Muat / Import Setlist dari file JSON"
+                  className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/15 text-zinc-300 border border-white/10 transition cursor-pointer"
+                >
+                  Muat
+                  <input
+                    type="file"
+                    accept=".json,application/json"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      const reader = new FileReader();
+                      reader.onload = (ev) => {
+                        try {
+                          const parsed = JSON.parse(String(ev.target?.result || '[]'));
+                          if (Array.isArray(parsed) && parsed.length > 0) {
+                            setSetlist(parsed);
+                            goToSlide(parsed[0], 0, 'LIVE');
+                          }
+                        } catch {
+                          // ignore invalid json
+                        }
+                      };
+                      reader.readAsText(file);
+                      e.target.value = '';
+                    }}
+                  />
+                </label>
+                <span className="text-[10px] text-zinc-400 font-mono bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+                  {setlist.length}
+                </span>
+              </div>
             </div>
             <div className="space-y-2">
               {setlist.map((song, idx) => {
@@ -1445,6 +1492,38 @@ export default function PresenterConsole({ onBackToApp }: { onBackToApp?: () => 
 
             {addModalTab === 'bible' && (
               <div className="mt-4 flex-1 flex flex-col gap-3 overflow-visible">
+                {/* Pencarian Ayat Cepat (mis. Yoh 3:16 atau 1Kor 13:4-7) */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Loncat cepat: ketik mis. Yoh 3:16 atau 1Kor 13:4-7 lalu Enter..."
+                    onKeyDown={(e) => {
+                      if (e.key !== 'Enter') return;
+                      const raw = e.currentTarget.value.trim();
+                      const match = raw.match(/^(.+?)\s+(\d+)(?::(\d+)(?:\s*[-–]\s*(\d+))?)?$/);
+                      if (!match) return;
+                      const qBook = match[1].toLowerCase().replace(/\s+/g, '');
+                      const qChap = parseInt(match[2], 10);
+                      const qStart = match[3] ? parseInt(match[3], 10) : 1;
+                      const qEnd = match[4] ? parseInt(match[4], 10) : qStart;
+                      const foundBook = bibleBooks.find((b) => {
+                        const nId = (b.name || '').toLowerCase().replace(/\s+/g, '');
+                        const nEn = (b.nameEn || '').toLowerCase().replace(/\s+/g, '');
+                        const bId = (b.id || '').toLowerCase().replace(/\s+/g, '');
+                        return nId.startsWith(qBook) || nEn.startsWith(qBook) || bId.startsWith(qBook) || nId.includes(qBook);
+                      });
+                      if (foundBook) {
+                        setSelectedBibleBookId(foundBook.id);
+                        setSelectedBibleChapter(Math.max(1, Math.min(qChap, foundBook.chapters || 150)));
+                        setBibleVerseStart(qStart);
+                        setBibleVerseEnd(qEnd);
+                        setOpenBibleDropdown(null);
+                      }
+                    }}
+                    className="w-full px-3.5 py-2 rounded-2xl bg-black/40 border border-white/10 focus:border-[#3B4B34] focus:outline-none text-xs text-white placeholder:text-zinc-500"
+                  />
+                </div>
+
                 {/* Pilih Terjemahan (Semua 7 Versi) */}
                 <div className="flex flex-col gap-1.5">
                   <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Terjemahan</span>

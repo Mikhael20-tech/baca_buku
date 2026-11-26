@@ -74,7 +74,8 @@ export default function LiveOutput() {
 
       {/* Konten Utama (Dengan transisi halus untuk LIVE <-> CLEAR) */}
       <div
-        className={`w-full flex-1 flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
+        className={`w-full flex-1 flex flex-col justify-center items-center transition-all duration-500 ${
           state.mode === 'LIVE'
             ? 'opacity-100 scale-100'
             : 'opacity-0 scale-95 pointer-events-none'
