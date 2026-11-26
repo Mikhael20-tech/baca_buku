@@ -219,24 +219,18 @@ export default function LandingPage({
                 <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#1C1917] font-serif">
                   Baca.
                 </span>
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[#8E9C75]/25 text-[#3B4B34] border border-[#8E9C75]/30 whitespace-nowrap hidden 2xl:inline-flex">
-                  Mari Makan Tuhan
+                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#3B4B34]/10 text-[#3B4B34] border border-[#3B4B34]/20 whitespace-nowrap hidden 2xl:inline-flex">
+                  Ministry Suite
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden xl:block whitespace-nowrap">Perpustakaan Santapan Hayat &amp; Alkitab Pemulihan</p>
+              <p className="text-[11px] text-[#78716C] hidden xl:block whitespace-nowrap">Alkitab 7 Terjemahan &bull; Kidung &bull; Live Stage</p>
             </div>
           </div>
 
           {/* Navigation Links (Visible on desktop xl: 1280px+) */}
           <nav className="hidden xl:flex items-center gap-6 text-xs font-semibold text-[#78716C] shrink-0">
             <a href="#santapan" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">
-              Meja Perjamuan
-            </a>
-            <a href="#testimoni" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">
-              Testimoni &amp; Nikmat
-            </a>
-            <a href="#pilar" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">
-              4 Pilar
+              Fitur Utama
             </a>
             <a href="#faq" className="whitespace-nowrap hover:text-[#1C1917] transition-colors">
               Tanya Jawab
