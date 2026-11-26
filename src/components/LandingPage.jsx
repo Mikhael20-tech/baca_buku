@@ -648,7 +648,7 @@ export default function LandingPage({
           {/* Eyebrow Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8E9C75]/20 border border-[#8E9C75]/40 text-[#3B4B34] text-xs font-bold tracking-wider uppercase mb-7 shadow-xs w-anim" style={{ animationDelay: '100ms' }}>
             <Flame className="w-3.5 h-3.5 text-[#B96A4A] animate-pulse" />
-            <span>Pusat Doa-Makan Firman &amp; Santapan Hayat Rohani</span>
+            <span>Digital Ministry &amp; Worship Suite — Studi, BFY &amp; Live Stage</span>
           </div>
 
           {/* Majestic Hero Headline */}
@@ -666,7 +666,7 @@ export default function LandingPage({
             className="mt-8 mx-auto max-w-2xl text-base sm:text-lg text-[#57534E] leading-relaxed font-sans font-normal w-anim"
             style={{ animationDelay: '850ms' }}
           >
-            Bukan sekadar membaca huruf di pikiran, melainkan menyerap Kristus ke dalam batin roh kita melalui <span className="font-semibold text-[#1C1917]">doa-makan firman harian</span>, FKKP, dan santapan firman di Meja Perjamuan.
+            Satu platform ringan untuk <span className="font-semibold text-[#1C1917]">studi firman pribadi (7 terjemahan &amp; catatan kaki)</span>, persekutuan BFY &amp; kelompok sel, hingga <span className="font-semibold text-[#1C1917]">Live Stage Proyektor Ibadah</span> lengkap dengan Kidung, lagu kustom, dan presentasi.
           </p>
 
           {/* CTA Buttons */}
@@ -690,7 +690,7 @@ export default function LandingPage({
               className="w-full sm:w-auto rounded-full border-[#1C1917]/20 text-[#1C1917] hover:bg-[#1C1917]/5 bg-white/70 text-sm font-bold px-7 py-6 btn-lift gap-2"
             >
               <BookOpen className="w-4 h-4 text-[#3B4B34]" />
-              <span>Buka Alkitab (66 Kitab)</span>
+              <span>Buka Alkitab (7 Terjemahan)</span>
             </Button>
           </div>
 
