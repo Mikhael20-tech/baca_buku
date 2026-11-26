@@ -696,475 +696,84 @@ export default function LandingPage({
 
         </div>
 
-        {/* ===================== MEJA PERJAMUAN (FKKP RANGKUMAN FAJAR) ===================== */}
+        {/* ===================== SHOWCASE 3 PILAR UTAMA (LIVE STAGE, 7 TERJEMAHAN, BFY & KIDUNG) ===================== */}
         <div id="santapan" className="relative mt-14 sm:mt-18 max-w-[1140px] mx-auto px-4 sm:px-8 reveal-item scroll-mt-24">
-          
-          <div className="rounded-[32px] p-2.5 sm:p-4 bg-white/70 backdrop-blur-xl border border-white/90 shadow-2xl shadow-[#1C1917]/10 transition-all duration-500 hover:shadow-3xl">
-            <div className="rounded-[24px] overflow-hidden bg-[#FAF7F2] border border-[#1C1917]/8 flex flex-col md:flex-row text-left min-h-[480px]">
-              
-              {/* Left Navigation Sidebar */}
-              <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-[#1C1917]/8 bg-[#F2EDE4] p-5 flex flex-col justify-between shrink-0">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-3 border-b border-[#1C1917]/10">
-                    <span className="text-xl">🍞</span>
-                    <div>
-                      <h4 className="font-serif font-bold text-base text-[#1C1917] leading-tight flex items-center gap-1.5">
-                        <span>Meja Perjamuan</span>
-                        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                      </h4>
-                      <p className="text-[11px] text-[#78716C]">Rangkuman &amp; Santapan Hayat</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <button
-                      onClick={() => setActiveTab('fkkp')}
-                      className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-between gap-2 ${
-                        activeTab === 'fkkp'
-                          ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-sm translate-x-1'
-                          : 'text-[#57534E] hover:bg-[#1C1917]/5'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2 truncate">
-                        <Sunrise className="w-4 h-4 text-amber-300 shrink-0" />
-                        <span className="truncate">FKKP Rangkuman</span>
-                      </span>
-                      <span className="text-[10px] shrink-0 font-medium px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-300/30 whitespace-nowrap">
-                        Hari Ini
-                      </span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveTab('alkitab')}
-                      className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-between ${
-                        activeTab === 'alkitab'
-                          ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-sm translate-x-1'
-                          : 'text-[#57534E] hover:bg-[#1C1917]/5'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-amber-300" />
-                        <span>Alkitab Pemulihan</span>
-                      </span>
-                      <span className="text-[10px] opacity-70">66 Kitab</span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveTab('karakter')}
-                      className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-between ${
-                        activeTab === 'karakter'
-                          ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-sm translate-x-1'
-                          : 'text-[#57534E] hover:bg-[#1C1917]/5'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2">
-                        <Compass className="w-4 h-4 text-amber-300" />
-                        <span>Buku Karakter</span>
-                      </span>
-                      <span className="flex items-center gap-1 text-[10px] opacity-80">
-                        <span>30 Butir</span>
-                        <span className="text-[9px] font-bold text-amber-300 bg-amber-400/20 px-1 py-0.2 rounded">🔒 Premium</span>
-                      </span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveTab('pembinaan')}
-                      className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-between ${
-                        activeTab === 'pembinaan'
-                          ? 'bg-[#3B4B34] text-[#F4EFE6] shadow-sm translate-x-1'
-                          : 'text-[#57534E] hover:bg-[#1C1917]/5'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-amber-300" />
-                        <span>Pembinaan Dasar</span>
-                      </span>
-                      <span className="flex items-center gap-1 text-[10px] opacity-80">
-                        <span>46 Pelajaran</span>
-                        <span className="text-[9px] font-bold text-amber-300 bg-amber-400/20 px-1 py-0.2 rounded">🔒 Premium</span>
-                      </span>
-                    </button>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
+            {/* Pilar 1: Live Stage & Proyektor */}
+            <div className="rounded-[28px] p-6 sm:p-7 bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-[#1C1917]/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3B4B34]/10 text-[#3B4B34] text-[11px] font-bold uppercase tracking-wider mb-4">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Live Stage &amp; Proyektor</span>
                 </div>
-
-                <div className="pt-4 border-t border-[#1C1917]/8">
-                  <p className="text-[11px] text-[#78716C] italic leading-tight">
-                    "Manusia hidup bukan dari roti saja, tetapi dari setiap firman yang keluar dari mulut Allah."
-                  </p>
-                  <p className="text-[10px] font-bold text-[#3B4B34] mt-1">— Matius 4:4</p>
-                </div>
-              </aside>
-
-              {/* Main Preview Screen */}
-              <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between">
-                
-                {/* Header in Preview */}
-                <div className="flex items-center justify-between pb-4 border-b border-[#1C1917]/8">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#B96A4A] bg-[#B96A4A]/10 px-2.5 py-0.5 rounded-full flex items-center gap-1 w-fit">
-                      <Sparkles className="w-3 h-3 text-[#B96A4A]" />
-                      {activeTab === 'fkkp' ? 'FKKP Rangkuman Fajar (Bagi Nikmat Hari Ini)' : activeTab === 'alkitab' ? 'Wahyu Ilahi' : 'Pertumbuhan Rohani'}
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#1C1917] mt-1.5 transition-all duration-300">
-                      {activeTab === 'fkkp' && `Kaum Beriman: ${fkkpDay.badge} (Rangkuman Fajar)`}
-                      {activeTab === 'alkitab' && 'Injil Yohanes: Firman yang Menjadi Daging'}
-                      {activeTab === 'karakter' && 'Pembentukan Karakter yang Berguna bagi Tuhan'}
-                      {activeTab === 'pembinaan' && '46 Pokok Pelajaran Bagi Kaum Beriman Baru'}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Content Box with AI Digest */}
-                <div className="my-5 p-5 sm:p-6 rounded-2xl bg-white border border-[#1C1917]/8 shadow-sm space-y-4">
-                  {activeTab === 'fkkp' ? (
-                    <div className="space-y-3.5">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
-                          <Sparkles className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="font-serif text-lg sm:text-xl italic text-[#1C1917] leading-relaxed">
-                            "{fkkpDay.verse}"
-                          </p>
-                          <p className="text-xs font-bold text-[#8E9C75] mt-1">
-                            {fkkpDay.verseRef}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Summary Highlight */}
-                      <div className="p-4 rounded-xl bg-gradient-to-r from-amber-50 via-emerald-50/40 to-stone-50 border border-amber-200/60 text-xs leading-relaxed space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-amber-900 flex items-center gap-1 text-[11px] uppercase tracking-wider">
-                            <Sparkles className="w-3 h-3 text-amber-600" />
-                            Rangkuman Hayat ({fkkpDay.theme}):
-                          </span>
-                          <span className="text-[10px] text-stone-500">Disarikan dari Bahan FKKP Pagi</span>
-                        </div>
-                        <p className="text-stone-800 leading-relaxed">
-                          {fkkpDay.summary}
-                        </p>
-                        <p className="text-[#3B4B34] font-medium italic pt-1 border-t border-amber-200/40">
-                          Doa Serapan: "{fkkpDay.prayer}"
-                        </p>
-                      </div>
-                    </div>
-                  ) : activeTab === 'alkitab' ? (
-                    <div className="space-y-3.5">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
-                          <BookOpen className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="font-serif text-lg sm:text-xl italic text-[#1C1917] leading-relaxed">
-                            "Pada mulanya adalah Firman; Firman itu bersama-sama dengan Allah dan Firman itu adalah Allah... Di dalam Dia ada hidup dan hidup itu adalah terang manusia."
-                          </p>
-                          <p className="text-xs font-bold text-blue-800 mt-1">
-                            Yohanes 1:1, 4 • Alkitab Versi Pemulihan
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Alkitab Highlight Card */}
-                      <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50/80 via-indigo-50/40 to-stone-50 border border-blue-200/60 text-xs leading-relaxed space-y-2.5">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-blue-950 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
-                            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                            Mutiara Catatan Kaki &amp; Garis Besar Pemulihan
-                          </span>
-                          <span className="text-[10px] text-blue-700 bg-blue-100/70 px-2 py-0.5 rounded-full font-semibold">
-                            66 Kitab PL &amp; PB
-                          </span>
-                        </div>
-                        <p className="text-stone-800">
-                          Alkitab Versi Pemulihan membuka misteri kebenaran tertinggi: Allah berproses melalui penjelmaan, penyaliban, dan kebangkitan untuk menjadi <strong>Roh yang memberi hayat</strong> ke dalam roh manusia. Dilengkapi catatan kaki teologis, referensi silang, dan garis besar kitab terlengkap.
-                        </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 border-t border-blue-200/50 text-[11px]">
-                          <div className="bg-white/80 p-2 rounded-lg border border-blue-100">
-                            <span className="font-bold text-blue-900 block">Yohanes 1:14</span>
-                            <span className="text-stone-600">Firman menjadi daging, berkemah di antara kita.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-blue-100">
-                            <span className="font-bold text-blue-900 block">1 Kor. 15:45b</span>
-                            <span className="text-stone-600">Adam terakhir menjadi Roh yang memberi hayat.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-blue-100">
-                            <span className="font-bold text-blue-900 block">Wahyu 22:1-2</span>
-                            <span className="text-stone-600">Sungai air hayat mengalir dari takhta Allah &amp; Anak Domba.</span>
-                          </div>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-1.5 pt-1 text-[10px]">
-                          <span className="font-semibold text-stone-600">Pintasan Kitab:</span>
-                          {['Kejadian', 'Mazmur', 'Matius', 'Yohanes', 'Roma', 'Efesus', 'Wahyu'].map((kitab) => (
-                            <span key={kitab} className="bg-white px-2 py-0.5 rounded-md border border-stone-200 text-[#1C1917] font-medium shadow-2xs">
-                              {kitab}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ) : activeTab === 'karakter' ? (
-                    <div className="space-y-3.5">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
-                          <Compass className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="font-serif text-lg sm:text-xl italic text-[#1C1917] leading-relaxed">
-                            "Karakter adalah gabungan antara tabiat alami yang telah didisiplin oleh Roh Kudus dengan kebiasaan rohani yang dibina secara konsisten."
-                          </p>
-                          <p className="text-xs font-bold text-amber-800 mt-1">
-                            Witness Lee • Buku Karakter Seri 1: Benar
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Karakter Highlight Card */}
-                      <div className="p-4 rounded-xl bg-gradient-to-r from-amber-50 via-stone-50 to-emerald-50/40 border border-amber-200/60 text-xs leading-relaxed space-y-2.5">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-amber-950 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
-                            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                            30 Butir Karakter bagi Kegunaan Tuhan
-                          </span>
-                          <span className="text-[10px] text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-full font-semibold">
-                            30 Butir Lengkap
-                          </span>
-                        </div>
-                        <p className="text-stone-800">
-                          Hayat rohani memerlukan bejana yang terdidik. Karakter kita bagaikan pipa penyalur air: bila pipa bengkok, berkarat, atau tersumbat, aliran hayat Kristus terhalang keluar kepada sesama. Pembinaan 30 butir karakter melatih kita menjadi wadah yang mulia dan berguna bagi Tuhan.
-                        </p>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 border-t border-amber-200/50 text-[11px]">
-                          <div className="bg-white/80 p-2 rounded-lg border border-amber-100/80">
-                            <span className="font-bold text-amber-950 block">1. Benar &amp; Lurus</span>
-                            <span className="text-stone-600">Tidak berbelit-belit dan tulus di hadapan Allah.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-amber-100/80">
-                            <span className="font-bold text-amber-950 block">2. Tepat &amp; Akurat</span>
-                            <span className="text-stone-600">Tepat waktu, janji, dan perkataan.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-amber-100/80">
-                            <span className="font-bold text-amber-950 block">3. Ketat &amp; Disiplin</span>
-                            <span className="text-stone-600">Ketat terhadap diri sendiri, lapang bagi sesama.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-amber-100/80">
-                            <span className="font-bold text-amber-950 block">4. Rajin &amp; Ulet</span>
-                            <span className="text-stone-600">Tidak bermalas-malasan merebut kesempatan.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-amber-100/80">
-                            <span className="font-bold text-amber-950 block">5. Cepat &amp; Sigap</span>
-                            <span className="text-stone-600">Sigap menaati pimpinan Roh Kudus.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-amber-100/80">
-                            <span className="font-bold text-amber-950 block">6. Tenang &amp; Berakar</span>
-                            <span className="text-stone-600">Tetap tenang dan bersandar dalam hadirat Tuhan.</span>
-                          </div>
-                        </div>
-                        <p className="text-[#3B4B34] font-medium italic pt-1 border-t border-amber-200/40 text-[11px]">
-                          Latihan Hari Ini: "Mempraktikkan ketepatan waktu dalam persekutuan doa dan ketepatan berbicara sesuai fakta."
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-3.5">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
-                          <Sparkles className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="font-serif text-lg sm:text-xl italic text-[#1C1917] leading-relaxed">
-                            "Bila seseorang baru diselamatkan, hal pertama yang harus dibangun bukanlah pengetahuan teologis, melainkan kebiasaan bangun pagi bersekutu dengan Tuhan."
-                          </p>
-                          <p className="text-xs font-bold text-emerald-800 mt-1">
-                            Watchman Nee • Pembinaan Dasar Pelajaran 46
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Pembinaan Dasar Highlight Card */}
-                      <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-50/80 via-teal-50/40 to-stone-50 border border-emerald-200/60 text-xs leading-relaxed space-y-2.5">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-emerald-950 flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
-                            <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
-                            Pondasi Kokoh Kaum Beriman Baru
-                          </span>
-                          <span className="text-[10px] text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-full font-semibold">
-                            46 Pelajaran Pokok
-                          </span>
-                        </div>
-                        <p className="text-stone-800">
-                          Koleksi 46 pelajaran penting karya Watchman Nee yang membimbing orang percaya sejak awal keselamatan, bagaimana bersekutu dengan Tuhan setiap pagi, membaca Alkitab, mengaku dosa, melayani dalam gereja, hingga hidup berserah penuh kepada Kristus.
-                        </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 border-t border-emerald-200/50 text-[11px]">
-                          <div className="bg-white/80 p-2 rounded-lg border border-emerald-100">
-                            <span className="font-bold text-emerald-900 block">Pelajaran 1–10: Awal Hayat</span>
-                            <span className="text-stone-600">Kepastian Keselamatan, Baptisan, Bangun Pagi, Membaca Alkitab.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-emerald-100">
-                            <span className="font-bold text-emerald-900 block">Pelajaran 11–25: Pembersihan</span>
-                            <span className="text-stone-600">Mengaku Dosa, Ganti Rugi, Bersaksi, Memutuskan Masa Lalu.</span>
-                          </div>
-                          <div className="bg-white/80 p-2 rounded-lg border border-emerald-100">
-                            <span className="font-bold text-emerald-900 block">Pelajaran 26–46: Pelayanan</span>
-                            <span className="text-stone-600">Perjamuan Tuhan, Menyerahkan Diri, Melayani dalam Sidang Jemaat.</span>
-                          </div>
-                        </div>
-                        <p className="text-[#3B4B34] font-medium italic pt-1 border-t border-emerald-200/40 text-[11px]">
-                          Langkah Hari Ini: "Mulai hari dengan doa fajar 10 menit sebelum menyentuh pekerjaan atau gawai."
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
+                <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1917] leading-snug">
+                  Presentasi Ibadah Tanpa Software Berat
+                </h3>
+                <p className="text-xs sm:text-sm text-[#57534E] mt-2.5 leading-relaxed">
+                  Susun setlist, tayangkan ayat &amp; catatan kaki langsung ke layar proyektor, jalankan Teks Berjalan, import PPTX/PDF/Word/Gambar, dan kontrol jarak jauh dari HP.
+                </p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ===================== TESTIMONI & BAGI NIKMAT YANG GONTA-GANTI ===================== */}
-        <div id="testimoni" className="relative mt-16 max-w-[1140px] mx-auto px-4 sm:px-8 space-y-10 scroll-mt-24">
-          
-          {/* 1. BAGI NIKMAT SINGKAT YANG BERGANTI-GANTI (ROTATING LIVE TICKER) */}
-          <div className="rounded-[28px] p-5 sm:p-7 bg-white/80 backdrop-blur-md border border-[#1C1917]/10 shadow-lg reveal-item relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1C1917]/8">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-emerald-500/15 text-emerald-800 flex items-center justify-center">
-                  <Heart className="w-4 h-4 text-emerald-700" />
-                </div>
-                <div>
-                  <h4 className="font-serif font-bold text-base text-[#1C1917] flex items-center gap-2">
-                    <span>Bagi Nikmat Hari Ini</span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  </h4>
-                  <p className="text-[11px] text-[#78716C]">Kenikmatan singkat pembaca yang berganti-ganti secara langsung</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
+              <div className="mt-6 pt-4 border-t border-[#1C1917]/8">
                 <Button
                   size="sm"
-                  onClick={() => setIsShareModalOpen(true)}
-                  className="rounded-full text-xs font-bold bg-[#3B4B34] hover:bg-[#20251A] text-white h-8 px-4 shadow-sm btn-lift gap-1.5"
+                  onClick={onOpenPresenter}
+                  className="w-full rounded-full bg-[#3B4B34] hover:bg-[#2C3827] text-white text-xs font-bold h-10 btn-lift"
                 >
-                  <Send className="w-3 h-3" />
-                  <span>Bagi Nikmat Saya</span>
+                  Buka Live Stage
                 </Button>
               </div>
             </div>
 
-            {/* Rotating Enjoyment Display Card */}
-            <div className="my-5 p-5 rounded-2xl bg-[#F7F4ED] border border-[#1C1917]/8 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-500">
-              <div className="flex items-start sm:items-center gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-[#3B4B34] text-white flex items-center justify-center font-bold text-sm shrink-0">
-                  {activeEnjoyment.name?.charAt(0) || 'P'}
+            {/* Pilar 2: Alkitab 7 Terjemahan & Catatan Kaki */}
+            <div className="rounded-[28px] p-6 sm:p-7 bg-white/80 backdrop-blur-xl border border-amber-500/25 shadow-xl shadow-[#1C1917]/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold uppercase tracking-wider mb-4">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>7 Terjemahan &amp; Studi</span>
                 </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-sm text-[#1C1917]">
-                      {activeEnjoyment.name}
-                    </span>
-                    <span className="text-[11px] text-[#78716C] bg-white px-2 py-0.5 rounded-full border border-[#1C1917]/10">
-                      {activeEnjoyment.city}
-                    </span>
-                    <span className="text-[10px] text-stone-500">
-                      {activeEnjoyment.time}
-                    </span>
-                  </div>
-                  <p className="font-serif text-base text-[#1C1917] italic mt-1 leading-snug">
-                    "{activeEnjoyment.text}"
-                  </p>
-                </div>
+                <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1917] leading-snug">
+                  Alkitab Lengkap dengan Catatan Kaki
+                </h3>
+                <p className="text-xs sm:text-sm text-[#57534E] mt-2.5 leading-relaxed">
+                  Bandingkan AVP, TB, RCV, KJV, ASV, NET, dan Scofield 1917. Dilengkapi rujukan silang interaktif, garis besar kitab, dan catatan pribadi.
+                </p>
               </div>
-
-              {/* Slider Controls */}
-              <div className="flex items-center gap-2 shrink-0 self-end md:self-center">
-                <button
-                  onClick={() => setCurrentEnjoymentIndex((prev) => (prev - 1 + enjoyments.length) % enjoyments.length)}
-                  className="w-7 h-7 rounded-full bg-white border border-[#1C1917]/15 flex items-center justify-center text-[#1C1917] hover:bg-stone-100 transition shadow-xs"
-                  title="Sebelumnya"
+              <div className="mt-6 pt-4 border-t border-[#1C1917]/8">
+                <Button
+                  size="sm"
+                  onClick={onOpenBible}
+                  className="w-full rounded-full bg-[#1C1917] hover:bg-[#3B4B34] text-white text-xs font-bold h-10 btn-lift"
                 >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <div className="flex items-center gap-1">
-                  {enjoyments.slice(0, 5).map((_, idx) => (
-                    <span
-                      key={idx}
-                      onClick={() => setCurrentEnjoymentIndex(idx)}
-                      className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                        idx === currentEnjoymentIndex % 5 ? 'w-5 bg-[#3B4B34]' : 'w-1.5 bg-stone-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <button
-                  onClick={() => setCurrentEnjoymentIndex((prev) => (prev + 1) % enjoyments.length)}
-                  className="w-7 h-7 rounded-full bg-white border border-[#1C1917]/15 flex items-center justify-center text-[#1C1917] hover:bg-stone-100 transition shadow-xs"
-                  title="Berikutnya"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                  Buka Alkitab (7 Versi)
+                </Button>
               </div>
             </div>
 
-            {/* Quick ticker of names and short enjoyments */}
-            <div className="pt-2 text-xs text-[#78716C] flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-[#1C1917]">Nikmat Terkini:</span>
-              {enjoyments.slice(0, 3).map((item) => (
-                <span key={item.id} className="inline-flex items-center gap-1 bg-[#FBF9F5] px-2.5 py-1 rounded-full border border-[#1C1917]/8 text-[11px]">
-                  <strong className="text-[#3B4B34]">{item.name} ({item.city}):</strong> 
-                  <span className="truncate max-w-[200px] text-stone-700 italic">"{item.text}"</span>
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* 2. TESTIMONI PEMBACA LENGKAP DENGAN FOTO */}
-          <div className="space-y-6 text-center reveal-item">
-            <div className="space-y-2">
-              <span className="text-xs font-bold tracking-widest uppercase text-[#8E9C75]">Kesaksian Hayat</span>
-              <h3 className="text-2xl sm:text-4xl font-serif font-bold text-[#1C1917]">
-                Testimoni Para Pembaca Firman
-              </h3>
-              <p className="text-xs sm:text-sm text-[#78716C] max-w-xl mx-auto">
-                Pengalaman nyata menikmati doa-makan harian, kemudahan membaca firman dan khazanah rohani kapan saja.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left pt-2">
-              {INITIAL_TESTIMONIALS.map((testi) => (
-                <Card 
-                  key={testi.id}
-                  className="rounded-[24px] p-5 bg-white border border-[#1C1917]/10 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+            {/* Pilar 3: BFY, Kidung & Lagu Kustom */}
+            <div className="rounded-[28px] p-6 sm:p-7 bg-white/80 backdrop-blur-xl border border-white/90 shadow-xl shadow-[#1C1917]/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider mb-4">
+                  <Library className="w-3.5 h-3.5" />
+                  <span>BFY &amp; Persekutuan</span>
+                </div>
+                <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1917] leading-snug">
+                  Kidung, Suplemen &amp; Lagu Kustom
+                </h3>
+                <p className="text-xs sm:text-sm text-[#57534E] mt-2.5 leading-relaxed">
+                  Siap pakai untuk acara BFY, kelompok sel, camp, dan gereja lokal. Tersedia 786 Kidung, Suplemen, serta dukungan lagu kustom (KJ, NKB, PKJ).
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-[#1C1917]/8">
+                <Button
+                  size="sm"
+                  onClick={onOpenKidung}
+                  className="w-full rounded-full bg-white hover:bg-[#1C1917] text-[#1C1917] hover:text-white border border-[#1C1917]/20 text-xs font-bold h-10 btn-lift"
                 >
-                  <div className="space-y-3">
-                    {/* Rating Stars */}
-                    <div className="flex items-center gap-1 text-amber-500">
-                      {[...Array(testi.rating)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                      ))}
-                    </div>
-
-                    <p className="font-serif italic text-xs sm:text-[13px] text-[#1C1917] leading-relaxed">
-                      "{testi.text}"
-                    </p>
-                  </div>
-
-                  <div className="mt-5 pt-3 border-t border-[#1C1917]/8 flex items-center gap-3">
-                    <img 
-                      src={testi.photo} 
-                      alt={testi.name} 
-                      className="w-10 h-10 rounded-full object-cover border border-[#1C1917]/10 shadow-xs" 
-                    />
-                    <div>
-                      <h5 className="font-bold text-xs text-[#1C1917]">{testi.name}</h5>
-                      <p className="text-[10px] text-[#78716C]">{testi.role}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+                  Buka Kidung &amp; Pujian
+                </Button>
+              </div>
             </div>
           </div>
-
         </div>
 
       </section>
