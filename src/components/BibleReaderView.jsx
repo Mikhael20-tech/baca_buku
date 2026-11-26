@@ -1908,8 +1908,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
           {selectedChapter === 1 && bookData?.intro && bibleLang !== 'scofield' && (
             <div className="rounded-[28px] bg-[#FAF7F2]/95 dark:bg-[#1C1C1E]/95 backdrop-blur-2xl backdrop-saturate-180 border border-black/5 dark:border-white/10 p-6 sm:p-7 mb-7 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.05)] space-y-4 transition-all">
               <div>
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.16em] text-[#1C1917]/70 dark:text-white/70 uppercase select-none border border-black/5 dark:border-white/10">
-                  {isEnBible ? `Pengantar Kitab • ${bookData.name}` : `Pengantar Kitab • ${bookData.name}`}
+                <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.08] text-[11px] sm:text-xs font-serif font-semibold tracking-[0.14em] text-[#1C1917]/80 dark:text-white/80 uppercase select-none border border-black/10 dark:border-white/10 shadow-2xs">
+                  {`Pengantar Kitab — ${bookData.name}`}
                 </span>
               </div>
 
@@ -2860,8 +2860,8 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                     ? (bibleLang === 'en' ? 'Step 1 — Select Chapter' : 'Langkah 1 — Pilih Pasal')
                     : (bibleLang === 'en' ? 'Step 2 — Select Verse' : 'Langkah 2 — Pilih Ayat')}
                 </span>
-                <h3 className="font-bodoni font-bold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
-                  {currentBookInfo.name} {chapterVersePickerStep === 'verse' ? <span className="font-sans font-bold tracking-tight text-xl sm:text-2xl">Pasal {pickingChapter}</span> : ''}
+                <h3 className="font-serif font-bold text-2xl sm:text-3xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight leading-tight">
+                  {currentBookInfo.name} {chapterVersePickerStep === 'verse' ? <span className="font-serif font-semibold tracking-tight text-xl sm:text-2xl text-[#1C1917]/75 dark:text-[#F4EFE6]/80">— Pasal {pickingChapter}</span> : ''}
                 </h3>
               </div>
               
@@ -2922,10 +2922,11 @@ export default function BibleReaderView({ onBackToHome, onOpenLibrary, onOpenBoo
                           setPickingChapter(chapNum);
                           setChapterVersePickerStep('verse');
                         }}
-                        className={`h-12 sm:h-13 rounded-2xl text-base sm:text-lg font-sans font-semibold tracking-tight tabular-nums transition-all duration-150 flex items-center justify-center cursor-pointer active:scale-[0.93] ${
+                        style={{ transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
+                        className={`h-12 sm:h-13 rounded-2xl text-lg sm:text-xl font-serif font-semibold tracking-normal tabular-nums transition-all duration-300 flex items-center justify-center cursor-pointer active:scale-[0.94] ${
                           selectedChapter === chapNum
-                            ? 'border-transparent bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-[0_4px_14px_rgba(59,75,52,0.4)] scale-[1.03] font-bold'
-                            : 'border border-white/80 dark:border-white/10 bg-white/70 hover:bg-white/95 dark:bg-white/5 dark:hover:bg-white/15 backdrop-blur-md text-[#1C1917] dark:text-zinc-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-xs'
+                            ? 'border-transparent bg-[#3B4B34] text-[#F4EFE6] dark:bg-emerald-600 dark:text-white shadow-[0_6px_18px_rgba(59,75,52,0.35)] scale-[1.03] font-bold'
+                            : 'border border-white/80 dark:border-white/10 bg-white/70 hover:bg-white/95 dark:bg-white/5 dark:hover:bg-white/15 backdrop-blur-md text-[#1C1917] dark:text-zinc-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-sm hover:-translate-y-0.5'
                         }`}
                         title={`Pasal ${chapNum}`}
                       >
