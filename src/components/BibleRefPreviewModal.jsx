@@ -134,7 +134,7 @@ export default function BibleRefPreviewModal({
                 {isEn ? 'Cross Reference' : 'Ayat Rujukan Silang'}
               </span>
             </div>
-            <h3 className="font-bodoni font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
+            <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1917] dark:text-[#F4EFE6] tracking-tight">
               {resolvedPassage 
                 ? `${resolvedPassage.bookName} ${resolvedPassage.chapter}:${resolvedPassage.verseStart}${resolvedPassage.verseEnd !== resolvedPassage.verseStart ? `-${resolvedPassage.verseEnd}` : ''}`
                 : referenceText}
@@ -177,7 +177,7 @@ export default function BibleRefPreviewModal({
         </div>
 
         {/* Translation Selector Bar (Apple Segmented Style) */}
-        <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1.5 px-1 bg-white/50 dark:bg-black/30 backdrop-blur-md border border-white/60 dark:border-white/10 rounded-full shadow-inner">
+        <div className="flex flex-wrap items-center gap-1 py-1.5 px-2 bg-white/50 dark:bg-black/30 backdrop-blur-md border border-white/60 dark:border-white/10 rounded-2xl shadow-inner">
           <span className="text-[10px] uppercase font-bold text-[#1C1917]/50 dark:text-zinc-400 px-2 font-sans tracking-wider shrink-0">
             {isEn ? 'Version' : 'Versi'}
           </span>
@@ -198,7 +198,7 @@ export default function BibleRefPreviewModal({
         </div>
 
         {/* Content Body */}
-        <div className="overflow-y-auto pr-1 flex-1 py-1">
+        <div className="overflow-y-auto no-scrollbar pr-1 flex-1 py-1">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12 space-y-3">
               <Loader2 className="w-6 h-6 text-[#3B4B34] dark:text-emerald-400 animate-spin" />
@@ -221,7 +221,7 @@ export default function BibleRefPreviewModal({
                     {v.verse}
                   </span>
                   <p 
-                    className="flex-1 text-[#1C1917] dark:text-[#F4EFE6] font-bodoni leading-relaxed"
+                    className="flex-1 text-[#1C1917] dark:text-[#F4EFE6] font-serif leading-relaxed"
                     style={{ 
                       fontSize: `${previewFontSize}px`, 
                       lineHeight: 1.8 
