@@ -223,7 +223,6 @@ export default function LandingPage({
                   Ministry Suite
                 </span>
               </div>
-              <p className="text-[11px] text-[#78716C] hidden xl:block whitespace-nowrap">Alkitab 7 Terjemahan &bull; Kidung &bull; Live Stage</p>
             </div>
           </div>
 
